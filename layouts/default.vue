@@ -39,11 +39,32 @@
     </v-main>
     
     <v-footer
-      :absolute="!fixed"
-      app
+    color="primary lighten-1"
+    padless
+  >
+    <v-row
+      justify="center"
+      no-gutters
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
+      <v-btn
+        v-for="link in links"
+        :key="link"
+        :to="link.to"
+        color="white"
+        text
+        rounded
+        class="my-2"
+      >
+        {{ link.title }}
+      </v-btn>
+      <v-col
+        class="primary lighten-2 py-4 text-center white--text"
+        cols="12"
+      >
+        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+      </v-col>
+    </v-row>
+  </v-footer>
   </v-app>
 </template>
 
@@ -64,6 +85,22 @@ export default {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
+        },
+        {
+          icon: 'mdi-calendar',
+          title: 'calendar',
+          to: '/calendars'
+        }
+      ],
+      links: [
+        /*現在内部リンク　外部リンクに変更の必要あり(toじゃできない) */
+        {
+          title: 'home',
+          to: '/'
+        },
+        {
+          title:'inspire',
+          to:'/inspire'
         }
       ],
       miniVariant: false,

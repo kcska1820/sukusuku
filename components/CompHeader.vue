@@ -31,28 +31,7 @@
         >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
         <v-toolbar-title v-text="title" />
-        </v-app-bar>
-        <v-app-bar
-        :clipped-left="clipped"
-        fixed
-        bottom
-        app
-        >
-         <v-row
-          justify="space-between"
-          no-gutters
-         >
-            <v-btn
-            v-for="(item, i) in items"
-            :key="i"
-            :to="item.to"
-            router
-            exact
-            >
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-btn>
-      </v-row>
-    </v-app-bar>
+      </v-app-bar>
     </header>
 </template>
 

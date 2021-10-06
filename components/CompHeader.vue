@@ -31,6 +31,15 @@
         >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
         <v-toolbar-title v-text="title" />
+        <v-spacer/>
+        <v-btn
+        class="mx-2"
+        fab
+        >
+          <v-icon
+          large
+          >mdi-account-circle</v-icon>
+        </v-btn>
       </v-app-bar>
     </header>
 </template>

@@ -10,7 +10,7 @@
       <v-btn
         v-for="(link,i) in links"
         :key="i"
-        :to="link.to"
+        :href="link.href"
         color="white"
         text
         rounded
@@ -22,7 +22,7 @@
         class="primary lighten-2 py-4 text-center white--text"
         cols="12"
       >
-        {{ new Date().getFullYear() }} — <strong>7色Days</strong>
+        {{ new Date().getFullYear() }} — <strong>7色Days~あの頃の僕たちは~</strong>
       </v-col>
     </v-row>
   </v-footer>
@@ -36,12 +36,16 @@ export default {
       links: [
         /*現在内部リンク　外部リンクに変更の必要あり(toじゃできない) */
         {
-          title: 'home',
-          to: '/'
+          title: '無限大キャンパス',
+          href:'https://z3.mugendai.do-johodai.ac.jp/portal/'
         },
         {
-          title:'inspire',
-          to:'/inspire'
+          title:'PINE NET',
+          href:'https://pine-net.jp'
+        },
+        {
+          title:'PINE Cloud',
+          href:'https://kcska.pine-cloud.jp'
         }
       ]
     }

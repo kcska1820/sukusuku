@@ -22,7 +22,7 @@
         class="primary lighten-2 py-4 text-center white--text"
         cols="12"
       >
-        {{ new Date().getFullYear() }} — <strong>7色Days~あの頃の僕たちは~</strong>
+        <strong>七色Days~あの頃の僕たちは~</strong>
       </v-col>
     </v-row>
   </v-footer>
@@ -34,7 +34,6 @@ export default {
     return {
       fixed: true,
       links: [
-        /*現在内部リンク　外部リンクに変更の必要あり(toじゃできない) */
         {
           title: '無限大キャンパス',
           href:'https://z3.mugendai.do-johodai.ac.jp/portal/'

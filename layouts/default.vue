@@ -7,6 +7,7 @@
       </v-container>
     </v-main>
     <CompFooter />
+    <BtnNav />
   </v-app>
 </template>
 

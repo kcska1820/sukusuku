@@ -48,8 +48,36 @@ export default {
     }
   },
   head () {
-    const title =
-      this.error.statusCode === 404 ? this.pageNotFound : this.otherError
+    const errorcode = this.error.statusCode
+    switch(errorcode){
+      case '403' :{
+        const title = '403'
+        break
+      }
+      case '404' :{
+        const title = '404'
+        break
+      }
+      case '500' :{
+        const title = '500'
+        break
+      }
+      case '502' :{
+        const title = '502'
+        break
+      }
+      case '503' :{
+        const title = '503'
+        break
+      }
+      case '504' :{
+        const title = '504'
+        break
+      }
+      default :{
+        const title = 'otherError'
+      }
+    }
     return {
       title
     }

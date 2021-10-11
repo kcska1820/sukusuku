@@ -34,7 +34,7 @@
         @click.stop="drawer = !drawer" 
         v-if="!$vuetify.breakpoint.xs"
         />
-        <v-toolbar-title v-text="title" />
+        <h1><a href="/" id="titlebtn">{{title}}</a></h1>
         <v-spacer/>
         <v-switch
           v-model="theme"
@@ -58,7 +58,7 @@ export default {
       right: true,
       rightDrawer: false,
       title: "スクスク",
-      theme:true
+      theme:true,
     }
   },
   computed:{
@@ -73,3 +73,9 @@ export default {
   }
 }
 </script>
+<style scoped lang="css">
+  #titlebtn {
+    font-weight: bold;
+    
+  }
+</style>

@@ -1,3 +1,3 @@
 <template>
-    <h1>スクスク</h1>
+    <h1>ログイン画面</h1>
 </template>

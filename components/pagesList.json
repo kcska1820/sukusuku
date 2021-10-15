@@ -5,9 +5,9 @@
         "to":"/"
     },
     {
-        "icon":"mdi-magnify",
-        "title":"ITword",
-        "to":"/ITword"
+        "icon":"mdi-order-bool-descending",
+        "title":"EventSchedule",
+        "to":"/EventSchedule"
     },
     {
         "icon":"mdi-calendar",
@@ -15,8 +15,8 @@
         "to":"/calendars"
     },
     {
-        "icon":"mdi-mail",
-        "title":"mailsend",
-        "to":"/mailsend"
+        "icon":"mdi-cog",
+        "title":"setting",
+        "to":"/setting"
     }
 ]

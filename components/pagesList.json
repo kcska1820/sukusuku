@@ -5,13 +5,18 @@
         "to":"/"
     },
     {
-        "icon":"mdi-chart-bubble",
-        "title":"inspire",
-        "to":"/inspire"
+        "icon":"mdi-magnify",
+        "title":"ITword",
+        "to":"/ITword"
     },
     {
         "icon":"mdi-calendar",
         "title":"calendars",
         "to":"/calendars"
+    },
+    {
+        "icon":"mdi-mail",
+        "title":"mailsend",
+        "to":"/mailsend"
     }
 ]

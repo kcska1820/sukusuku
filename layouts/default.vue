@@ -1,5 +1,7 @@
 <template>
-  <v-app dark>
+  <v-app
+  class="v-app"
+  >
     <CompHeader />
     <v-main>
       <v-container>
@@ -15,3 +17,4 @@
 export default {
 }
 </script>
+

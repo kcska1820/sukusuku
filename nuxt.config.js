@@ -46,17 +46,30 @@ export default {
     theme: {
       dark: true,
       themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+        light: {
+          primary: colors.brown.darken2,
+          secondary: colors.brown.darken1,
+          accent: colors.lightGreen.lighten1,
+          error: colors.red.accent3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        },
+        dark: {
+          primary: colors.brown.darken1,
+          secondary: colors.brown,
+          accent: colors.shades.black,
+          error: colors.red.accent3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
           success: colors.green.accent3
         }
       }
     }
+  },
+
+  options: {
+    customProperties: true
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

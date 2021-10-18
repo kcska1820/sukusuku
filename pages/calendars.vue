@@ -1,5 +1,6 @@
 <template>
-  <v-row class="fill-height">
+  <v-row class="fill-height"
+  color="primary">
     <v-col cols="12">
       <v-sheet height="65">
         <v-toolbar

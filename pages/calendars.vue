@@ -1,6 +1,6 @@
 <template>
   <v-row class="fill-height">
-    <v-col cols="12" sm="8" md="8" lg="8" xl="8">
+    <v-col cols="12">
       <v-sheet height="65">
         <v-toolbar
           flat

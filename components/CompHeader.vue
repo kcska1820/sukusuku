@@ -4,6 +4,7 @@
         v-model="drawer"
         :mini-variant="miniVariant"
         :clipped="clipped"
+        color="accent"
         fixed
         app
         v-if="!$vuetify.breakpoint.xs"
@@ -20,7 +21,10 @@
                 <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-                <v-list-item-title v-text="item.title" />
+                <v-list-item-title 
+                v-text="item.title"
+                class="white--text"
+                />
             </v-list-item-content>
             </v-list-item>
         </v-list>
@@ -28,6 +32,7 @@
         <v-app-bar
         :clipped-left="clipped"
         fixed
+        color="accent"
         app
         >
         <v-app-bar-nav-icon 

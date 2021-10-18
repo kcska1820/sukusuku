@@ -1,6 +1,6 @@
 <template>
     <v-footer
-    color="primary lighten-1"
+    color="secondary darken2"
     padless
     >
     <v-row
@@ -19,10 +19,10 @@
         {{ link.title }}
       </v-btn>
       <v-col
-        class="primary lighten-2 py-4 text-center white--text"
+        class="primary py-4 text-center white--text"
         cols="12"
       >
-        <strong>七色Days~あの頃の僕たちは~</strong>
+        <strong>スクスク</strong>
       </v-col>
     </v-row>
   </v-footer>

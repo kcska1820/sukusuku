@@ -1,7 +1,14 @@
 <template>
-    <b-container
-    class="d-flex justify-center align-center"
+<v-app>
+    <div
+    class="d-flex justify-center"
     >
          <sukusukuLogo />
-    </b-container>
+    </div><br>
+    <div
+    class="d-flex justify-center"
+    >
+        <p>おにゃんこぽん</p>
+    </div>
+</v-app>
 </template>

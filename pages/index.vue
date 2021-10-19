@@ -1,3 +1,7 @@
 <template>
-    <h1>ログイン画面</h1>
+    <b-container
+    class="d-flex justify-center"
+    >
+         <sukusukuLogo />
+    </b-container>
 </template>

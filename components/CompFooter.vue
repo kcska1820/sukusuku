@@ -22,7 +22,7 @@
         class="primary py-4 text-center white--text"
         cols="12"
       >
-        <strong>スクスク</strong>
+        <strong>スクスク～suku-suku～</strong>
       </v-col>
     </v-row>
   </v-footer>

@@ -56,9 +56,9 @@ export default {
           success: colors.green.accent3
         },
         dark: {
-          primary: colors.brown.darken1,
-          secondary: colors.brown,
-          accent: colors.shades.black,
+          primary: colors.indigo.darken1,
+          secondary: colors.indigo.lighten1,
+          accent: colors.blueGrey.darken1,
           error: colors.red.accent3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,

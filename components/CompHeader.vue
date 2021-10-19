@@ -39,7 +39,14 @@
         @click.stop="drawer = !drawer" 
         v-if="!$vuetify.breakpoint.xs"
         />
-        <h1><a href="/" id="titlebtn">{{title}}</a></h1>
+        <v-btn
+          text
+          class="mx-2"
+          fab
+          to="/login"
+        >
+          <sukusukuLogoS />
+        </v-btn>
         <v-spacer/>
         <v-switch
           v-model="theme"

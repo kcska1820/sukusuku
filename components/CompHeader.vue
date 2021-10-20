@@ -48,10 +48,6 @@
           <sukusukuLogoS />
         </v-btn>
         <v-spacer/>
-        <v-switch
-          v-model="theme"
-          :prepend-icon="themeIcon"
-        ></v-switch>
         <Acount />
       </v-app-bar>
     </header>
@@ -70,24 +66,7 @@ export default {
       right: true,
       rightDrawer: false,
       title: "スクスク",
-      theme:true,
-    }
-  },
-  computed:{
-    themeIcon(){
-      return this.theme ? 'mdi-weather-night' : 'mdi-weather-sunny'
-    }
-  },
-  watch:{
-    theme() {
-      this.$vuetify.theme.dark = this.theme
     }
   }
 }
 </script>
-<style scoped lang="css">
-  #titlebtn {
-    font-weight: bold;
-    
-  }
-</style>

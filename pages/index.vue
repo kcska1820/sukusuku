@@ -8,7 +8,7 @@
     <div
     class="d-flex justify-center"
     >
-        <p>おにゃんこぽん</p>
+        <p>スクスクはあなたの学生生活をより良いものにします。</p>
     </div>
 </v-app>
 </template>

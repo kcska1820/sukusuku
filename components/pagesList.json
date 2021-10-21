@@ -7,12 +7,12 @@
     {
         "icon":"mdi-order-bool-descending",
         "title":"EventSchedule",
-        "to":"/EventSchedule"
+        "to":"/student/EventSchedule"
     },
     {
         "icon":"mdi-calendar",
         "title":"calendars",
-        "to":"/calendars"
+        "to":"/student/calendars"
     },
     {
         "icon":"mdi-cog",

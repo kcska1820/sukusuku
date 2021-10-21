@@ -1,5 +1,5 @@
 <template>
-    <v-card height="665" color="accent">
+    <v-card color="accent">
         <v-card-title>イベントスケジュール</v-card-title>
         <v-col>
         <v-card>

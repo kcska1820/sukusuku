@@ -25,6 +25,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '/plugins/firebase.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -53,8 +54,7 @@ export default {
           error: colors.red.accent3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
-          success: colors.green.accent3,
-          background:colors.amber.accent1
+          success: colors.green.accent3
         },
         dark: {
           primary: colors.indigo.darken1,
@@ -63,8 +63,7 @@ export default {
           error: colors.red.accent3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
-          success: colors.green.accent3,
-          background:colors.amber.accent1
+          success: colors.green.accent3
         }
       }
     }

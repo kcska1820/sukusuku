@@ -1,6 +1,6 @@
 <template>
     <v-card color="accent">
-        <v-card-title>イベントスケジュール</v-card-title>
+        <v-card-title>掲示板(開発中)</v-card-title>
         <div
         v-for="(item, i) in items"
         :key="i"

@@ -15,6 +15,11 @@
         "to":"/student/calendars"
     },
     {
+        "icon":"mdi-message-text",
+        "title":"BBS",
+        "to":"/BBS"
+    },
+    {
         "icon":"mdi-cog",
         "title":"setting",
         "to":"/setting"

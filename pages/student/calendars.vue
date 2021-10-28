@@ -136,6 +136,7 @@
 </template>
 
 <script>
+  import items from '/components/timeTable.json'
   export default {
 
     data: () => ({
@@ -152,41 +153,7 @@
     events: [],
     colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
     names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
-
-
-    items:[{
-              "title":"test1",
-              "start":"2021-10-27T09:15:00",
-              "end":"2021-10-27T10:45:00",
-              "color":"green",
-              "timed":0
-            },
-            {
-              "title":"test2",
-              "start":"2021-10-27T11:00:00",
-              "end":"2021-10-27T12:30:00",
-              "color":"green",
-              "timed":0
-            },
-            {
-              "title":"test3",
-              "start":"2021-10-27T13:30:00",
-              "end":"2021-10-27T15:00:00",
-              "color":"green",
-              "timed":0
-            },
-            {
-              "title":"test4",
-              "start":"2021-10-27T15:15:00",
-              "end":"2021-10-27T16:45:00",
-              "color":"green",
-              "timed":0
-            }
-      ]
-
-
-
-
+    items:items
   }),
   mounted () {
     this.$refs.calendar.checkChange()

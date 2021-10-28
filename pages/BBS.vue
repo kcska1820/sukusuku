@@ -10,7 +10,16 @@
         <v-col>
         <v-card>
           <v-card-title>{{item.title}}</v-card-title>
-          <v-card-actions>{{item.thread}}</v-card-actions>
+          <div
+          v-for="(thread, i) in item.thread"
+          :key="i"
+          :to="thread.to"
+          router
+          exact>
+            <v-btn class="thread">
+              {{thread.li}}
+            </v-btn>
+          </div>
         </v-card>
         </v-col>
         <v-divider></v-divider>
@@ -26,3 +35,9 @@
     ),
   }
 </script>
+
+<style scoped>
+  .thread {
+    display: inline-block;
+  }
+</style>

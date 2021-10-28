@@ -151,8 +151,6 @@
     selectedElement: null,
     selectedOpen: false,
     events: [],
-    colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
-    names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
     items:items
   }),
   mounted () {
@@ -200,6 +198,7 @@
           end: this.items[i].end,
           color: this.items[i].color,
           timed: this.items[i].timed,
+          details: this.items[i].details,
         })
       }
 

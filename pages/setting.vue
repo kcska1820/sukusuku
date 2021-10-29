@@ -8,7 +8,7 @@
     <v-icon
     size="1.5em"
     color="blue-grey darken-3">
-      mdi-wrench
+      mdi-cog
     </v-icon>
     &emsp;設定</h1><br>
     <v-divider></v-divider><br><br>
@@ -20,7 +20,7 @@
     size="1.5em">
       mdi-account-edit
     </v-icon>
-    アカウント設定
+    &emsp;アカウント設定
     <v-spacer />
     <v-btn color="light-green lighten-1">パスワード変更</v-btn>
     </v-toolbar>
@@ -65,9 +65,9 @@
     >
     <v-icon
     size="1.5em">
-      mdi-cog
+      mdi-wrench
     </v-icon>
-    アプリ設定
+    &emsp;アプリ設定
     </v-toolbar>
     </h2>
 

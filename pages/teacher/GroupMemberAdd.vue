@@ -23,12 +23,51 @@
     class="elevation-1"
     ></v-data-table>
     </v-card>
-    <v-row >
-        <v-col >
-            <v-btn color="primary" elevation="2" justify-end></v-btn>
-        </v-col>
+    <br>
+    <v-row
+    justify="end"
+    >
+    <v-bottom-sheet
+      v-model="sheet"
+      inset
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="light-green darken-1"
+          dark
+          v-bind="attrs"
+          v-on="on"
+          x-large
+        >
+          追加する
+        </v-btn>
+      </template>
+      <v-sheet
+        class="text-center"
+        height="150px"
+      >
+              <v-btn
+          class="mt-6"
+          text
+          @click="sheet = !sheet"
+        >
+          追加
+        </v-btn>
+
+        <v-btn
+          class="mt-6"
+          text
+          color="error"
+          @click="sheet = !sheet"
+        >
+          キャンセル
+        </v-btn>
+        <div class="my-3">
+          メンバーを追加します。よろしいでしょうか？
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
     </v-row>
-  
 </div>
 </template>
 <script>
@@ -45,6 +84,7 @@
           },
           { text: 'ユーザー名', value: 'name' },
         ],
+        sheet: false,
         desserts: [
           {
             id: 'st20187723',

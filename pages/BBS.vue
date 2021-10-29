@@ -7,22 +7,24 @@
         :to="item.to"
         router
         exact>
-        <v-col>
-        <v-card>
-          <v-card-title>{{item.title}}</v-card-title>
-          <div
-          v-for="(thread, i) in item.thread"
-          :key="i"
-          :to="thread.to"
-          router
-          exact>
-            <v-btn class="thread">
-              {{thread.li}}
-            </v-btn>
-          </div>
-        </v-card>
-        </v-col>
-        <v-divider></v-divider>
+          <v-col>
+            <v-card>
+              <v-card-title>{{item.title}}</v-card-title>
+              <v-row cols="5" class="thread">
+                <div
+                v-for="(thread, i) in item.thread"
+                :key="i"
+                :to="thread.to"
+                router
+                exact>
+                  <v-btn class="button">
+                    {{thread.li}}
+                  </v-btn>
+                </div>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-divider></v-divider>
         </div>
     </v-card>
 </template>
@@ -38,6 +40,9 @@
 
 <style scoped>
   .thread {
-    display: inline-block;
+    padding:18px;
+  }
+  .button{
+    margin-right:10px;
   }
 </style>

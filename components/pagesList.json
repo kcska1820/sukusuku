@@ -20,6 +20,11 @@
         "to":"/student/EventSchedule"
     },
     {
+        "icon":"mdi-message-text",
+        "title":"BBS",
+        "to":"/BBS"
+    },
+    {
         "icon":"mdi-cog",
         "title":"設定",
         "to":"/setting"

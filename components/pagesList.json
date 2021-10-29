@@ -5,18 +5,23 @@
         "to":"/"
     },
     {
-        "icon":"mdi-order-bool-descending",
-        "title":"EventSchedule",
-        "to":"/student/EventSchedule"
-    },
-    {
         "icon":"mdi-calendar",
-        "title":"calendars",
+        "title":"カレンダー",
         "to":"/student/calendars"
     },
     {
+        "icon":"mdi-notebook-check-outline",
+        "title":"Todoリスト",
+        "to":"/Todo"
+    },
+    {
+        "icon":"mdi-application-edit-outline",
+        "title":"掲示板",
+        "to":"/student/EventSchedule"
+    },
+    {
         "icon":"mdi-cog",
-        "title":"setting",
+        "title":"設定",
         "to":"/setting"
     }
 ]

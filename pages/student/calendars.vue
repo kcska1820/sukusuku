@@ -67,9 +67,6 @@
               <v-list-item @click="type = 'month'">
                 <v-list-item-title>Month</v-list-item-title>
               </v-list-item>
-              <v-list-item @click="type = 'category'">
-                <v-list-item-title>Category</v-list-item-title>
-              </v-list-item>
             </v-list>
           </v-menu>
         </v-toolbar>
@@ -82,7 +79,6 @@
           category-show-all
           :events="events"
           :event-color="getEventColor"
-          :categories="categories"
           :type="type"
           @click:event="showEvent"
           @click:more="viewDay"

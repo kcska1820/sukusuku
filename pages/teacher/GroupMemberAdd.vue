@@ -1,5 +1,4 @@
 <template>
-<div>
   <v-card>
     <v-card-title>
       追加するメンバーを選択してください
@@ -7,7 +6,7 @@
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
-        label="Search"
+        label="IDでメンバーを検索"
         single-line
         hide-details
       ></v-text-field>
@@ -22,7 +21,6 @@
     show-select
     class="elevation-1"
     ></v-data-table>
-    </v-card>
     <br>
     <v-row
     justify="end"
@@ -46,13 +44,6 @@
         class="text-center"
         height="150px"
       >
-              <v-btn
-          class="mt-6"
-          text
-          @click="sheet = !sheet"
-        >
-          追加
-        </v-btn>
 
         <v-btn
           class="mt-6"
@@ -62,13 +53,20 @@
         >
           キャンセル
         </v-btn>
+          <v-btn
+          class="mt-6"
+          text
+          @click="sheet = !sheet"
+        >
+          追加
+        </v-btn>
         <div class="my-3">
           メンバーを追加します。よろしいでしょうか？
         </div>
       </v-sheet>
     </v-bottom-sheet>
     </v-row>
-</div>
+    </v-card>
 </template>
 <script>
   export default {

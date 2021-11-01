@@ -17,16 +17,17 @@
             <v-card>
               <v-card-title>{{item.title}}</v-card-title>
               <v-row cols="5" class="thread">
-                <div
-                v-for="(thread, i) in item.thread"
-                :key="i"
-                :to="thread.to"
-                router
-                exact>
-                  <v-btn class="button">
+                <v-btn class="button"
+                  v-for="(thread, i) in item.thread"
+                  :key="i"
+                  :to="item.to"
+                  router
+                  exact>
+                    <!--topiclist.json内のtoに遷移先が記載されている
+                    まだリンク先がトピック毎で固定してるから、ボタンごとに遷移先を変える機能が欲しい
+                    BBSconの内容をDB情報によって動的に変えられるようにしたい-->
                     {{thread.li}}
-                  </v-btn>
-                </div>
+                </v-btn>
               </v-row>
             </v-card>
           </v-col>

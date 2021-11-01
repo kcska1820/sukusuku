@@ -21,9 +21,8 @@
       mdi-account-edit
     </v-icon>
     &emsp;アカウント設定
-    <v-spacer />
-    <!-- <v-btn color="light-green lighten-1" >パスワード変更</v-btn> -->
-    <PasswordReset />
+    <v-spacer></v-spacer>
+    <v-btn color="light-green lighten-1" >パスワード変更</v-btn>
     </v-toolbar>
     </h2>
 

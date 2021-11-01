@@ -43,7 +43,7 @@
             <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">キャンセル</v-btn>
+              <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
               <v-btn color="blue darken-1" text @click="deleteItemConfirm">削除</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -52,12 +52,18 @@
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
+      <v-btn
+      fab
+      color="primary"
+      small
+      >
       <v-icon
-        size="2.2em"
+        size="2em"
         @click="deleteItem(item)"
       >
         mdi-delete
       </v-icon>
+      </v-btn>
     </template>
     <template v-slot:no-data>
       <v-btn

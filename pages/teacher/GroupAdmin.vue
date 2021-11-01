@@ -103,12 +103,18 @@
       color="info"
       elevation="2"
     >メンバー管理</v-btn>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    <v-btn
+      fab
+      small
+      color="primary"
+    >
       <v-icon
         @click="deleteItem(item)"
-        size="2.2em"
+        size="2em"
       >
         mdi-delete
       </v-icon>
+    </v-btn>
     </template>
     <template v-slot:no-data>
       <v-btn

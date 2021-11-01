@@ -15,7 +15,7 @@
               color="brown"
               size="48"
             >
-              <span class="white--text text-h5">{{ users.initials }}</span>
+              <img v-bind:src="users.photoURL">
             </v-avatar>
           </v-btn>
         </template>
@@ -25,7 +25,7 @@
               <v-avatar
                 color="brown"
               >
-                <span class="white--text text-h5">{{ users.initials }}</span>
+                <img v-bind:src="users.photoURL">
               </v-avatar>
               <h3>{{users.displayName}}</h3>
               <p class="text-caption mt-1">
@@ -53,9 +53,9 @@ export default {
   data () {
     return {
       users:{
-        initials: 'JD',
         displayName:'',
-        email:''
+        email:'',
+        photoURL:''
       },
     }
   },
@@ -76,14 +76,13 @@ export default {
       if (user !== null) {
         // The user object has basic properties such as display name, email, etc.
         this.users.displayName = user.displayName;
-        this.users.mail = user.email;
-        const emailVerified = user.emailVerified;
+        this.users.email = user.email;
+        this.users.photoURL = user.photoURL;
 
         // The user's ID, unique to the Firebase project. Do NOT use
         // this value to authenticate with your backend server, if
         // you have one. Use User.getToken() instead.
         const uid = user.uid;
-        console.log("aaa")
       }
     }
   },

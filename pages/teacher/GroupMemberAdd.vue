@@ -22,8 +22,10 @@
     class="elevation-1"
     ></v-data-table>
     <br>
+    <v-col cols="12">
     <v-row
-    justify="end"
+    justify="center"
+    max-width="100"
     >
     <v-bottom-sheet
       v-model="sheet"
@@ -36,6 +38,7 @@
           v-bind="attrs"
           v-on="on"
           x-large
+          width="200"
         >
           追加する
         </v-btn>
@@ -66,6 +69,8 @@
       </v-sheet>
     </v-bottom-sheet>
     </v-row>
+    </v-col>
+    <br>
     </v-card>
 </template>
 <script>
@@ -79,8 +84,9 @@
             align: 'start',
             sortable: false,
             value: 'id',
+            align: "center"
           },
-          { text: 'ユーザー名', value: 'name' },
+          { text: 'ユーザー名', value: 'name', align: "center" },
         ],
         sheet: false,
         desserts: [

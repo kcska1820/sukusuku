@@ -3,7 +3,7 @@
     :headers="headers"
     :items="desserts"
     sort-by="groupadmin"
-    class="elevation-1"
+    class="elevation-1 ma-12"
   >
     <template v-slot:top>
       <v-toolbar
@@ -22,13 +22,16 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="accent"
               dark
+              fab
               class="mb-2"
               v-bind="attrs"
               v-on="on"
             >
-              グループ追加
+          <v-icon dark>
+            mdi-plus
+          </v-icon>
             </v-btn>
           </template>
           <v-card>
@@ -77,7 +80,7 @@
                 text
                 @click="save"
               >
-                保存
+                作成
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -99,9 +102,10 @@
     <v-btn
       color="info"
       elevation="2"
-    >メンバー管理</v-btn>&emsp;&emsp;&emsp;
+    >メンバー管理</v-btn>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
       <v-icon
         @click="deleteItem(item)"
+        size="2.2em"
       >
         mdi-delete
       </v-icon>
@@ -127,9 +131,11 @@
           align: 'start',
           sortable: false,
           value: 'id',
+          align: "center",
+          width: '200'
         },
-        { text: 'グループ名', value: 'name' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: 'グループ名', value: 'name', align: "center", width: '400'},
+        { text: '', value: 'actions', sortable: false, align: "center", width: '300'},
       ],
       desserts: [],
       editedIndex: -1,
@@ -145,7 +151,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return this.editedIndex === -1 ? '新規グループを作成します' : 'Edit Item'
       },
     },
 

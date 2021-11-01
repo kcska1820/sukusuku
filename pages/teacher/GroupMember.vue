@@ -53,7 +53,7 @@
     </template>
     <template v-slot:[`item.actions`]="{ item }">
       <v-icon
-        small
+        size="2.2em"
         @click="deleteItem(item)"
       >
         mdi-delete
@@ -84,7 +84,7 @@
           value: 'id',
         },
         { text: 'ユーザー名', value: 'name' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: '', value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,

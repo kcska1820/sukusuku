@@ -22,13 +22,16 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="accent"
               dark
+              fab
               class="mb-2"
               v-bind="attrs"
               v-on="on"
             >
-              科目追加
+            <v-icon dark>
+            mdi-plus
+          </v-icon>
             </v-btn>
           </template>
           <v-card>
@@ -107,6 +110,11 @@
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
+        <v-btn
+      fab
+      small
+      color="primary"
+    >
       <v-icon
         small
         class="mr-2"
@@ -114,19 +122,18 @@
       >
         mdi-pencil
       </v-icon>
+      </v-btn>
+      <v-btn
+      fab
+      small
+      color="primary"
+    >
       <v-icon
-        small
         @click="deleteItem(item)"
+        size="2em"
       >
         mdi-delete
       </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
       </v-btn>
     </template>
   </v-data-table>

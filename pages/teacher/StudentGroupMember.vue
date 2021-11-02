@@ -119,16 +119,12 @@
         </v-dialog>
       </v-toolbar>
     </template>
-<<<<<<< HEAD
     <template v-slot:item.actions="{ item }">
       <v-btn
       fab
       small
       color="primary"
     >
-=======
-    <template v-slot:[`item.actions`]="{ item }">
->>>>>>> bec64e320e6da7f413f8c6e26c53800616c60b52
       <v-icon
         small
         class="mr-2"

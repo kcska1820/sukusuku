@@ -116,7 +116,7 @@
       color="primary"
     >
       <v-icon
-        small
+        size="2em"
         class="mr-2"
         @click="editItem(item)"
       >

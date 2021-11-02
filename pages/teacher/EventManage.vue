@@ -1,14 +1,9 @@
 <template>
 <div>
   <div class="text-center">
-    <v-btn　block
-      rounded
-      color="#4CAF50"
-      dark
-    >
+    <v-btn block rounded color="#4CAF50" dark>
       イベント追加
     </v-btn>
-    
   </div>
   <br>
   <div class="text-center">

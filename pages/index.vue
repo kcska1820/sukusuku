@@ -19,7 +19,7 @@ export default {
         setTimeout(()=>{
             this.$router.push('/login')
         },2*1000)
-    }
+    },
 }
 
 </script>

@@ -96,6 +96,8 @@ export default {
         deleteTask(id) {
             this.tasks = this.tasks.filter(task => task.id !== id)
         }
-    }
+    },
+    /* 未ログイン時index.vueに遷移 */
+  /* middleware:"authenicated" */
 }
 </script>

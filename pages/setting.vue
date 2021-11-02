@@ -103,6 +103,8 @@ import PasswordReset from '../components/PasswordReset.vue'
     theme() {
       this.$vuetify.theme.dark = this.theme
     }
-  }
+  },
+  /* 未ログイン時index.vueに遷移 */
+  /* middleware:"authenicated" */
   }
 </script>

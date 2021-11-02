@@ -149,7 +149,7 @@
         },
         { text: 'メールアドレス', value: 'mail' },
         { text: 'ロールID', value: 'rollid' },
-        { text: 'ユーザー追加', value: 'username' },
+        { text: 'ユーザー名', value: 'username' },
         { text: '編集', value: 'actions', sortable: false },
       ],
       desserts: [],

@@ -9,7 +9,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>管理者_管理画面</v-toolbar-title>
+        <v-toolbar-title>教室一覧</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -28,7 +28,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              管理者追加
+              教室追加
             </v-btn>
           </template>
           <v-card>
@@ -45,8 +45,8 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.userid"
-                      label="ユーザーID"
+                      v-model="editedItem.roomid"
+                      label="教室ID"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -55,29 +55,19 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.mail"
-                      label="メールアドレス"
+                      v-model="editedItem.roomname"
+                      label="教室名"
                     ></v-text-field>
                   </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-select
-                        v-model="editedItem.rollid"
-                        :items="items"
-                        label="ロールID"
-                    ></v-select>
-                    </v-col>
+                 
                   <v-col
                     cols="12"
                     sm="6"
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.username"
-                      label="ユーザー名"
+                      v-model="editedItem.note"
+                      label="備考"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -150,14 +140,13 @@
       items: ['student', 'teacher', 'orner'],
       headers: [
         {
-          text: 'ユーザーID',
+          text: '教室ID',
           align: 'start',
           sortable: false,
-          value: 'userid',
+          value: 'roomid',
         },
-        { text: 'メールアドレス', value: 'mail' },
-        { text: 'ロールID', value: 'rollid' },
-        { text: 'ユーザー名', value: 'username' },
+        { text: '教室名', value: 'roomname' },
+        { text: '備考', value: 'note' },
         { text: '編集', value: 'actions', sortable: false },
       ],
       desserts: [],
@@ -199,65 +188,31 @@
       initialize () {
         this.desserts = [
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
+            roomid: 'room101',
+            roomname: '101教室',
+            note: 'マシン室',
           },
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
+            roomid: 'room101',
+            roomname: '101教室',
+            note: 'マシン室',
           },
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
+            roomid: 'room101',
+            roomname: '101教室',
+            note: 'マシン室',
           },
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
+            roomid: 'room101',
+            roomname: '101教室',
+            note: 'マシン室',
           },
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
+            roomid: 'room101',
+            roomname: '101教室',
+            note: 'マシン室',
           },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
+          
         ]
       },
 

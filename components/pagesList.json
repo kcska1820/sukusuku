@@ -28,5 +28,15 @@
         "icon":"mdi-cog",
         "title":"設定",
         "to":"/setting"
+    },
+    {
+        "icon":"mdi-account-key",
+        "title":"管理者メニュー",
+        "to":"/AdminMenu"
+    },
+    {
+        "icon":"mdi-account-hard-hat",
+        "title":"マスターメニュー",
+        "to":"/MasterMenu"
     }
 ]

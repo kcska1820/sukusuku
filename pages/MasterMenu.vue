@@ -1,0 +1,54 @@
+<template>
+<div>
+<h1 class="pt-4">
+    <v-icon
+    size="1.5em"
+    color="blue-grey darken-3">
+      mdi-account-hard-hat
+    </v-icon>
+    &emsp;マスターメニュー</h1>
+    <v-divider></v-divider>
+<v-row
+    style="height: 500px"
+    justify="center"
+    align-content="center"
+    
+>
+<v-col
+    cols="7">
+<v-card
+ elevation="0"
+>
+    <v-btn
+        color="green lighten-1"
+        elevation="12"
+        block
+        height="120"
+><h2>教室管理</h2></v-btn>
+</v-card>
+<br>
+<v-card
+ elevation="0"
+>
+    <v-btn
+        color="green lighten-1"
+        elevation="12"
+        block
+        height="120"
+><h2>科目管理</h2></v-btn>
+</v-card>
+<br>
+<v-card
+ elevation="0"
+>
+    <v-btn
+        color="green lighten-1"
+        elevation="12"
+        block
+        height="120"
+><h2>管理者管理</h2></v-btn>
+</v-card>
+</v-col>
+</v-row>
+</div>
+</template>

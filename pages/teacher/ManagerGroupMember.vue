@@ -9,7 +9,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>学生管理画面</v-toolbar-title>
+        <v-toolbar-title>管理者_管理画面</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -28,7 +28,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              学生追加
+              管理者追加
             </v-btn>
           </template>
           <v-card>
@@ -131,6 +131,14 @@
         mdi-delete
       </v-icon>
     </template>
+    <template v-slot:no-data>
+      <v-btn
+        color="primary"
+        @click="initialize"
+      >
+        Reset
+      </v-btn>
+    </template>
   </v-data-table>
 </template>
 
@@ -191,62 +199,62 @@
       initialize () {
         this.desserts = [
           {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
+            userid: 'te0001',
+            mail: 'Kcska_xxx@kcs.com',
             rollid: 'teacher',
             username: 'kcs_xxxx',
           },
           {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
+            userid: 'te0001',
+            mail: 'Kcska_xxx@kcs.com',
             rollid: 'teacher',
             username: 'kcs_xxxx',
           },
           {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
+            userid: 'te0001',
+            mail: 'Kcska_xxx@kcs.com',
             rollid: 'teacher',
             username: 'kcs_xxxx',
           },
           {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
+            userid: 'te0001',
+            mail: 'Kcska_xxx@kcs.com',
             rollid: 'teacher',
             username: 'kcs_xxxx',
           },
           {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
+            userid: 'te0001',
+            mail: 'Kcska_xxx@kcs.com',
             rollid: 'teacher',
             username: 'kcs_xxxx',
           },
           {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
+            userid: 'te0001',
+            mail: 'Kcska_xxx@kcs.com',
             rollid: 'teacher',
             username: 'kcs_xxxx',
           },
           {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
+            userid: 'te0001',
+            mail: 'Kcska_xxx@kcs.com',
             rollid: 'teacher',
             username: 'kcs_xxxx',
           },
           {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
+            userid: 'te0001',
+            mail: 'Kcska_xxx@kcs.com',
             rollid: 'teacher',
             username: 'kcs_xxxx',
           },
           {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
+            userid: 'te0001',
+            mail: 'Kcska_xxx@kcs.com',
             rollid: 'teacher',
             username: 'kcs_xxxx',
           },
           {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
+            userid: 'te0001',
+            mail: 'Kcska_xxx@kcs.com',
             rollid: 'teacher',
             username: 'kcs_xxxx',
           },

@@ -24,6 +24,7 @@
         elevation="12"
         block
         height="120"
+        to="/master/RoomList"
 ><h2>教室管理</h2></v-btn>
 </v-card>
 <br>
@@ -35,6 +36,7 @@
         elevation="12"
         block
         height="120"
+        to="/master/SubjectList"
 ><h2>科目管理</h2></v-btn>
 </v-card>
 <br>
@@ -46,6 +48,7 @@
         elevation="12"
         block
         height="120"
+        to="/master/ManagerGroupMember"
 ><h2>管理者管理</h2></v-btn>
 </v-card>
 </v-col>

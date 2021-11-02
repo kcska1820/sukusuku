@@ -34,6 +34,7 @@
           fab
           dark
           color="accent"
+          to="/teacher/GroupMemberAdd"
         >
           <v-icon dark>
             mdi-plus

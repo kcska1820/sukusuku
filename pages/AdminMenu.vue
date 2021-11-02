@@ -24,6 +24,7 @@
         elevation="12"
         width="550"
         height="120"
+        to="/teacher/RoomSchedule"
 ><h2>教室スケジュール管理</h2></v-btn>
 </v-card>
 <br>
@@ -46,6 +47,7 @@
         elevation="12"
         width="550"
         height="120"
+        to="/teacher/GroupAdmin"
 ><h2>グループ管理</h2></v-btn>
 </v-card>
 </v-col>
@@ -60,6 +62,7 @@
         elevation="12"
         width="550"
         height="120"
+        to="/teacher/StudentGroupMember"
 ><h2>学生管理</h2></v-btn>
 </v-card>
 <br>
@@ -71,6 +74,7 @@
         elevation="12"
         width="550"
         height="120"
+        to="/teacher/EventManage"
 ><h2>イベント管理</h2></v-btn>
 </v-card>
 <br>

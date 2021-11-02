@@ -17,9 +17,10 @@
       :items="desserts"
       :search="search"
       :single-select="singleSelect"
-    item-key="name"
-    show-select
-    class="elevation-1"
+      disable-sort
+      item-key="name"
+      show-select
+      class="elevation-1"
     ></v-data-table>
     <br>
     <v-col cols="12">

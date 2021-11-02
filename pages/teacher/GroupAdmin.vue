@@ -4,6 +4,7 @@
     :items="desserts"
     sort-by="groupadmin"
     class="elevation-1 ma-12"
+    disable-sort
   >
     <template v-slot:top>
       <v-toolbar

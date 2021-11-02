@@ -23,7 +23,7 @@
     >
         <v-list-item
             @click="doneTask(task.id)"
-            :class="{ 'light-green lighten-4': task.done }"
+            :class="{ 'blue-grey lighten-4': task.done }"
         >
           <template v-slot:default>
             <v-list-item-action>

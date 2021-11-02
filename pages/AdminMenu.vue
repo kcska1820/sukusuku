@@ -60,7 +60,7 @@
         elevation="12"
         width="550"
         height="120"
-><h2>生徒管理</h2></v-btn>
+><h2>学生管理</h2></v-btn>
 </v-card>
 <br>
 <v-card

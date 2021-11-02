@@ -17,6 +17,7 @@
     :search="search"
     sort-by="groupmember"
     class="elevation-1"
+    disable-sort
   >
     <template v-slot:top>
       <v-toolbar

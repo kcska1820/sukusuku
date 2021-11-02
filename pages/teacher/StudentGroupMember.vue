@@ -22,13 +22,16 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="accent"
               dark
+              fab
               class="mb-2"
               v-bind="attrs"
               v-on="on"
             >
-              学生追加
+            <v-icon dark>
+            mdi-plus
+          </v-icon>
             </v-btn>
           </template>
           <v-card>
@@ -117,19 +120,31 @@
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
+      <v-btn
+      fab
+      small
+      color="primary"
+    >
       <v-icon
-        small
+        size="2em"
         class="mr-2"
         @click="editItem(item)"
       >
         mdi-pencil
       </v-icon>
+      </v-btn>
+      <v-btn
+      fab
+      small
+      color="primary"
+    >
       <v-icon
-        small
         @click="deleteItem(item)"
+        size="2em"
       >
         mdi-delete
       </v-icon>
+    </v-btn>
     </template>
   </v-data-table>
 </template>
@@ -149,7 +164,7 @@
         },
         { text: 'メールアドレス', value: 'mail' },
         { text: 'ロールID', value: 'rollid' },
-        { text: 'ユーザー追加', value: 'username' },
+        { text: 'ユーザー名', value: 'username' },
         { text: '編集', value: 'actions', sortable: false },
       ],
       desserts: [],

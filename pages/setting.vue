@@ -22,7 +22,7 @@
     </v-icon>
     &emsp;アカウント設定
     <v-spacer></v-spacer>
-    <v-btn color="light-green lighten-1" >パスワード変更</v-btn>
+    <PasswordReset />
     </v-toolbar>
     </h2>
 
@@ -83,7 +83,9 @@
   </v-card>
 </template>
 <script>
+import PasswordReset from '../components/PasswordReset.vue'
   export default {
+  components: { PasswordReset },
     data: () => ({
       settings: [],
     }),
@@ -101,6 +103,8 @@
     theme() {
       this.$vuetify.theme.dark = this.theme
     }
-  }
+  },
+  /* 未ログイン時index.vueに遷移 */
+  /* middleware:"authenicated" */
   }
 </script>

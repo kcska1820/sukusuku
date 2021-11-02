@@ -9,7 +9,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>管理者_管理画面</v-toolbar-title>
+        <v-toolbar-title>教室一覧</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -22,13 +22,16 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="accent"
               dark
+              fab
               class="mb-2"
               v-bind="attrs"
               v-on="on"
             >
-              管理者追加
+               <v-icon dark>
+            mdi-plus
+          </v-icon>
             </v-btn>
           </template>
           <v-card>
@@ -45,8 +48,8 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.userid"
-                      label="ユーザーID"
+                      v-model="editedItem.roomid"
+                      label="教室ID"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -55,29 +58,19 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.mail"
-                      label="メールアドレス"
+                      v-model="editedItem.roomname"
+                      label="教室名"
                     ></v-text-field>
                   </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-select
-                        v-model="editedItem.rollid"
-                        :items="items"
-                        label="ロールID"
-                    ></v-select>
-                    </v-col>
+                 
                   <v-col
                     cols="12"
                     sm="6"
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.username"
-                      label="ユーザー名"
+                      v-model="editedItem.note"
+                      label="備考"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -117,6 +110,11 @@
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
+       <v-btn
+      fab
+      small
+      color="primary"
+    >
       <v-icon
         small
         class="mr-2"
@@ -124,19 +122,18 @@
       >
         mdi-pencil
       </v-icon>
+      </v-btn>
+      <v-btn
+      fab
+      small
+      color="primary"
+    >
       <v-icon
-        small
         @click="deleteItem(item)"
+        size="2em"
       >
         mdi-delete
-      </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
+        </v-icon>
       </v-btn>
     </template>
   </v-data-table>
@@ -150,15 +147,16 @@
       items: ['student', 'teacher', 'orner'],
       headers: [
         {
-          text: 'ユーザーID',
+          text: '教室ID',
           align: 'start',
           sortable: false,
-          value: 'userid',
+          value: 'roomid',
+          align: "center", 
+          width: '300'
         },
-        { text: 'メールアドレス', value: 'mail' },
-        { text: 'ロールID', value: 'rollid' },
-        { text: 'ユーザー追加', value: 'username' },
-        { text: '編集', value: 'actions', sortable: false },
+        { text: '教室名', value: 'roomname', align: "center", width: '300'},
+        { text: '備考', value: 'note', align: "center", width: '300' },
+        { text: '編集', value: 'actions', sortable: false, align: "center", width: '250' },
       ],
       desserts: [],
       editedIndex: -1,
@@ -199,65 +197,31 @@
       initialize () {
         this.desserts = [
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
+            roomid: 'room101',
+            roomname: '101教室',
+            note: 'マシン室',
           },
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
+            roomid: 'room101',
+            roomname: '101教室',
+            note: 'マシン室',
           },
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
+            roomid: 'room101',
+            roomname: '101教室',
+            note: 'マシン室',
           },
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
+            roomid: 'room101',
+            roomname: '101教室',
+            note: 'マシン室',
           },
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
+            roomid: 'room101',
+            roomname: '101教室',
+            note: 'マシン室',
           },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
+          
         ]
       },
 

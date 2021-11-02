@@ -103,6 +103,7 @@
     <v-btn
       color="info"
       elevation="2"
+      to="/teacher/GroupMember"
     >メンバー管理</v-btn>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
     <v-btn
       fab

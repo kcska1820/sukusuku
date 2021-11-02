@@ -78,6 +78,7 @@
             color="primary"
             text
             @click="submit"
+            to="/teacher/RoomScheduleDetail"
           >
             詳細を表示
           </v-btn>

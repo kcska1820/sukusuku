@@ -2,15 +2,14 @@
   <v-data-table
     :headers="headers"
     :items="desserts"
-    sort-by="groupadmin"
-    class="elevation-1 ma-12"
-    disable-sort
+    sort-by="calories"
+    class="elevation-1"
   >
     <template v-slot:top>
       <v-toolbar
         flat
       >
-        <v-toolbar-title>イベント管理</v-toolbar-title>
+        <v-toolbar-title>科目一覧</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -30,7 +29,7 @@
               v-bind="attrs"
               v-on="on"
             >
-          <v-icon dark>
+            <v-icon dark>
             mdi-plus
           </v-icon>
             </v-btn>
@@ -49,8 +48,8 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.id"
-                      label="イベントID"
+                      v-model="editedItem.subid"
+                      label="科目ID"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -59,18 +58,19 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.name"
-                      label="イベント名"
+                      v-model="editedItem.subname"
+                      label="科目名"
                     ></v-text-field>
                   </v-col>
-                   <v-col
+                 
+                  <v-col
                     cols="12"
                     sm="6"
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.name"
-                      label="開始日時"
+                      v-model="editedItem.note"
+                      label="備考"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -80,7 +80,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                color="red darken-2"
+                color="blue darken-1"
                 text
                 @click="close"
               >
@@ -91,27 +91,39 @@
                 text
                 @click="save"
               >
-                作成
+                確定
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
+            <v-card-title class="text-h5">本当に削除してもよろしいですか？</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">削除</v-btn>
+              <v-btn color="blue darken-1" text @click="closeDelete">いいえ</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">はい</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:[`item.actions`]="{ item }">
-    
-    <v-btn
+    <template v-slot:item.actions="{ item }">
+        <v-btn
+      fab
+      small
+      color="primary"
+    >
+      <v-icon
+        size="2em"
+        class="mr-2"
+        @click="editItem(item)"
+      >
+        mdi-pencil
+      </v-icon>
+      </v-btn>
+      <v-btn
       fab
       small
       color="primary"
@@ -122,51 +134,49 @@
       >
         mdi-delete
       </v-icon>
-    </v-btn>
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
       </v-btn>
     </template>
   </v-data-table>
 </template>
+
 <script>
   export default {
     data: () => ({
       dialog: false,
       dialogDelete: false,
+      items: ['student', 'teacher', 'orner'],
       headers: [
         {
-          text: 'イベントID',
+          text: '科目ID',
           align: 'start',
           sortable: false,
-          value: 'id',
+          value: 'subid',
           align: "center",
-          width: '200'
+          width: '300'
         },
-        { text: 'イベント名', value: 'name', align: "center", width: '200'},
-        { text: '開始日時', value: 'date', align: "center", width: '200'},
-        { text: '', value: 'actions', sortable: false, align: "center", width: '200'},
+        { text: '科目名', value: 'subname',align: "center", width: '300' },
+        { text: '備考', value: 'note',align: "center", width: '300' },
+        { text: '編集', value: 'actions', sortable: false,align: "center", width: '250' },
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        id: '',
         name: '',
-      },
+        calories: '',
+        fat: '',
+        carbs: '',
+        },
       defaultItem: {
-        id: '',
         name: '',
-      },
+        calories: '',
+        fat: '',
+        carbs: '',
+        },
     }),
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '新規イベントを作成します' : 'Edit Item'
+        return this.editedIndex === -1 ? '追加' : '編集'
       },
     },
 
@@ -187,20 +197,31 @@
       initialize () {
         this.desserts = [
           {
-            id: 'ev0001',
-            name: '国試',
-            date:'0311101400',
+            subid: 'sub001',
+            subname: '保健体育',
+            note: '前川先生',
           },
           {
-            id: 'ev0002',
-            name: 'クラスマッチ',
-            date:'0311160900',
+             subid: 'sub002',
+            subname: '大人の雑学',
+            note: '前川先生',
           },
           {
-            id: 'ev0003',
-            name: '防災訓練',
-            date:'0312250900',
+             subid: 'sub001',
+            subname: '夜学',
+            note: '前川先生',
           },
+          {
+             subid: 'sub001',
+            subname: '保健体育',
+            note: '前川先生',
+          },
+          {
+             subid: 'sub001',
+            subname: '保健体育',
+            note: '前川先生',
+          },
+          
         ]
       },
 

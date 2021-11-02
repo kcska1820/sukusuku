@@ -22,13 +22,13 @@
         :key="task.id"
     >
         <v-list-item
-            @click="doneTask(task.id)"
             :class="{ 'blue-grey lighten-4': task.done }"
         >
           <template v-slot:default>
             <v-list-item-action>
               <v-checkbox
                 :input-value="task.done"
+                @click="doneTask(task.id)"
                 color="accent"
               ></v-checkbox>
             </v-list-item-action>
@@ -96,6 +96,8 @@ export default {
         deleteTask(id) {
             this.tasks = this.tasks.filter(task => task.id !== id)
         }
-    }
+    },
+    /* 未ログイン時index.vueに遷移 */
+  /* middleware:"authenicated" */
 }
 </script>

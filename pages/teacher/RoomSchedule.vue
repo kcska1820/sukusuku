@@ -6,6 +6,9 @@
       md="8"
       lg="6"
     >
+    <h1>
+    教室スケジュール画面
+    </h1>
       <v-card ref="form">
         <v-card-text>
           <v-autocomplete

@@ -193,13 +193,13 @@
             note: '前川先生',
           },
           {
-             subid: 'sub001',
-            subname: '保健体育',
+             subid: 'sub002',
+            subname: '大人の雑学',
             note: '前川先生',
           },
           {
              subid: 'sub001',
-            subname: '保健体育',
+            subname: '夜学',
             note: '前川先生',
           },
           {

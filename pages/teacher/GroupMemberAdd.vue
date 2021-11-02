@@ -1,5 +1,4 @@
 <template>
-<div>
   <v-card>
     <v-card-title>
       追加するメンバーを選択してください
@@ -7,7 +6,7 @@
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
-        label="Search"
+        label="IDでメンバーを検索"
         single-line
         hide-details
       ></v-text-field>
@@ -18,14 +17,16 @@
       :items="desserts"
       :search="search"
       :single-select="singleSelect"
-    item-key="name"
-    show-select
-    class="elevation-1"
+      disable-sort
+      item-key="name"
+      show-select
+      class="elevation-1"
     ></v-data-table>
-    </v-card>
     <br>
+    <v-col cols="12">
     <v-row
-    justify="end"
+    justify="center"
+    max-width="100"
     >
     <v-bottom-sheet
       v-model="sheet"
@@ -38,6 +39,7 @@
           v-bind="attrs"
           v-on="on"
           x-large
+          width="200"
         >
           追加する
         </v-btn>
@@ -46,13 +48,6 @@
         class="text-center"
         height="150px"
       >
-              <v-btn
-          class="mt-6"
-          text
-          @click="sheet = !sheet"
-        >
-          追加
-        </v-btn>
 
         <v-btn
           class="mt-6"
@@ -62,13 +57,22 @@
         >
           キャンセル
         </v-btn>
+          <v-btn
+          class="mt-6"
+          text
+          @click="sheet = !sheet"
+        >
+          追加
+        </v-btn>
         <div class="my-3">
           メンバーを追加します。よろしいでしょうか？
         </div>
       </v-sheet>
     </v-bottom-sheet>
     </v-row>
-</div>
+    </v-col>
+    <br>
+    </v-card>
 </template>
 <script>
   export default {
@@ -81,8 +85,9 @@
             align: 'start',
             sortable: false,
             value: 'id',
+            align: "center"
           },
-          { text: 'ユーザー名', value: 'name' },
+          { text: 'ユーザー名', value: 'name', align: "center" },
         ],
         sheet: false,
         desserts: [

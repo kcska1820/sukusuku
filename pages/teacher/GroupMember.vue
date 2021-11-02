@@ -1,32 +1,50 @@
 <template>
+  <v-card>
+    <v-card-title>
+      メンバー管理
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="IDでメンバーを検索"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
   <v-data-table
     :headers="headers"
     :items="desserts"
+    :search="search"
     sort-by="groupmember"
     class="elevation-1"
+    disable-sort
   >
     <template v-slot:top>
       <v-toolbar
         flat
       >
-        <v-toolbar-title>メンバー管理</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
-            <v-btn
-              color="primary"
-            >
-              メンバー追加
-            </v-btn>
+        <v-btn
+          class="mx-2"
+          fab
+          dark
+          color="accent"
+        >
+          <v-icon dark>
+            mdi-plus
+          </v-icon>
+    </v-btn>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">キャンセル</v-btn>
+              <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
               <v-btn color="blue darken-1" text @click="deleteItemConfirm">削除</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -35,12 +53,18 @@
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
+      <v-btn
+      fab
+      color="primary"
+      small
+      >
       <v-icon
-        small
+        size="2em"
         @click="deleteItem(item)"
       >
         mdi-delete
       </v-icon>
+      </v-btn>
     </template>
     <template v-slot:no-data>
       <v-btn
@@ -51,12 +75,14 @@
       </v-btn>
     </template>
   </v-data-table>
+  </v-card>
 </template>
 <script>
   export default {
     data: () => ({
       dialog: false,
       dialogDelete: false,
+      search: '',
       headers: [
         {
           text: 'ユーザーID',
@@ -65,7 +91,7 @@
           value: 'id',
         },
         { text: 'ユーザー名', value: 'name' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: '', value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,

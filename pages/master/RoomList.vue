@@ -4,6 +4,7 @@
     :items="desserts"
     sort-by="calories"
     class="elevation-1"
+    disable-sort
   >
     <template v-slot:top>
       <v-toolbar
@@ -109,7 +110,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:[`item.actions`]="{ item }">
        <v-btn
       fab
       small

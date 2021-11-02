@@ -4,6 +4,7 @@
     :items="desserts"
     sort-by="calories"
     class="elevation-1"
+    disable-sort
   >
     <template v-slot:top>
       <v-toolbar
@@ -119,7 +120,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:[`item.actions`]="{ item }">
       <v-btn
       fab
       small
@@ -162,9 +163,9 @@
           sortable: false,
           value: 'userid',
         },
-        { text: 'メールアドレス', value: 'mail' },
-        { text: 'ロールID', value: 'rollid' },
-        { text: 'ユーザー名', value: 'username' },
+        { text: 'メールアドレス', value: 'mail' ,align: "center", width: '300'},
+        { text: 'ロールID', value: 'rollid',align: "center", width: '250'},
+        { text: 'ユーザー名', value: 'username',align: "center", width: '250'},
         { text: '編集', value: 'actions', sortable: false },
       ],
       desserts: [],

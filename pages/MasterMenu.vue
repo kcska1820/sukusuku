@@ -20,7 +20,7 @@
  elevation="0"
 >
     <v-btn
-        color="green lighten-1"
+        color="accent"
         elevation="12"
         block
         height="120"
@@ -31,7 +31,7 @@
  elevation="0"
 >
     <v-btn
-        color="green lighten-1"
+        color="accent"
         elevation="12"
         block
         height="120"
@@ -42,7 +42,7 @@
  elevation="0"
 >
     <v-btn
-        color="green lighten-1"
+        color="accent"
         elevation="12"
         block
         height="120"

@@ -25,6 +25,7 @@
         width="550"
         height="120"
 ><h2>教室スケジュール管理</h2></v-btn>
+<v-driver></v-driver>
 </v-card>
 <br>
 <v-card

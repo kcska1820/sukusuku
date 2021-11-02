@@ -1,4 +1,10 @@
 <template>
+<div>
+    <h1>
+    教室スケジュール画面
+    </h1>
+    <v-divider></v-divider>
+        <br>
   <v-row justify="center">
     <v-col
       cols="12"
@@ -6,9 +12,6 @@
       md="8"
       lg="6"
     >
-    <h1>
-    教室スケジュール画面
-    </h1>
       <v-card ref="form">
         <v-card-text>
           <v-autocomplete
@@ -85,6 +88,7 @@
       </v-card>
     </v-col>
   </v-row>
+  </div>
 </template>
 
 <script>

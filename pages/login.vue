@@ -1,4 +1,5 @@
 <template>
+    <v-btn :href=url>hoge</v-btn>
 </template>
 
 <script>
@@ -6,6 +7,12 @@
 import firebase from "~/plugins/firebase"
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 export default {
+    data(){
+        return{
+            email:'',
+            url:'http://localhost:8000/sukusuku/'
+        }
+    },
     methods:{
         login(){
             const provider = new GoogleAuthProvider();
@@ -30,10 +37,18 @@ export default {
                 const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
             })
-        }
+        },
+        GetAuth(){
+            const auth = getAuth();
+            const user = auth.currentUser;
+            if (user !== null) {
+                // The user object has basic properties such as email
+                this.url = this.url  + "?email=" + user.email
+            }
+        },
     },
     created(){
-        this.login()
+        this.GetAuth()
     }
 }
 </script>

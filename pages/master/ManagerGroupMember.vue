@@ -155,7 +155,7 @@
     data: () => ({
       dialog: false,
       dialogDelete: false,
-      items: ['student', 'teacher', 'orner'],
+      items: ['student', 'teacher', 'master'],
       headers: [
         {
           text: 'ユーザーID',
@@ -208,66 +208,24 @@
         this.desserts = [
           {
             userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
+            mail: 'Kcska_0001@kcs.com',
             rollid: 'teacher',
-            username: 'kcs_xxxx',
+            username: 'kcst_nagatani',
           },
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
+            userid: 'te0002',
+            mail: 'Kcska_0002@kcs.com',
             rollid: 'teacher',
-            username: 'kcs_xxxx',
+            username: 'kcst_fukudome',
           },
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
+            userid: 'te0003',
+            mail: 'Kcska_0003@kcs.com',
             rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
+            username: 'kcst_takesako',
           },
         ]
-      },
+      }, 
 
       editItem (item) {
         this.editedIndex = this.desserts.indexOf(item)

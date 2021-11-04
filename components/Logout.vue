@@ -41,7 +41,6 @@
                 depressed
                 rounded
                 text
-                v-on="off"
               >
                 キャンセル
               </v-btn>

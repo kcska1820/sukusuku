@@ -81,7 +81,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                color="blue darken-1"
+                color="red darken-2"
                 text
                 @click="close"
               >
@@ -92,7 +92,7 @@
                 text
                 @click="save"
               >
-                確定
+                作成
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -103,7 +103,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeDelete">いいえ</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">はい</v-btn>
+              <v-btn color="red darken-1" text @click="deleteItemConfirm">はい</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -177,7 +177,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '追加' : '編集'
+        return this.editedIndex === -1 ? '教室追加' : '編集'
       },
     },
 

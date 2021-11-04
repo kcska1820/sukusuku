@@ -198,28 +198,28 @@
       initialize () {
         this.desserts = [
           {
-            roomid: 'room101',
+            roomid: 'room001',
             roomname: '101教室',
             note: 'マシン室',
           },
           {
-            roomid: 'room101',
-            roomname: '101教室',
+            roomid: 'room002',
+            roomname: '102教室',
+            note: '普通教室',
+          },
+          {
+            roomid: 'room003',
+            roomname: '103教室',
+            note: '普通教室',
+          },
+          {
+            roomid: 'room004',
+            roomname: '104教室',
             note: 'マシン室',
           },
           {
-            roomid: 'room101',
-            roomname: '101教室',
-            note: 'マシン室',
-          },
-          {
-            roomid: 'room101',
-            roomname: '101教室',
-            note: 'マシン室',
-          },
-          {
-            roomid: 'room101',
-            roomname: '101教室',
+            roomid: 'room005',
+            roomname: '105教室',
             note: 'マシン室',
           },
           

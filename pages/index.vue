@@ -1,17 +1,23 @@
 <template>
-    <v-app>
-        <div
-        class="d-flex justify-center"
-        >
-            <sukusukuLogo />
-        </div><br>
-        <div
-        class="d-flex justify-center"
-        >
-            <p>スクスクはあなたの学生生活をより良いものにします。</p>
-        </div>
-    </v-app>
+    <body>
+        <v-app>
+            <br><br><br><br><br>
+            <div
+            class="d-flex justify-center "
+            >
+                <sukusukuLogo />
+            </div><br><br><br>
+            <div
+            class="d-flex justify-center"
+            >
+                <h2>スクスクはあなたの学生生活をより良いものにします。</h2>
+            </div>
+            
+        </v-app>
+    </body>
 </template>
+
+
 
 <script>
 import firebase from "~/plugins/firebase"

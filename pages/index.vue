@@ -10,14 +10,12 @@
             <div
             class="d-flex justify-center"
             >
-                <h2>　　スクスクはあなたの学生生活をより良いものにします。</h2>
+                <h1 class="font-italic">　　スクスクはあなたの学生生活をより良いものにします。</h1>
             </div>
             
         </v-app>
     </body>
 </template>
-
-
 
 <script>
 import firebase from "~/plugins/firebase"

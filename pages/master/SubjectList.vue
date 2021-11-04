@@ -3,7 +3,7 @@
     :headers="headers"
     :items="desserts"
     sort-by="calories"
-    class="elevation-1"
+    class="elevation-1 mt-12"
     disable-sort
   >
     <template v-slot:top>
@@ -153,11 +153,12 @@
           sortable: false,
           value: 'subid',
           align: "center",
-          width: '300'
+          width: '300',
+          class:"accent"
         },
-        { text: '科目名', value: 'subname',align: "center", width: '300' },
-        { text: '備考', value: 'note',align: "center", width: '300' },
-        { text: '編集', value: 'actions', sortable: false,align: "center", width: '250' },
+        { text: '科目名', value: 'subname',align: "center", width: '300',class:"accent",textcolor:"accent" },
+        { text: '備考', value: 'note',align: "center", width: '300',class:"accent" },
+        { text: '編集', value: 'actions', sortable: false,align: "center", width: '250',class:"accent" },
       ],
       desserts: [],
       editedIndex: -1,
@@ -177,7 +178,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '科目追加' : '編集'
+        return this.editedIndex === -1 ? '新規科目を追加します' : '編集'
       },
     },
 

@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="mt-12">
     <v-card-title>
       追加するメンバーを選択してください
       <v-spacer></v-spacer>

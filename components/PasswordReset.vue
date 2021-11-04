@@ -34,11 +34,11 @@
                         </v-card-text>
                         <v-card-actions>
                             <v-btn
-                                color="blue darken-1"
+                                color="red darken-2"
                                 text
                                 @click="dialog = false"
                             >
-                                Close
+                                閉じる
                             </v-btn>
                             <v-spacer />
                             <v-btn color="blue darken-1" text @click="Reset">

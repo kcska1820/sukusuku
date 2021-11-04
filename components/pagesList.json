@@ -17,7 +17,7 @@
     {
         "icon":"mdi-archive-clock-outline",
         "title":"カウントダウン",
-        "to":"/student/EventSchedule"
+        "to":"/student/EventCountDown"
     },
     {
         "icon":"mdi-message-text",

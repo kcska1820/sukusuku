@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>管理者_管理画面</v-toolbar-title>
+        <v-toolbar-title>管理者管理</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -91,7 +91,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                color="blue darken-1"
+                color="red darken-2"
                 text
                 @click="close"
               >
@@ -102,7 +102,7 @@
                 text
                 @click="save"
               >
-                確定
+                作成
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -112,7 +112,7 @@
             <v-card-title class="text-h5">本当に削除してもよろしいですか？</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">いいえ</v-btn>
+              <v-btn color="red darken-2" text @click="closeDelete">いいえ</v-btn>
               <v-btn color="blue darken-1" text @click="deleteItemConfirm">はい</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -155,7 +155,7 @@
     data: () => ({
       dialog: false,
       dialogDelete: false,
-      items: ['student', 'teacher', 'orner'],
+      items: ['student', 'teacher', 'master'],
       headers: [
         {
           text: 'ユーザーID',
@@ -186,7 +186,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '追加' : '編集'
+        return this.editedIndex === -1 ? '管理者追加' : '編集'
       },
     },
 
@@ -208,66 +208,24 @@
         this.desserts = [
           {
             userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
+            mail: 'Kcska_0001@kcs.com',
             rollid: 'teacher',
-            username: 'kcs_xxxx',
+            username: 'kcst_nagatani',
           },
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
+            userid: 'te0002',
+            mail: 'Kcska_0002@kcs.com',
             rollid: 'teacher',
-            username: 'kcs_xxxx',
+            username: 'kcst_fukudome',
           },
           {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
+            userid: 'te0003',
+            mail: 'Kcska_0003@kcs.com',
             rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'te0001',
-            mail: 'Kcska_xxx@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
+            username: 'kcst_takesako',
           },
         ]
-      },
+      }, 
 
       editItem (item) {
         this.editedIndex = this.desserts.indexOf(item)

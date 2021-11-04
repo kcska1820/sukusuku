@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>教室一覧</v-toolbar-title>
+        <v-toolbar-title>教室管理</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -81,7 +81,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                color="blue darken-1"
+                color="red darken-2"
                 text
                 @click="close"
               >
@@ -92,7 +92,7 @@
                 text
                 @click="save"
               >
-                確定
+                作成
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -103,7 +103,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeDelete">いいえ</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">はい</v-btn>
+              <v-btn color="red darken-1" text @click="deleteItemConfirm">はい</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -177,7 +177,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '追加' : '編集'
+        return this.editedIndex === -1 ? '教室追加' : '編集'
       },
     },
 
@@ -203,23 +203,23 @@
             note: 'マシン室',
           },
           {
-            roomid: 'room101',
-            roomname: '101教室',
+            roomid: 'room102',
+            roomname: '102教室',
+            note: '普通教室',
+          },
+          {
+            roomid: 'room103',
+            roomname: '103教室',
+            note: '普通教室',
+          },
+          {
+            roomid: 'room104',
+            roomname: '104教室',
             note: 'マシン室',
           },
           {
-            roomid: 'room101',
-            roomname: '101教室',
-            note: 'マシン室',
-          },
-          {
-            roomid: 'room101',
-            roomname: '101教室',
-            note: 'マシン室',
-          },
-          {
-            roomid: 'room101',
-            roomname: '101教室',
+            roomid: 'room105',
+            roomname: '105教室',
             note: 'マシン室',
           },
           

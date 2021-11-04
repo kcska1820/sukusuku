@@ -167,7 +167,7 @@
         { text: 'メールアドレス', value: 'mail' ,align: "center", width: '300',class:"accent"},
         { text: 'ロールID', value: 'rollid',align: "center", width: '250',class:"accent"},
         { text: 'ユーザー名', value: 'username',align: "center", width: '250',class:"accent"},
-        { text: '編集', value: 'actions', sortable: false },
+        { text: '編集', value: 'actions', sortable: false,class:"accent" },
       ],
       desserts: [],
       editedIndex: -1,

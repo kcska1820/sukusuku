@@ -1,45 +1,50 @@
 <template>
     <v-menu
         bottom
-        min-width="200px"
+        min-width="150px"
         rounded
         offset-y
       >
         <template v-slot:activator="{ on }">
           <v-btn
-            icon
-            x-large
             v-on="on"
+            fab
+            elevation=0
+            color="accent"
+            height=46px
+            width=46px
           >
-            <v-avatar
-              color="brown"
-              size="48"
-            >
-              <span class="white--text text-h5">{{ users.initials }}</span>
-            </v-avatar>
+            <v-icon>
+              mdi-logout
+            </v-icon>
           </v-btn>
         </template>
         <v-card>
           <v-list-item-content class="justify-center">
             <div class="mx-auto text-center">
-              <v-avatar
-                color="brown"
-              >
-                <span class="white--text text-h5">{{ users.initials }}</span>
-              </v-avatar>
-              <h3>{{users.displayName}}</h3>
-              <p class="text-caption mt-1">
-                {{users.email}}
-              </p>
-              <v-divider class="my-3"></v-divider>
+              <div class="pa-2 mb-2">
+              <h3>LOGOUT</h3>
+              </div>
+              <v-divider />
+              <div class="pa-1 mt-2">
               <v-btn
                 depressed
                 rounded
                 text
                 @click="logout"
               >
-                Logout
+                ログアウト
               </v-btn>
+              </div>
+              <div class="pa-1">
+              <v-btn
+                depressed
+                rounded
+                text
+              >
+                キャンセル
+              </v-btn>
+              </div>
             </div>
           </v-list-item-content>
         </v-card>
@@ -50,15 +55,15 @@
 import firebase from "~/plugins/firebase"
 import { getAuth, signOut } from "firebase/auth"
 export default {
-  data () {
+  /* data () {
     return {
       users:{
-        initials: 'JD',
         displayName:'',
-        email:''
+        email:'',
+        photoURL:''
       },
     }
-  },
+  }, */
   methods:{
     logout(){
       const auth = getAuth();
@@ -70,25 +75,20 @@ export default {
         // An error happened.
       });
     },
-    get(){
+    /* get(){
       const auth = getAuth();
       const user = auth.currentUser;
       if (user !== null) {
         // The user object has basic properties such as display name, email, etc.
         this.users.displayName = user.displayName;
-        this.users.mail = user.email;
-        const emailVerified = user.emailVerified;
-
-        // The user's ID, unique to the Firebase project. Do NOT use
-        // this value to authenticate with your backend server, if
-        // you have one. Use User.getToken() instead.
-        const uid = user.uid;
-        console.log("aaa")
+        this.users.email = user.email;
+        this.users.photoURL = user.photoURL;
+      }else{
+        this.users.displayName = 'none';
+        this.users.email = 'none';
+        this.users.photoURL = '';
       }
-    }
-  },
-  created(){
-    this.get()
+    } */
   }
 }
 </script>

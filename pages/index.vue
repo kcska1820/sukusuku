@@ -1,7 +1,7 @@
 <template>
     <body>
         <v-app>
-            <br><br><br><br><br>
+            <br><br><br>
             <div
             class="d-flex justify-center "
             >

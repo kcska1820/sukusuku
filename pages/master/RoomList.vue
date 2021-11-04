@@ -42,7 +42,7 @@
 
             <v-card-text>
               <v-container>
-                <v-row>
+                <v-row >
                   <v-col
                     cols="12"
                     sm="6"
@@ -153,11 +153,12 @@
           sortable: false,
           value: 'roomid',
           align: "center", 
-          width: '300'
+          width: '300',
+          class: "accent"
         },
-        { text: '教室名', value: 'roomname', align: "center", width: '300'},
-        { text: '備考', value: 'note', align: "center", width: '300' },
-        { text: '編集', value: 'actions', sortable: false, align: "center", width: '250' },
+        { text: '教室名', value: 'roomname', align: "center", width: '300',class: "accent"},
+        { text: '備考', value: 'note', align: "center", width: '300',class: "accent" },
+        { text: '編集', value: 'actions', sortable: false, align: "center", width: '250' ,class: "accent"},
       ],
       desserts: [],
       editedIndex: -1,

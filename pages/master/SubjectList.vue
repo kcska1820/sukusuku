@@ -153,11 +153,12 @@
           sortable: false,
           value: 'subid',
           align: "center",
-          width: '300'
+          width: '300',
+          class:"accent"
         },
-        { text: '科目名', value: 'subname',align: "center", width: '300' },
-        { text: '備考', value: 'note',align: "center", width: '300' },
-        { text: '編集', value: 'actions', sortable: false,align: "center", width: '250' },
+        { text: '科目名', value: 'subname',align: "center", width: '300',class:"accent",textcolor:"accent" },
+        { text: '備考', value: 'note',align: "center", width: '300',class:"accent" },
+        { text: '編集', value: 'actions', sortable: false,align: "center", width: '250',class:"accent" },
       ],
       desserts: [],
       editedIndex: -1,

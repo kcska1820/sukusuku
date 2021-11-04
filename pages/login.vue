@@ -1,14 +1,8 @@
 <template>
-<div>
-    <h1>
-        login
-    </h1>
-    <v-btn @click="login">
-    </v-btn>
-</div>
 </template>
 
 <script>
+/* いらないです テスト用に保存中*/
 import firebase from "~/plugins/firebase"
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 export default {
@@ -38,6 +32,9 @@ export default {
             })
         }
     },
+    created(){
+        this.login()
+    }
 }
 </script>
 

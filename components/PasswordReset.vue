@@ -55,7 +55,7 @@
 
 <script>
 import firebase from '~/plugins/firebase'
-import {sendPasswordResetEmail} from 'firebase/auth'
+import { getAuth , sendPasswordResetEmail } from 'firebase/auth'
 export default {
     data(){
         return{
@@ -70,7 +70,20 @@ export default {
         }).catch((error)=>{
           console.log("error")
         })
+      },
+      GetAuth(){
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (user !== null) {
+            // The user object has basic properties such as email
+            this.email = user.email
+        }else{
+            this.email = 'none';
+        }
       }
+    },
+    created(){
+        this.GetAuth()
     }
 }
 </script>

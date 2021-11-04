@@ -88,8 +88,11 @@ import PasswordReset from '../components/PasswordReset.vue'
   components: { PasswordReset },
     data: () => ({
       settings: [],
+      users:{
+        email:'',
+      }
     }),
-      data () {
+    data () {
     return {
       theme:this.$vuetify.theme.dark,
     }

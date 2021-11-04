@@ -56,7 +56,7 @@
                   <v-col
                     cols="12"
                     sm="6"
-                    md="4"
+                    md="8"
                   >
                     <v-text-field
                       v-model="editedItem.mail"

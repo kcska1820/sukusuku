@@ -208,18 +208,18 @@
             note: '前川先生',
           },
           {
-             subid: 'sub001',
+             subid: 'sub003',
             subname: '夜学',
             note: '前川先生',
           },
           {
-             subid: 'sub001',
-            subname: '保健体育',
+             subid: 'sub004',
+            subname: '口説き論',
             note: '前川先生',
           },
           {
-             subid: 'sub001',
-            subname: '保健体育',
+             subid: 'sub005',
+            subname: '実技',
             note: '前川先生',
           },
           

@@ -3,7 +3,7 @@
     <v-col>
       <br>
       <h1>
-    教室スケジュール画面詳細
+    教室スケジュール詳細
     </h1>
     <v-divider></v-divider>
     <br>

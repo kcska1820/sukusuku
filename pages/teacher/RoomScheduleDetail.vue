@@ -1,6 +1,12 @@
 <template>
   <v-row class="fill-height">
     <v-col>
+      <br>
+      <h1>
+    教室スケジュール画面詳細
+    </h1>
+    <v-divider></v-divider>
+    <br>
       <v-sheet height="64">
         <v-toolbar
           flat

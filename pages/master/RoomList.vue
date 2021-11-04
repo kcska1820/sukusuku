@@ -4,6 +4,7 @@
     :items="desserts"
     sort-by="calories"
     class="elevation-1"
+    disable-sort
   >
     <template v-slot:top>
       <v-toolbar
@@ -22,13 +23,16 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="accent"
               dark
+              fab
               class="mb-2"
               v-bind="attrs"
               v-on="on"
             >
-              教室追加
+               <v-icon dark>
+            mdi-plus
+          </v-icon>
             </v-btn>
           </template>
           <v-card>
@@ -106,7 +110,12 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:[`item.actions`]="{ item }">
+       <v-btn
+      fab
+      small
+      color="primary"
+    >
       <v-icon
         small
         class="mr-2"
@@ -114,19 +123,18 @@
       >
         mdi-pencil
       </v-icon>
+      </v-btn>
+      <v-btn
+      fab
+      small
+      color="primary"
+    >
       <v-icon
-        small
         @click="deleteItem(item)"
+        size="2em"
       >
         mdi-delete
-      </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
+        </v-icon>
       </v-btn>
     </template>
   </v-data-table>
@@ -144,10 +152,12 @@
           align: 'start',
           sortable: false,
           value: 'roomid',
+          align: "center", 
+          width: '300'
         },
-        { text: '教室名', value: 'roomname' },
-        { text: '備考', value: 'note' },
-        { text: '編集', value: 'actions', sortable: false },
+        { text: '教室名', value: 'roomname', align: "center", width: '300'},
+        { text: '備考', value: 'note', align: "center", width: '300' },
+        { text: '編集', value: 'actions', sortable: false, align: "center", width: '250' },
       ],
       desserts: [],
       editedIndex: -1,

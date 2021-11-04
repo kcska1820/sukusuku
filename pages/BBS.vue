@@ -20,8 +20,13 @@
             <v-btn class="button"
               v-for="(thread, i) in item.thread"
               :key="i"
-              :to="item.to"
-              router
+              :to="{
+                path:item.to,
+                query:{
+                  id: thread.id
+                }
+                  
+                }"
               exact>
               <!--topiclist.json内のtoに遷移先が記載されている
               まだリンク先がトピック毎で固定してるから、ボタンごとに遷移先を変える機能が欲しい

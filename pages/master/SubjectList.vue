@@ -4,6 +4,7 @@
     :items="desserts"
     sort-by="calories"
     class="elevation-1"
+    disable-sort
   >
     <template v-slot:top>
       <v-toolbar
@@ -22,13 +23,16 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="accent"
               dark
+              fab
               class="mb-2"
               v-bind="attrs"
               v-on="on"
             >
-              科目追加
+            <v-icon dark>
+            mdi-plus
+          </v-icon>
             </v-btn>
           </template>
           <v-card>
@@ -106,27 +110,31 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:[`item.actions`]="{ item }">
+        <v-btn
+      fab
+      small
+      color="primary"
+    >
       <v-icon
-        small
+        size="2em"
         class="mr-2"
         @click="editItem(item)"
       >
         mdi-pencil
       </v-icon>
+      </v-btn>
+      <v-btn
+      fab
+      small
+      color="primary"
+    >
       <v-icon
-        small
         @click="deleteItem(item)"
+        size="2em"
       >
         mdi-delete
       </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
       </v-btn>
     </template>
   </v-data-table>
@@ -144,10 +152,12 @@
           align: 'start',
           sortable: false,
           value: 'subid',
+          align: "center",
+          width: '300'
         },
-        { text: '科目名', value: 'subname' },
-        { text: '備考', value: 'note' },
-        { text: '編集', value: 'actions', sortable: false },
+        { text: '科目名', value: 'subname',align: "center", width: '300' },
+        { text: '備考', value: 'note',align: "center", width: '300' },
+        { text: '編集', value: 'actions', sortable: false,align: "center", width: '250' },
       ],
       desserts: [],
       editedIndex: -1,
@@ -193,13 +203,13 @@
             note: '前川先生',
           },
           {
-             subid: 'sub001',
-            subname: '保健体育',
+             subid: 'sub002',
+            subname: '大人の雑学',
             note: '前川先生',
           },
           {
              subid: 'sub001',
-            subname: '保健体育',
+            subname: '夜学',
             note: '前川先生',
           },
           {

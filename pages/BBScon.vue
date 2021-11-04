@@ -7,17 +7,13 @@
       </v-icon>
       掲示板(開発中)
     </v-card-title>
-    <div
-      v-for="(item, i) in items"
-      :key="i"
-      :to="item.to"
-      router
-      exact>
+    <div>
+      {{ this.$route.query.id }}
+    </div>
       <v-col>
         <v-card>
         </v-card>
       </v-col>
       <v-divider></v-divider>
-    </div>
   </v-card>
 </template>

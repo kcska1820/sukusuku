@@ -23,6 +23,25 @@
           label="担当教諭"
         >
         </v-select>
+        <v-row v-for="(classrooms,i) in  classroom" :key=i>
+          <v-col cols="1">
+            <v-checkbox
+              v-model="enabled"
+              hide-details
+            ></v-checkbox>
+          </v-col>
+          <v-col cols="11">
+            <v-select
+              item-text="room"
+              :items="classroom"
+              clearable
+              filled
+              :disabled="!enabled"
+              label="1階教室"
+            >
+            </v-select>
+          </v-col>
+        </v-row>
         </v-col>
       </v-list-group>
   </v-card>
@@ -42,70 +61,77 @@
         ['福留先生'],
         ['永谷先生'],
       ],
-      floor1:[
+      classroom:[
         {
           room:'101',
+          floor:'1'
         },
         {
           room:'102',
+          floor:'1'
         },
         {
           room:'104',
+          floor:'1'
+        },
+        {
+          room:'201',
+          floor:'2'
+        },
+        {
+          room:'202',
+          floor:'2'
+        },
+        {
+          room:'203',
+          floor:'2'
+        },
+        {
+          room:'進路相談室',
+          floor:'2'
+        },
+        {
+          room:'図書室',
+          floor:'2'
+        },
+        {
+          room:'301',
+          floor:'3'
+        },
+        {
+          room:'302',
+          floor:'3'
+        },
+        {
+          room:'303',
+          floor:'3'
+        },
+        {
+          room:'304',
+          floor:'3'
+        },
+        {
+          room:'305',
+          floor:'3'
+        },
+        {
+          room:'401',
+          floor:'4'
+        },
+        {
+          room:'402',
+          floor:'4'
+        },
+        {
+          room:'403',
+          floor:'4'
+        },
+        {
+          room:'404',
+          floor:'4'
         }
       ],
-      floor2:[
-        {
-          room:'201'
-        },
-        {
-          room:'202'
-        },
-        {
-          room:'203'
-        },
-        {
-          room:'進路相談室'
-        },
-        {
-          room:'図書室'
-        },
-      ],
-      floor3:[
-        {
-          room:'301'
-        },
-        {
-          room:'302'
-        },
-        {
-          room:'303'
-        },
-        {
-          room:'304'
-        },
-        {
-          room:'305'
-        },
-      ],
-      floor4:[
-        {
-          room:'401'
-        },
-        {
-          room:'402'
-        },
-        {
-          room:'403'
-        },
-        {
-          room:'404'
-        },
-      ],
+      enabled: false,
     }),
-    methods:{
-      hoge(){
-
-      }
-    }
   }
 </script>

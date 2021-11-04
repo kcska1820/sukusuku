@@ -203,23 +203,23 @@
             note: 'マシン室',
           },
           {
-            roomid: 'room101',
-            roomname: '101教室',
+            roomid: 'room102',
+            roomname: '102教室',
+            note: '普通教室',
+          },
+          {
+            roomid: 'room103',
+            roomname: '103教室',
+            note: '普通教室',
+          },
+          {
+            roomid: 'room104',
+            roomname: '104教室',
             note: 'マシン室',
           },
           {
-            roomid: 'room101',
-            roomname: '101教室',
-            note: 'マシン室',
-          },
-          {
-            roomid: 'room101',
-            roomname: '101教室',
-            note: 'マシン室',
-          },
-          {
-            roomid: 'room101',
-            roomname: '101教室',
+            roomid: 'room105',
+            roomname: '105教室',
             note: 'マシン室',
           },
           

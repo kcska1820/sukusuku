@@ -15,8 +15,8 @@
         "to":"/Todo"
     },
     {
-        "icon":"mdi-application-edit-outline",
-        "title":"掲示板",
+        "icon":"mdi-archive-clock-outline",
+        "title":"カウントダウン",
         "to":"/student/EventSchedule"
     },
     {

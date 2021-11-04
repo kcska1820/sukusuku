@@ -3,7 +3,7 @@
     :headers="headers"
     :items="desserts"
     sort-by="calories"
-    class="elevation-1"
+    class="elevation-1 ma-12"
     disable-sort
   >
     <template v-slot:top>
@@ -167,7 +167,7 @@
         { text: 'メールアドレス', value: 'mail' ,align: "center", width: '300',class:"accent"},
         { text: 'ロールID', value: 'rollid',align: "center", width: '250',class:"accent"},
         { text: 'ユーザー名', value: 'username',align: "center", width: '250',class:"accent"},
-        { text: '編集', value: 'actions', sortable: false },
+        { text: '編集', value: 'actions', sortable: false,class:"accent" },
       ],
       desserts: [],
       editedIndex: -1,
@@ -187,7 +187,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '学生追加' : '編集'
+        return this.editedIndex === -1 ? '新規学生を追加します' : '編集'
       },
     },
 

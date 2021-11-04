@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <h1 class="mt-06"><v-icon color="primary">mdi-notebook-check-outline</v-icon>&emsp;Todoリスト</h1>
+        <h1 class="mt-06"><v-icon size="1em">mdi-notebook-check-outline</v-icon>&emsp;Todoリスト</h1>
         <v-divider></v-divider>
             <v-text-field
             v-model="newTaskTitle"
@@ -44,7 +44,7 @@
           <v-btn
             @click.stop="deleteTask(task.id)"
              icon>
-            <v-icon color="primary">mdi-delete-circle</v-icon>
+            <v-icon  color="primary">mdi-delete-circle</v-icon>
           </v-btn>
         </v-list-item-action>
           </template>

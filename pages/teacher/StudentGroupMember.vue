@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>学生管理画面</v-toolbar-title>
+        <v-toolbar-title>学生管理</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -91,7 +91,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                color="blue darken-1"
+                color="red darken-2"
                 text
                 @click="close"
               >
@@ -102,7 +102,7 @@
                 text
                 @click="save"
               >
-                確定
+                作成
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -112,7 +112,7 @@
             <v-card-title class="text-h5">本当に削除してもよろしいですか？</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">いいえ</v-btn>
+              <v-btn color="red darken-2" text @click="closeDelete">いいえ</v-btn>
               <v-btn color="blue darken-1" text @click="deleteItemConfirm">はい</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -186,7 +186,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '追加' : '編集'
+        return this.editedIndex === -1 ? '学生追加' : '編集'
       },
     },
 

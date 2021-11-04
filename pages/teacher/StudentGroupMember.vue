@@ -210,31 +210,31 @@
             userid: 'st20180001',
             mail: 'Kcska_20180001@kcs.com',
             rollid: 'student',
-            username: 'kcs_0001',
+            username: 'kcs_oki',
           },
           {
             userid: 'st20180002',
             mail: 'Kcska_20180002@kcs.com',
             rollid: 'student',
-            username: 'kcs_0002',
+            username: 'kcs_maruno',
           },
           {
             userid: 'st20180003',
             mail: 'Kcska_20180003@kcs.com',
             rollid: 'student',
-            username: 'kcs_0003',
+            username: 'kcs_hamada',
           },
           {
             userid: 'st20180004',
             mail: 'Kcska_20180004@kcs.com',
             rollid: 'student',
-            username: 'kcs_0004',
+            username: 'kcs_nino',
           },
           {
             userid: 'st20180005',
             mail: 'Kcska_20180005@kcs.com',
             rollid: 'student',
-            username: 'kcs_0005',
+            username: 'kcs_turuzon',
           
           },
         ]

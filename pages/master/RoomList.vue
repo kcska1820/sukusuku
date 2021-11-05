@@ -3,7 +3,7 @@
     :headers="headers"
     :items="desserts"
     sort-by="calories"
-    class="elevation-1"
+    class="elevation-1 mt-12"
     disable-sort
   >
     <template v-slot:top>
@@ -117,9 +117,9 @@
       color="primary"
     >
       <v-icon
-        small
         class="mr-2"
         @click="editItem(item)"
+        size="2em"
       >
         mdi-pencil
       </v-icon>
@@ -178,7 +178,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '教室追加' : '編集'
+        return this.editedIndex === -1 ? '新規教室を追加します' : '編集'
       },
     },
 

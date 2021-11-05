@@ -1,4 +1,10 @@
 <template>
+<div>
+    <h1 class="mt-10">
+        時間割管理
+    </h1>
+    <v-divider></v-divider>
+    <br>
   <v-row class="fill-height"
   color="primary">
     <v-col cols="12">
@@ -6,14 +12,6 @@
         <v-toolbar
           flat
         >
-          <v-btn
-            outlined
-            class="mr-4"
-            color="grey darken-2"
-            @click="setToday"
-          >
-            Today
-          </v-btn>
           <v-btn
             fab
             text
@@ -36,6 +34,7 @@
               mdi-chevron-right
             </v-icon>
           </v-btn>
+
           <v-toolbar-title v-if="$refs.calendar">
             {{ $refs.calendar.title }}
           </v-toolbar-title>
@@ -68,18 +67,20 @@
           </v-menu>
         </v-toolbar>
       </v-sheet>
+
+
       <v-sheet height="600">
         <v-calendar
           ref="calendar"
           v-model="focus"
-          color="primary"
+          color="accent"
           category-show-all
           :events="events"
           :event-color="getEventColor"
           :type="type"
           @click:event="showEvent"
           @click:more="viewDay"
-          @click:date="viewDay"
+          @click:date="hoge"
           @change="updateRange"
         ></v-calendar>
         <v-menu
@@ -126,6 +127,7 @@
       </v-sheet>
     </v-col>
   </v-row>
+</div>
 </template>
 
 <script>
@@ -149,15 +151,12 @@
     this.$refs.calendar.checkChange()
   },
   methods: {
-    viewDay ({ date }) {
+    hoge ({ date }) {
       this.focus = date
-      this.type = 'day'
+      this.$router.push("/teacher/TimeScheduleAdd")
     },
     getEventColor (event) {
       return event.color
-    },
-    setToday () {
-      this.focus = ''
     },
     prev () {
       this.$refs.calendar.prev()

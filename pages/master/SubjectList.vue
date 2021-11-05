@@ -3,7 +3,7 @@
     :headers="headers"
     :items="desserts"
     sort-by="calories"
-    class="elevation-1 "
+    class="elevation-1 mt-12"
     disable-sort
   >
     <template v-slot:top>
@@ -178,7 +178,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '科目追加' : '編集'
+        return this.editedIndex === -1 ? '新規科目を追加します' : '編集'
       },
     },
 

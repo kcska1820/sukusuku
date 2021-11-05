@@ -1,6 +1,8 @@
 <template>
     <v-card color="accent">
-        <v-card-title>イベントスケジュール</v-card-title>
+        <v-card-title>
+          <h3><v-icon size="1.3em">mdi-archive-clock-outline</v-icon>&emsp;イベントカウントダウン</h3>
+        </v-card-title>
         <div
         v-for="(item, i) in items"
         :key="i"

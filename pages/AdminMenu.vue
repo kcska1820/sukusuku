@@ -36,6 +36,7 @@
         elevation="12"
         width="550"
         height="120"
+        to="/teacher/TimeSchedule"
 ><h2>時間割管理</h2></v-btn>
 </v-card>
 <br>

@@ -141,9 +141,10 @@
           value: 'id',
           align: "center",
           width: '200'
+          ,class: "accent"
         },
-        { text: 'グループ名', value: 'name', align: "center", width: '400'},
-        { text: '', value: 'actions', sortable: false, align: "center", width: '300'},
+        { text: 'グループ名', value: 'name', align: "center", width: '400',class: "accent"},
+        { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
       ],
       desserts: [],
       editedIndex: -1,

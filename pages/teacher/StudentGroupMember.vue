@@ -3,14 +3,14 @@
     :headers="headers"
     :items="desserts"
     sort-by="calories"
-    class="elevation-1 ma-12"
+    class="elevation-1"
     disable-sort
   >
     <template v-slot:top>
       <v-toolbar
         flat
       >
-        <v-toolbar-title>学生管理</v-toolbar-title>
+        <v-toolbar-title><h2>学生管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -187,7 +187,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '新規学生を追加します' : '編集'
+        return this.editedIndex === -1 ? '学生追加' : '編集'
       },
     },
 

@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>グループ管理</v-toolbar-title>
+        <v-toolbar-title><h2>グループ管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -141,7 +141,7 @@
           value: 'id',
           align: "center",
           width: '200'
-          ,class: "accent"
+          ,class: "accent"        
         },
         { text: 'グループ名', value: 'name', align: "center", width: '400',class: "accent"},
         { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},

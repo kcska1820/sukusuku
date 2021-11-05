@@ -10,6 +10,7 @@
     <v-divider></v-divider>
     <v-container
     class="d-flex align-center"
+    style="height:480px"
     >
     <v-row>
         <v-col

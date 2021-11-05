@@ -2,48 +2,45 @@
   <v-card
     class="mx-auto"
   >
-      <v-list-group
-        :value="true"
-      >
-        <template v-slot:activator>
-          <v-list-item-title>1限</v-list-item-title>
-        </template>
-        <v-col cols="12">
-        <v-select
-          :items="subject"
-          clearable
-          filled
-          label="科目"
+    <v-row
+      v-for="(time, i) in 4"
+      :key="i"
+    >
+      <v-col cols="12">
+        <v-divider />
+        <v-list-group
+          :value="true"
         >
-        </v-select>
-        <v-select
-          :items="teacher"
-          clearable
-          filled
-          label="担当教諭"
-        >
-        </v-select>
-        <v-row v-for="(classrooms,i) in  classroom" :key=i>
-          <v-col cols="1">
-            <v-checkbox
-              v-model="enabled"
-              hide-details
-            ></v-checkbox>
-          </v-col>
-          <v-col cols="11">
+          <template v-slot:activator>
+            <v-list-item-title>{{i+1}}限</v-list-item-title>
+          </template>
+          <v-col cols="12">
             <v-select
+              :items="subject"
+              clearable
+              filled
+              label="科目"
+            >
+            </v-select>
+            <v-select
+              :items="teacher"
+              clearable
+              filled
+              label="担当教諭"
+            >
+            </v-select>
+            <v-autocomplete
               item-text="room"
               :items="classroom"
               clearable
               filled
-              :disabled="!enabled"
-              label="1階教室"
+              label="教室"
             >
-            </v-select>
+            </v-autocomplete>
           </v-col>
-        </v-row>
-        </v-col>
-      </v-list-group>
+        </v-list-group>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
@@ -130,8 +127,7 @@
           room:'404',
           floor:'4'
         }
-      ],
-      enabled: false,
+      ]
     }),
   }
 </script>

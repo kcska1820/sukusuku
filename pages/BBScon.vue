@@ -23,19 +23,21 @@
         <p class="comment">さしすせそ</p>
       </div>
     </v-list>
-    <v-text-field
+    <v-divider class="divide"></v-divider>
+    <v-textarea
       outlined
       label="発言を入力"
       hide-details
       clearable
+      append-outer-icon="mdi-chat"
     >
-    </v-text-field>
+    </v-textarea>
   </div>
 </template>
 
 <script>
   export default {
-    
+
   }
 </script>
 
@@ -45,5 +47,8 @@
   }
   .comment {
     padding:0 1em 0 1em;
+  }
+  .divide {
+    margin:8px;
   }
 </style>

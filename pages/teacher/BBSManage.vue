@@ -2,22 +2,15 @@
   <v-data-table
     :headers="headers"
     :items="desserts"
-    sort-by="calories"
-    class="elevation-1"
+    sort-by="groupadmin"
+    class="elevation-1 ma-12"
     disable-sort
   >
     <template v-slot:top>
       <v-toolbar
         flat
       >
-
-      <v-icon
-    size="1.5em"
-    color="blue-grey darken-3">
-      mdi-account-details
-    </v-icon>
-
-        <v-toolbar-title><h2>学生管理</h2></v-toolbar-title>
+        <v-toolbar-title><h2>掲示板管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -37,7 +30,7 @@
               v-bind="attrs"
               v-on="on"
             >
-            <v-icon dark>
+          <v-icon dark>
             mdi-plus
           </v-icon>
             </v-btn>
@@ -56,18 +49,8 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.userid"
-                      label="ユーザーID"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="8"
-                  >
-                    <v-text-field
-                      v-model="editedItem.mail"
-                      label="メールアドレス"
+                      v-model="editedItem.id"
+                      label="トピックID"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -75,20 +58,19 @@
                     sm="6"
                     md="4"
                   >
-                    <v-select
-                        v-model="editedItem.rollid"
-                        :items="items"
-                        label="ロールID"
-                    ></v-select>
-                    </v-col>
-                  <v-col
+                    <v-text-field
+                      v-model="editedItem.name"
+                      label="話題"
+                    ></v-text-field>
+                  </v-col>
+                   <v-col
                     cols="12"
                     sm="6"
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.username"
-                      label="ユーザー名"
+                      v-model="editedItem.name"
+                      label="開始日時"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -116,11 +98,11 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">本当に削除してもよろしいですか？</v-card-title>
+            <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="closeDelete">いいえ</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">はい</v-btn>
+              <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">削除</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -128,73 +110,64 @@
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-      <v-btn
+    
+    <v-btn
       fab
       small
       color="primary"
-      icon
-    >
-      <v-icon
-        class="mr-2"
-        @click="editItem(item)"
-      >
-        mdi-pencil
-      </v-icon>
-      </v-btn>
-      <v-btn
-      fab
-      small
-      color="primary"
-      icon
     >
       <v-icon
         @click="deleteItem(item)"
+        size="2em"
       >
         mdi-delete
       </v-icon>
     </v-btn>
     </template>
+    <template v-slot:no-data>
+      <v-btn
+        color="primary"
+        @click="initialize"
+      >
+        Reset
+      </v-btn>
+    </template>
   </v-data-table>
 </template>
-
 <script>
   export default {
     data: () => ({
       dialog: false,
       dialogDelete: false,
-      items: ['student', 'teacher', 'master'],
       headers: [
         {
-          text: 'ユーザーID',
+          text: 'トピックID',
           align: 'start',
           sortable: false,
-          value: 'userid',
+          value: 'id',
+          align: "center",
+          width: '200',
           class:"accent"
         },
-        { text: 'メールアドレス', value: 'mail' ,align: "center", width: '300',class:"accent"},
-        { text: 'ロールID', value: 'rollid',align: "center", width: '250',class:"accent"},
-        { text: 'ユーザー名', value: 'username',align: "center", width: '250',class:"accent"},
-        { text: '編集', value: 'actions', sortable: false,class:"accent" },
+        { text: '話題', value: 'name', align: "center", width: '200',class:"accent"},
+        { text: '開始日時', value: 'date', align: "center", width: '200',class:"accent"},
+        { text: '', value: 'actions', sortable: false, align: "center", width: '200',class:"accent"},
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
+        id: '',
         name: '',
-        calories: '',
-        fat: '',
-        carbs: '',
-        },
+      },
       defaultItem: {
+        id: '',
         name: '',
-        calories: '',
-        fat: '',
-        carbs: '',
-        },
+      },
     }),
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '学生追加' : '編集'
+        return this.editedIndex === -1 ? 'トピックを作成します' : 'Edit Item'
       },
     },
 
@@ -215,36 +188,25 @@
       initialize () {
         this.desserts = [
           {
-            userid: 'st20180001',
-            mail: 'Kcska_20180001@kcs.com',
-            rollid: 'student',
-            username: 'kcs_oki',
+            id: 'tp0001',
+            name: '応用情報対対策',
+            date:'0311101400',
           },
           {
-            userid: 'st20180002',
-            mail: 'Kcska_20180002@kcs.com',
-            rollid: 'student',
-            username: 'kcs_maruno',
+            id: 'tp0002',
+            name: '卒業研究',
+            date:'0311160900',
           },
           {
-            userid: 'st20180003',
-            mail: 'Kcska_20180003@kcs.com',
-            rollid: 'student',
-            username: 'kcs_hamada',
+            id: 'tp0003',
+            name: '映画',
+            date:'0312250900',
           },
           {
-            userid: 'st20180004',
-            mail: 'Kcska_20180004@kcs.com',
-            rollid: 'student',
-            username: 'kcs_nino',
-          },
-          {
-            userid: 'st20180005',
-            mail: 'Kcska_20180005@kcs.com',
-            rollid: 'student',
-            username: 'kcs_turuzon',
-          
-          },
+            id: 'tp0004',
+            name: 'ゲーム',
+            date:'0312250900',
+          }
         ]
       },
 

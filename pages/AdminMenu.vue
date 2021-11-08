@@ -54,6 +54,10 @@ export default {
           {
               to:"/teacher/GroupAdmin",
               title:"グループ管理"
+          },
+          {
+              to:"/teacher/BBSManage",
+              title:"掲示板管理"
           }
       ]
     }),

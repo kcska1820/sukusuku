@@ -1,6 +1,8 @@
 <template>
+<div>
+  <h1 class="mt-08">時間割を追加します</h1>
   <v-card
-    class="mx-auto"
+    class="mt-12"
   >
     <v-row
       v-for="(time, i) in 4"
@@ -20,6 +22,7 @@
               clearable
               filled
               label="科目"
+              item-color="indigo accent-3"
             >
             </v-select>
             <v-select
@@ -27,6 +30,7 @@
               clearable
               filled
               label="担当教諭"
+              item-color="indigo accent-3"
             >
             </v-select>
             <v-autocomplete
@@ -35,6 +39,7 @@
               clearable
               filled
               label="教室"
+              item-color="indigo accent-3"
             >
             </v-autocomplete>
           </v-col>
@@ -42,6 +47,57 @@
       </v-col>
     </v-row>
   </v-card>
+  <br>
+  <br>
+    <v-col cols="12">
+    <v-row
+    justify="center"
+    max-width="100"
+    >
+    <v-bottom-sheet
+      v-model="sheet"
+      inset
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="light-green darken-1"
+          dark
+          v-bind="attrs"
+          v-on="on"
+          x-large
+          width="200"
+        >
+          追加する
+        </v-btn>
+      </template>
+      <v-sheet
+        class="text-center"
+        height="150px"
+      >
+
+        <v-btn
+          class="mt-6"
+          text
+          color="error"
+          @click="sheet = !sheet"
+        >
+          キャンセル
+        </v-btn>
+          <v-btn
+          class="mt-6"
+          text
+          @click="sheet = !sheet"
+        >
+          追加
+        </v-btn>
+        <div class="my-3">
+          メンバーを追加します。よろしいでしょうか？
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
+    </v-row>
+    </v-col>
+</div>
 </template>
 
 <script>
@@ -51,6 +107,7 @@
         ['アプリケーション開発技術'],
         ['卒業研究'],
       ],
+      sheet: false,
       
       teacher: [
         ['切口先生'],

@@ -10,11 +10,14 @@
       <v-toolbar
         flat
       >
+
       <v-icon
     size="1.5em"
     color="blue-grey darken-3">
-      mdi-Account-Details
+      mdi-account-details
     </v-icon>
+
+
         <v-toolbar-title><h2>学生管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"

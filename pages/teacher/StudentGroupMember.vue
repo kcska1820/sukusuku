@@ -2,6 +2,7 @@
   <v-data-table
     :headers="headers"
     :items="desserts"
+    :search="search"
     sort-by="calories"
     class="elevation-1"
     disable-sort
@@ -25,6 +26,13 @@
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
+        <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="IDでメンバーを検索"
+        single-line
+        hide-details
+      ></v-text-field>
         <v-dialog
           v-model="dialog"
           max-width="500px"
@@ -133,9 +141,9 @@
       fab
       small
       color="primary"
+      icon
     >
       <v-icon
-        size="2em"
         class="mr-2"
         @click="editItem(item)"
       >
@@ -146,10 +154,10 @@
       fab
       small
       color="primary"
+      icon
     >
       <v-icon
         @click="deleteItem(item)"
-        size="2em"
       >
         mdi-delete
       </v-icon>
@@ -164,6 +172,7 @@
       dialog: false,
       dialogDelete: false,
       items: ['student', 'teacher', 'master'],
+      search:'',
       headers: [
         {
           text: 'ユーザーID',

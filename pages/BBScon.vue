@@ -24,6 +24,7 @@
       </div>
     </v-list>
     <v-divider class="divide"></v-divider>
+
     <v-text-field class="name"
     outlined
     label = "名前を入力"
@@ -57,8 +58,5 @@
   }
   .divide {
     margin:8px;
-  }
-  .name {
-    margin-bottom:8px;
   }
 </style>

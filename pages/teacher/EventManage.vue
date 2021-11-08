@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>イベント管理</v-toolbar-title>
+        <v-toolbar-title><h2>イベント管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -146,11 +146,12 @@
           sortable: false,
           value: 'id',
           align: "center",
-          width: '200'
+          width: '200',
+          class:"accent"
         },
-        { text: 'イベント名', value: 'name', align: "center", width: '200'},
-        { text: '開始日時', value: 'date', align: "center", width: '200'},
-        { text: '', value: 'actions', sortable: false, align: "center", width: '200'},
+        { text: 'イベント名', value: 'name', align: "center", width: '200',class:"accent"},
+        { text: '開始日時', value: 'date', align: "center", width: '200',class:"accent"},
+        { text: '', value: 'actions', sortable: false, align: "center", width: '200',class:"accent"},
       ],
       desserts: [],
       editedIndex: -1,

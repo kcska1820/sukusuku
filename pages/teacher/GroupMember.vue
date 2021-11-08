@@ -1,7 +1,7 @@
 <template>
-  <v-card>
+  <v-card class="mt-12">
     <v-card-title>
-      メンバー管理
+      <h2>メンバー管理</h2>
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"

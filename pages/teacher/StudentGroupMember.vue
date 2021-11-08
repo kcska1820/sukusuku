@@ -10,7 +10,15 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>学生管理</v-toolbar-title>
+
+      <v-icon
+    size="1.5em"
+    color="blue-grey darken-3">
+      mdi-account-details
+    </v-icon>
+
+
+        <v-toolbar-title><h2>学生管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -125,9 +133,9 @@
       fab
       small
       color="primary"
+      icon
     >
       <v-icon
-        size="2em"
         class="mr-2"
         @click="editItem(item)"
       >
@@ -138,10 +146,10 @@
       fab
       small
       color="primary"
+      icon
     >
       <v-icon
         @click="deleteItem(item)"
-        size="2em"
       >
         mdi-delete
       </v-icon>
@@ -162,11 +170,12 @@
           align: 'start',
           sortable: false,
           value: 'userid',
+          class:"accent"
         },
-        { text: 'メールアドレス', value: 'mail' ,align: "center", width: '300'},
-        { text: 'ロールID', value: 'rollid',align: "center", width: '250'},
-        { text: 'ユーザー名', value: 'username',align: "center", width: '250'},
-        { text: '編集', value: 'actions', sortable: false },
+        { text: 'メールアドレス', value: 'mail' ,align: "center", width: '300',class:"accent"},
+        { text: 'ロールID', value: 'rollid',align: "center", width: '250',class:"accent"},
+        { text: 'ユーザー名', value: 'username',align: "center", width: '250',class:"accent"},
+        { text: '編集', value: 'actions', sortable: false,class:"accent" },
       ],
       desserts: [],
       editedIndex: -1,

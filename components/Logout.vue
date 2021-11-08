@@ -14,7 +14,7 @@
             height=46px
             width=46px
           >
-            <v-icon>
+            <v-icon size="2.5em">
               mdi-logout
             </v-icon>
           </v-btn>
@@ -41,6 +41,7 @@
                 depressed
                 rounded
                 text
+                color="red darken-2"
               >
                 キャンセル
               </v-btn>

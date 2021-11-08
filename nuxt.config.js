@@ -40,9 +40,21 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+<<<<<<< HEAD
     '@nuxtjs/axios',
+=======
+    '@nuxtjs/pwa'
+>>>>>>> a8a2025cfb1c0eb465c5b73dc56e849b2a5bbdf6
   ],
   axios: {},
+
+  manifest: {
+    name: 'スクスク',
+    lang: 'ja',
+    short_name: 'スクスク',
+    title: 'sukusuku',
+    'og:title': 'スクスク',
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

@@ -39,7 +39,16 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/pwa'
   ],
+
+  manifest: {
+    name: 'スクスク',
+    lang: 'ja',
+    short_name: 'スクスク',
+    title: 'sukusuku',
+    'og:title': 'スクスク',
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

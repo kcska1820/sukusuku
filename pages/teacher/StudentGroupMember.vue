@@ -130,9 +130,9 @@
       fab
       small
       color="primary"
+      icon
     >
       <v-icon
-        size="2em"
         class="mr-2"
         @click="editItem(item)"
       >
@@ -143,10 +143,10 @@
       fab
       small
       color="primary"
+      icon
     >
       <v-icon
         @click="deleteItem(item)"
-        size="2em"
       >
         mdi-delete
       </v-icon>

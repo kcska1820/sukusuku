@@ -1,19 +1,17 @@
 <template>
     <body>
-        <v-app>
-            <br><br>
-            <div
+            <v-col
             class="d-flex justify-center "
+            cols="12"
             >
                 <sukusukuLogo />
-            </div><br><br><br>
-            <div
+            </v-col>
+            <v-col
             class="d-flex justify-center"
+            cols="12"
             >
-                <h1 class="font-italic">　　スクスクはあなたの学生生活をより良いものにします。</h1>
-            </div>
-            
-        </v-app>
+                <h1 class="font-italic">スクスクはあなたの学生生活をより良いものにします。</h1>
+            </v-col>
     </body>
 </template>
 

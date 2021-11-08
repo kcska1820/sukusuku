@@ -26,7 +26,7 @@
     <v-divider class="divide"></v-divider>
     <v-text-field class="name"
     outlined
-    label = "ニックネームを入力"
+    label = "名前を入力"
     hide-details
     clearable
     >

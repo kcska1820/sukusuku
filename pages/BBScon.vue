@@ -24,13 +24,6 @@
       </div>
     </v-list>
     <v-divider class="divide"></v-divider>
-    <v-text-field class="name"
-    outlined
-    label = "ニックネームを入力"
-    hide-details
-    clearable
-    >
-    </v-text-field>
     <v-textarea
       outlined
       label="発言を入力"
@@ -57,8 +50,5 @@
   }
   .divide {
     margin:8px;
-  }
-  .name {
-    margin-bottom:8px;
   }
 </style>

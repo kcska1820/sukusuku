@@ -47,8 +47,6 @@
     data: () => (
         {items:items}
     ),
-    /* 未ログイン時index.vueに遷移 */
-  /* middleware:"authenicated" */
   }
 </script>
 

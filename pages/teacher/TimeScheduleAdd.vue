@@ -25,6 +25,15 @@
               item-color="indigo accent-3"
             >
             </v-select>
+
+            <v-text-field
+              label="人数"
+              clearable
+              suffix="人"
+              filled
+              type="number"
+            ></v-text-field>
+
             <v-select
               :items="teacher"
               clearable
@@ -118,71 +127,88 @@
       classroom:[
         {
           room:'101',
-          floor:'1'
+          floor:'1',
+          limit:'10'
         },
         {
           room:'102',
-          floor:'1'
+          floor:'1',
+          limit:'10'
         },
         {
           room:'104',
-          floor:'1'
+          floor:'1',
+          limit:'10'
         },
         {
           room:'201',
-          floor:'2'
+          floor:'2',
+          limit:'10'
         },
         {
           room:'202',
-          floor:'2'
+          floor:'2',
+          limit:'10'
         },
         {
           room:'203',
-          floor:'2'
+          floor:'2',
+          limit:'10'
         },
         {
           room:'進路相談室',
-          floor:'2'
+          floor:'2',
+          limit:'10'
         },
         {
           room:'図書室',
-          floor:'2'
+          floor:'2',
+          limit:'10'
         },
         {
           room:'301',
-          floor:'3'
+          floor:'3',
+          limit:'10'
         },
         {
           room:'302',
-          floor:'3'
+          floor:'3',
+          limit:'10'
         },
         {
           room:'303',
-          floor:'3'
+          floor:'3',
+          limit:'10'
         },
         {
           room:'304',
-          floor:'3'
+          floor:'3',
+          limit:'10'
         },
         {
           room:'305',
-          floor:'3'
+          floor:'3',
+          limit:'10'
         },
         {
           room:'401',
-          floor:'4'
+          floor:'4',
+          limit:'10'
         },
         {
           room:'402',
-          floor:'4'
+          floor:'4',
+          limit:'10'
         },
         {
           room:'403',
-          floor:'4'
+          floor:'4',
+          limit:'10'
         },
         {
           room:'404',
-          floor:'4'
+          floor:'4',
+          limit:'10'
         }
       ]
     }),

@@ -101,7 +101,7 @@
     </template>
     <template v-slot:[`item.actions`]="{ item }">
     <v-btn
-      color="info"
+      color="accent"
       elevation="2"
       to="/teacher/GroupMember"
     >メンバー管理</v-btn>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;

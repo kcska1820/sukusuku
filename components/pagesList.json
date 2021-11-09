@@ -17,11 +17,11 @@
     {
         "icon":"mdi-archive-clock-outline",
         "title":"カウントダウン",
-        "to":"/student/EventSchedule"
+        "to":"/student/EventCountDown"
     },
     {
         "icon":"mdi-message-text",
-        "title":"BBS",
+        "title":"掲示板",
         "to":"/BBS"
     },
     {

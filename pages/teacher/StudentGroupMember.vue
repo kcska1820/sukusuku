@@ -2,21 +2,37 @@
   <v-data-table
     :headers="headers"
     :items="desserts"
+    :search="search"
     sort-by="calories"
-    class="elevation-1 ma-12"
+    class="elevation-1"
     disable-sort
   >
     <template v-slot:top>
       <v-toolbar
         flat
       >
-        <v-toolbar-title>学生管理</v-toolbar-title>
+
+      <v-icon
+    size="1.5em"
+    color="blue-grey darken-3">
+      mdi-account-details
+    </v-icon>
+
+
+        <v-toolbar-title><h2>学生管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
+        <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="IDでメンバーを検索"
+        single-line
+        hide-details
+      ></v-text-field>
         <v-dialog
           v-model="dialog"
           max-width="500px"
@@ -125,9 +141,9 @@
       fab
       small
       color="primary"
+      icon
     >
       <v-icon
-        size="2em"
         class="mr-2"
         @click="editItem(item)"
       >
@@ -138,10 +154,10 @@
       fab
       small
       color="primary"
+      icon
     >
       <v-icon
         @click="deleteItem(item)"
-        size="2em"
       >
         mdi-delete
       </v-icon>
@@ -156,6 +172,7 @@
       dialog: false,
       dialogDelete: false,
       items: ['student', 'teacher', 'master'],
+      search:'',
       headers: [
         {
           text: 'ユーザーID',
@@ -187,7 +204,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '新規学生を追加します' : '編集'
+        return this.editedIndex === -1 ? '学生追加' : '編集'
       },
     },
 

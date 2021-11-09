@@ -10,7 +10,12 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>教室管理</v-toolbar-title>
+      <v-icon
+    size="1.5em"
+    color="blue-grey darken-3">
+      mdi-account-
+    </v-icon>
+        <v-toolbar-title><h2>教室管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -63,7 +68,16 @@
                       label="教室名"
                     ></v-text-field>
                   </v-col>
-                 
+                 <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.limit"
+                      label="人数"
+                    ></v-text-field>
+                  </v-col>
                   <v-col
                     cols="12"
                     sm="6"
@@ -153,12 +167,13 @@
           sortable: false,
           value: 'roomid',
           align: "center", 
-          width: '300',
+          width: '250',
           class: "accent"
         },
-        { text: '教室名', value: 'roomname', align: "center", width: '300',class: "accent"},
-        { text: '備考', value: 'note', align: "center", width: '300',class: "accent" },
-        { text: '編集', value: 'actions', sortable: false, align: "center", width: '250' ,class: "accent"},
+        { text: '教室名', value: 'roomname', align: "center", width: '250',class: "accent"},
+        { text: '人数', value: 'limit',align:'center',width:'250',class:"accent"},
+        { text: '備考', value: 'note', align: "center", width: '250',class: "accent" },
+        { text: '編集', value: 'actions', sortable: false, align: "center", width: '150' ,class: "accent"},
       ],
       desserts: [],
       editedIndex: -1,
@@ -166,12 +181,14 @@
         name: '',
         calories: '',
         fat: '',
+        limit:'',
         carbs: '',
         },
       defaultItem: {
         name: '',
         calories: '',
         fat: '',
+        limit:'',
         carbs: '',
         },
     }),
@@ -202,26 +219,36 @@
             roomid: 'room101',
             roomname: '101教室',
             note: 'マシン室',
+            floor:'1',
+            limit:'10'
           },
           {
             roomid: 'room102',
             roomname: '102教室',
             note: '普通教室',
+            floor:'1',
+            limit:'10'
           },
           {
             roomid: 'room103',
             roomname: '103教室',
             note: '普通教室',
+            floor:'1',
+            limit:'10'
           },
           {
             roomid: 'room104',
             roomname: '104教室',
             note: 'マシン室',
+            floor:'1',
+            limit:'10'
           },
           {
             roomid: 'room105',
             roomname: '105教室',
             note: 'マシン室',
+            floor:'1',
+            limit:'10'
           },
           
         ]

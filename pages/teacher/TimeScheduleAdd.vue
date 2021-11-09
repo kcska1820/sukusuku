@@ -1,573 +1,216 @@
 <template>
+<div>
+  <h1 class="mt-08">時間割を追加します</h1>
   <v-card
-    class="mx-auto"
-    width="1000"
+    class="mt-12"
   >
-
-
-      <v-list-group
-        :value="true"
-        prepend-icon="mdi-account-circle"
-      >
-        <template v-slot:activator>
-          <v-list-item-title>1限</v-list-item-title>
-        </template>
-
+    <v-row
+      v-for="(time, i) in 4"
+      :key="i"
+    >
+      <v-col cols="12">
+        <v-divider />
         <v-list-group
           :value="true"
-          no-action
-          sub-group
         >
           <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>科目</v-list-item-title>
-            </v-list-item-content>
+            <v-list-item-title>{{i+1}}限</v-list-item-title>
           </template>
-          <v-list-item
-            v-for="([title, icon], i) in subject"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
+          <v-col cols="12">
+            <v-select
+              :items="subject"
+              clearable
+              filled
+              label="科目"
+              item-color="indigo accent-3"
+            >
+            </v-select>
 
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
+            <v-text-field
+              label="人数"
+              clearable
+              suffix="人"
+              filled
+              type="number"
+            ></v-text-field>
+
+            <v-select
+              :items="teacher"
+              clearable
+              filled
+              label="担当教諭"
+              item-color="indigo accent-3"
+            >
+            </v-select>
+            <v-autocomplete
+              item-text="room"
+              :items="classroom"
+              clearable
+              filled
+              label="教室"
+              item-color="indigo accent-3"
+            >
+            </v-autocomplete>
+          </v-col>
         </v-list-group>
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>担当教師</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item
-            v-for="([title, icon], i) in teacher"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>教室</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-
-          <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>1F</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in first"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>2F</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in second"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>3F</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in third"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>4F</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in fourth"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-        </v-list-group>
-      </v-list-group>
-
-
-      <v-list-group
-        :value="true"
-        prepend-icon="mdi-account-circle"
-      >
-        <template v-slot:activator>
-          <v-list-item-title>1限</v-list-item-title>
-        </template>
-
-        <v-list-group
-          :value="true"
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>科目</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in subject"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>担当教師</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item
-            v-for="([title, icon], i) in teacher"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>教室</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-
-          <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>1F</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in first"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>2F</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in second"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>3F</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in third"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>4F</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in fourth"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-        </v-list-group>
-      </v-list-group>
-
-      
-      <v-list-group
-        :value="true"
-        prepend-icon="mdi-account-circle"
-      >
-        <template v-slot:activator>
-          <v-list-item-title>1限</v-list-item-title>
-        </template>
-
-        <v-list-group
-          :value="true"
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>科目</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in subject"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>担当教師</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item
-            v-for="([title, icon], i) in teacher"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>教室</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-
-          <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>1F</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in first"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>2F</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in second"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>3F</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in third"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>4F</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="([title, icon], i) in fourth"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-        </v-list-group>
-      </v-list-group>
-      
-      <v-list-group
-        :value="true"
-        prepend-icon="mdi-account-circle"
-      >
-        <template v-slot:activator>
-          <v-list-item-title>4限</v-list-item-title>
-        </template>
-
-        <v-list-group
-          :value="true"
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>Admin</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item
-            v-for="([title, icon], i) in admins"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>Actions</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item
-            v-for="([title, icon], i) in cruds"
-            :key="i"
-            link
-          >
-            <v-list-item-title v-text="title"></v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-      </v-list-group>
+      </v-col>
+    </v-row>
   </v-card>
+  <br>
+  <br>
+    <v-col cols="12">
+    <v-row
+    justify="center"
+    max-width="100"
+    >
+    <v-bottom-sheet
+      v-model="sheet"
+      inset
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="light-green darken-1"
+          dark
+          v-bind="attrs"
+          v-on="on"
+          x-large
+          width="200"
+        >
+          追加する
+        </v-btn>
+      </template>
+      <v-sheet
+        class="text-center"
+        height="150px"
+      >
+
+        <v-btn
+          class="mt-6"
+          text
+          color="error"
+          @click="sheet = !sheet"
+        >
+          キャンセル
+        </v-btn>
+          <v-btn
+          class="mt-6"
+          text
+          @click="sheet = !sheet"
+        >
+          追加
+        </v-btn>
+        <div class="my-3">
+          メンバーを追加します。よろしいでしょうか？
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
+    </v-row>
+    </v-col>
+</div>
 </template>
 
 <script>
   export default {
     data: () => ({
       subject: [
-        ['アプリケーション開発技術', 'mdi-account-multiple-outline'],
-        ['卒業研究', 'mdi-cog-outline'],
+        ['アプリケーション開発技術'],
+        ['卒業研究'],
       ],
+      sheet: false,
+      
       teacher: [
-        ['切口先生', 'mdi-plus-outline'],
-        ['坂中先生', 'mdi-file-outline'],
-        ['福留先生', 'mdi-update'],
-        ['永谷先生', 'mdi-delete'],
+        ['切口先生'],
+        ['坂中先生'],
+        ['福留先生'],
+        ['永谷先生'],
       ],
-        first: [
-        ['101', 'mdi-plus-outline'],
-        ['102', 'mdi-file-outline'],
-        ['104', 'mdi-update'],
-      ],
-        second: [
-        ['201', 'mdi-plus-outline'],
-        ['202', 'mdi-file-outline'],
-        ['203', 'mdi-update'],
-        ['進路指導室', 'mdi-update'],
-        ['図書室', 'mdi-update'],
-      ],
-        third: [
-        ['301', 'mdi-plus-outline'],
-        ['302', 'mdi-file-outline'],
-        ['303', 'mdi-update'],
-        ['304', 'mdi-update'],
-        ['305', 'mdi-update'],
-      ],
-        fourth: [
-        ['401', 'mdi-plus-outline'],
-        ['402', 'mdi-file-outline'],
-        ['403', 'mdi-update'],
-        ['404', 'mdi-update'],
-      ],
+      classroom:[
+        {
+          room:'101',
+          floor:'1',
+          limit:'10'
+        },
+        {
+          room:'102',
+          floor:'1',
+          limit:'10'
+        },
+        {
+          room:'104',
+          floor:'1',
+          limit:'10'
+        },
+        {
+          room:'201',
+          floor:'2',
+          limit:'10'
+        },
+        {
+          room:'202',
+          floor:'2',
+          limit:'10'
+        },
+        {
+          room:'203',
+          floor:'2',
+          limit:'10'
+        },
+        {
+          room:'進路相談室',
+          floor:'2',
+          limit:'10'
+        },
+        {
+          room:'図書室',
+          floor:'2',
+          limit:'10'
+        },
+        {
+          room:'301',
+          floor:'3',
+          limit:'10'
+        },
+        {
+          room:'302',
+          floor:'3',
+          limit:'10'
+        },
+        {
+          room:'303',
+          floor:'3',
+          limit:'10'
+        },
+        {
+          room:'304',
+          floor:'3',
+          limit:'10'
+        },
+        {
+          room:'305',
+          floor:'3',
+          limit:'10'
+        },
+        {
+          room:'401',
+          floor:'4',
+          limit:'10'
+        },
+        {
+          room:'402',
+          floor:'4',
+          limit:'10'
+        },
+        {
+          room:'403',
+          floor:'4',
+          limit:'10'
+        },
+        {
+          room:'404',
+          floor:'4',
+          limit:'10'
+        }
+      ]
     }),
   }
 </script>

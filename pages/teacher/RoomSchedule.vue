@@ -4,7 +4,7 @@
       cols="12"
       sm="10"
       md="8"
-      lg="6"
+      lg="10"
     >
     <br>
     <h1>
@@ -12,7 +12,7 @@
     </h1>
     <v-divider></v-divider>
     <br>
-      <v-card ref="form">
+      <v-card ref="form" style="width:1200px">
         <v-card-text>
           <v-autocomplete
             ref="country"

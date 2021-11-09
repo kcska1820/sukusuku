@@ -49,6 +49,7 @@
           <sukusukuLogoS />
         </v-btn>
         <v-spacer/>
+        <notice />
         <Logout />
       </v-app-bar>
     </header>

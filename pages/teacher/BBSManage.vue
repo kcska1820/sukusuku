@@ -2,20 +2,15 @@
   <v-data-table
     :headers="headers"
     :items="desserts"
-    sort-by="calories"
-    class="elevation-1 mt-12"
+    sort-by="groupadmin"
+    class="elevation-1 ma-12"
     disable-sort
   >
     <template v-slot:top>
       <v-toolbar
         flat
       >
-      <v-icon
-    size="1.5em"
-    color="blue-grey darken-3">
-      mdi-account
-    </v-icon>
-        <v-toolbar-title><h2>科目管理</h2></v-toolbar-title>
+        <v-toolbar-title><h2>掲示板管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -35,7 +30,7 @@
               v-bind="attrs"
               v-on="on"
             >
-            <v-icon dark>
+          <v-icon dark>
             mdi-plus
           </v-icon>
             </v-btn>
@@ -54,8 +49,8 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.subid"
-                      label="科目ID"
+                      v-model="editedItem.id"
+                      label="トピックID"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -64,19 +59,18 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.subname"
-                      label="科目名"
+                      v-model="editedItem.name"
+                      label="話題"
                     ></v-text-field>
                   </v-col>
-                 
-                  <v-col
+                   <v-col
                     cols="12"
                     sm="6"
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.note"
-                      label="備考"
+                      v-model="editedItem.name"
+                      label="開始日時"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -104,11 +98,11 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">本当に削除してもよろしいですか？</v-card-title>
+            <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="closeDelete">いいえ</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">はい</v-btn>
+              <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">削除</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -116,20 +110,8 @@
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-        <v-btn
-      fab
-      small
-      color="primary"
-    >
-      <v-icon
-        size="2em"
-        class="mr-2"
-        @click="editItem(item)"
-      >
-        mdi-pencil
-      </v-icon>
-      </v-btn>
-      <v-btn
+    
+    <v-btn
       fab
       small
       color="primary"
@@ -140,50 +122,52 @@
       >
         mdi-delete
       </v-icon>
+    </v-btn>
+    </template>
+    <template v-slot:no-data>
+      <v-btn
+        color="primary"
+        @click="initialize"
+      >
+        Reset
       </v-btn>
     </template>
   </v-data-table>
 </template>
-
 <script>
   export default {
     data: () => ({
       dialog: false,
       dialogDelete: false,
-      items: ['student', 'teacher', 'orner'],
       headers: [
         {
-          text: '科目ID',
+          text: 'トピックID',
           align: 'start',
           sortable: false,
-          value: 'subid',
+          value: 'id',
           align: "center",
-          width: '300',
+          width: '200',
           class:"accent"
         },
-        { text: '科目名', value: 'subname',align: "center", width: '300',class:"accent",textcolor:"accent" },
-        { text: '備考', value: 'note',align: "center", width: '300',class:"accent" },
-        { text: '編集', value: 'actions', sortable: false,align: "center", width: '250',class:"accent" },
+        { text: '話題', value: 'name', align: "center", width: '200',class:"accent"},
+        { text: '開始日時', value: 'date', align: "center", width: '200',class:"accent"},
+        { text: '', value: 'actions', sortable: false, align: "center", width: '200',class:"accent"},
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
+        id: '',
         name: '',
-        calories: '',
-        fat: '',
-        carbs: '',
-        },
+      },
       defaultItem: {
+        id: '',
         name: '',
-        calories: '',
-        fat: '',
-        carbs: '',
-        },
+      },
     }),
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '新規科目を追加します' : '編集'
+        return this.editedIndex === -1 ? 'トピックを作成します' : 'Edit Item'
       },
     },
 
@@ -204,31 +188,25 @@
       initialize () {
         this.desserts = [
           {
-            subid: 'sub001',
-            subname: '保健体育',
-            note: '前川先生',
+            id: 'tp0001',
+            name: '応用情報対対策',
+            date:'0311101400',
           },
           {
-             subid: 'sub002',
-            subname: '大人の雑学',
-            note: '前川先生',
+            id: 'tp0002',
+            name: '卒業研究',
+            date:'0311160900',
           },
           {
-             subid: 'sub003',
-            subname: '夜学',
-            note: '前川先生',
+            id: 'tp0003',
+            name: '映画',
+            date:'0312250900',
           },
           {
-             subid: 'sub004',
-            subname: '口説き論',
-            note: '前川先生',
-          },
-          {
-             subid: 'sub005',
-            subname: '実技',
-            note: '前川先生',
-          },
-          
+            id: 'tp0004',
+            name: 'ゲーム',
+            date:'0312250900',
+          }
         ]
       },
 

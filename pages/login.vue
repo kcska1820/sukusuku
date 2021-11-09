@@ -1,16 +1,19 @@
 <template>
-    <v-btn :href=url>hoge</v-btn>
+<div>
+    <v-btn @click="hoge">hoge</v-btn>
+</div>
 </template>
 
 <script>
 /* いらないです テスト用に保存中*/
 import firebase from "~/plugins/firebase"
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
 export default {
     data(){
         return{
             email:'',
-            url:'http://localhost:8000/sukusuku/'
+            url:'http://localhost:8000/sukusuku/',
         }
     },
     methods:{
@@ -45,7 +48,28 @@ export default {
                 // The user object has basic properties such as email
                 this.url = this.url  + "?email=" + user.email
             }
+            localStorage.setItem('url',this.url)
         },
+        hoge(){
+            fetch(this.url,{
+                method:"GET",
+                mode:"cors",
+                credentials: 'include'
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }       // 404 や 500 ステータスならここに到達する
+                throw new Error('Network response was not ok.');
+            })
+            .then(resJson => {
+                console.log(JSON.stringify(resJson));
+                localStorage.setItem('user',JSON.stringify(resJson))
+            })
+            .catch(error => {       // ネットワークエラーの場合はここに到達する
+                console.error(error);
+            })
+        }
     },
     created(){
         this.GetAuth()

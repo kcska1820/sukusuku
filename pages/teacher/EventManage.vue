@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>イベント管理</v-toolbar-title>
+        <v-toolbar-title><h2>イベント管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset

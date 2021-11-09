@@ -46,9 +46,9 @@
               v-bind="attrs"
               v-on="on"
             >
-            <v-icon dark>
-            mdi-plus
-          </v-icon>
+              <v-icon dark>
+                mdi-plus
+              </v-icon>
             </v-btn>
           </template>
           <v-card>

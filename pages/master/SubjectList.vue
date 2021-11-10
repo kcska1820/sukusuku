@@ -54,7 +54,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.subid"
+                      v-model="editedItem.subjectid"
                       label="科目ID"
                     ></v-text-field>
                   </v-col>
@@ -64,7 +64,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.subname"
+                      v-model="editedItem.subjectname"
                       label="科目名"
                     ></v-text-field>
                   </v-col>
@@ -75,7 +75,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.note"
+                      v-model="editedItem.subjectnote"
                       label="備考"
                     ></v-text-field>
                   </v-col>
@@ -97,7 +97,7 @@
                 text
                 @click="save"
               >
-                作成
+                保存
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -148,36 +148,36 @@
 <script>
   export default {
     data: () => ({
+      url:'http://localhost:8000/sukusuku/',
+      addurl:'',
+      del:'',
       dialog: false,
       dialogDelete: false,
-      items: ['student', 'teacher', 'orner'],
       headers: [
         {
           text: '科目ID',
           align: 'start',
           sortable: false,
-          value: 'subid',
+          value: 'subjectid',
           align: "center",
           width: '300',
           class:"accent"
         },
-        { text: '科目名', value: 'subname',align: "center", width: '300',class:"accent",textcolor:"accent" },
-        { text: '備考', value: 'note',align: "center", width: '300',class:"accent" },
+        { text: '科目名', value: 'subjectname',align: "center", width: '300',class:"accent",textcolor:"accent" },
+        { text: '備考', value: 'subjectnote',align: "center", width: '300',class:"accent" },
         { text: '編集', value: 'actions', sortable: false,align: "center", width: '250',class:"accent" },
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        name: '',
-        calories: '',
-        fat: '',
-        carbs: '',
+        subjectid: '',
+        subjectname: '',
+        subjectnote: '',
         },
       defaultItem: {
-        name: '',
-        calories: '',
-        fat: '',
-        carbs: '',
+         subjectid: '',
+        subjectname: '',
+        subjectnote: '',
         },
     }),
 
@@ -197,36 +197,41 @@
     },
 
     created () {
-      this.initialize()
+      fetch(this.url + 'sball',{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.desserts=obj)
     },
 
     methods: {
       initialize () {
         this.desserts = [
           {
-            subid: 'sub001',
-            subname: '保健体育',
-            note: '前川先生',
+            subjectid: 'sub001',
+            subjectname: '保健体育',
+            subjectnote: '前川先生',
           },
           {
-             subid: 'sub002',
-            subname: '大人の雑学',
-            note: '前川先生',
+            subjectid: 'sub002',
+            subjectname: '大人の雑学',
+            subjectnote: '前川先生',
           },
           {
-             subid: 'sub003',
-            subname: '夜学',
-            note: '前川先生',
+            subjectid: 'sub003',
+            subjectname: '夜学',
+            subjectnote: '前川先生',
           },
           {
-             subid: 'sub004',
-            subname: '口説き論',
-            note: '前川先生',
+            subjectid: 'sub004',
+            subjectname: '口説き論',
+            subjectnote: '前川先生',
           },
           {
-             subid: 'sub005',
-            subname: '実技',
-            note: '前川先生',
+            subjectid: 'sub005',
+            subjectname: '実技',
+            subjectnote: '前川先生',
           },
           
         ]
@@ -266,11 +271,15 @@
       },
 
       save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
-        }
+        this.addurl = this.url + 'sbadd/?subjectid=' + this.editedItem.subjectid + '&subjectname=' + this.editedItem.subjectname + '&subjectnote=' + this.editedItem.subjectnote
+        console.log(this.addurl)
+        fetch(this.addurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.desserts=obj)
         this.close()
       },
     },

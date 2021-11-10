@@ -6,19 +6,19 @@
           size="1.5em">
           mdi-message-text
         </v-icon>
-        掲示板(開発中)-スレ{{ this.$route.query.id }}
+        掲示板-スレ{{ this.$route.query.id }}
       </v-card-title>
     </v-card>
     <v-list>
       <div
-        v-for="(item, i) in items"
+        v-for="(posts, i) in items"
         :key="i"
         exact>
         <div
-          v-for="(post, i) in item.post"
+          v-for="(post, i) in posts"
           :key="i"
           exact>
-          <p class="thread">{{post.no}}:{{post.user}}</p>
+          <p class="thread">{{post.id}}:{{post.user}}</p>
           <p class="comment">{{post.comment}}</p>
         </div>
       </div>
@@ -26,23 +26,42 @@
 
     <v-divider class="divide"></v-divider>
 
-    <v-textarea
+    <v-text-field
+      v-model="newComment"
+      @click:append="addPost"
+      @keyup.enter="addPost"
       outlined
       label="発言を入力"
       hide-details
       clearable
       append-outer-icon="mdi-chat"
     >
-    </v-textarea>
+    </v-text-field>
   </div>
 </template>
 
 <script>
-  import items from '/components/thcontent.json'
+  import jsonf from '/components/thcontent.json'
   export default {
-    data: () => (
-        {items:items}
-    ),
+    data() {
+      return {
+        newComment: '',
+        items:jsonf
+      }
+    },
+    methods: {
+      addPost(){
+        let newPost = [
+          {
+          id:Date.now(),
+          user:"新規",
+          comment: this.newComment,
+          }
+        ]
+        this.items.push(newPost)
+        this.newComment = ''
+      }
+    },
   }
 </script>
 

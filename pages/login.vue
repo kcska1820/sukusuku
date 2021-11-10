@@ -63,7 +63,6 @@ export default {
                 throw new Error('Network response was not ok.');
             })
             .then(resJson => {
-                console.log(JSON.stringify(resJson));
                 localStorage.setItem('user',JSON.stringify(resJson))
             })
             .catch(error => {       // ネットワークエラーの場合はここに到達する

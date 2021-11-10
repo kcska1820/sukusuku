@@ -5,7 +5,7 @@
         size="1.5em">
         mdi-message-text
       </v-icon>
-      掲示板(開発中)
+      掲示板
     </v-card-title>
     <div
       v-for="(item, i) in items"

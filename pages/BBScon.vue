@@ -10,27 +10,22 @@
       </v-card-title>
     </v-card>
     <v-list>
-      <div>
-        <p class="thread">1:ユーザ名</p>
-        <p class="comment">あいうえお</p>
-      </div>
-      <div>
-        <p class="thread">2:ユーザ名</p>
-        <p class="comment">かきくけこ</p>
-      </div>
-      <div>
-        <p class="thread">3:ユーザ名</p>
-        <p class="comment">さしすせそ</p>
+      <div
+        v-for="(item, i) in items"
+        :key="i"
+        exact>
+        <div
+          v-for="(post, i) in item.post"
+          :key="i"
+          exact>
+          <p class="thread">{{post.no}}:{{post.user}}</p>
+          <p class="comment">{{post.comment}}</p>
+        </div>
       </div>
     </v-list>
+
     <v-divider class="divide"></v-divider>
-    <v-text-field class="name"
-    outlined
-    label = "ニックネームを入力"
-    hide-details
-    clearable
-    >
-    </v-text-field>
+
     <v-textarea
       outlined
       label="発言を入力"
@@ -43,8 +38,11 @@
 </template>
 
 <script>
+  import items from '/components/thcontent.json'
   export default {
-
+    data: () => (
+        {items:items}
+    ),
   }
 </script>
 
@@ -57,8 +55,5 @@
   }
   .divide {
     margin:8px;
-  }
-  .name {
-    margin-bottom:8px;
   }
 </style>

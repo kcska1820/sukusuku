@@ -70,6 +70,7 @@ export default {
       const auth = getAuth();
       signOut(auth).then(() => {
         // Sign-out successful.
+        localStorage.clear()
         console.log("logout")
         this.$router.push("/")
       }).catch((error) => {

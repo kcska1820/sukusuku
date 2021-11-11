@@ -34,7 +34,10 @@ export default {
                 const user = result.user;
                 // ...
                 console.log(user,token)
-                this.$router.push("/login")
+                //testcode
+                /* this.$router.push("/login") */
+                //
+                this.$router.push("/student/calendars")
             }).catch((error) => {
                 // Handle Errors here.
                 const errorCode = error.code;

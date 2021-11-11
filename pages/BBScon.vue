@@ -34,7 +34,7 @@
       label="発言を入力"
       hide-details
       clearable
-      append-outer-icon="mdi-chat"
+      append-icon="mdi-chat"
     >
     </v-text-field>
   </div>
@@ -46,6 +46,7 @@
     data() {
       return {
         newComment: '',
+        num:4,
         items:jsonf
       }
     },
@@ -53,13 +54,14 @@
       addPost(){
         let newPost = [
           {
-          id:Date.now(),
-          user:"新規",
-          comment: this.newComment,
+            id:this.num,
+            user:"新規",
+            comment: this.newComment,
           }
         ]
         this.items.push(newPost)
         this.newComment = ''
+        this.num += 1
       }
     },
   }

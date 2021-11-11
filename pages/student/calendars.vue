@@ -40,42 +40,7 @@
             {{ $refs.calendar.title }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-dialog
-            max-width="500px"
-          >
-            <template v-slot:activator="{on,attrs1}">
-              <v-btn icon v-bind="attrs1" v-on="on">
-                <v-icon color="error">mdi-plus</v-icon>
-              </v-btn>
-            </template>
-            <v-card
-              color="grey lighten-4"
-              min-width="350px"
-              flat
-            >
-              <v-toolbar>
-                <v-btn icon>
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-                <v-toolbar-title></v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-btn icon>
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </v-toolbar>
-              <v-card-text>
-                <span>aaaaaaaaaaaa</span>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn
-                  text
-                  color="secondary"
-                >
-                  Cancel
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+          <calendarAdd />
           <v-menu
             bottom
             right
@@ -165,8 +130,8 @@
 
 <script>
   import items from '/components/timeTable.json'
+  import calendarAdd from '/components/calendarAdd.vue'
   export default {
-
     data: () => ({
     focus: '',
     type: 'month',
@@ -180,7 +145,8 @@
     selectedOpen: false,
     CreateOpen:false,
     events: [],
-    items:items
+    items:items,
+    dialog: false,
   }),
   mounted () {
     this.$refs.calendar.checkChange()

@@ -9,7 +9,7 @@
         >
           <v-btn
             class="mr-4"
-            color="error"
+            color="green"
             @click="setToday"
           >
             Today
@@ -47,7 +47,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                color="error"
+                color="green"
                 v-bind="attrs"
                 v-on="on"
               >

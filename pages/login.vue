@@ -1,6 +1,7 @@
 <template>
 <div>
     <v-btn @click="hoge">hoge</v-btn>
+    <v-btn @click="huga">huga</v-btn>
 </div>
 </template>
 
@@ -14,6 +15,7 @@ export default {
         return{
             email:'',
             url:'http://localhost:8000/sukusuku/',
+            temp:[]
         }
     },
     methods:{
@@ -68,11 +70,21 @@ export default {
             .catch(error => {       // ネットワークエラーの場合はここに到達する
                 console.error(error);
             })
+        },
+        huga(){
+            this.temp = JSON.parse(localStorage.getItem('user'))
+            const aaa = this.temp[0].rollid_id
+            if(aaa == 'student'){
+                console.log(aaa)
+            }else{
+                console.log("error")
+            }
         }
     },
     created(){
         this.GetAuth()
-    }
+    },
+    middleware:"master"
 }
 </script>
 

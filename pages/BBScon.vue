@@ -46,6 +46,7 @@
     data() {
       return {
         newComment: '',
+        num:4,
         items:jsonf
       }
     },
@@ -53,13 +54,14 @@
       addPost(){
         let newPost = [
           {
-            id:Date.now(),
+            id:this.num,
             user:"新規",
             comment: this.newComment,
           }
         ]
         this.items.push(newPost)
         this.newComment = ''
+        this.num += 1
       }
     },
   }

@@ -14,6 +14,7 @@ export default {
         return{
             email:'',
             url:'http://localhost:8000/sukusuku/',
+            temp:[],
         }
     },
     methods:{
@@ -64,6 +65,10 @@ export default {
             })
             .then(resJson => {
                 localStorage.setItem('user',JSON.stringify(resJson))
+                this.temp = JSON.parse(localStorage.getItem('user'))
+                console.log(this.temp[0].rollid_id)
+                
+
             })
             .catch(error => {       // ネットワークエラーの場合はここに到達する
                 console.error(error);
@@ -72,7 +77,9 @@ export default {
     },
     created(){
         this.GetAuth()
-    }
+    },
+
+    middleware:"authenicated"
 }
 </script>
 

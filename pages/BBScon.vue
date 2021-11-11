@@ -52,16 +52,20 @@
     },
     methods: {
       addPost(){
-        let newPost = [
-          {
-            id:this.num,
-            user:"新規",
-            comment: this.newComment,
-          }
-        ]
-        this.items.push(newPost)
-        this.newComment = ''
-        this.num += 1
+        if (this.newComment == "" || /^\s+$/.test(this.newComment)) {
+          alert("文章が入力されていません")
+        }else{
+          let newPost = [
+            {
+              id:this.num,
+              user:"新規",
+              comment: this.newComment,
+            }
+          ]
+          this.items.push(newPost)
+          this.newComment = ''
+          this.num += 1
+        }
       }
     },
   }

@@ -177,13 +177,7 @@
       items: ['student', 'teacher', 'master'],
       search:'',
       headers: [
-        {
-          text: 'ユーザーID',
-          align: 'start',
-          sortable: false,
-          value: 'userid',
-          class:"accent"
-        },
+        { text: 'ユーザーID',align: 'start',sortable: false,value: 'userid',class:"accent"},
         { text: 'メールアドレス', value: 'mail' ,align: "center", width: '300',class:"accent"},
         { text: 'ロールID', value: 'rollid_id',align: "center", width: '250',class:"accent"},
         { text: 'ユーザー名', value: 'username',align: "center", width: '250',class:"accent"},

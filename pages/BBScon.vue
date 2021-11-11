@@ -46,20 +46,26 @@
     data() {
       return {
         newComment: '',
+        num:4,
         items:jsonf
       }
     },
     methods: {
       addPost(){
-        let newPost = [
-          {
-            id:Date.now(),
-            user:"新規",
-            comment: this.newComment,
-          }
-        ]
-        this.items.push(newPost)
-        this.newComment = ''
+        if (this.newComment == "" || /^\s+$/.test(this.newComment)) {
+          alert("文章が入力されていません")
+        }else{
+          let newPost = [
+            {
+              id:this.num,
+              user:"新規",
+              comment: this.newComment,
+            }
+          ]
+          this.items.push(newPost)
+          this.newComment = ''
+          this.num += 1
+        }
       }
     },
   }

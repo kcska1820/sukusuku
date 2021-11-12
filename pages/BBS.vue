@@ -6,6 +6,17 @@
         mdi-message-text
       </v-icon>
       掲示板
+      <v-fab-tansition>
+        <v-btn
+        color="accent"
+          dark
+          absolute
+          fab
+          right
+        >
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </v-fab-tansition>
     </v-card-title>
     <div
       v-for="(item, i) in items"

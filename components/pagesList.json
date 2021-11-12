@@ -6,6 +6,11 @@
     },
     {
         "icon":"mdi-calendar",
+        "title":"ホーム",
+        "to":"/student/Home"
+    },
+    {
+        "icon":"mdi-calendar",
         "title":"カレンダー",
         "to":"/student/calendars"
     },

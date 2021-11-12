@@ -3,19 +3,28 @@
         <v-card-title>
           <h3><v-icon size="1.3em">mdi-archive-clock-outline</v-icon>&emsp;イベントカウントダウン</h3>
         </v-card-title>
-        <div
-        v-for="(item, i) in items"
-        :key="i"
-        :to="item.to"
-        router
-        exact>
-        <v-col>
-        <v-card>
-          <v-card-subtitle>{{item.title}}</v-card-subtitle>
-          <v-card-text>あと{{item.limit}}</v-card-text>
-        </v-card>
-        </v-col>
+        <div>
         <v-divider></v-divider>
+        <v-virtual-scroll
+          :items="items"
+          :item-height="100"
+          height="300"
+        >
+          <template v-slot:default="{ item }">
+            <v-list-item>
+              <v-flex>
+                <v-card>
+                  <v-card-title>
+                  {{item.title}}
+                  </v-card-title>
+                  <v-card-subtitle>
+                  {{item.limit}}
+                  </v-card-subtitle>
+                </v-card>
+              </v-flex>
+            </v-list-item>
+          </template>
+        </v-virtual-scroll>
         </div>
     </v-card>
 </template>

@@ -33,7 +33,7 @@
           x-large
           width="200"
         >
-          追加する
+          登録する
         </v-btn>
       </template>
       <v-sheet

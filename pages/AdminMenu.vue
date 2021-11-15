@@ -56,8 +56,12 @@ export default {
               title:"グループ管理"
           },
           {
-              to:"",
+              to:"/teacher/BBSApprove",
               title:"掲示板申請処理"
+          },
+          {
+              to:"/teacher/BBSManage",
+              title:"掲示板管理"
           }
       ]
     }),

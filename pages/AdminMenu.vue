@@ -58,10 +58,6 @@ export default {
           {
               to:"/teacher/BBSApprove",
               title:"掲示板申請処理"
-          },
-          {
-              to:"/teacher/BBSManage",
-              title:"掲示板管理"
           }
       ]
     }),

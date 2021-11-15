@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title><h2>掲示板管理</h2></v-toolbar-title>
+        <v-toolbar-title><h2>承認済みトピック管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset

@@ -1,5 +1,5 @@
 <template>
-    <v-card color="accent">
+    <v-card color="accent3" dark="accent3">
         <v-card-title>
           <h3><v-icon size="1.3em">mdi-archive-clock-outline</v-icon>&emsp;イベントカウントダウン</h3>
         </v-card-title>
@@ -7,8 +7,8 @@
         <v-divider></v-divider>
         <v-virtual-scroll
           :items="items"
-          :item-height="100"
-          height="300"
+          :item-height="90"
+          height="250"
         >
           <template v-slot:default="{ item }">
             <v-list-item>

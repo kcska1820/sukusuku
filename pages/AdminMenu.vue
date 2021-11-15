@@ -36,16 +36,16 @@ export default {
     data: () => ({
       menus:[
           {
-              to:"/teacher/RoomSchedule",
-              title:"教室スケジュール管理"
+              to:"/teacher/ManagerGroupMember",
+              title:"管理者管理"
           },
           {
               to:"/teacher/StudentGroupMember",
               title:"学生管理"
           },
           {
-              to:"/teacher/TimeSchedule",
-              title:"時間割管理"
+              to:"/teacher/TimeScheduleAdd2",
+              title:"時間割登録"
           },
           {
               to:"/teacher/EventManage",
@@ -56,8 +56,8 @@ export default {
               title:"グループ管理"
           },
           {
-              to:"/teacher/BBSManage",
-              title:"掲示板管理"
+              to:"",
+              title:"掲示板申請処理"
           }
       ]
     }),

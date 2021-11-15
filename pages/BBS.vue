@@ -8,7 +8,7 @@
       掲示板
       <v-fab-tansition>
         <v-btn
-        color="accent"
+        color="primary"
           dark
           absolute
           fab

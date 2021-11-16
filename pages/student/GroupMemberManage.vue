@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title><h2>クラス管理</h2></v-toolbar-title>
+        <v-toolbar-title><h2>メンバー管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -50,7 +50,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.id"
-                      label="クラスID"
+                      label="ユーザーID"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -60,7 +60,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.name"
-                      label="クラス名"
+                      label="ユーザー名"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -101,11 +101,6 @@
     </template>
     <template v-slot:[`item.actions`]="{ item }">
     <v-btn
-      color="accent"
-      elevation="2"
-      to="/teacher/GroupMember"
-    >メンバー管理</v-btn>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-    <v-btn
       fab
       small
       color="primary"
@@ -135,7 +130,7 @@
       dialogDelete: false,
       headers: [
         {
-          text: 'クラスID',
+          text: 'ユーザーID',
           align: 'start',
           sortable: false,
           value: 'id',
@@ -143,7 +138,7 @@
           width: '200'
           ,class: "accent"        
         },
-        { text: 'クラス名', value: 'name', align: "center", width: '400',class: "accent"},
+        { text: 'ユーザー名', value: 'name', align: "center", width: '400',class: "accent"},
         { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
       ],
       desserts: [],
@@ -160,7 +155,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '新規クラスを作成します' : 'Edit Item'
+        return this.editedIndex === -1 ? '新規メンバーを追加' : 'Edit Item'
       },
     },
 
@@ -181,16 +176,16 @@
       initialize () {
         this.desserts = [
           {
-            id: 'cl0001',
-            name: 'R4',
+            id: 'st20184115',
+            name: '鶴薗正樹',
           },
           {
-            id: 'cl0002',
-            name: 'R3',
+            id: 'st20184108',
+            name: '西尾郁哉',
           },
           {
-            id: 'cl0003',
-            name: 'R2',
+            id: 'st201844112',
+            name: '濱田悠斗',
           },
         ]
       },

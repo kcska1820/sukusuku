@@ -53,7 +53,7 @@ export default {
           },
           {
               to:"/teacher/GroupAdmin",
-              title:"グループ管理"
+              title:"クラス管理"
           },
           {
               to:"/teacher/BBSApprove",

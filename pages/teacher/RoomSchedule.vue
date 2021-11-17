@@ -12,17 +12,7 @@
       md="8"
       lg="10"
     >
-<<<<<<< HEAD
       <v-card ref="form">
-=======
-    <br>
-    <h1>
-    教室スケジュール
-    </h1>
-    <v-divider></v-divider>
-    <br>
-      <v-card ref="form" style="width:1200px">
->>>>>>> f35bf698dd670eec2550e882d357041fa98b75bc
         <v-card-text>
           <v-autocomplete
             ref="country"

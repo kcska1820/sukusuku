@@ -41,13 +41,13 @@
 </template>
 
 <script>
-  import jsonf from '/components/thcontent.json'
+  import items from '/components/thcontent.json'
   export default {
     data() {
       return {
         newComment: '',
         num:4,
-        items:jsonf
+        items:items
       }
     },
     methods: {

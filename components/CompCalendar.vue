@@ -71,7 +71,7 @@
           </v-menu>
         </v-toolbar>
       </v-sheet>
-      <v-sheet height="600">
+      <v-sheet height="550">
         <v-calendar
           ref="calendar"
           v-model="focus"
@@ -192,7 +192,6 @@
           start: this.items[i].start,
           end: this.items[i].end,
           color: this.items[i].color,
-          timed: this.items[i].timed,
           details: this.items[i].details,
         })
       }

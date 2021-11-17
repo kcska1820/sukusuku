@@ -10,24 +10,14 @@
         "to":"/student/Home"
     },
     {
-        "icon":"mdi-calendar",
-        "title":"カレンダー",
-        "to":"/student/calendars"
-    },
-    {
-        "icon":"mdi-notebook-check-outline",
-        "title":"Todoリスト",
-        "to":"/Todo"
-    },
-    {
-        "icon":"mdi-archive-clock-outline",
-        "title":"カウントダウン",
-        "to":"/student/EventCountDown"
-    },
-    {
         "icon":"mdi-message-text",
         "title":"掲示板",
         "to":"/BBS"
+    },
+    {
+        "icon":"mdi-account-child-outline",
+        "title":"グループ",
+        "to":"/student/GroupManage"
     },
     {
         "icon":"mdi-cog",
@@ -38,10 +28,5 @@
         "icon":"mdi-account-key",
         "title":"管理者メニュー",
         "to":"/AdminMenu"
-    },
-    {
-        "icon":"mdi-account-hard-hat",
-        "title":"マスターメニュー",
-        "to":"/MasterMenu"
     }
 ]

@@ -10,7 +10,7 @@
     accept=".xlsx"
     small-chips
     truncate-length="15"
-    label="excel File input"
+    label="EXCEL File input"
   ></v-file-input>
   <br>
   <br>

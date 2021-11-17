@@ -53,15 +53,11 @@ export default {
           },
           {
               to:"/teacher/GroupAdmin",
-              title:"グループ管理"
+              title:"クラス管理"
           },
           {
               to:"/teacher/BBSApprove",
               title:"掲示板申請処理"
-          },
-          {
-              to:"/teacher/BBSManage",
-              title:"掲示板管理"
           }
       ]
     }),

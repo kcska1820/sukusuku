@@ -12,7 +12,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn
-            color="accent"
+            color="primary"
             dark
             fab
             absolute

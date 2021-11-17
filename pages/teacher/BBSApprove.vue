@@ -1,4 +1,5 @@
 <template>
+<div>
   <v-data-table
     :headers="headers"
     :items="desserts"
@@ -80,6 +81,15 @@
       </v-btn>
     </template>
   </v-data-table>
+  <div class=" d-flex justify-center">
+  <v-btn
+      color="accent"
+      elevation="2"
+      to="/teacher/BBSManage"
+      x-large
+    >承認済みトピックはこちら</v-btn>
+  </div>
+    </div>
 </template>
 <script>
   export default {

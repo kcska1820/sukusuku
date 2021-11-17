@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title><h2>グループ管理</h2></v-toolbar-title>
+        <v-toolbar-title><h2>クラス管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -50,7 +50,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.id"
-                      label="グループID"
+                      label="クラスID"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -60,7 +60,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.name"
-                      label="グループ名"
+                      label="クラス名"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -135,7 +135,7 @@
       dialogDelete: false,
       headers: [
         {
-          text: 'グループID',
+          text: 'クラスID',
           align: 'start',
           sortable: false,
           value: 'id',
@@ -143,7 +143,7 @@
           width: '200'
           ,class: "accent"        
         },
-        { text: 'グループ名', value: 'name', align: "center", width: '400',class: "accent"},
+        { text: 'クラス名', value: 'name', align: "center", width: '400',class: "accent"},
         { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
       ],
       desserts: [],
@@ -160,7 +160,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '新規グループを作成します' : 'Edit Item'
+        return this.editedIndex === -1 ? '新規クラスを作成します' : 'Edit Item'
       },
     },
 
@@ -181,15 +181,15 @@
       initialize () {
         this.desserts = [
           {
-            id: 'gl0001',
+            id: 'cl0001',
             name: 'R4',
           },
           {
-            id: 'gl0002',
+            id: 'cl0002',
             name: 'R3',
           },
           {
-            id: 'gl0003',
+            id: 'cl0003',
             name: 'R2',
           },
         ]

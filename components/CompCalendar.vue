@@ -192,7 +192,6 @@
           start: this.items[i].start,
           end: this.items[i].end,
           color: this.items[i].color,
-          timed: this.items[i].timed,
           details: this.items[i].details,
         })
       }

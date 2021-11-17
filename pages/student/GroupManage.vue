@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title><h2>承認済みトピック管理</h2></v-toolbar-title>
+        <v-toolbar-title><h2>所属グループ</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -50,7 +50,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.id"
-                      label="トピックID"
+                      label="グループID"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -60,17 +60,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.name"
-                      label="話題"
-                    ></v-text-field>
-                  </v-col>
-                   <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="開始日時"
+                      label="グループ名"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -98,11 +88,11 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
+            <v-card-title class="text-h5">本当にグループから退出しますか？</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">削除</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">退出</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -110,7 +100,11 @@
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-    
+    <v-btn
+      color="accent"
+      elevation="2"
+      to="/student/GroupMemberManage"
+    >メンバー管理</v-btn>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
     <v-btn
       fab
       small
@@ -120,7 +114,7 @@
         @click="deleteItem(item)"
         size="2em"
       >
-        mdi-delete
+      mdi-logout
       </v-icon>
     </v-btn>
     </template>
@@ -141,17 +135,16 @@
       dialogDelete: false,
       headers: [
         {
-          text: 'トピックID',
+          text: 'グループID',
           align: 'start',
           sortable: false,
           value: 'id',
           align: "center",
-          width: '200',
-          class:"accent"
+          width: '200'
+          ,class: "accent"        
         },
-        { text: '話題', value: 'name', align: "center", width: '200',class:"accent"},
-        { text: '開始日時', value: 'date', align: "center", width: '200',class:"accent"},
-        { text: '', value: 'actions', sortable: false, align: "center", width: '200',class:"accent"},
+        { text: 'グループ名', value: 'name', align: "center", width: '400',class: "accent"},
+        { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
       ],
       desserts: [],
       editedIndex: -1,
@@ -167,7 +160,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'トピックを作成します' : 'Edit Item'
+        return this.editedIndex === -1 ? '新規グループを作成します' : 'Edit Item'
       },
     },
 
@@ -188,25 +181,17 @@
       initialize () {
         this.desserts = [
           {
-            id: 'tp0001',
-            name: '応用情報対対策',
-            date:'0311101400',
+            id: 'gl0001',
+            name: '七色デイズ',
           },
           {
-            id: 'tp0002',
-            name: '卒業研究',
-            date:'0311160900',
+            id: 'gl0002',
+            name: 'ベロリンガ',
           },
           {
-            id: 'tp0003',
-            name: '映画',
-            date:'0312250900',
+            id: 'gl0003',
+            name: 'ちゅいん',
           },
-          {
-            id: 'tp0004',
-            name: 'ゲーム',
-            date:'0312250900',
-          }
         ]
       },
 

@@ -1,3 +1,5 @@
+
+
 <template>
 <div>
 <h1 class="pt-4">
@@ -53,7 +55,7 @@ export default {
           },
           {
               to:"/teacher/GroupAdmin",
-              title:"クラス管理"
+              title:"グループ管理"
           },
           {
               to:"/teacher/BBSApprove",

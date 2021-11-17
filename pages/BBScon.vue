@@ -18,8 +18,21 @@
           v-for="(post, i) in posts"
           :key="i"
           exact>
-          <p class="thread">{{post.id}}:{{post.user}}</p>
-          <p class="comment">{{post.comment}}</p>
+          <template v-if="post.flag == 0">
+            <p class="thread">{{post.id}}:{{post.user}}</p>
+              <template v-if="post.user == '二宮'">
+                <v-btn
+                  absolute
+                  right>
+                  削除
+                </v-btn>
+              </template>
+            <p class="comment">{{post.comment}}</p>
+          </template>
+          <template v-else-if="post.user == '二宮'">
+            <p class="thread">{{post.id}}:{{post.user}} (削除済)</p>
+            <p class="comment">{{post.comment}}</p>
+          </template>
         </div>
       </div>
     </v-list>
@@ -42,12 +55,14 @@
 
 <script>
   import items from '/components/thcontent.json'
+  import topics from '/components/threadList.json'
   export default {
     data() {
       return {
         newComment: '',
         num:4,
-        items:items
+        items:items,
+        topics:topics
       }
     },
     methods: {

@@ -1,12 +1,14 @@
 <template>
+<div>
   <v-row class="fill-height">
     <v-col>
-      <br>
-      <h1>
-    教室スケジュール詳細
+       <h1>
+    教室スケジュール詳細画面
     </h1>
     <v-divider></v-divider>
     <br>
+
+
       <v-sheet height="64">
         <v-toolbar
           flat
@@ -62,6 +64,7 @@
       </v-sheet>
     </v-col>
   </v-row>
+  </div>
 </template>
 <script>
   export default {

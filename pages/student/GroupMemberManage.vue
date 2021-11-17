@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title><h2>承認済みトピック管理</h2></v-toolbar-title>
+        <v-toolbar-title><h2>メンバー管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -50,7 +50,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.id"
-                      label="トピックID"
+                      label="ユーザーID"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -60,17 +60,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.name"
-                      label="話題"
-                    ></v-text-field>
-                  </v-col>
-                   <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="開始日時"
+                      label="ユーザー名"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -110,7 +100,6 @@
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-    
     <v-btn
       fab
       small
@@ -141,17 +130,16 @@
       dialogDelete: false,
       headers: [
         {
-          text: 'トピックID',
+          text: 'ユーザーID',
           align: 'start',
           sortable: false,
           value: 'id',
           align: "center",
-          width: '200',
-          class:"accent"
+          width: '200'
+          ,class: "accent"        
         },
-        { text: '話題', value: 'name', align: "center", width: '200',class:"accent"},
-        { text: '開始日時', value: 'date', align: "center", width: '200',class:"accent"},
-        { text: '', value: 'actions', sortable: false, align: "center", width: '200',class:"accent"},
+        { text: 'ユーザー名', value: 'name', align: "center", width: '400',class: "accent"},
+        { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
       ],
       desserts: [],
       editedIndex: -1,
@@ -167,7 +155,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'トピックを作成します' : 'Edit Item'
+        return this.editedIndex === -1 ? '新規メンバーを追加' : 'Edit Item'
       },
     },
 
@@ -188,25 +176,17 @@
       initialize () {
         this.desserts = [
           {
-            id: 'tp0001',
-            name: '応用情報対対策',
-            date:'0311101400',
+            id: 'st20184115',
+            name: '鶴薗正樹',
           },
           {
-            id: 'tp0002',
-            name: '卒業研究',
-            date:'0311160900',
+            id: 'st20184108',
+            name: '西尾郁哉',
           },
           {
-            id: 'tp0003',
-            name: '映画',
-            date:'0312250900',
+            id: 'st201844112',
+            name: '濱田悠斗',
           },
-          {
-            id: 'tp0004',
-            name: 'ゲーム',
-            date:'0312250900',
-          }
         ]
       },
 

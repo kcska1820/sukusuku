@@ -1,4 +1,5 @@
 <template>
+<div>
   <v-data-table
     :headers="headers"
     :items="desserts"
@@ -10,89 +11,22 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title><h2>承認済みトピック管理</h2></v-toolbar-title>
+        <v-toolbar-title><h2>承認待ち一覧</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
-        <v-dialog
-          v-model="dialog"
-          max-width="500px"
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="accent"
-              dark
-              fab
-              class="mb-2"
-              v-bind="attrs"
-              v-on="on"
-            >
-          <v-icon dark>
-            mdi-plus
-          </v-icon>
-            </v-btn>
-          </template>
+        
+        <v-dialog v-model="dialogApprove" max-width="500px">
           <v-card>
-            <v-card-title>
-              <span class="text-h5">{{ formTitle }}</span>
-            </v-card-title>
-
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.id"
-                      label="トピックID"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="話題"
-                    ></v-text-field>
-                  </v-col>
-                   <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="開始日時"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
+            <v-card-title class="text-h5">このテーマを掲示板に追加しますか？</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn
-                color="red darken-2"
-                text
-                @click="close"
-              >
-                キャンセル
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="save"
-              >
-                作成
-              </v-btn>
+              <v-btn color="red darken-2" text @click="closeApprove">キャンセル</v-btn>
+              <v-btn color="blue darken-1" text @click="approveItemConfirm">追加</v-btn>
+              <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -114,13 +48,27 @@
     <v-btn
       fab
       small
-      color="primary"
+      dark
+      color="blue"
+    >
+      <v-icon
+        @click="approveItem(item)"
+        size="2em"
+      >
+        mdi-checkbox-marked-circle-outline
+      </v-icon>
+    </v-btn>
+    <v-btn
+      fab
+      small
+      dark
+      color="red"
     >
       <v-icon
         @click="deleteItem(item)"
         size="2em"
       >
-        mdi-delete
+        mdi-close
       </v-icon>
     </v-btn>
     </template>
@@ -133,24 +81,33 @@
       </v-btn>
     </template>
   </v-data-table>
+  <div class=" d-flex justify-center">
+  <v-btn
+      color="accent"
+      elevation="2"
+      to="/teacher/BBSManage"
+      x-large
+    >承認済みトピックはこちら</v-btn>
+  </div>
+    </div>
 </template>
 <script>
   export default {
     data: () => ({
       dialog: false,
+      dialogApprove: false,
       dialogDelete: false,
       headers: [
         {
-          text: 'トピックID',
+          text: '掲示板タイトル',
           align: 'start',
           sortable: false,
-          value: 'id',
+          value: 'title',
           align: "center",
           width: '200',
           class:"accent"
         },
-        { text: '話題', value: 'name', align: "center", width: '200',class:"accent"},
-        { text: '開始日時', value: 'date', align: "center", width: '200',class:"accent"},
+        { text: '備考', value: 'comment', align: "center", width: '200',class:"accent"},
         { text: '', value: 'actions', sortable: false, align: "center", width: '200',class:"accent"},
       ],
       desserts: [],
@@ -188,24 +145,20 @@
       initialize () {
         this.desserts = [
           {
-            id: 'tp0001',
-            name: '応用情報対対策',
-            date:'0311101400',
+            title: '応用情報対対策',
+            comment: 'tp0001',
           },
           {
-            id: 'tp0002',
-            name: '卒業研究',
-            date:'0311160900',
+            title: '卒業研究',
+            comment: 'tp0002',
           },
           {
-            id: 'tp0003',
-            name: '映画',
-            date:'0312250900',
+            title: '映画',
+            comment: 'tp0003',
           },
           {
-            id: 'tp0004',
-            name: 'ゲーム',
-            date:'0312250900',
+            title: 'ゲーム',
+            comment: 'tp0004',
           }
         ]
       },
@@ -216,10 +169,21 @@
         this.dialog = true
       },
 
+      approveItem (item) {
+        this.editedIndex = this.desserts.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialogApprove = true
+      },
+
       deleteItem (item) {
         this.editedIndex = this.desserts.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
+      },
+
+      approveItemConfirm () {
+        this.desserts.splice(this.editedIndex, 1)
+        this.closeApprove()
       },
 
       deleteItemConfirm () {
@@ -229,6 +193,14 @@
 
       close () {
         this.dialog = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      closeApprove () {
+        this.dialogApprove = false
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1

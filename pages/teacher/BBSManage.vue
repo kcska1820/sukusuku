@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title><h2>クラス管理</h2></v-toolbar-title>
+        <v-toolbar-title><h2>承認済みトピック管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -50,7 +50,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.id"
-                      label="クラスID"
+                      label="トピックID"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -60,7 +60,17 @@
                   >
                     <v-text-field
                       v-model="editedItem.name"
-                      label="クラス名"
+                      label="話題"
+                    ></v-text-field>
+                  </v-col>
+                   <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.name"
+                      label="開始日時"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -100,11 +110,7 @@
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-    <v-btn
-      color="accent"
-      elevation="2"
-      to="/teacher/GroupMember"
-    >メンバー管理</v-btn>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    
     <v-btn
       fab
       small
@@ -135,16 +141,17 @@
       dialogDelete: false,
       headers: [
         {
-          text: 'クラスID',
+          text: 'トピックID',
           align: 'start',
           sortable: false,
           value: 'id',
           align: "center",
-          width: '200'
-          ,class: "accent"        
+          width: '200',
+          class:"accent"
         },
-        { text: 'クラス名', value: 'name', align: "center", width: '400',class: "accent"},
-        { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
+        { text: '話題', value: 'name', align: "center", width: '200',class:"accent"},
+        { text: '開始日時', value: 'date', align: "center", width: '200',class:"accent"},
+        { text: '', value: 'actions', sortable: false, align: "center", width: '200',class:"accent"},
       ],
       desserts: [],
       editedIndex: -1,
@@ -160,7 +167,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '新規クラスを作成します' : 'Edit Item'
+        return this.editedIndex === -1 ? 'トピックを作成します' : 'Edit Item'
       },
     },
 
@@ -181,17 +188,25 @@
       initialize () {
         this.desserts = [
           {
-            id: 'cl0001',
-            name: 'R4',
+            id: 'tp0001',
+            name: '応用情報対対策',
+            date:'0311101400',
           },
           {
-            id: 'cl0002',
-            name: 'R3',
+            id: 'tp0002',
+            name: '卒業研究',
+            date:'0311160900',
           },
           {
-            id: 'cl0003',
-            name: 'R2',
+            id: 'tp0003',
+            name: '映画',
+            date:'0312250900',
           },
+          {
+            id: 'tp0004',
+            name: 'ゲーム',
+            date:'0312250900',
+          }
         ]
       },
 

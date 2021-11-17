@@ -1,6 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  mode: "universal",
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - sukusuku',
@@ -39,7 +40,18 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa'
   ],
+  axios: {},
+
+  manifest: {
+    name: 'スクスク',
+    lang: 'ja',
+    short_name: 'スクスク',
+    title: 'sukusuku',
+    'og:title': 'スクスク',
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -51,15 +63,16 @@ export default {
           primary: colors.brown.darken2,
           secondary: colors.brown.darken1,
           accent: colors.lightGreen.lighten1,
-          error: colors.red.accent3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          success: colors.green.accent3
+          accent2: colors.lightGreen.lighten3,
+          accent3: colors.lightGreen.lighten2,
+          info: colors.teal.lighten1
         },
         dark: {
           primary: colors.indigo.darken1,
           secondary: colors.indigo.lighten1,
           accent: colors.blueGrey.darken1,
+          accent2: colors.blueGrey.darken1,
+          accent3: colors.blueGrey.darken2,
           error: colors.red.accent3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,

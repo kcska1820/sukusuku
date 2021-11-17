@@ -3,13 +3,19 @@
     :headers="headers"
     :items="desserts"
     sort-by="calories"
-    class="elevation-1"
+    class="elevation-1 mt-12"
+    disable-sort
   >
     <template v-slot:top>
       <v-toolbar
         flat
       >
-        <v-toolbar-title>教室一覧</v-toolbar-title>
+      <v-icon
+    size="1.5em"
+    color="blue-grey darken-3">
+      mdi-account-
+    </v-icon>
+        <v-toolbar-title><h2>教室管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -22,13 +28,16 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="accent"
               dark
+              fab
               class="mb-2"
               v-bind="attrs"
               v-on="on"
             >
-              教室追加
+               <v-icon dark>
+            mdi-plus
+          </v-icon>
             </v-btn>
           </template>
           <v-card>
@@ -38,7 +47,7 @@
 
             <v-card-text>
               <v-container>
-                <v-row>
+                <v-row >
                   <v-col
                     cols="12"
                     sm="6"
@@ -59,7 +68,16 @@
                       label="教室名"
                     ></v-text-field>
                   </v-col>
-                 
+                 <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.limit"
+                      label="人数"
+                    ></v-text-field>
+                  </v-col>
                   <v-col
                     cols="12"
                     sm="6"
@@ -77,7 +95,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                color="blue darken-1"
+                color="red darken-2"
                 text
                 @click="close"
               >
@@ -88,7 +106,7 @@
                 text
                 @click="save"
               >
-                確定
+                作成
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -99,34 +117,38 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeDelete">いいえ</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">はい</v-btn>
+              <v-btn color="red darken-1" text @click="deleteItemConfirm">はい</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:[`item.actions`]="{ item }">
+       <v-btn
+      fab
+      small
+      color="primary"
+    >
       <v-icon
-        small
         class="mr-2"
         @click="editItem(item)"
+        size="2em"
       >
         mdi-pencil
       </v-icon>
+      </v-btn>
+      <v-btn
+      fab
+      small
+      color="primary"
+    >
       <v-icon
-        small
         @click="deleteItem(item)"
+        size="2em"
       >
         mdi-delete
-      </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
+        </v-icon>
       </v-btn>
     </template>
   </v-data-table>
@@ -144,10 +166,14 @@
           align: 'start',
           sortable: false,
           value: 'roomid',
+          align: "center", 
+          width: '250',
+          class: "accent"
         },
-        { text: '教室名', value: 'roomname' },
-        { text: '備考', value: 'note' },
-        { text: '編集', value: 'actions', sortable: false },
+        { text: '教室名', value: 'roomname', align: "center", width: '250',class: "accent"},
+        { text: '人数', value: 'limit',align:'center',width:'250',class:"accent"},
+        { text: '備考', value: 'note', align: "center", width: '250',class: "accent" },
+        { text: '編集', value: 'actions', sortable: false, align: "center", width: '150' ,class: "accent"},
       ],
       desserts: [],
       editedIndex: -1,
@@ -155,19 +181,21 @@
         name: '',
         calories: '',
         fat: '',
+        limit:'',
         carbs: '',
         },
       defaultItem: {
         name: '',
         calories: '',
         fat: '',
+        limit:'',
         carbs: '',
         },
     }),
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '追加' : '編集'
+        return this.editedIndex === -1 ? '新規教室を追加します' : '編集'
       },
     },
 
@@ -191,26 +219,36 @@
             roomid: 'room101',
             roomname: '101教室',
             note: 'マシン室',
+            floor:'1',
+            limit:'10'
           },
           {
-            roomid: 'room101',
-            roomname: '101教室',
-            note: 'マシン室',
+            roomid: 'room102',
+            roomname: '102教室',
+            note: '普通教室',
+            floor:'1',
+            limit:'10'
           },
           {
-            roomid: 'room101',
-            roomname: '101教室',
-            note: 'マシン室',
+            roomid: 'room103',
+            roomname: '103教室',
+            note: '普通教室',
+            floor:'1',
+            limit:'10'
           },
           {
-            roomid: 'room101',
-            roomname: '101教室',
+            roomid: 'room104',
+            roomname: '104教室',
             note: 'マシン室',
+            floor:'1',
+            limit:'10'
           },
           {
-            roomid: 'room101',
-            roomname: '101教室',
+            roomid: 'room105',
+            roomname: '105教室',
             note: 'マシン室',
+            floor:'1',
+            limit:'10'
           },
           
         ]

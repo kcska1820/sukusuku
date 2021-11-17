@@ -40,7 +40,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>メールアドレス</v-list-item-title>
-          <v-list-item-subtitle>kcska_1811@kcska.onmicrisoft.com</v-list-item-subtitle>
+          <v-list-item-subtitle>sukusuku7days@gmail.com</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
@@ -88,8 +88,11 @@ import PasswordReset from '../components/PasswordReset.vue'
   components: { PasswordReset },
     data: () => ({
       settings: [],
+      users:{
+        email:'',
+      }
     }),
-      data () {
+    data () {
     return {
       theme:this.$vuetify.theme.dark,
     }

@@ -1,23 +1,59 @@
 <template>
-    <v-app>
-        <div
-        class="d-flex justify-center"
-        >
-            <sukusukuLogo />
-        </div><br>
-        <div
-        class="d-flex justify-center"
-        >
-            <p>スクスクはあなたの学生生活をより良いものにします。</p>
+    <body>
+        <div>
+            <v-col
+            class="d-flex justify-center "
+            cols="12"
+            >
+                <sukusukuLogo />
+            </v-col>
+            <v-col
+            class="d-flex justify-center"
+            cols="12"
+            >
+                <h1 class="font-italic">スクスクはあなたの学生生活をより良いものにします。</h1>
+            </v-col>
         </div>
-    </v-app>
+    </body>
 </template>
 
 <script>
+import firebase from "~/plugins/firebase"
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 export default {
+    methods:{
+        login(){
+            const provider = new GoogleAuthProvider();
+            const auth = getAuth();
+            signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                // ...
+                console.log(user,token)
+                //testcode
+                /* this.$router.push("/login") */
+                //
+                this.$router.push("/student/calendars")
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+                // ...
+            })
+        }
+    },
     created(){
         setTimeout(()=>{
-            this.$router.push('/login')
+            //ログイン処理を実行
+            this.login()
         },2*1000)
     },
 }

@@ -27,18 +27,18 @@
                             <v-form>
                                 <v-text-field
                                     v-model="email"
-                                    :counter="32"
+                                    :counter="50"
                                     label="email"
                                 />
                             </v-form>
                         </v-card-text>
                         <v-card-actions>
                             <v-btn
-                                color="blue darken-1"
+                                color="red darken-2"
                                 text
                                 @click="dialog = false"
                             >
-                                Close
+                                閉じる
                             </v-btn>
                             <v-spacer />
                             <v-btn color="blue darken-1" text @click="Reset">
@@ -55,7 +55,7 @@
 
 <script>
 import firebase from '~/plugins/firebase'
-import {sendPasswordResetEmail} from 'firebase/auth'
+import { getAuth , sendPasswordResetEmail } from 'firebase/auth'
 export default {
     data(){
         return{
@@ -70,7 +70,20 @@ export default {
         }).catch((error)=>{
           console.log("error")
         })
+      },
+      GetAuth(){
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (user !== null) {
+            // The user object has basic properties such as email
+            this.email = user.email
+        }else{
+            this.email = 'none';
+        }
       }
+    },
+    created(){
+        this.GetAuth()
     }
 }
 </script>

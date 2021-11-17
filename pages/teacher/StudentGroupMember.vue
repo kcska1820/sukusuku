@@ -2,33 +2,53 @@
   <v-data-table
     :headers="headers"
     :items="desserts"
+    :search="search"
     sort-by="calories"
     class="elevation-1"
+    disable-sort
   >
     <template v-slot:top>
       <v-toolbar
         flat
       >
-        <v-toolbar-title>学生管理画面</v-toolbar-title>
+
+      <v-icon
+    size="1.5em"
+    color="blue-grey darken-3">
+      mdi-account-details
+    </v-icon>
+
+
+        <v-toolbar-title><h2>学生管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
+        <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="IDでメンバーを検索"
+        single-line
+        hide-details
+      ></v-text-field>
         <v-dialog
           v-model="dialog"
           max-width="500px"
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="accent"
               dark
+              fab
               class="mb-2"
               v-bind="attrs"
               v-on="on"
             >
-              学生追加
+              <v-icon dark>
+                mdi-plus
+              </v-icon>
             </v-btn>
           </template>
           <v-card>
@@ -52,7 +72,7 @@
                   <v-col
                     cols="12"
                     sm="6"
-                    md="4"
+                    md="8"
                   >
                     <v-text-field
                       v-model="editedItem.mail"
@@ -65,7 +85,7 @@
                     md="4"
                   >
                     <v-select
-                        v-model="editedItem.rollid"
+                        v-model="editedItem.rollid_id"
                         :items="items"
                         label="ロールID"
                     ></v-select>
@@ -87,7 +107,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                color="blue darken-1"
+                color="red darken-2"
                 text
                 @click="close"
               >
@@ -98,7 +118,7 @@
                 text
                 @click="save"
               >
-                確定
+                保存
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -108,7 +128,7 @@
             <v-card-title class="text-h5">本当に削除してもよろしいですか？</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">いいえ</v-btn>
+              <v-btn color="red darken-2" text @click="closeDelete">いいえ</v-btn>
               <v-btn color="blue darken-1" text @click="deleteItemConfirm">はい</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -116,20 +136,32 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:[`item.actions`]="{ item }">
+      <v-btn
+      fab
+      small
+      color="primary"
+      icon
+    >
       <v-icon
-        small
         class="mr-2"
         @click="editItem(item)"
       >
         mdi-pencil
       </v-icon>
+      </v-btn>
+      <v-btn
+      fab
+      small
+      color="primary"
+      icon
+    >
       <v-icon
-        small
         @click="deleteItem(item)"
       >
         mdi-delete
       </v-icon>
+    </v-btn>
     </template>
   </v-data-table>
 </template>
@@ -137,28 +169,27 @@
 <script>
   export default {
     data: () => ({
+      url:'http://localhost:8000/sukusuku/',
+      addurl:'',
+      del:'',
       dialog: false,
       dialogDelete: false,
-      items: ['student', 'teacher', 'orner'],
+      items: ['student', 'teacher', 'master'],
+      search:'',
       headers: [
-        {
-          text: 'ユーザーID',
-          align: 'start',
-          sortable: false,
-          value: 'userid',
-        },
-        { text: 'メールアドレス', value: 'mail' },
-        { text: 'ロールID', value: 'rollid' },
-        { text: 'ユーザー名', value: 'username' },
-        { text: '編集', value: 'actions', sortable: false },
+        { text: 'ユーザーID',align: 'start',sortable: false,value: 'userid',class:"accent"},
+        { text: 'メールアドレス', value: 'mail' ,align: "center", width: '300',class:"accent"},
+        { text: 'ロールID', value: 'rollid_id',align: "center", width: '250',class:"accent"},
+        { text: 'ユーザー名', value: 'username',align: "center", width: '250',class:"accent"},
+        { text: '編集', value: 'actions', sortable: false,class:"accent" },
       ],
-      desserts: [],
+      desserts:[],
       editedIndex: -1,
       editedItem: {
-        name: '',
-        calories: '',
-        fat: '',
-        carbs: '',
+        userid: '',
+        mail: '',
+        rollid_id: '',
+        username: '',
         },
       defaultItem: {
         name: '',
@@ -170,7 +201,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '追加' : '編集'
+        return this.editedIndex === -1 ? '学生追加' : '編集'
       },
     },
 
@@ -184,89 +215,35 @@
     },
 
     created () {
-      this.initialize()
+      fetch(this.url,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.desserts=obj)
     },
 
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-          {
-            userid: 'st20181111',
-            mail: 'Kcska_20181111@kcs.com',
-            rollid: 'teacher',
-            username: 'kcs_xxxx',
-          },
-        ]
-      },
-
       editItem (item) {
         this.editedIndex = this.desserts.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
+      //削除
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
+        this.delurl = this.url + 'stdel/?userid=' +  item.userid
+        this.dialogDelete = true 
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.desserts=obj)
         this.closeDelete()
       },
 
@@ -287,11 +264,15 @@
       },
 
       save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
-        }
+        this.addurl = this.url + 'stadd/?userid=' + this.editedItem.userid + '&mail=' + this.editedItem.mail + '&rollid_id=' + this.editedItem.rollid_id + '&username=' + this.editedItem.username
+        console.log(this.addurl)
+        fetch(this.addurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.desserts=obj)
         this.close()
       },
     },

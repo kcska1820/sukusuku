@@ -1,19 +1,17 @@
 <template>
+<div>
+    <h1 class="mt-10">
+        時間割管理
+    </h1>
+    <v-divider></v-divider>
+    <br>
   <v-row class="fill-height"
   color="primary">
     <v-col cols="12">
       <v-sheet height="65">
         <v-toolbar
-          color="accent lighten-1"
           flat
         >
-          <v-btn
-            class="mr-4"
-            color="green"
-            @click="setToday"
-          >
-            Today
-          </v-btn>
           <v-btn
             fab
             text
@@ -36,18 +34,19 @@
               mdi-chevron-right
             </v-icon>
           </v-btn>
+
           <v-toolbar-title v-if="$refs.calendar">
             {{ $refs.calendar.title }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <calendarAdd />
           <v-menu
             bottom
             right
           >
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                color="green"
+                outlined
+                color="grey darken-2"
                 v-bind="attrs"
                 v-on="on"
               >
@@ -58,9 +57,6 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item @click="type = 'day'">
-                <v-list-item-title>Day</v-list-item-title>
-              </v-list-item>
               <v-list-item @click="type = 'week'">
                 <v-list-item-title>Week</v-list-item-title>
               </v-list-item>
@@ -71,25 +67,27 @@
           </v-menu>
         </v-toolbar>
       </v-sheet>
+
+
       <v-sheet height="600">
         <v-calendar
           ref="calendar"
           v-model="focus"
-          color="primary"
+          color="accent"
           category-show-all
           :events="events"
           :event-color="getEventColor"
           :type="type"
           @click:event="showEvent"
           @click:more="viewDay"
-          @click:date="viewDay"
+          @click:date="hoge"
           @change="updateRange"
         ></v-calendar>
         <v-menu
           v-model="selectedOpen"
           :close-on-content-click="false"
           :activator="selectedElement"
-          offset-y
+          offset-x
         >
           <v-card
             color="grey lighten-4"
@@ -106,7 +104,10 @@
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
               <v-spacer></v-spacer>
               <v-btn icon>
-                <v-icon>mdi-delete</v-icon>
+                <v-icon>mdi-heart</v-icon>
+              </v-btn>
+              <v-btn icon>
+                <v-icon>mdi-dots-vertical</v-icon>
               </v-btn>
             </v-toolbar>
             <v-card-text>
@@ -126,41 +127,36 @@
       </v-sheet>
     </v-col>
   </v-row>
+</div>
 </template>
 
 <script>
   import items from '/components/timeTable.json'
-  import calendarAdd from '/components/calendarAdd.vue'
   export default {
+
     data: () => ({
     focus: '',
     type: 'month',
     typeToLabel: {
       month: 'Month',
       week: 'Week',
-      day: 'Day',
     },
     selectedEvent: {},
     selectedElement: null,
     selectedOpen: false,
-    CreateOpen:false,
     events: [],
-    items:items,
-    dialog: false,
+    items:items
   }),
   mounted () {
     this.$refs.calendar.checkChange()
   },
   methods: {
-    viewDay ({ date }) {
+    hoge ({ date }) {
       this.focus = date
-      this.type = 'day'
+      this.$router.push("/teacher/TimeScheduleAdd")
     },
     getEventColor (event) {
       return event.color
-    },
-    setToday () {
-      this.focus = ''
     },
     prev () {
       this.$refs.calendar.prev()

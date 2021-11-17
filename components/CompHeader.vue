@@ -41,20 +41,24 @@
         />
         <v-btn
           text
-          class="mx-2"
           fab
-          to="/login"
+          height=46px
+          width=46px
+          to="/"
         >
           <sukusukuLogoS />
         </v-btn>
         <v-spacer/>
-        <Acount />
+        <notice />
+        <Logout />
       </v-app-bar>
     </header>
 </template>
 
 <script>
 import items from '/components/pagesList.json'
+import firebase from "~/plugins/firebase"
+import { getAuth, signOut } from "firebase/auth"
 export default {
   data () {
     return {

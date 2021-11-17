@@ -34,6 +34,9 @@ export default {
                 const user = result.user;
                 // ...
                 console.log(user,token)
+                //testcode
+                /* this.$router.push("/login") */
+                //
                 this.$router.push("/student/calendars")
             }).catch((error) => {
                 // Handle Errors here.
@@ -48,10 +51,10 @@ export default {
         }
     },
     created(){
-        /* setTimeout(()=>{
+        setTimeout(()=>{
             //ログイン処理を実行
             this.login()
-        },2*1000) */
+        },2*1000)
     },
 }
 

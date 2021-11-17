@@ -45,9 +45,9 @@
               v-bind="attrs"
               v-on="on"
             >
-            <v-icon dark>
-            mdi-plus
-          </v-icon>
+              <v-icon dark>
+                mdi-plus
+              </v-icon>
             </v-btn>
           </template>
           <v-card>
@@ -84,7 +84,7 @@
                     md="4"
                   >
                     <v-select
-                        v-model="editedItem.rollid"
+                        v-model="editedItem.rollid_id"
                         :items="items"
                         label="ロールID"
                     ></v-select>
@@ -117,7 +117,7 @@
                 text
                 @click="save"
               >
-                作成
+                保存
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -168,30 +168,27 @@
 <script>
   export default {
     data: () => ({
+      url:'http://localhost:8000/sukusuku/',
+      addurl:'',
+      del:'',
       dialog: false,
       dialogDelete: false,
       items: ['student', 'teacher', 'master'],
       search:'',
       headers: [
-        {
-          text: 'ユーザーID',
-          align: 'start',
-          sortable: false,
-          value: 'userid',
-          class:"accent"
-        },
+        { text: 'ユーザーID',align: 'start',sortable: false,value: 'userid',class:"accent"},
         { text: 'メールアドレス', value: 'mail' ,align: "center", width: '300',class:"accent"},
-        { text: 'ロールID', value: 'rollid',align: "center", width: '250',class:"accent"},
+        { text: 'ロールID', value: 'rollid_id',align: "center", width: '250',class:"accent"},
         { text: 'ユーザー名', value: 'username',align: "center", width: '250',class:"accent"},
         { text: '編集', value: 'actions', sortable: false,class:"accent" },
       ],
-      desserts: [],
+      desserts:[],
       editedIndex: -1,
       editedItem: {
-        name: '',
-        calories: '',
-        fat: '',
-        carbs: '',
+        userid: '',
+        mail: '',
+        rollid_id: '',
+        username: '',
         },
       defaultItem: {
         name: '',
@@ -217,60 +214,35 @@
     },
 
     created () {
-      this.initialize()
+      fetch(this.url,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.desserts=obj)
     },
 
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            userid: 'st20180001',
-            mail: 'Kcska_20180001@kcs.com',
-            rollid: 'student',
-            username: 'kcs_oki',
-          },
-          {
-            userid: 'st20180002',
-            mail: 'Kcska_20180002@kcs.com',
-            rollid: 'student',
-            username: 'kcs_maruno',
-          },
-          {
-            userid: 'st20180003',
-            mail: 'Kcska_20180003@kcs.com',
-            rollid: 'student',
-            username: 'kcs_hamada',
-          },
-          {
-            userid: 'st20180004',
-            mail: 'Kcska_20180004@kcs.com',
-            rollid: 'student',
-            username: 'kcs_nino',
-          },
-          {
-            userid: 'st20180005',
-            mail: 'Kcska_20180005@kcs.com',
-            rollid: 'student',
-            username: 'kcs_turuzon',
-          
-          },
-        ]
-      },
-
       editItem (item) {
         this.editedIndex = this.desserts.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
+      //削除
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
+        this.delurl = this.url + 'stdel/?userid=' +  item.userid
+        this.dialogDelete = true 
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.desserts=obj)
         this.closeDelete()
       },
 
@@ -291,11 +263,15 @@
       },
 
       save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
-        }
+        this.addurl = this.url + 'stadd/?userid=' + this.editedItem.userid + '&mail=' + this.editedItem.mail + '&rollid_id=' + this.editedItem.rollid_id + '&username=' + this.editedItem.username
+        console.log(this.addurl)
+        fetch(this.addurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.desserts=obj)
         this.close()
       },
     },

@@ -27,7 +27,7 @@
                             <v-form>
                                 <v-text-field
                                     v-model="email"
-                                    :counter="32"
+                                    :counter="50"
                                     label="email"
                                 />
                             </v-form>

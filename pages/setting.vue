@@ -40,7 +40,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>メールアドレス</v-list-item-title>
-          <v-list-item-subtitle></v-list-item-subtitle>
+          <v-list-item-subtitle>sukusuku7days@gmail.com</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 

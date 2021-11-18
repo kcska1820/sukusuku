@@ -7,7 +7,7 @@
       </v-icon>
       掲示板
       <v-dialog
-        v-model="dialog"
+        v-model="sinsei"
         max-width="500px"
       >
         <template v-slot:activator="{ on, attrs }">
@@ -50,7 +50,7 @@
             <v-btn
               color="red darken-2"
               text
-              @click="close"
+              @click="sclose"
             >
               キャンセル
             </v-btn>
@@ -65,31 +65,18 @@
         </v-card>
       </v-dialog>
     </v-card-title>
+    <!--threadList表示-->
     <div
       v-for="(item, i) in items"
       :key="i"
       :to="item.to"
       router
       exact>
-      <template v-if="item.flag == 0">
+      <template v-if="item.flag == 1">
         <v-col>
           <v-card>
             <v-btn
               text
-              block
-              large>
-                {{item.title}}:<font color="red">申請許可済</font>
-            </v-btn>
-              <!--ここにダイアログを追加する-->
-          </v-card>
-        </v-col>
-      </template>
-      <template v-else-if="item.flag == 1">
-        <v-col>
-          <v-card>
-            <v-btn
-              text
-              block
               large
               :to="{
                 path:'/BBScon',
@@ -99,6 +86,48 @@
                 }">
               {{item.title}}
             </v-btn>
+            <template v-if="item.master == 'st00000001'">
+              <!--ログイン中ユーザなら削除ボタンの表示-->
+              <v-dialog
+                v-model="touketu"
+                max-width="500px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    absolute
+                    right
+                    large
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    凍結
+                  </v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="text-h5">掲示板を凍結し、非表示にします。<br>よろしいですか？</span>
+                  </v-card-title>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      color="red darken-2"
+                      text
+                      @click="tclose"
+                    >
+                      キャンセル
+                    </v-btn>
+                    <v-btn
+                      color="blue darken-1"
+                      text
+                      @click="save"
+                    >
+                      凍結
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </template>
           </v-card>
         </v-col>
       </template>
@@ -107,7 +136,6 @@
           <v-card>
             <v-btn
               text
-              block
               large
               :to="{
                 path:'/BBScon',
@@ -115,39 +143,65 @@
                   id:item.id
                 }
                 }">
-              {{item.title}}:<font>凍結中</font>
+              {{item.title}}:<font color="red">凍結中</font>
             </v-btn>
+            <template v-if="item.master == 'st00000001'">
+              <!--ログイン中ユーザなら解除ボタンの表示-->
+              <v-dialog
+                v-model="kaijo"
+                max-width="500px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    absolute
+                    right
+                    large
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    凍結解除
+                  </v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="text-h5">掲示板の凍結を解除しますか？</span>
+                  </v-card-title>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      color="red darken-2"
+                      text
+                      @click="kclose"
+                    >
+                      キャンセル
+                    </v-btn>
+                    <v-btn
+                      color="blue darken-1"
+                      text
+                      @click="save"
+                    >
+                      解除
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </template>
           </v-card>
         </v-col>
       </template>
-      <template v-else-if="item.flag == 3">
-        <v-col>
-          <v-card>
-            <v-btn
-              text
-              block
-              large
-              :to="{
-                path:'/BBScon',
-                query:{
-                  id:item.id
-                }
-                }">
-              {{item.title}}<font>削除済</font>
-            </v-btn>
-          </v-card>
-        </v-col>
-      </template>
-    <v-divider></v-divider>
     </div>
   </v-card>
 </template>
+
 
 <script>
   import items from '/components/threadList.json'
   export default {
     data:() => ({
-        dialog:false,
+        sinsei:false,
+        touketu:false,
+        kaijo:false,
         items:items,
         desserts:[],
         editedIndex: -1,
@@ -162,9 +216,15 @@
       }),
 
     watch: {
-      dialog (val) {
-        val || this.close()
-      }
+      sinsei (val) {
+        val || this.sclose()
+      },
+      touketu (val) {
+        val || this.tclose()
+      },
+      sakujo (val) {
+        val || this.kclose()
+      },
     },
 
     created () {
@@ -177,12 +237,20 @@
     },
 
     methods: {
-      close () {
-        this.dialog = false
+      sclose () {
+        this.sinsei = false
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
         })
+      },
+
+      tclose () {
+        this.touketu = false
+      },
+
+      kclose () {
+        this.kaijo = false
       },
 
       save () {
@@ -195,7 +263,7 @@
         })
         .then((res)=>res.json())
         .then(obj=>this.desserts=obj)
-        this.close()
+        this.sclose()
       },
     }
   }

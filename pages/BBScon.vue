@@ -1,39 +1,77 @@
 <template>
   <div>
     <v-card color="accent">
-      <v-card-title>
-        <v-icon
-          size="1.5em">
-          mdi-message-text
-        </v-icon>
-        掲示板-スレ{{ this.$route.query.id }}
-      </v-card-title>
+      <div
+        v-for="(title, i) in threads"
+        :key="i"
+        exact>
+            <template v-if="title.id == thread">
+              <!--ここ増やす-->
+              <template v-if="title.flag == 0">
+                <v-card-title>
+                  <v-icon
+                    size="1.5em">
+                    mdi-message-text
+                  </v-icon>
+                  掲示板-未承認
+                </v-card-title>
+              </template>
+              <template v-else-if="title.flag == 1">
+                <v-card-title>
+                  <v-icon
+                    size="1.5em">
+                    mdi-message-text
+                  </v-icon>
+                  掲示板
+                </v-card-title>
+              </template>
+              <template v-else-if="title.flag == 2">
+                <v-card-title>
+                  <v-icon
+                    size="1.5em">
+                    mdi-message-text
+                  </v-icon>
+                  掲示板-凍結中
+                </v-card-title>
+              </template>
+              <template v-else-if="title.flag == 3">
+                <v-card-title>
+                  <v-icon
+                    size="1.5em">
+                    mdi-message-text
+                  </v-icon>
+                  掲示板-削除済み
+                </v-card-title>
+              </template>
+
+            </template>
+            
+      </div>
     </v-card>
     <v-list>
       <div
-        v-for="(posts, i) in items"
+        v-for="(post, i) in items"
         :key="i"
         exact>
-        <div
-          v-for="(post, i) in posts"
-          :key="i"
-          exact>
-          <template v-if="post.flag == 0">
-            <p class="thread">{{post.id}}:{{post.user}}</p>
-              <template v-if="post.user == '二宮'">
-                <v-btn
-                  absolute
-                  right>
-                  削除
-                </v-btn>
-              </template>
-            <p class="comment">{{post.comment}}</p>
-          </template>
-          <template v-else-if="post.user == '二宮'">
-            <p class="thread">{{post.id}}:{{post.user}} (削除済)</p>
-            <p class="comment">{{post.comment}}</p>
-          </template>
-        </div>
+        <template v-if="post.thread == thread">
+            <template v-if="post.flag == true">
+              <p class="thread">{{index += 1}}:{{post.name}}</p>
+                <template v-if="post.user == 'st00000001'">
+                  <!--ログイン中ユーザなら削除ボタンの表示-->
+                  <v-btn
+                    absolute
+                    right>
+                    削除
+                  </v-btn>
+                </template>
+              <p class="comment">{{post.comment}}</p>
+            </template>
+            <template v-else-if="post.user == 'st00000001'">
+              <!--削除コメントがログイン中ユーザなら(削除済)込みで表示-->
+              <p class="thread">{{index += 1}}:{{post.name}} (削除済)</p>
+              <p class="comment">{{post.comment}}</p>
+            </template>
+        </template>
       </div>
     </v-list>
 
@@ -55,14 +93,16 @@
 
 <script>
   import items from '/components/thcontent.json'
-  import topics from '/components/threadList.json'
+  import threads from '/components/threadList.json'
   export default {
     data() {
       return {
         newComment: '',
         num:4,
+        index:0,
+        thread:Number(this.$route.query.id),
         items:items,
-        topics:topics
+        threads:threads
       }
     },
     methods: {
@@ -72,14 +112,16 @@
         }else{
           let newPost = [
             {
-              id:this.num,
-              user:"新規",
+              id: this.index += 1,
+              thread:this.thread,
+              user:"st00000001",
+              name:"新規",
               comment: this.newComment,
+              flag:true
             }
           ]
           this.items.push(newPost)
           this.newComment = ''
-          this.num += 1
         }
       }
     },

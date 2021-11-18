@@ -1,26 +1,66 @@
 [
     {
-        "id":"1",
-        "user":"濱田",
+        "id":1,
+        "thread":0,
+        "user":"st00000003",
+        "name":"濱田",
         "comment":"あいうえお",
-        "flag":0
+        "flag":true
     },
     {
-        "id":"2",
-        "user":"丸野",
+        "id":2,
+        "thread":0,
+        "user":"st00000002",
+        "name":"丸野",
         "comment":"かきくけこ",
-        "flag":0
+        "flag":true
     },
     {
-        "id":"3",
-        "user":"二宮",
+        "id":3,
+        "thread":0,
+        "user":"st00000001",
+        "name":"二宮",
         "comment":"まちがえた",
-        "flag":1
+        "flag":false
     },
     {
-        "id":"4",
-        "user":"二宮",
+        "id":4,
+        "thread":0,
+        "user":"st00000001",
+        "name":"二宮",
         "comment":"さしすせそ",
-        "flag":0
+        "flag":true
+    },
+    {
+        "id":5,
+        "thread":2,
+        "user":"st00000003",
+        "name":"濱田",
+        "comment":"あいうえお",
+        "flag":true
+    },
+    {
+        "id":6,
+        "thread":2,
+        "user":"st00000002",
+        "name":"丸野",
+        "comment":"かきくけこ",
+        "flag":true
+    },
+    {
+        "id":7,
+        "thread":3,
+        "user":"st00000001",
+        "name":"二宮",
+        "comment":"まちがえた",
+        "flag":false
+    },
+    {
+        "id":8,
+        "thread":3,
+        "user":"st00000001",
+        "name":"二宮",
+        "comment":"さしすせそ",
+        "flag":true
     }
 ]

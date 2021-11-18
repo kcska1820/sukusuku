@@ -1,5 +1,5 @@
 <template>
-    <v-card color="accent2" dark="accent2">
+    <v-card color="accent2">
         <h1 class="mt-06"><v-icon size="1em">mdi-notebook-check-outline</v-icon>&emsp;Todoリスト</h1>
         <v-divider></v-divider>
             <v-text-field
@@ -16,7 +16,7 @@
           ></v-text-field>
         <v-virtual-scroll
           :items="items"
-          :item-height="50"
+          :item-height="49"
           height="150"
         >
           <template v-slot:default="{ item }">

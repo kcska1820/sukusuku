@@ -26,10 +26,19 @@
                         </v-toolbar>
                         <v-card-text>
                             <v-form>
-                                <v-text-field label="開始日時"></v-text-field>
-                                <v-text-field label="終了日時"></v-text-field>
+                                <v-col class="d-flex justify-space-around pt-4">
+                                    <v-text>開始日時 : </v-text>
+                                    <input type="date" v-model="startDay"/>
+                                    <input type="time" v-model="startTime"/>
+                                </v-col>
+                                <v-col class="d-flex justify-space-around pt-4">
+                                <v-text>終了日時 : </v-text>
+                                <input type="date" v-model="endDay"/>
+                                <input type="time" v-model="endTime"/>
+                                </v-col>
                                 <v-text-field label="タイトル"></v-text-field>
                                 <v-text-field label="内容"></v-text-field>
+                                <v-select label="グループ" :items="items" item-text="name"></v-select>
                             </v-form>
                         </v-card-text>
                         <v-card-actions>
@@ -56,6 +65,24 @@
 export default {
     data: () => ({
         dialog: false,
+        startDay:'',
+        startTime:'',
+        endDay:'',
+        endTime:'',
+        items:[
+                {
+                    id:"1",
+                    name:"aaa"
+                },
+                {
+                    id:"2",
+                    name:"iii"
+                },
+                {
+                    id:"3",
+                    name:"uuu"
+                }
+            ]
     }),
 }
 </script>

@@ -19,34 +19,29 @@
 
 <script>
 import firebase from "~/plugins/firebase"
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, OAuthProvider } from "firebase/auth";
 export default {
     methods:{
         login(){
-            const provider = new GoogleAuthProvider();
+            const provider = new OAuthProvider('microsoft.com');
             const auth = getAuth();
+            provider.setCustomParameters({
+                    // Optional "tenant" parameter in case you are using an Azure AD tenant.
+                    // eg. '8eaef023-2b34-4da1-9baa-8bc8c9d6a490' or 'contoso.onmicrosoft.com'
+                    // or "common" for tenant-independent tokens.
+                    // The default value is "common".
+                    tenant: 'kcska.onmicrosoft.com'
+                });
             signInWithPopup(auth, provider)
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                // The signed-in user info.
-                const user = result.user;
-                // ...
-                console.log(user,token)
-                //testcode
-                /* this.$router.push("/login") */
-                //
-                this.$router.push("/student/calendars")
+                const credential = OAuthProvider.credentialFromResult(result);
+                const accessToken = credential.accessToken;
+                const idToken = credential.idToken;
+                console.log(credential,accessToken,idToken)
+                this.$router.push("/student/Home")
             }).catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.email;
-                // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
-                // ...
+               console.log("error")
             })
         }
     },

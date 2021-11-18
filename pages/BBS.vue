@@ -71,35 +71,80 @@
       :to="item.to"
       router
       exact>
-      <v-col>
-        <v-card>
-          <v-card-title>{{item.title}}</v-card-title>
-          <v-row cols="5" class="thread">
-            <v-btn class="button"
-              v-for="(thread, i) in item.thread"
-              :key="i"
-              :to="{
-                path:item.to,
-                query:{
-                  id: thread.id
-                }
-              }"
-              exact>
-              <!--topiclist.json内のtoに遷移先が記載されている
-              まだリンク先がトピック毎で固定してるから、ボタンごとに遷移先を変える機能が欲しい
-              BBSconの内容をDB情報によって動的に変えられるようにしたい-->
-              {{thread.li}}
+      <template v-if="item.flag == 0">
+        <v-col>
+          <v-card>
+            <v-btn
+              text
+              block
+              large>
+                {{item.title}}:<font color="red">申請許可済</font>
             </v-btn>
-          </v-row>
-        </v-card>
-      </v-col>
+              <!--ここにダイアログを追加する-->
+          </v-card>
+        </v-col>
+      </template>
+      <template v-else-if="item.flag == 1">
+        <v-col>
+          <v-card>
+            <v-btn
+              text
+              block
+              large
+              :to="{
+                path:'/BBScon',
+                query:{
+                  id:item.id
+                }
+                }">
+              {{item.title}}
+            </v-btn>
+          </v-card>
+        </v-col>
+      </template>
+      <template v-else-if="item.flag == 2">
+        <v-col>
+          <v-card>
+            <v-btn
+              text
+              block
+              large
+              :to="{
+                path:'/BBScon',
+                query:{
+                  id:item.id
+                }
+                }">
+              {{item.title}}:<font>凍結中</font>
+            </v-btn>
+          </v-card>
+        </v-col>
+      </template>
+      <template v-else-if="item.flag == 3">
+        <v-col>
+          <v-card>
+            <v-btn
+              text
+              block
+              large
+              :to="{
+                path:'/BBScon',
+                query:{
+                  id:item.id
+                }
+                }">
+              {{item.title}}<font>削除済</font>
+            </v-btn>
+          </v-card>
+        </v-col>
+      </template>
     <v-divider></v-divider>
     </div>
   </v-card>
 </template>
 
 <script>
-  import items from '/components/topicList.json'
+  import items from '/components/threadList.json'
   export default {
     data:() => ({
         dialog:false,
@@ -157,10 +202,4 @@
 </script>
 
 <style scoped>
-  .thread {
-    padding:18px;
-  }
-  .button{
-    margin-right:10px;
-  }
 </style>

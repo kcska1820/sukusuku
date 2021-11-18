@@ -156,7 +156,7 @@
     items2:items2,
     items3:items3,
     dialog: false,
-    category:["private","timetable","group"]
+    category:["プライベート","時間割","グループ"]
   }),
   mounted () {
     this.$refs.calendar.checkChange()

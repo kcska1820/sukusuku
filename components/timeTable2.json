@@ -5,7 +5,7 @@
         "end":"2021-11-27T21:00:00",
         "color":"blue",
         "details":"ばいと",
-        "category":"private"
+        "category":"プライベート"
     },
     {
         "title":"バイト",
@@ -13,7 +13,7 @@
         "end":"2021-11-28T21:00:00",
         "color":"blue",
         "details":"ばいと",
-        "category":"private"
+        "category":"プライベート"
     },
     {
         "title":"バイト",
@@ -21,7 +21,7 @@
         "end":"2021-11-29T21:00:00",
         "color":"blue",
         "details":"ばいと",
-        "category":"private"
+        "category":"プライベート"
     },
     {
         "title":"バイト",
@@ -29,6 +29,6 @@
         "end":"2021-11-30T21:00:00",
         "color":"blue",
         "details":"ばいと",
-        "category":"private"
+        "category":"プライベート"
     }
 ]

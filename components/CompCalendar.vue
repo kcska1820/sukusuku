@@ -67,6 +67,9 @@
               <v-list-item @click="type = 'month'">
                 <v-list-item-title>Month</v-list-item-title>
               </v-list-item>
+              <v-list-item @click="type = 'category'">
+                <v-list-item-title>Category</v-list-item-title>
+              </v-list-item>
             </v-list>
           </v-menu>
         </v-toolbar>
@@ -80,6 +83,7 @@
           :events="events"
           :event-color="getEventColor"
           :type="type"
+          :categories="category"
           @click:event="showEvent"
           @click:more="viewDay"
           @click:date="viewDay"
@@ -130,15 +134,18 @@
 
 <script>
   import items from '/components/timeTable.json'
+  import items2 from '/components/timeTable2.json'
+  import items3 from '/components/timeTable3.json'
   import calendarAdd from '/components/calendarAdd.vue'
   export default {
     data: () => ({
     focus: '',
-    type: 'month',
+    type: 'day',
     typeToLabel: {
       month: 'Month',
       week: 'Week',
       day: 'Day',
+      category:'Category'
     },
     selectedEvent: {},
     selectedElement: null,
@@ -146,7 +153,10 @@
     CreateOpen:false,
     events: [],
     items:items,
+    items2:items2,
+    items3:items3,
     dialog: false,
+    category:["private","timetable","group"]
   }),
   mounted () {
     this.$refs.calendar.checkChange()
@@ -188,14 +198,36 @@
       const events = []
       for (let i = 0; i < this.items.length; i++) {
         events.push({
-          name: this.items[i].title,
-          start: this.items[i].start,
-          end: this.items[i].end,
-          color: this.items[i].color,
-          details: this.items[i].details,
+          name: items[i].title,
+          start: items[i].start,
+          end: items[i].end,
+          color: items[i].color,
+          details: items[i].details,
+          category:items[i].category
         })
       }
-
+      for (let i = 0; i < items2.length; i++) {
+        events.push({
+          name: items2[i].title,
+          start: items2[i].start,
+          end: items2[i].end,
+          color: items2[i].color,
+          timed: items2[i].timed,
+          details: items2[i].details,
+          category:items2[i].category
+        })
+      }
+      for (let i = 0; i < items3.length; i++) {
+        events.push({
+          name: items3[i].title,
+          start: items3[i].start,
+          end: items3[i].end,
+          color: items3[i].color,
+          timed: items3[i].timed,
+          details: items3[i].details,
+          category:items3[i].category
+        })
+      }
       this.events = events
     },
   },

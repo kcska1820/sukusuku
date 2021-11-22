@@ -2,10 +2,12 @@
 <v-card color="accent">
     <v-card-title>
       <v-icon
-        size="1.5em">
+        size="2em">
         mdi-message-text
       </v-icon>
+      <h2>
       掲示板
+      </h2>
       <v-dialog
         v-model="sinsei"
         max-width="500px"
@@ -44,7 +46,6 @@
               </v-row>
             </v-container>
           </v-card-text>
-
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
@@ -63,6 +64,25 @@
         </v-card>
       </v-dialog>
     </v-card-title>
+    <v-row class="d-flex justify-end">
+    <v-col cols="12" sm="5" class="px-6">
+    <v-toolbar floating>
+    <v-row>
+      <v-col cols="3" class="pr-0">
+        <v-select></v-select>
+      </v-col>
+      <v-col cols="9" class="pr-7">
+        <v-text-field
+          clearable
+          append-icon="mdi-magnify"
+        ></v-text-field>
+      </v-col>
+    </v-row>
+    </v-toolbar>
+    </v-col>
+    </v-row>
+    <v-divider />
+    <br>
     <div
       v-for="item in items"
       :key="item.id"
@@ -71,7 +91,7 @@
       <v-col>
       <BBSCard :item="item"/>
     </v-col>
-     </div>   
+    </div>   
 </v-card>
 </template>
 <script>

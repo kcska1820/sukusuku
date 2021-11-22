@@ -53,25 +53,8 @@
         v-for="(post, i) in items"
         :key="i"
         exact>
-        <template v-if="post.thread == thread">
-            <template v-if="post.flag == true">
-              <p class="thread">{{index += 1}}:{{post.name}}</p>
-                <template v-if="post.user == 'st00000001'">
-                  <!--ログイン中ユーザなら削除ボタンの表示-->
-                  <v-btn
-                    absolute
-                    right>
-                    削除
-                  </v-btn>
-                </template>
-              <p class="comment">{{post.comment}}</p>
-            </template>
-            <template v-else-if="post.user == 'st00000001'">
-              <!--削除コメントがログイン中ユーザなら(削除済)込みで表示-->
-              <p class="thread">{{index += 1}}:{{post.name}} (削除済)</p>
-              <p class="comment">{{post.comment}}</p>
-            </template>
-        </template>
+        <BBSCom :post="post"
+          :i="index += 1"/>
       </div>
     </v-list>
 
@@ -94,12 +77,13 @@
 <script>
   import items from '/components/thcontent.json'
   import threads from '/components/threadList.json'
+  import BBSCom from '/components/BBScomment'
   export default {
     data() {
       return {
         newComment: '',
-        num:4,
         index:0,
+        num:4,
         thread:Number(this.$route.query.id),
         items:items,
         threads:threads
@@ -125,6 +109,9 @@
         }
       }
     },
+    components:{
+      BBSCom
+    }
   }
 </script>
 

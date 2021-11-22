@@ -92,6 +92,7 @@
     </div>
 </template>
 <script>
+  import threads from '/components/threadList.json'
   export default {
     data: () => ({
       dialog: false,
@@ -107,10 +108,12 @@
           width: '200',
           class:"accent"
         },
-        { text: '備考', value: 'comment', align: "center", width: '200',class:"accent"},
+        { text: '備考', value: 'note', align: "center", width: '200',class:"accent"},
+        { text: '申請者', value: 'master', align: "center", width: '200',class:"accent"},
         { text: '', value: 'actions', sortable: false, align: "center", width: '200',class:"accent"},
       ],
       desserts: [],
+      thread:'',
       editedIndex: -1,
       editedItem: {
         id: '',
@@ -143,24 +146,7 @@
 
     methods: {
       initialize () {
-        this.desserts = [
-          {
-            title: '応用情報対対策',
-            comment: 'tp0001',
-          },
-          {
-            title: '卒業研究',
-            comment: 'tp0002',
-          },
-          {
-            title: '映画',
-            comment: 'tp0003',
-          },
-          {
-            title: 'ゲーム',
-            comment: 'tp0004',
-          }
-        ]
+        this.desserts = threads.filter(({flag})=>flag===0)
       },
 
       editItem (item) {

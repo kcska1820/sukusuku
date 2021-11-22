@@ -135,23 +135,26 @@
   </v-data-table>
 </template>
 <script>
+  import threads from '/components/threadList.json'
   export default {
     data: () => ({
       dialog: false,
       dialogDelete: false,
       headers: [
         {
-          text: 'トピックID',
+          text: 'ID',
           align: 'start',
           sortable: false,
           value: 'id',
           align: "center",
-          width: '200',
+          width: '30',
           class:"accent"
         },
-        { text: '話題', value: 'name', align: "center", width: '200',class:"accent"},
-        { text: '開始日時', value: 'date', align: "center", width: '200',class:"accent"},
-        { text: '', value: 'actions', sortable: false, align: "center", width: '200',class:"accent"},
+        { text: '話題', value: 'title', align: "center", width: '150',class:"accent"},
+        { text: '備考', value: 'note', align: "center", width: '200',class:"accent"},
+        { text: '申請者', value: 'master', align: "center", width: '200',class:"accent"},
+        { text: '状態', value: 'flag', align: "center", width: '50',class:"accent"},
+        { text: '', value: 'actions', sortable: false, align: "center", width: '100',class:"accent"},
       ],
       desserts: [],
       editedIndex: -1,
@@ -186,28 +189,7 @@
 
     methods: {
       initialize () {
-        this.desserts = [
-          {
-            id: 'tp0001',
-            name: '応用情報対対策',
-            date:'0311101400',
-          },
-          {
-            id: 'tp0002',
-            name: '卒業研究',
-            date:'0311160900',
-          },
-          {
-            id: 'tp0003',
-            name: '映画',
-            date:'0312250900',
-          },
-          {
-            id: 'tp0004',
-            name: 'ゲーム',
-            date:'0312250900',
-          }
-        ]
+        this.desserts = threads.filter(({flag})=>flag!==0)
       },
 
       editItem (item) {

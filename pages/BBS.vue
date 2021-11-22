@@ -50,14 +50,12 @@
             <v-btn
               color="red darken-2"
               text
-              @click="sclose"
             >
               キャンセル
             </v-btn>
             <v-btn
               color="blue darken-1"
               text
-              @click="save"
             >
               申請
             </v-btn>

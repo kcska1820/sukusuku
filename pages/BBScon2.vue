@@ -30,18 +30,20 @@
                 <div v-if="post.thread == thread">
                     <div v-if="post.flag == true">
                         <v-list-item-title class="thread">{{index += 1}}:{{post.name}}</v-list-item-title>
-                        <div v-if="post.user == 'st00000001'">
-                            <!-- <v-btn
-                                icon
-                            >
-                                <v-icon>mdi-dots-horizontal</v-icon>
-                            </v-btn> -->
-                        </div>
-                        <v-list-item-text class="comment">{{post.comment}}</v-list-item-text>
+                            <v-row>
+                                <v-col cols="11">
+                                    <v-list-item class="comment">
+                                        {{post.comment}}
+                                    </v-list-item>
+                                </v-col>
+                                <v-col cols="1">
+                                    <v-btn icon><v-icon>mdi-dots-horizontal</v-icon></v-btn>
+                                </v-col>
+                            </v-row>
                     </div>
                     <div v-else-if="post.user == 'st00000001'">
                         <v-list-item-title class="thread">{{index += 1}}:{{post.name}}(削除済)</v-list-item-title>
-                        <v-list-item-text class="comment">{{post.comment}}</v-list-item-text>
+                        <v-list-item class="comment">{{post.comment}}</v-list-item>
                     </div>
                 </div>
             </div>

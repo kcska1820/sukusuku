@@ -22,7 +22,6 @@
     </v-icon>
     &emsp;アカウント設定
     <v-spacer></v-spacer>
-    <PasswordReset />
     </v-toolbar>
     </h2>
 
@@ -32,22 +31,22 @@
 
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title>ユーザーID</v-list-item-title>
-          <v-list-item-subtitle>st20184115</v-list-item-subtitle>
+          <v-list-item-title>学籍番号</v-list-item-title>
+          <v-list-item-subtitle>{{userid}}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>メールアドレス</v-list-item-title>
-          <v-list-item-subtitle>sukusuku7days@gmail.com</v-list-item-subtitle>
+          <v-list-item-subtitle>{{email}}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title>ロール</v-list-item-title>
-          <v-list-item-subtitle>student</v-list-item-subtitle>
+          <v-list-item-title>区分</v-list-item-title>
+          <v-list-item-subtitle>{{role}}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -72,9 +71,9 @@
     </h2>
     </v-list>
     <v-list>
-      <v-list-title>
+      <v-list-item-title>
       &emsp;テーマ変更
-      </v-list-title>
+      </v-list-item-title>
       <v-switch
           v-model="theme"
           :prepend-icon="themeIcon"
@@ -86,15 +85,23 @@
 import PasswordReset from '../components/PasswordReset.vue'
   export default {
   components: { PasswordReset },
-    data: () => ({
-      settings: [],
-      users:{
-        email:'',
-      }
-    }),
-    data () {
+  data () {
     return {
+      settings: [],
+      user: [],
+      userid:'',
+      email:'',
+      role:'',
       theme:this.$vuetify.theme.dark,
+    }
+  },
+  methods:{
+    getUser(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.userid = this.user[0].userid
+      this.email = this.user[0].mail
+      //roll_id => role_id
+      this.role = this.user[0].rollid_id
     }
   },
   computed:{
@@ -107,7 +114,10 @@ import PasswordReset from '../components/PasswordReset.vue'
       this.$vuetify.theme.dark = this.theme
     }
   },
+  created(){
+    this.getUser()
+  },
   /* 未ログイン時index.vueに遷移 */
-  /* middleware:"authenicated" */
+  middleware:"authenicated"
   }
 </script>

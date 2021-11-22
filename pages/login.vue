@@ -1,7 +1,7 @@
 <template>
 <div>
-    <v-btn @click="login">hoge</v-btn>
-    <!-- <v-btn @click="login2">huga</v-btn> -->
+    <v-btn @click="hoge">hoge</v-btn>
+    <v-btn @click="GetAuth">gethuga</v-btn>
 </div>
 </template>
 
@@ -70,6 +70,7 @@ export default {
                 this.url = this.url  + "?email=" + user.email
             }
             localStorage.setItem('url',this.url)
+            console.log("aaa")
         },
         hoge(){
             fetch(this.url,{
@@ -86,8 +87,7 @@ export default {
             .then(resJson => {
                 localStorage.setItem('user',JSON.stringify(resJson))
                 this.temp = JSON.parse(localStorage.getItem('user'))
-                console.log(this.temp[0].rollid_id)
-                
+                console.log(this.temp)
 
             })
             .catch(error => {       // ネットワークエラーの場合はここに到達する

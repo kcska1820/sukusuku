@@ -37,7 +37,20 @@
                                     </v-list-item>
                                 </v-col>
                                 <v-col cols="1">
-                                    <v-btn icon><v-icon>mdi-dots-horizontal</v-icon></v-btn>
+                                    <v-menu
+                                        bottom
+                                    >
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-btn
+                                                v-bind="attrs"
+                                                v-on="on"
+                                                icon
+                                            >
+                                                <v-icon>mdi-dots-horizontal</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <v-btn block>通報</v-btn>
+                                    </v-menu>
                                 </v-col>
                             </v-row>
                     </div>

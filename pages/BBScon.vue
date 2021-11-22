@@ -77,7 +77,7 @@
 <script>
   import items from '/components/thcontent.json'
   import threads from '/components/threadList.json'
-  import BBSCom from '/components/BBScomment'
+  import BBSCom from '/components/BBSComment'
   export default {
     data() {
       return {

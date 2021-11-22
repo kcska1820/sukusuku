@@ -18,21 +18,9 @@
                 </v-card-title>
 
                 <v-card-text>
-            <v-container>
-              <v-row>
-                <v-text-field
-                  v-model="editedItem.title"
-                  label="掲示板タイトル"
-                ></v-text-field>
-              </v-row><v-row>
-                <v-textarea
-                  v-model="editedItem.comment"
-                  label="備考"
-                  outlined
-                ></v-textarea>
-              </v-row>
-            </v-container>
-          </v-card-text>
+                    <span class="text-h5">{{item.title}}</span><br>
+                    <span>{{item.note}}</span>
+                </v-card-text>
 
                 <v-card-actions>
                     <v-spacer/>

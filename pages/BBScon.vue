@@ -1,62 +1,76 @@
 <template>
   <div>
-    <v-card color="accent">
-      <div
+    <div
         v-for="(title, i) in threads"
         :key="i"
         exact>
-            <template v-if="title.id == thread">
+    <template v-if="title.id == thread">
+    <v-card>
               <!--ここ増やす-->
               <template v-if="title.flag == 0">
-                <v-card-title>
+                <h1>
                   <v-icon
                     size="1.5em">
                     mdi-message-text
                   </v-icon>
                   掲示板-未承認
-                </v-card-title>
+                </h1>
               </template>
               <template v-else-if="title.flag == 1">
-                <v-card-title>
+                <h1>
                   <v-icon
                     size="1.5em">
                     mdi-message-text
                   </v-icon>
                   掲示板
-                </v-card-title>
+                </h1>
               </template>
               <template v-else-if="title.flag == 2">
-                <v-card-title>
+                <h1>
                   <v-icon
                     size="1.5em">
                     mdi-message-text
                   </v-icon>
                   掲示板-凍結中
-                </v-card-title>
+                </h1>
               </template>
               <template v-else-if="title.flag == 3">
-                <v-card-title>
+                <h1>
                   <v-icon
                     size="1.5em">
                     mdi-message-text
                   </v-icon>
                   掲示板-削除済み
-                </v-card-title>
+                </h1>
               </template>
+              <v-card color="accent">
+              <v-toolbar
+                    color="accent"
+                    elevation="0"
+                >
 
-            </template>
+                    <v-toolbar-title>
+                        {{title.title}}
+                    </v-toolbar-title>
+                </v-toolbar>
+              </v-card>
             
-      </div>
-    </v-card>
+      
     <v-list>
+      <!--展開中のidに適合するコメントだけ回収したい-->
       <div
         v-for="(post, i) in items"
         :key="i"
         exact>
-        <BBSCom :post="post"
-          :i="index += 1"/>
+        <template v-if="post.thread === thread">
+          <BBSCom :post="post"
+            :i="index += 1"/>
+        </template>
       </div>
     </v-list>
+    </v-card>
+    </template>
+  </div>
 
     <v-divider class="divide"></v-divider>
 

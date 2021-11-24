@@ -21,6 +21,12 @@
 import firebase from "~/plugins/firebase"
 import { getAuth, signInWithPopup, OAuthProvider } from "firebase/auth";
 export default {
+    data(){
+        return{
+            email:'',
+            url:'http://localhost:8000/sukusuku/'
+        }
+    },
     methods:{
         login(){
             const provider = new OAuthProvider('microsoft.com');
@@ -34,14 +40,36 @@ export default {
                 });
             signInWithPopup(auth, provider)
             .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = OAuthProvider.credentialFromResult(result);
-                const accessToken = credential.accessToken;
-                const idToken = credential.idToken;
-                console.log(credential,accessToken,idToken)
+                this.Set()
                 this.$router.push("/student/Home")
             }).catch((error) => {
                console.log("error")
+            })
+        },
+        Set(){
+            const auth = getAuth();
+            const user = auth.currentUser;
+            if (user !== null) {
+                // The user object has basic properties such as email
+                this.url = this.url  + "?email=" + user.email
+            }
+            fetch(this.url,{
+                method:"GET",
+                mode:"cors",
+                credentials: 'include'
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }       // 404 や 500 ステータスならここに到達する
+                throw new Error('Network response was not ok.');
+            })
+            .then(resJson => {
+                localStorage.setItem('user',JSON.stringify(resJson))
+                console.log("aaa")
+            })
+            .catch(error => {       // ネットワークエラーの場合はここに到達する
+                console.error(error);
             })
         }
     },

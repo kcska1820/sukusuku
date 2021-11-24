@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="userdata"
     :search="search"
     sort-by="calories"
     class="elevation-1"
@@ -182,7 +182,7 @@
         { text: 'ユーザー名', value: 'username',align: "center", width: '250',class:"accent"},
         { text: '編集', value: 'actions', sortable: false,class:"accent" },
       ],
-      desserts:[],
+      userdata:[],
       editedIndex: -1,
       editedItem: {
         userid: '',
@@ -214,17 +214,17 @@
     },
 
     created () {
-      fetch(this.url,{
+      fetch(this.url + 'stsel/',{
           method:"GET",
           mode:"cors",
           credentials: 'include'
         }).then((res)=>res.json())
-        .then(obj=>this.desserts=obj)
+        .then(obj=>this.userdata=obj)
     },
 
     methods: {
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.userdata.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
@@ -242,7 +242,7 @@
           credentials: 'include'
         })
         .then((res)=>res.json())
-        .then(obj=>this.desserts=obj)
+        .then(obj=>this.userdata=obj)
         this.closeDelete()
       },
 
@@ -271,7 +271,7 @@
           credentials: 'include'
         })
         .then((res)=>res.json())
-        .then(obj=>this.desserts=obj)
+        .then(obj=>this.userdata=obj)
         this.close()
       },
     },

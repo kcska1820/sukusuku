@@ -1,7 +1,6 @@
 <template>
     <div>
             <template v-if="post.flag == true">
-                <p class="thread">{{i}}:{{post.name}}</p>
                 <template v-if="post.user == 'st00000001'">
                     <!--ログイン中ユーザなら削除ボタンの表示-->
                     <!--v-menu-->
@@ -60,6 +59,7 @@
                         </v-list>
                     </v-menu>
                 </template>
+                <p class="thread">{{i}}:{{post.name}}</p>
                 <p class="comment">{{post.comment}}</p>
             </template>
             <template v-else-if="post.user == 'st00000001'">

@@ -73,18 +73,19 @@
   </div>
 
     <v-divider class="divide"></v-divider>
-
-    <v-text-field
-      v-model="newComment"
-      @click:append="addPost"
-      @keyup.enter="addPost"
-      outlined
-      label="発言を入力"
-      hide-details
-      clearable
-      append-icon="mdi-chat"
-    >
-    </v-text-field>
+    <div class="chat">
+      <v-text-field
+        v-model="newComment"
+        @click:append="addPost"
+        @keyup.enter="addPost"
+        outlined
+        filled
+        label="発言を入力"
+        hide-details
+        clearable
+        append-icon="mdi-chat">
+      </v-text-field>
+    </div>
   </div>
 </template>
 
@@ -138,5 +139,10 @@
   }
   .divide {
     margin:8px;
+  }
+  .chat {
+    position:sticky;
+    bottom:60px;
+    background-color: #FFF;
   }
 </style>

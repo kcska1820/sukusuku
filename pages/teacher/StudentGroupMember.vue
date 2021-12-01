@@ -84,7 +84,7 @@
                     md="4"
                   >
                     <v-select
-                        v-model="editedItem.rollid_id"
+                        v-model="editedItem.roleid_id"
                         :items="items"
                         label="ロールID"
                     ></v-select>
@@ -135,6 +135,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
+    
     <template v-slot:[`item.actions`]="{ item }">
       <v-btn
       fab
@@ -178,7 +179,7 @@
       headers: [
         { text: 'ユーザーID',align: 'start',sortable: false,value: 'userid',class:"accent"},
         { text: 'メールアドレス', value: 'mail' ,align: "center", width: '300',class:"accent"},
-        { text: 'ロールID', value: 'rollid_id',align: "center", width: '250',class:"accent"},
+        { text: 'ロールID', value: 'roleid_id',align: "center", width: '250',class:"accent"},
         { text: 'ユーザー名', value: 'username',align: "center", width: '250',class:"accent"},
         { text: '編集', value: 'actions', sortable: false,class:"accent" },
       ],
@@ -187,7 +188,7 @@
       editedItem: {
         userid: '',
         mail: '',
-        rollid_id: '',
+        roleid_id: '',
         username: '',
         },
       defaultItem: {
@@ -263,7 +264,7 @@
       },
 
       save () {
-        this.addurl = this.url + 'stadd/?userid=' + this.editedItem.userid + '&mail=' + this.editedItem.mail + '&rollid_id=' + this.editedItem.rollid_id + '&username=' + this.editedItem.username
+        this.addurl = this.url + 'stadd/?userid=' + this.editedItem.userid + '&mail=' + this.editedItem.mail + '&roleid_id=' + this.editedItem.roleid_id + '&username=' + this.editedItem.username
         console.log(this.addurl)
         fetch(this.addurl,{
           method:"GET",

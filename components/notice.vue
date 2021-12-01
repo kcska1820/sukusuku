@@ -1,64 +1,65 @@
 <template>
-    <div>
-        <v-menu
-            bottom
-            min-width="150px"
-            rounded
-            offset-y
+  <v-menu
+    bottom
+    min-width="300px"
+    rounded
+    offset-y
+  >
+    <template v-slot:activator="{ on }">
+      <v-btn icon v-on="on" @click="messages = 0">
+        <v-badge
+          :content="messages"
+          :value="messages"
+          color="red"
+          overlap
         >
-            <template v-slot:activator="{ on}">
-            <v-btn
-                v-on="on"
-                fab
-                elevation=0
-                color="accent"
-                height=46px
-                width=46px
+          <v-icon large color="white">
+            mdi-bell-outline
+          </v-icon>
+        </v-badge>
+      </v-btn>
+    </template>
+      <v-card color="primary">
+        <v-list-item-content class="justify-center">
+          <div class="mx-auto text-center">
+            <v-toolbar color="primary white--text" elevation="0" class="d-flex justify-center align-center pa-2 mb-2">
+              <v-toolbar-title dense><h2>通知</h2></v-toolbar-title>
+            </v-toolbar>
+            <v-divider />
+            <!-- 通知表示 -->
+            <v-virtual-scroll
+              :items="items"
+              :item-height="100"
+              height="250"
             >
-                <v-icon color="white" size="2.5em">
-                    {{notice ? 'mdi-bell':'mdi-bell-badge'}}
-                </v-icon>
-            </v-btn>
-            </template>
-            <v-card>
-                <v-list-item-content class="justify-center">
-                    <div class="mx-auto text-center">
-                        <div class="pa-2 mb-2">
-                            <h3>通知</h3>
-                        </div>
-                        <v-divider />
-                        <div class="pa-1 mt-2">
-                            <v-btn
-                                depressed
-                                rounded
-                                text
-                            >
-                                通知
-                            </v-btn>
-                        </div>
-                        <div class="pa-1">
-                            <v-btn
-                                depressed
-                                rounded
-                                text
-                                color="red darken-2"
-                            >
-                                キャンセル
-                            </v-btn>
-                        </div>
-                    </div>
-                </v-list-item-content>
-            </v-card>
-        </v-menu>
-    </div>
+              <template v-slot:default="{ item }">
+                <v-list-item>
+                  <v-flex>
+                    <v-card>
+                      <v-card-title>
+                      {{item.title}}
+                      </v-card-title>
+                      <v-card-subtitle>
+                      {{item.note}}
+                      </v-card-subtitle>
+                    </v-card>
+                  </v-flex>
+                </v-list-item>
+              </template>
+            </v-virtual-scroll>
+          </div>
+        </v-list-item-content>
+      </v-card>
+  </v-menu>
 </template>
 
 <script>
+import items from '/components/noticeList.json'
 export default {
     data () {
         return {
-            notice:false,
-            menu: false,
+            items:items,
+            messages: '!',
         }
     }
 }

@@ -1,78 +1,77 @@
 <template>
   <div>
     <div
-        v-for="(title, i) in threads"
-        :key="i"
-        exact>
-    <template v-if="title.id == thread">
-    <v-card>
-              <!--ここ増やす-->
-              <template v-if="title.flag == 0">
-                <h1>
-                  <v-icon
-                    size="1.5em">
-                    mdi-message-text
-                  </v-icon>
-                  掲示板-未承認
-                </h1>
-              </template>
-              <template v-else-if="title.flag == 1">
-                <h1>
-                  <v-icon
-                    size="1.5em">
-                    mdi-message-text
-                  </v-icon>
-                  掲示板
-                </h1>
-              </template>
-              <template v-else-if="title.flag == 2">
-                <h1>
-                  <v-icon
-                    size="1.5em">
-                    mdi-message-text
-                  </v-icon>
-                  掲示板-凍結中
-                </h1>
-              </template>
-              <template v-else-if="title.flag == 3">
-                <h1>
-                  <v-icon
-                    size="1.5em">
-                    mdi-message-text
-                  </v-icon>
-                  掲示板-削除済み
-                </h1>
-              </template>
-              <v-card color="accent">
-              <v-toolbar
-                    color="accent"
-                    elevation="0"
-                >
+      v-for="(title, i) in threads"
+      :key="i"
+      exact>
+      <template v-if="title.id == thread">
+        <v-card>
+          <!--ここ増やす-->
+          <template v-if="title.flag == 0">
+            <h1>
+              <v-icon
+                size="1.5em">
+                mdi-message-text
+              </v-icon>
+              掲示板-未承認
+            </h1>
+          </template>
+          <template v-else-if="title.flag == 1">
+            <h1>
+              <v-icon
+                size="1.5em">
+                mdi-message-text
+              </v-icon>
+              掲示板
+            </h1>
+          </template>
+          <template v-else-if="title.flag == 2">
+            <h1>
+              <v-icon
+                size="1.5em">
+                mdi-message-text
+              </v-icon>
+              掲示板-凍結中
+            </h1>
+          </template>
+          <template v-else-if="title.flag == 3">
+            <h1>
+              <v-icon
+                size="1.5em">
+                mdi-message-text
+              </v-icon>
+              掲示板-削除済み
+            </h1>
+          </template>
+          <v-card color="accent">
+            <v-toolbar
+              color="accent"
+              elevation="0">
+              <v-toolbar-title>
+                {{title.title}}
+              </v-toolbar-title>
+            </v-toolbar>
+          </v-card>
 
-                    <v-toolbar-title>
-                        {{title.title}}
-                    </v-toolbar-title>
-                </v-toolbar>
-              </v-card>
-            
-      
-    <v-list>
-      <!--展開中のidに適合するコメントだけ回収したい-->
-      <div
-        v-for="(post, i) in items"
-        :key="i"
-        exact>
-        <template v-if="post.thread === thread">
-          <BBSCom :post="post"
-            :i="index += 1"/>
-        </template>
-      </div>
-    </v-list>
-    </v-card>
-    </template>
-  </div>
+          <v-list>
+            <!--展開中のidに適合するコメントだけ回収したい-->
+            <div
+              v-for="(post, i) in items"
+              :key="i"
+              exact>
+              <template v-if="post.thread === thread">
+                <BBSCom :post="post"
+                  :no="i + 1"/>
+              </template>
+            </div>
+          </v-list>
+          
+        </v-card>
+      </template>
+    </div>
 
-    <v-divider class="divide"></v-divider>
+    <v-divider class="divide"/>
+
     <div class="chat">
       <v-text-field
         v-model="newComment"
@@ -90,7 +89,7 @@
 </template>
 
 <script>
-  import items from '/components/thcontent.json'
+  import items from '/components/thcomment.json'
   import threads from '/components/threadList.json'
   import BBSCom from '/components/BBSComment'
   export default {
@@ -111,7 +110,7 @@
         }else{
           let newPost = [
             {
-              id: this.index += 1,
+              id: this.index + 1,
               thread:this.thread,
               user:"st00000001",
               name:"新規",

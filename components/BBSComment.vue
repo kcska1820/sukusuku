@@ -59,12 +59,12 @@
                         </v-list>
                     </v-menu>
                 </template>
-                <p class="thread">{{i}}:{{post.name}}</p>
+                <p class="thread">{{no}}:{{post.name}}</p>
                 <p class="comment">{{post.comment}}</p>
             </template>
             <template v-else-if="post.user == 'st00000001'">
                 <!--削除コメントがログイン中ユーザなら(削除済)込みで表示-->
-                <p class="thread">{{i}}:{{post.name}} (削除済)</p>
+                <p class="thread">{{no}}:{{post.name}} (削除済)</p>
                 <p class="comment">{{post.comment}}</p>
             </template>
     </div>
@@ -81,7 +81,7 @@ export default {
     },
     props:{
         post:Object,
-        i:Number
+        no:Number
     },
 }
 </script>

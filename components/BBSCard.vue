@@ -43,7 +43,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-          </v-card>
+    </v-card>
 </template>
 <script>
 export default {

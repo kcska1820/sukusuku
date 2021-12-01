@@ -198,6 +198,7 @@
       const events = []
       for (let i = 0; i < this.items.length; i++) {
         events.push({
+          id:items[i].id,
           name: items[i].title,
           start: items[i].start,
           end: items[i].end,

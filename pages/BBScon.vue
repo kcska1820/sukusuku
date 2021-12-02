@@ -97,7 +97,6 @@
       return {
         url:'http://localhost:8000/sukusuku/',
         addurl:'',
-        delurl:'',
         newComment: '',
         index:0,
         num:4,
@@ -134,21 +133,9 @@
             credentials: 'include'
           }).then((res)=>res.json())
           .then(obj=>this.thdata=obj)*/
-          this.$router.go({path: this.router.currentRoute.path, force:true})
+          this.$router.go({path: this.$router.currentRoute.path, force:true})
         }
       },
-
-      delComment(comid){
-        this.delurl = this.url + 'cmdel/?id=' + comid
-        console.log(this.delurl)
-          /*fetch(this.delurl,{
-            method:"GET",
-            mode:"cors",
-            credentials: 'include'
-          }).then((res)=>res.json())
-          .then(obj=>this.thdata=obj)*/
-        this.$router.go({path: this.router.currentRoute.path, force:true})
-      }
     },
     components:{
       BBSCom

@@ -34,10 +34,10 @@
           <v-card>
             <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
             <v-card-actions>
-              <v-spacer></v-spacer>
+              <v-spacer/>
               <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
               <v-btn color="blue darken-1" text @click="deleteItemConfirm">削除</v-btn>
-              <v-spacer></v-spacer>
+              <v-spacer/>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -95,6 +95,9 @@
   import threads from '/components/threadList.json'
   export default {
     data: () => ({
+      url:'http://localhost:8000/sukusuku/',
+      appurl:'',
+      delurl:'',
       dialog: false,
       dialogApprove: false,
       dialogDelete: false,
@@ -114,7 +117,7 @@
       ],
       desserts: [],
       thread:'',
-      editedIndex: -1,
+      editedIndex: '-1',
       editedItem: {
         id: '',
         name: '',
@@ -127,7 +130,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'トピックを作成します' : 'Edit Item'
+        return this.editedIndex === '-1' ? 'トピックを作成します' : 'Edit Item'
       },
     },
 
@@ -149,12 +152,6 @@
         this.desserts = threads.filter(({flag})=>flag===0)
       },
 
-      editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
-
       approveItem (item) {
         this.editedIndex = this.desserts.indexOf(item)
         this.editedItem = Object.assign({}, item)
@@ -168,11 +165,27 @@
       },
 
       approveItemConfirm () {
+        this.appurl = this.url + 'thapp/?id=' + this.editedItem.id
+          console.log(this.appurl)
+          /*fetch(this.appurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+          }).then((res)=>res.json())
+          .then(obj=>this.thdata=obj)*/
         this.desserts.splice(this.editedIndex, 1)
         this.closeApprove()
       },
 
       deleteItemConfirm () {
+        this.delurl = this.url + 'thdel/?id=' + this.editedItem.id
+          console.log(this.delurl)
+          /*fetch(this.delurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+          }).then((res)=>res.json())
+          .then(obj=>this.thdata=obj)*/
         this.desserts.splice(this.editedIndex, 1)
         this.closeDelete()
       },

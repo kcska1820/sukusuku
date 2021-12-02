@@ -74,15 +74,32 @@
 export default {
     data() {
     return {
+        url:'http://localhost:8000/sukusuku/',
+        delurl:'',
         sakujo:false,
         dmenu:false,
         thread:this.$route.query.id,
     }
     },
+
     props:{
         post:Object,
         no:Number
     },
+
+    methods:{
+        delComment(comid){
+            this.delurl = this.url + 'cmdel/?id=' + comid
+            console.log(this.delurl)
+            /*fetch(this.delurl,{
+                method:"GET",
+                mode:"cors",
+                credentials: 'include'
+            }).then((res)=>res.json())
+            .then(obj=>this.thdata=obj)*/
+        this.$router.go({path: this.$router.currentRoute.path, force:true})
+        }
+    }
 }
 </script>
 

@@ -178,7 +178,7 @@
       },
 
       deleteItemConfirm () {
-        this.delurl = this.url + 'thdel/?id=' + this.editedItem.id
+        this.delurl = this.url + 'threj/?id=' + this.editedItem.id
           console.log(this.delurl)
           /*fetch(this.delurl,{
             method:"GET",

@@ -59,7 +59,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.name"
+                      v-model="editedItem.title"
                       label="話題"
                     ></v-text-field>
                   </v-col>
@@ -69,7 +69,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.name"
+                      v-model="editedItem.title"
                       label="開始日時"
                     ></v-text-field>
                   </v-col>
@@ -142,6 +142,8 @@
       dialogDelete: false,
       headers: [
         {
+          url:'http://localhost:8000/sukusuku/',
+          delurl:'',
           text: 'ID',
           align: 'start',
           sortable: false,
@@ -160,11 +162,13 @@
       editedIndex: -1,
       editedItem: {
         id: '',
-        name: '',
+        title: '',
+        note: ''
       },
       defaultItem: {
         id: '',
-        name: '',
+        title: '',
+        note: ''
       },
     }),
 
@@ -205,6 +209,14 @@
       },
 
       deleteItemConfirm () {
+        this.delurl = this.url + 'thdel/?id=' + this.editedItem.id
+          console.log(this.delurl)
+          /*fetch(this.delurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+          }).then((res)=>res.json())
+          .then(obj=>this.thdata=obj)*/
         this.desserts.splice(this.editedIndex, 1)
         this.closeDelete()
       },
@@ -226,6 +238,15 @@
       },
 
       save () {
+        this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=st00000001'
+        console.log(this.addurl)
+        /*fetch(this.addurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.thdata=obj)*/
         if (this.editedIndex > -1) {
           Object.assign(this.desserts[this.editedIndex], this.editedItem)
         } else {

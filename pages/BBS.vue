@@ -80,8 +80,9 @@
     </v-row>
     <v-divider/>
     <br>
+    <!--itemsをthdataにする-->
     <div
-      v-for="item in thdata"
+      v-for="item in items"
       :key="item.id"
       router
       exact>
@@ -132,26 +133,26 @@ export default {
   
   created () {
     //stselを掲示板一覧取得に変える
-    fetch(this.url + 'stsel/',{
+    console.log(this.url + 'thsel')
+    /*fetch(this.url + 'thsel/',{
       method:"GET",
       mode:"cors",
       credentials: 'include'
     }).then((res)=>res.json())
-    .then(obj=>this.thdata=obj)
+    .then(obj=>this.thdata=obj)*/
   },
 
   methods: {
     save () {
-      this.addurl = this.url + 'stadd/?title=' + this.editedItem.title + '&flag=0' + '&note=' + this.editedItem.note + '&master=st00000001'
-      //staddがpython側の関数？　この辺いじって変える可能性
+      this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=0' + '&note=' + this.editedItem.note + '&master=st00000001'
       console.log(this.addurl)
-      fetch(this.addurl,{
+      /*fetch(this.addurl,{
         method:"GET",
         mode:"cors",
         credentials: 'include'
       })
       .then((res)=>res.json())
-      .then(obj=>this.thdata=obj)
+      .then(obj=>this.thdata=obj)*/
       this.sclose()
     },
 

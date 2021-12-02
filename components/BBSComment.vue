@@ -1,72 +1,72 @@
 <template>
     <div>
-            <template v-if="post.flag == true">
-                <template v-if="post.user == 'st00000001'">
-                    <!--ログイン中ユーザなら削除ボタンの表示-->
-                    <!--v-menu-->
-                    <v-menu
-                        v-model="dmenu"
-                        absolute
-                        offset-y
-                        style="max-width: 300px">
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn
-                                icon
-                                absolute
-                                right
-                                v-bind="attrs"
-                                v-on="on">
-                                <v-icon>mdi-dots-horizontal</v-icon>
-                            </v-btn>
-                        </template>
-                        <v-list>
-                            <v-list-item>
-                                <v-dialog v-model="sakujo"  max-width="500px">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-list-item-title
-                                            v-bind="attrs"
-                                            v-on="on">
+        <template v-if="post.flag == true">
+            <template v-if="post.user == 'st00000001'">
+                <!--ログイン中ユーザなら削除ボタンの表示-->
+                <!--v-menu-->
+                <v-menu
+                    v-model="dmenu"
+                    absolute
+                    offset-y
+                    style="max-width: 300px">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                            icon
+                            absolute
+                            right
+                            v-bind="attrs"
+                            v-on="on">
+                            <v-icon>mdi-dots-horizontal</v-icon>
+                        </v-btn>
+                    </template>
+                    <v-list>
+                        <v-list-item>
+                            <v-dialog v-model="sakujo"  max-width="500px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-list-item-title
+                                        v-bind="attrs"
+                                        v-on="on">
+                                        削除
+                                    </v-list-item-title>
+                                </template>
+                                <v-card>
+                                    <v-card-title>
+                                        <span class="text-h5">このコメントを削除しますか？</span>
+                                    </v-card-title>
+
+                                    <v-card-text>
+                                        <span class="text-h5">{{post.comment}}</span>
+                                    </v-card-text>
+
+                                    <v-card-actions>
+                                        <v-spacer/>
+                                        <v-btn
+                                            color="red darken-2"
+                                            text
+                                            @click="sakujo=false">
+                                            キャンセル
+                                        </v-btn>
+                                        <v-btn
+                                            color="blue darken-1"
+                                            text
+                                            @click="delComment(post.id)">
                                             削除
-                                        </v-list-item-title>
-                                    </template>
-                                    <v-card>
-                                        <v-card-title>
-                                            <span class="text-h5">このコメントを削除しますか？</span>
-                                        </v-card-title>
-
-                                        <v-card-text>
-                                            <span class="text-h5">{{post.comment}}</span>
-                                        </v-card-text>
-
-                                        <v-card-actions>
-                                            <v-spacer/>
-                                            <v-btn
-                                                color="red darken-2"
-                                                text
-                                                @click="sakujo=false">
-                                                キャンセル
-                                            </v-btn>
-                                            <v-btn
-                                                color="blue darken-1"
-                                                text
-                                                @click="sakujo=false">
-                                                削除
-                                            </v-btn>
-                                        </v-card-actions>
-                                    </v-card>
-                                </v-dialog>
-                            </v-list-item>
-                        </v-list>
-                    </v-menu>
-                </template>
-                <p class="thread">{{no}}:{{post.name}}</p>
-                <p class="comment">{{post.comment}}</p>
+                                        </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
             </template>
-            <template v-else-if="post.user == 'st00000001'">
-                <!--削除コメントがログイン中ユーザなら(削除済)込みで表示-->
-                <p class="thread">{{no}}:{{post.name}} (削除済)</p>
-                <p class="comment">{{post.comment}}</p>
-            </template>
+            <p class="thread">{{no}}:{{post.name}}</p>
+            <p class="comment">{{post.comment}}</p>
+        </template>
+        <template v-else-if="post.user == 'st00000001'">
+            <!--削除コメントがログイン中ユーザなら(削除済)込みで表示-->
+            <p class="thread">{{no}}:{{post.name}} (削除済)</p>
+            <p class="comment">{{post.comment}}</p>
+        </template>
     </div>
 </template>
 
@@ -76,7 +76,7 @@ export default {
     return {
         sakujo:false,
         dmenu:false,
-        thread:Number(this.$route.query.id),
+        thread:this.$route.query.id,
     }
     },
     props:{

@@ -2,15 +2,15 @@
     <v-card>
         <v-dialog v-model="enter"  max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-            <v-btn
-                elevation="6"
-                text
-                x-large
-                block
-                v-bind="attrs"
-                v-on="on">
-                {{item.title}}
-            </v-btn>
+                <v-btn
+                    elevation="6"
+                    text
+                    x-large
+                    block
+                    v-bind="attrs"
+                    v-on="on">
+                    {{item.title}}
+                </v-btn>
             </template>
             <v-card>
                 <v-card-title>

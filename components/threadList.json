@@ -1,27 +1,27 @@
 [
     {
-        "id": 0,
+        "id": "0",
         "title": "応用情報対策",
         "flag": 1,
         "note": "AP対策会議",
         "master": "st00000001"
     },
     {
-        "id": 1,
+        "id": "1",
         "title": "卒業研究",
         "flag": 0,
         "note": "",
         "master": "st00000001"
     },
     {
-        "id": 2,
+        "id": "2",
         "title": "映画",
         "flag": 2,
         "note": "凍結中",
         "master": "st00000001"
     },
     {
-        "id": 3,
+        "id": "3",
         "title": "ゲーム",
         "flag": 3,
         "note": "削除",

@@ -65,11 +65,11 @@
       <v-col cols="12" sm="5" class="px-6">
         <v-toolbar floating>
           <v-row>
-            <v-col cols="3" class="pr-0">
-              <v-select/>
-            </v-col>
-            <v-col cols="9" class="pr-7">
+            <!--検索欄-->
+            <v-col cols="12" class="pr-7">
               <v-text-field
+                v-model="searchtxt"
+                @keyup.enter="search"
                 clearable
                 append-icon="mdi-magnify">
               </v-text-field>
@@ -95,6 +95,7 @@
 <script>
 import items from '/components/threadList.json'
 import BBSCard from '/components/BBSCard'
+import searchsup from '/components/searchSup'
 export default {
   data:() => ({
     url:'http://localhost:8000/sukusuku/',
@@ -102,6 +103,8 @@ export default {
     sinsei:false,
     touketu:false,
     kaijo:false,
+    searchtxt:'',
+    sql:'',
     items:items,
     thdata:[],
     editedIndex: -1,
@@ -143,6 +146,12 @@ export default {
   },
 
   methods: {
+    search (){
+      console.log(this.searchtxt)
+      this.sql = searchsup(this.searchtxt, 'title')
+      console.log('search/' + this.sql.sql)
+    },
+
     save () {
       this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=0' + '&note=' + this.editedItem.note + '&master=st00000001'
       console.log(this.addurl)

@@ -1,16 +1,17 @@
-
+import { METHODS } from 'http';
 <template>
 <div>
     <h1 class="mt-10"><v-icon size="1em">mdi-clock-plus-outline</v-icon>&emsp;時間割を登録する</h1>
     <v-divider></v-divider>
     <br>
     <br>
-    <v-file-input
+  <v-file-input
     class="mt-12"
+    v-model="file"
     accept=".xlsx"
-    small-chips
-    truncate-length="15"
     label="EXCEL File input"
+    truncate-length="15"
+    @change="onChange($event)"
   ></v-file-input>
   <br>
   <br>
@@ -52,7 +53,7 @@
           <v-btn
           class="mt-6"
           text
-          @click="sheet = !sheet"
+          @click="upload"
         >
           登録
         </v-btn>
@@ -67,11 +68,41 @@
 </template>
 
 <script>
+import FormData from "form-data"
+import Cookies from 'js-cookie'
 export default {
-    data () {
-        return {
-            sheet: false
-        }
+  data() {
+    return {
+      file: null,
+      sheet:false,
+      csrftoken:'',
     }
+  },
+  methods: {
+    onChange(event){
+      console.log(event);
+      this.file = event;
+    },
+    async upload() {
+      this.csrftoken = Cookies.get('csrftoken')
+      
+      fetch('http://localhost:8000/sukusuku/ttadd/',{
+        method:"POST",
+        headers: {
+          'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'X-CSRFToken':this.csrftoken
+        },
+        body:this.file,
+        mode:"cors",
+        credentials: 'include'
+      }).then((res)=>res.json())
+      .then(obj=>this.json=obj)
+      .catch(error => {
+        return error.response;
+      })
+      
+    },
+  },
+
 }
 </script>

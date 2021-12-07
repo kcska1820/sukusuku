@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="userdata"
     sort-by="calories"
     class="elevation-1 mt-12"
     disable-sort
@@ -74,7 +74,7 @@
                     md="4"
                   >
                     <v-select
-                        v-model="editedItem.rollid"
+                        v-model="editedItem.roleid_id"
                         :items="items"
                         label="ロールID"
                     ></v-select>
@@ -158,6 +158,9 @@
 <script>
   export default {
     data: () => ({
+      url:'http://localhost:8000/sukusuku/',
+      addurl:'',
+      del:'',
       dialog: false,
       dialogDelete: false,
       items: ['student', 'teacher', 'master'],
@@ -170,23 +173,23 @@
           class: "accent"
         },
         { text: 'メールアドレス', value: 'mail',align: "center", width: '250',class: "accent"},
-        { text: 'ロールID', value: 'rollid',align: "center", width: '250',class: "accent"},
+        { text: 'ロールID', value: 'roleid_id',align: "center", width: '250',class: "accent"},
         { text: 'ユーザー名', value: 'username',align: "center", width: '300' ,class: "accent"},
         { text: '編集', value: 'actions', sortable: false,class: "accent"},
       ],
-      desserts: [],
+      userdata:[],
       editedIndex: -1,
       editedItem: {
-        name: '',
-        calories: '',
-        fat: '',
-        carbs: '',
+        userid: '',
+        mail: '',
+        roleid_id: '',
+        username: '',
         },
       defaultItem: {
-        name: '',
-        calories: '',
-        fat: '',
-        carbs: '',
+        userid: '',
+        mail: '',
+        roleid_id: '',
+        username: '',
         },
     }),
 
@@ -206,47 +209,34 @@
     },
 
     created () {
-      this.initialize()
+      fetch(this.url + 'trsel/',{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.userdata=obj)
     },
 
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            userid: 'te0001',
-            mail: 'Kcska_0001@kcs.com',
-            rollid: 'teacher',
-            username: 'kcst_nagatani',
-          },
-          {
-            userid: 'te0002',
-            mail: 'Kcska_0002@kcs.com',
-            rollid: 'teacher',
-            username: 'kcst_fukudome',
-          },
-          {
-            userid: 'te0003',
-            mail: 'Kcska_0003@kcs.com',
-            rollid: 'teacher',
-            username: 'kcst_takesako',
-          },
-        ]
-      }, 
-
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.userdata.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
+        this.delurl = this.url + 'trdel/?userid=' +  item.userid
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.userdata=obj)
         this.closeDelete()
       },
 
@@ -267,11 +257,15 @@
       },
 
       save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
-        }
+        this.addurl = this.url + 'tradd/?userid=' + this.editedItem.userid + '&mail=' + this.editedItem.mail + '&roleid_id=' + this.editedItem.roleid_id + '&username=' + this.editedItem.username
+        console.log(this.addurl)
+        fetch(this.addurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.userdata=obj)
         this.close()
       },
     },

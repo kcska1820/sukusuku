@@ -84,7 +84,7 @@
                     md="4"
                   >
                     <v-select
-                        v-model="editedItem.roleid_id"
+                        v-model="editedItem.role_id"
                         :items="items"
                         label="ロールID"
                     ></v-select>
@@ -192,10 +192,10 @@
         username: '',
         },
       defaultItem: {
-        name: '',
-        calories: '',
-        fat: '',
-        carbs: '',
+        userid: '',
+        mail: '',
+        roleid_id: '',
+        username: '',
         },
     }),
 

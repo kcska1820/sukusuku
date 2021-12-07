@@ -195,9 +195,9 @@
       nativeEvent.stopPropagation()
     },
     updateRange () {
-      const events = []
-      for (let i = 0; i < this.items.length; i++) {
-        events.push({
+      const event = []
+      for (let i = 0; i < items.length; i++) {
+        event.push({
           id:items[i].id,
           name: items[i].title,
           start: items[i].start,
@@ -208,7 +208,7 @@
         })
       }
       for (let i = 0; i < items2.length; i++) {
-        events.push({
+        event.push({
           name: items2[i].title,
           start: items2[i].start,
           end: items2[i].end,
@@ -219,7 +219,7 @@
         })
       }
       for (let i = 0; i < items3.length; i++) {
-        events.push({
+        event.push({
           name: items3[i].title,
           start: items3[i].start,
           end: items3[i].end,
@@ -229,7 +229,7 @@
           category:items3[i].category
         })
       }
-      this.events = events
+      this.events = event
     },
   },
   /* 未ログイン時index.vueに遷移 */

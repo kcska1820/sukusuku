@@ -28,5 +28,10 @@
         "icon":"mdi-account-key",
         "title":"管理者メニュー",
         "to":"/AdminMenu"
+    },
+    {
+        "icon":"mdi-account-child-outline",
+        "title":"かれんだ",
+        "to":"/student/calendars"
     }
 ]

@@ -40,6 +40,7 @@
             {{ $refs.calendar.title }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
+          <v-btn @click="updateRange">更新</v-btn>
           <calendarAdd />
           <v-menu
             bottom
@@ -68,13 +69,13 @@
                 <v-list-item-title>Month</v-list-item-title>
               </v-list-item>
               <v-list-item @click="type = 'category'">
-                <v-list-item-title>category</v-list-item-title>
+                <v-list-item-title>Category</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
         </v-toolbar>
       </v-sheet>
-      <v-sheet height="600">
+      <v-sheet height="550">
         <v-calendar
           ref="calendar"
           v-model="focus"
@@ -133,28 +134,30 @@
 </template>
 
 <script>
-  import items from '/components/timeTable.json'
-  import items2 from '/components/timeTable2.json'
   import calendarAdd from '/components/calendarAdd.vue'
   export default {
     data: () => ({
     focus: '',
-    type: 'category',
+    type: 'day',
     typeToLabel: {
       month: 'Month',
       week: 'Week',
       day: 'Day',
-      category:'category'
+      category:'Category'
     },
-    selectedEvent: {},
+    selectedEvent: {
+    },
     selectedElement: null,
     selectedOpen: false,
     CreateOpen:false,
+    url:'http://localhost:8000/sukusuku/',
+    selpsurl:'',
+    selgsurl:'',
     events: [],
-    items:items,
-    items2:items2,
+    user:[],
+    userid:'',
     dialog: false,
-    category:["private","timetable","group"]
+    category:["プライベート","時間割","グループ"]
   }),
   mounted () {
     this.$refs.calendar.checkChange()
@@ -193,30 +196,31 @@
       nativeEvent.stopPropagation()
     },
     updateRange () {
-      const events = []
-      for (let i = 0; i < items.length; i++) {
-        events.push({
-          name: items[i].title,
-          start: items[i].start,
-          end: items[i].end,
-          color: items[i].color,
-          timed: items[i].timed,
-          details: items[i].details,
-          category:items[i].category
-        })
-      }
-      for (let i = 0; i < items2.length; i++) {
-        events.push({
-          name: items2[i].title,
-          start: items2[i].start,
-          end: items2[i].end,
-          color: items2[i].color,
-          timed: items2[i].timed,
-          details: items2[i].details,
-          category:items2[i].category
-        })
-      }
-      this.events = events
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.userid = this.user[0].userid
+      this.selpsurl = this.url + 'pssel/?userid=' + this.userid
+      fetch(this.selpsurl,{
+      method:"GET",
+      mode:"cors",
+      credentials: 'include'
+      })
+      .then((res)=>res.json())
+      .then(obj=>{
+        const event = []
+        for (let i = 0; i < obj.length; i++) {
+          event.push({
+            id:obj[i].id,
+            name: obj[i].title,
+            start: obj[i].start,
+            end: obj[i].end,
+            color: obj[i].color,
+            details: obj[i].details,
+            category: "プライベート"
+          })
+        }
+        this.events=event
+      })
+      
     },
   },
   /* 未ログイン時index.vueに遷移 */

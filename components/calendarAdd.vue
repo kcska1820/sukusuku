@@ -117,11 +117,12 @@
 </template>
 
 <script>
-import timeTable3 from '/components/timeTable3.json'
 export default {
     data: () => ({
         dialog: false,
         tab:"プライベート",
+        url:'http://localhost:8000/sukusuku/',
+        addurl:'',
         startDay:'',
         startTime:'',
         endDay:'',
@@ -130,6 +131,10 @@ export default {
         details:'',
         group:'',
         color:'',
+        userid:'',
+        user:[],
+        privateschedule:[],
+        groupschedule:[],
         groups:[
                 {
                     id:"1",
@@ -165,41 +170,44 @@ export default {
     }),
     methods:{
         addGroupSchedule(){
-            const Add = {
-                title:this.title,
-                start:this.startDay + 'T' + this.startTime,
-                end:this.endDay + 'T' + this.endTime,
-                color:this.color,
-                group:this.group,
-                details:this.details,
-                category:"グループ"
-            }
-            console.log(Add)
-            this.title=''
-            this.startDay=''
-            this.startTime=''
-            this.endDay=''
-            this.endTime=''
-            this.color=''
-            this.group=''
-            this.details=''
-            this.dialog = false
+            this.start = this.startDay + 'T' + this.startTime
+            this.end = this.endDay + 'T' + this.endTime
+            this.addurl = this.url + 'gsadd/?title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details + '&groupid='+this.group
+            console.log(this.addurl)
+            fetch(this.addurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+            })
+            .then((res)=>res.json())
+            .then(obj=>this.groupschedule=obj)
+            this.close()
         },
         addPrivateSchedule(){
-            const Add = {
-                title:this.title,
-                start:this.startDay + 'T' + this.startTime,
-                end:this.endDay + 'T' + this.endTime,
-                color:this.color,
-                details:this.details,
-                category:"プライベート"
-            }
-            console.log(Add)
+            this.user = JSON.parse(localStorage.getItem('user'))
+            this.userid = this.user[0].userid
+            this.start = this.startDay + 'T' + this.startTime
+            this.end = this.endDay + 'T' + this.endTime
+            this.addurl = this.url + 'psadd/?userid=' + this.userid + '&title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details
+            console.log(this.addurl)
+            fetch(this.addurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+            })
+            .then((res)=>res.json())
+            .then(obj=>this.privateschedule=obj)
+            .catch()
+            this.close()
+        },
+        close(){
             this.title=''
             this.startDay=''
             this.startTime=''
+            this.start=''
             this.endDay=''
             this.endTime=''
+            this.end=''
             this.color=''
             this.group=''
             this.details=''

@@ -149,7 +149,7 @@ export default {
   methods: {
     search (){
       this.sql = searchsup(this.searchtxt, 'title')
-      this.srcurl = this.url + 'thsrc/' + this.sql.sql
+      this.srcurl = this.url + 'thsrc' + this.sql.sql
       console.log(this.srcurl)
       /*fetch(this.srcurl ,{
         method:"GET",

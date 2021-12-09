@@ -12,8 +12,6 @@ URL保管用の変数も別で定義(srcurl:'',)
 SQL文を作るメソッドで
 this.sql = searchsup(入力されたキーワード, 検索したい列の名前)
 this.srcurl = 'Django側のメソッド/' + this.sql.sql
-
-備考…スペースが連続で入力された場合の対処法が必要
 */
 const makekwd = (kwd, tb) => {
     let flag = true
@@ -30,10 +28,10 @@ const makekwd = (kwd, tb) => {
         const kwd2 = kwd.replace("　", " ")
         if (/.*\s.*/.test(kwd2)) {
             //スペースで配列に分割
-            const kwds = kwd2.split(" ")
+            const kwds = kwd2.split(/\s+/)
             for (let i in kwds) {
                 if (flag == true) {
-                    res = "\?" + tb + "=%" + kwds[i] + "%"
+                    res = "/\?" + tb + "=%" + kwds[i] + "%"
                     flag = false
                 } else {
                     res += "&" + tb + "=%" + kwds[i] + "%"

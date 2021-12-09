@@ -151,8 +151,9 @@
     selectedOpen: false,
     CreateOpen:false,
     url:'http://localhost:8000/sukusuku/',
-    selpsurl:'',
-    selgsurl:'',
+    psselurl:'',
+    gdselurl:'',
+    gsselurl:'',
     events: [],
     user:[],
     userid:'',
@@ -198,15 +199,17 @@
     updateRange () {
       this.user = JSON.parse(localStorage.getItem('user'))
       this.userid = this.user[0].userid
-      this.selpsurl = this.url + 'pssel/?userid=' + this.userid
-      fetch(this.selpsurl,{
+      this.psselurl = this.url + 'pssel/?userid=' + this.userid
+      this.gdselurl = this.url + 'gdsel/?userid=' + this.userid
+      const event = []
+      const groups = []
+      fetch(this.psselurl,{
       method:"GET",
       mode:"cors",
       credentials: 'include'
       })
       .then((res)=>res.json())
       .then(obj=>{
-        const event = []
         for (let i = 0; i < obj.length; i++) {
           event.push({
             id:obj[i].id,
@@ -218,9 +221,40 @@
             category: "プライベート"
           })
         }
-        this.events=event
       })
-      
+      fetch(this.gdselurl,{
+      method:"GET",
+      mode:"cors",
+      credentials: 'include'
+      })
+      .then((res)=>res.json())
+      .then(obj=>{
+        for (let j = 0; j < obj.length; j++) {
+          this.gsselurl = this.url + 'gssel/?groupid=' + obj[j].groupid_id
+          fetch(this.gsselurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+          })
+          .then((res)=>res.json())
+          .then(obj=>{
+            for (let i = 0; i < obj.length; i++) {
+              event.push({
+                id:obj[i].id,
+                groupid:obj[i].groupid_id,
+                name: obj[i].title,
+                start: obj[i].start,
+                end: obj[i].end,
+                color: obj[i].color,
+                details: obj[i].details,
+                category: "グループ"
+              })
+            }
+            console.log(event)
+          })
+        }
+      })
+      this.events=event
     },
   },
   /* 未ログイン時index.vueに遷移 */

@@ -100,6 +100,7 @@ export default {
   data:() => ({
     url:'http://localhost:8000/sukusuku/',
     addurl:'',
+    srcurl:'',
     sinsei:false,
     touketu:false,
     kaijo:false,
@@ -147,9 +148,15 @@ export default {
 
   methods: {
     search (){
-      console.log(this.searchtxt)
       this.sql = searchsup(this.searchtxt, 'title')
-      console.log('search/' + this.sql.sql)
+      this.srcurl = this.url + 'thsrc' + this.sql.sql
+      console.log(this.srcurl)
+      /*fetch(this.srcurl ,{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+      }).then((res)=>res.json())
+      .then(obj=>this.thdata=obj)*/
     },
 
     save () {

@@ -2,18 +2,18 @@
     <v-card color="accent2">
         <h1 class="mt-06"><v-icon size="1em">mdi-notebook-check-outline</v-icon>&emsp;Todoリスト</h1>
         <v-divider></v-divider>
+        <v-form ref='Todo'>
             <v-text-field
             v-model="newTaskTitle"
             @click:append="addTask"
-            @keyup.enter="addTask"
             class="pa-3"
             outlined
-            dense
             label="Todoを作成"
             append-icon="mdi-plus"
-            hide-details
             clearable
+            :rules="[rules.required]"
           ></v-text-field>
+          </v-form>
         <v-virtual-scroll
           :items="items"
           :item-height="49"
@@ -50,21 +50,27 @@
 <script>
 import items from '/components/TaskList.json'
 export default {
+    name: 'Todo',
     data() {
         return {
             newTaskTitle: '',
+            rules: {
+            required: value => !!value || 'こちらは必須項目です',
+        },
             items:items
         }
     },
     methods: {
         addTask(){
-            let newTask = {
+            if(this.$refs.Todo.validate()) {
+                let newTask = {
                 id: Date.now(),
                 title: this.newTaskTitle,
                 done: false
             }
             this.items.push(newTask)
             this.newTaskTitle = ''
+            }
         },
         doneTask(id) {
             let item = this.items.filter(item => item.id === id) [0]

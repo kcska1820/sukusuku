@@ -108,15 +108,20 @@
     },
 
     created () {
-      //stselをコメント一覧取得に変える
-      //select時に掲示板IDを指定したい
-      console.log(this.url + 'cmsel/')
-      /*fetch(this.url + 'stsel/',{
-        method:"GET",
-        mode:"cors",
-        credentials: 'include'
-      }).then((res)=>res.json())
-      .then(obj=>this.thdata=obj)*/
+      if (this.thread.match(/^\d+$/)) {
+        //stselをコメント一覧取得に変える
+        //select時に掲示板IDを指定したい
+        console.log(this.url + 'cmsel/')
+        /*fetch(this.url + 'stsel/',{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.thdata=obj)*/
+      }else{
+        this.$router.push('/BBS')
+      }
+
     },
     
     methods: {

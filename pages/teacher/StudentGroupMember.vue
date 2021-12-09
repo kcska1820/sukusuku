@@ -83,12 +83,12 @@
                     sm="6"
                     md="4"
                   >
-                    <v-select
-                        v-model="editedItem.role_id"
-                        :items="items"
-                        label="ロールID"
-                    ></v-select>
-                    </v-col>
+                  <v-select
+                    v-model="editedItem.role_id"
+                    :items="items"
+                    label="ロールID"  
+                  ></v-select>
+                  </v-col>
                   <v-col
                     cols="12"
                     sm="6"
@@ -151,11 +151,11 @@
       </v-icon>
       </v-btn>
       <v-btn
-      fab
-      small
-      color="primary"
-      icon
-    >
+        fab
+        small
+        color="primary"
+        icon
+      >
       <v-icon
         @click="deleteItem(item)"
       >
@@ -219,8 +219,8 @@
           method:"GET",
           mode:"cors",
           credentials: 'include'
-        }).then((res)=>res.json())
-        .then(obj=>this.userdata=obj)
+      }).then((res)=>res.json())
+      .then(obj=>this.userdata=obj)
     },
 
     methods: {

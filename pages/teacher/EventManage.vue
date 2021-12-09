@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="events"
     sort-by="groupadmin"
     class="elevation-1 ma-12"
     disable-sort
@@ -49,8 +49,8 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.id"
-                      label="イベントID"
+                      v-model="editedItem.eventname"
+                      label="イベント名"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -59,18 +59,18 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.name"
-                      label="イベント名"
+                      v-model="editedItem.eventdetails"
+                      label="イベント詳細"
                     ></v-text-field>
                   </v-col>
-                   <v-col
+                  <v-col
                     cols="12"
                     sm="6"
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.name"
-                      label="開始日時"
+                      v-model="editedItem.end"
+                      label="締め切り日時"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -109,65 +109,62 @@
         </v-dialog>
       </v-toolbar>
     </template>
+
     <template v-slot:[`item.actions`]="{ item }">
-    
     <v-btn
-      fab
-      small
-      color="primary"
-    >
+        fab
+        small
+        color="primary"
+        icon
+      >
       <v-icon
         @click="deleteItem(item)"
-        size="2em"
       >
         mdi-delete
       </v-icon>
     </v-btn>
     </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
-      </v-btn>
-    </template>
   </v-data-table>
 </template>
+
 <script>
   export default {
     data: () => ({
+      url:'http://localhost:8000/sukusuku/',
+      addurl:'',
+      del:'',
       dialog: false,
       dialogDelete: false,
       headers: [
         {
-          text: 'イベントID',
+          text: 'イベント名',
           align: 'start',
           sortable: false,
-          value: 'id',
+          value: 'title',
           align: "center",
-          width: '200',
           class:"accent"
         },
-        { text: 'イベント名', value: 'name', align: "center", width: '200',class:"accent"},
-        { text: '開始日時', value: 'date', align: "center", width: '200',class:"accent"},
-        { text: '', value: 'actions', sortable: false, align: "center", width: '200',class:"accent"},
+        { text: 'イベント詳細', value: 'details', align: "center",class:"accent"},
+        { text: '締め切り日時', value: 'end', align: "center",class:"accent"},
+        { text: '削除', value: 'actions', sortable: false,class:"accent" }
       ],
-      desserts: [],
+      events: [],
       editedIndex: -1,
       editedItem: {
-        id: '',
-        name: '',
+        eventname: '',
+        eventdetails: '',
+        end: '',
       },
       defaultItem: {
-        id: '',
-        name: '',
+        eventname: '',
+        eventdetails: '',
+        end: '',
       },
     }),
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '新規イベントを作成します' : 'Edit Item'
+        return this.editedIndex === -1 ? '新規イベントを作成します' : 'イベント更新'
       },
     },
 
@@ -181,44 +178,29 @@
     },
 
     created () {
-      this.initialize()
+      fetch(this.url + 'evsel/?classid=' + localStorage.getItem('class'),{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+      }).then((res)=>res.json())
+      .then(obj=>this.events=obj)
     },
 
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            id: 'ev0001',
-            name: '国試',
-            date:'0311101400',
-          },
-          {
-            id: 'ev0002',
-            name: 'クラスマッチ',
-            date:'0311160900',
-          },
-          {
-            id: 'ev0003',
-            name: '防災訓練',
-            date:'0312250900',
-          },
-        ]
-      },
-
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.events.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.events.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        this.events.splice(this.editedIndex, 1)
         this.closeDelete()
       },
 
@@ -239,11 +221,15 @@
       },
 
       save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
-        }
+        this.addurl = this.url + 'evadd/?eventname=' + this.editedItem.eventname + '&eventdetails=' + this.editedItem.eventdetails + '&end=' + this.editedItem.end
+        console.log(this.addurl)
+        fetch(this.addurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.events=obj)
         this.close()
       },
     },

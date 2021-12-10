@@ -100,7 +100,7 @@
         newComment: '',
         index:0,
         num:4,
-        thdata:[],
+        cmdata:[],
         thread:this.$route.query.id,
         items:items,
         threads:threads
@@ -117,7 +117,7 @@
           mode:"cors",
           credentials: 'include'
         }).then((res)=>res.json())
-        .then(obj=>this.thdata=obj)*/
+        .then(obj=>this.cmdata=obj)*/
       }else{
         this.$router.push('/BBS')
       }
@@ -137,7 +137,7 @@
             mode:"cors",
             credentials: 'include'
           }).then((res)=>res.json())
-          .then(obj=>this.thdata=obj)*/
+          .then(obj=>this.cmdata=obj)*/
           this.$router.go({path: this.$router.currentRoute.path, force:true})
         }
       },

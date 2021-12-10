@@ -100,7 +100,7 @@
         newComment: '',
         index:0,
         num:4,
-        thdata:[],
+        cmdata:[],
         thread:this.$route.query.id,
         items:items,
         threads:threads
@@ -108,15 +108,20 @@
     },
 
     created () {
-      //stselをコメント一覧取得に変える
-      //select時に掲示板IDを指定したい
-      console.log(this.url + 'cmsel/')
-      /*fetch(this.url + 'stsel/',{
-        method:"GET",
-        mode:"cors",
-        credentials: 'include'
-      }).then((res)=>res.json())
-      .then(obj=>this.thdata=obj)*/
+      if (this.thread.match(/^\d+$/)) {
+        //stselをコメント一覧取得に変える
+        //select時に掲示板IDを指定したい
+        console.log(this.url + 'cmsel/')
+        /*fetch(this.url + 'stsel/',{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.cmdata=obj)*/
+      }else{
+        this.$router.push('/BBS')
+      }
+
     },
     
     methods: {
@@ -132,7 +137,7 @@
             mode:"cors",
             credentials: 'include'
           }).then((res)=>res.json())
-          .then(obj=>this.thdata=obj)*/
+          .then(obj=>this.cmdata=obj)*/
           this.$router.go({path: this.$router.currentRoute.path, force:true})
         }
       },

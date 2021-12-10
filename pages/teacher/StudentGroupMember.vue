@@ -156,11 +156,11 @@
       </v-icon>
       </v-btn>
       <v-btn
-      fab
-      small
-      color="primary"
-      icon
-    >
+        fab
+        small
+        color="primary"
+        icon
+      >
       <v-icon
         @click="deleteItem(item)"
       >
@@ -229,8 +229,8 @@
           method:"GET",
           mode:"cors",
           credentials: 'include'
-        }).then((res)=>res.json())
-        .then(obj=>this.userdata=obj)
+      }).then((res)=>res.json())
+      .then(obj=>this.userdata=obj)
     },
 
     methods: {

@@ -66,7 +66,23 @@ export default {
             })
             .then(resJson => {
                 localStorage.setItem('user',JSON.stringify(resJson))
-                console.log("aaa")
+                console.log(resJson)
+
+                fetch('http://localhost:8000/sukusuku/cdsel/?userid=' + resJson[0].userid,{
+                    method:"GET",
+                    mode:"cors",
+                    credentials: 'include'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }       // 404 や 500 ステータスならここに到達する
+                throw new Error('Network response was not ok.');
+                })
+                .then(resJson => {
+                    console.log(resJson)
+                    localStorage.setItem('class',resJson[0].classid_id)
+                })
             })
             .catch(error => {       // ネットワークエラーの場合はここに到達する
                 console.error(error);

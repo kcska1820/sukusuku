@@ -72,6 +72,7 @@
       </v-icon>
     </v-btn>
     </template>
+    <!-- ここを消す -->
     <template v-slot:no-data>
       <v-btn
         color="primary"

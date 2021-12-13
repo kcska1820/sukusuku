@@ -43,7 +43,7 @@ export default {
                 this.Set()
                 this.$router.push("/student/Home")
             }).catch((error) => {
-               console.log("error")
+                console.log("error")
             })
         },
         Set(){
@@ -66,7 +66,9 @@ export default {
             })
             .then(resJson => {
                 localStorage.setItem('user',JSON.stringify(resJson))
-                fetch('http://localhost:8000/sukusuku/cdsel/?userid=' + resJson[0].userid,{
+                console.log(resJson)
+
+                fetch('http://localhost:8000/sukusuku/cdselu/?userid=' + resJson[0].userid,{
                     method:"GET",
                     mode:"cors",
                     credentials: 'include'

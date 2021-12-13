@@ -100,8 +100,7 @@ import PasswordReset from '../components/PasswordReset.vue'
       this.user = JSON.parse(localStorage.getItem('user'))
       this.userid = this.user[0].userid
       this.email = this.user[0].mail
-      //roll_id => role_id
-      this.role = this.user[0].rollid_id
+      this.role = this.user[0].roleid_id
     }
   },
   computed:{

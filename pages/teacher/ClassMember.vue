@@ -13,9 +13,9 @@
     </v-card-title>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="users"
     :search="search"
-    sort-by="groupmember"
+    sort-by="classmember"
     class="elevation-1"
     disable-sort
   >
@@ -28,13 +28,14 @@
           inset
           vertical
         ></v-divider>
+        <h1>{{classname}}</h1>
         <v-spacer></v-spacer>
         <v-btn
           class="mx-2"
           fab
           dark
           color="accent"
-          to="/teacher/GroupMemberAdd"
+          to="/teacher/ClassMemberAdd"
         >
           <v-icon dark>
             mdi-plus
@@ -70,7 +71,6 @@
     <template v-slot:no-data>
       <v-btn
         color="primary"
-        @click="initialize"
       >
         Reset
       </v-btn>
@@ -78,23 +78,28 @@
   </v-data-table>
   </v-card>
 </template>
+
 <script>
   export default {
     data: () => ({
+      url:'http://localhost:8000/sukusuku/',
+      addurl:'',
+      del:'',
       dialog: false,
       dialogDelete: false,
       search: '',
+      classname:'aaa',
       headers: [
         {
           text: 'ユーザーID',
           align: 'start',
           sortable: false,
-          value: 'id',
+          value: 'userid',
         },
-        { text: 'ユーザー名', value: 'name' },
+        { text: 'ユーザー名', value: 'userid__username' },
         { text: '', value: 'actions', sortable: false },
       ],
-      desserts: [],
+      users: [],
       editedIndex: -1,
     }),
 
@@ -114,41 +119,31 @@
     },
 
     created () {
-      this.initialize()
+      this.classname = localStorage.getItem('selclassid')
+      fetch(this.url + 'cdselc/?classid=' +  this.classname,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.users=obj)
     },
 
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            id: 'st20184115',
-            name: '鶴薗正樹',
-          },
-          {
-            id: 'st20184112',
-            name: '濱田悠斗',
-          },
-          {
-            id: 'st20184108',
-            name: '西尾郁哉',
-          },
-        ]
-      },
 
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.users.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.users.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        this.users.splice(this.editedIndex, 1)
         this.closeDelete()
       },
 
@@ -170,9 +165,9 @@
 
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          Object.assign(this.users[this.editedIndex], this.editedItem)
         } else {
-          this.desserts.push(this.editedItem)
+          this.users.push(this.editedItem)
         }
         this.close()
       },

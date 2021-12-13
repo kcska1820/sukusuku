@@ -1,8 +1,8 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
-    sort-by="groupadmin"
+    :items="classs"
+    sort-by="classadmin"
     class="elevation-1 ma-12"
     disable-sort
   >
@@ -107,7 +107,7 @@
     <v-btn
       color="accent"
       elevation="2"
-      to="/teacher/GroupMember"
+      @click="selclassid(item)"
     >メンバー管理</v-btn>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
     <v-btn
       fab
@@ -125,7 +125,6 @@
     <template v-slot:no-data>
       <v-btn
         color="primary"
-        @click="initialize"
       >
         Reset
       </v-btn>
@@ -135,6 +134,9 @@
 <script>
   export default {
     data: () => ({
+      url:'http://localhost:8000/sukusuku/',
+      addurl:'',
+      del:'',
          rules: {
           required: value => !!value || 'こちらは必須項目です',
           max: value => (value && value.length <= 10) || '10文字以下で入力してください',
@@ -146,15 +148,15 @@
           text: 'クラスID',
           align: 'start',
           sortable: false,
-          value: 'id',
+          value: 'classid',
           align: "center",
-          width: '200'
-          ,class: "accent"        
+          width: '200',
+          class: "accent"        
         },
-        { text: 'クラス名', value: 'name', align: "center", width: '400',class: "accent"},
+        { text: 'クラス名', value: 'classname', align: "center", width: '400',class: "accent"},
         { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
       ],
-      desserts: [],
+      classs: [],
       editedIndex: -1,
       editedItem: {
         id: '',
@@ -182,41 +184,33 @@
     },
 
     created () {
-      this.initialize()
+      fetch(this.url + 'clall/',{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.classs=obj)
     },
 
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            id: 'cl0001',
-            name: 'R4',
-          },
-          {
-            id: 'cl0002',
-            name: 'R3',
-          },
-          {
-            id: 'cl0003',
-            name: 'R2',
-          },
-        ]
+      selclassid(item){
+        localStorage.setItem('selclassid',item.classid)
+        this.$router.push({path: "/teacher/ClassMember"})
       },
-
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.classs.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.classs.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        this.classs.splice(this.editedIndex, 1)
         this.closeDelete()
       },
 
@@ -239,9 +233,9 @@
       save () {
         if(this.$refs.classaddform.validate()){
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          Object.assign(this.classs[this.editedIndex], this.editedItem)
         } else {
-          this.desserts.push(this.editedItem)
+          this.classs.push(this.editedItem)
         }
         this.close()
         }

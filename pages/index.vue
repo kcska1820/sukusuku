@@ -80,8 +80,21 @@ export default {
                 throw new Error('Network response was not ok.');
                 })
                 .then(resJson => {
-                    console.log(resJson)
                     localStorage.setItem('class',resJson[0].classid_id)
+                })
+                fetch('http://localhost:8000/sukusuku/gdsel/?userid=' + resJson[0].userid,{
+                    method:"GET",
+                    mode:"cors",
+                    credentials: 'include'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }       // 404 や 500 ステータスならここに到達する
+                throw new Error('Network response was not ok.');
+                })
+                .then(resJson => {
+                    localStorage.setItem('group',JSON.stringify(resJson))
                 })
             })
             .catch(error => {       // ネットワークエラーの場合はここに到達する

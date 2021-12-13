@@ -40,6 +40,7 @@
           </v-icon>
             </v-btn>
           </template>
+          <v-form ref="Manageaddform">
           <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
@@ -56,6 +57,7 @@
                     <v-text-field
                       v-model="editedItem.userid"
                       label="ユーザーID"
+                      :rules="[rules.required,rules.max]"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -66,6 +68,7 @@
                     <v-text-field
                       v-model="editedItem.mail"
                       label="メールアドレス"
+                      :rules="[rules.required]"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -77,6 +80,7 @@
                         v-model="editedItem.roleid_id"
                         :items="items"
                         label="ロールID"
+                      :rules="[rules.required]"
                     ></v-select>
                     </v-col>
                   <v-col
@@ -87,6 +91,7 @@
                     <v-text-field
                       v-model="editedItem.username"
                       label="ユーザー名"
+                      :rules="[rules.required]"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -107,10 +112,11 @@
                 text
                 @click="save"
               >
-                作成
+                保存
               </v-btn>
             </v-card-actions>
           </v-card>
+          </v-form>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
@@ -158,6 +164,10 @@
 <script>
   export default {
     data: () => ({
+       rules: {
+        required: value => !!value || 'こちらは必須項目です',
+         max: value => (value && value.length == 10) || '10文字で入力してください',
+      },
       url:'http://localhost:8000/sukusuku/',
       addurl:'',
       del:'',
@@ -257,6 +267,7 @@
       },
 
       save () {
+        if(this.$refs.Manageaddform.validate()){
         this.addurl = this.url + 'tradd/?userid=' + this.editedItem.userid + '&mail=' + this.editedItem.mail + '&roleid_id=' + this.editedItem.roleid_id + '&username=' + this.editedItem.username
         console.log(this.addurl)
         fetch(this.addurl,{
@@ -267,6 +278,7 @@
         .then((res)=>res.json())
         .then(obj=>this.userdata=obj)
         this.close()
+        }
       },
     },
   }

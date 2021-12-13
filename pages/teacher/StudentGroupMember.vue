@@ -50,11 +50,11 @@
               </v-icon>
             </v-btn>
           </template>
+          <v-form ref="addform">
           <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
             </v-card-title>
-
             <v-card-text>
               <v-container>
                 <v-row>
@@ -65,7 +65,8 @@
                   >
                     <v-text-field
                       v-model="editedItem.userid"
-                      label="ユーザーID"
+                      label="ユーザーID(学籍番号)"
+                      :rules="[rules.required,rules.max]"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -76,6 +77,7 @@
                     <v-text-field
                       v-model="editedItem.mail"
                       label="メールアドレス"
+                      :rules="[rules.required]"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -83,12 +85,13 @@
                     sm="6"
                     md="4"
                   >
-                  <v-select
-                    v-model="editedItem.role_id"
-                    :items="items"
-                    label="ロールID"  
-                  ></v-select>
-                  </v-col>
+                    <v-select
+                        v-model="editedItem.role_id"
+                        :items="items"
+                        label="ロールID"
+                        :rules="[rules.required]"
+                    ></v-select>
+                    </v-col>
                   <v-col
                     cols="12"
                     sm="6"
@@ -97,6 +100,7 @@
                     <v-text-field
                       v-model="editedItem.username"
                       label="ユーザー名"
+                      :rules="[rules.required]"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -121,6 +125,7 @@
               </v-btn>
             </v-card-actions>
           </v-card>
+          </v-form>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
@@ -169,6 +174,11 @@
 <script>
   export default {
     data: () => ({
+      
+      rules: {
+        required: value => !!value || 'こちらは必須項目です',
+         max: value => (value && value.length == 10) || '10文字で入力して下さい',
+      },
       url:'http://localhost:8000/sukusuku/',
       addurl:'',
       del:'',
@@ -264,16 +274,18 @@
       },
 
       save () {
-        this.addurl = this.url + 'stadd/?userid=' + this.editedItem.userid + '&mail=' + this.editedItem.mail + '&roleid_id=' + this.editedItem.roleid_id + '&username=' + this.editedItem.username
-        console.log(this.addurl)
-        fetch(this.addurl,{
-          method:"GET",
-          mode:"cors",
-          credentials: 'include'
-        })
-        .then((res)=>res.json())
-        .then(obj=>this.userdata=obj)
-        this.close()
+        if(this.$refs.addform.validate()){
+          this.addurl = this.url + 'stadd/?userid=' + this.editedItem.userid + '&mail=' + this.editedItem.mail + '&roleid_id=' + this.editedItem.roleid_id + '&username=' + this.editedItem.username
+          console.log(this.addurl)
+          fetch(this.addurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+          })
+          .then((res)=>res.json())
+          .then(obj=>this.userdata=obj)
+          this.close()
+        }
       },
     },
   }

@@ -18,6 +18,7 @@
         <v-container fluid fill-height>
             <v-layout xs12 sm8 md4>
                 <v-flex>
+                    <v-form ref="addform">
                     <v-card>
                         <v-toolbar color="accent">
                             <v-toolbar-title>
@@ -31,20 +32,20 @@
                         <v-tabs-items v-model="tab">
                             <v-tab-item>
                                 <v-card-text>
-                                    <v-form>
+                                    <v-form  :rules="[rules.required]">
                                         <v-col class="d-flex justify-space-around pt-4">
                                             <p>開始日時 : </p>
                                             <input type="date" v-model="startDay" />
                                             <input type="time" v-model="startTime" />
                                         </v-col>
-                                        <v-col class="d-flex justify-space-around pt-4">
+                                        <v-col class="d-flex justify-space-around pt-4" >
                                             <p>終了日時 : </p>
                                             <input type="date" v-model="endDay" />
                                             <input type="time" v-model="endTime" />
                                         </v-col>
-                                        <v-text-field label="タイトル" v-model="title"  />
-                                        <v-text-field label="内容" v-model="details"  />
-                                        <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" />
+                                        <v-text-field label="タイトル" v-model="title" :rules="[rules.required]" />
+                                        <v-text-field label="内容" v-model="details" :rules="[rules.required]" />
+                                        <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" :rules="[rules.required]" />
                                     </v-form>
                                 </v-card-text>
                                 <v-card-actions>
@@ -70,7 +71,7 @@
                             </v-tab-item>
                             <v-tab-item>
                                 <v-card-text>
-                                    <v-form>
+                                    <v-form  :rules="[rules.required]">
                                         <v-col class="d-flex justify-space-around pt-4">
                                             <p>開始日時 : </p>
                                             <input type="date" v-model="startDay" />
@@ -78,13 +79,13 @@
                                         </v-col>
                                         <v-col class="d-flex justify-space-around pt-4">
                                             <p>終了日時 : </p>
-                                            <input type="date" v-model="endDay" />
-                                            <input type="time" v-model="endTime" />
+                                            <input type="date" v-model="endDay" :rules="[rules.required]" />
+                                            <input type="time" v-model="endTime" :rules="[rules.required]" />
                                         </v-col>
-                                        <v-text-field label="タイトル" v-model="title"  />
-                                        <v-text-field label="内容" v-model="details"  />
-                                        <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" />
-                                        <v-select label="グループ" v-model="group" :items="groups" item-text="name" item-value="id" />
+                                        <v-text-field label="タイトル" v-model="title" :rules="[rules.required]" />
+                                        <v-text-field label="内容" v-model="details" :rules="[rules.required]" />
+                                        <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" :rules="[rules.required]" />
+                                        <v-select label="グループ" v-model="group" :items="groups" item-text="name" item-value="id" :rules="[rules.required]" />
                                     </v-form>
                                 </v-card-text>
                                 <v-card-actions>
@@ -110,6 +111,7 @@
                             </v-tab-item>
                         </v-tabs-items>
                     </v-card>
+                    </v-form>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -119,6 +121,9 @@
 <script>
 export default {
     data: () => ({
+        rules: {
+            required: value => !!value || 'こちらは必須項目です',
+        },
         dialog: false,
         tab:"プライベート",
         url:'http://localhost:8000/sukusuku/',
@@ -177,6 +182,7 @@ export default {
             }
         },
         addGroupSchedule(){
+            if(this.$refs.addform.validate()){
             this.start = this.startDay + 'T' + this.startTime
             this.end = this.endDay + 'T' + this.endTime
             this.addurl = this.url + 'gsadd/?title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details + '&groupid='+this.group
@@ -189,23 +195,29 @@ export default {
             .then((res)=>res.json())
             .then(obj=>this.groupschedule=obj)
             this.close()
+            }
         },
         addPrivateSchedule(){
-            this.user = JSON.parse(localStorage.getItem('user'))
-            this.userid = this.user[0].userid
-            this.start = this.startDay + 'T' + this.startTime
-            this.end = this.endDay + 'T' + this.endTime
-            this.addurl = this.url + 'psadd/?userid=' + this.userid + '&title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details
-            console.log(this.addurl)
-            fetch(this.addurl,{
-            method:"GET",
-            mode:"cors",
-            credentials: 'include'
-            })
-            .then((res)=>res.json())
-            .then(obj=>this.privateschedule=obj)
-            .catch()
-            this.close()
+            if(this.$refs.addform.validate()){
+                if(this.startDay >= this.endDay){
+                    this.user = JSON.parse(localStorage.getItem('user'))
+                    this.userid = this.user[0].userid
+                    this.start = this.startDay + 'T' + this.startTime
+                    this.end = this.endDay + 'T' + this.endTime
+                    this.addurl = this.url + 'psadd/?userid=' + this.userid + '&title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details
+                    console.log(this.addurl)
+
+                    /* fetch(this.addurl,{
+                    method:"GET",
+                    mode:"cors",
+                    credentials: 'include'
+                    })
+                    .then((res)=>res.json())
+                    .then(obj=>this.privateschedule=obj)
+                    .catch()
+                    this.close() */
+                }
+            }
         },
         close(){
             this.title=''

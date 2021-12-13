@@ -35,6 +35,7 @@
           </v-icon>
             </v-btn>
           </template>
+          <v-form ref="addform">
           <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
@@ -51,6 +52,7 @@
                     <v-text-field
                       v-model="editedItem.id"
                       label="グループID"
+                      :rules="[rules.required,rules.max]"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -61,6 +63,7 @@
                     <v-text-field
                       v-model="editedItem.name"
                       label="グループ名"
+                      :rules="[rules.required]"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -85,6 +88,7 @@
               </v-btn>
             </v-card-actions>
           </v-card>
+          </v-form>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
@@ -131,6 +135,10 @@
 <script>
   export default {
     data: () => ({
+      rules: {
+        required: value => !!value || 'こちらは必須項目です',
+        max: value => (value && value.length == 6) || '6文字で入力して下さい',
+      },
       dialog: false,
       dialogDelete: false,
       headers: [
@@ -229,12 +237,14 @@
       },
 
       save () {
+        if(this.$refs.addform.validate()){
         if (this.editedIndex > -1) {
           Object.assign(this.desserts[this.editedIndex], this.editedItem)
         } else {
           this.desserts.push(this.editedItem)
         }
         this.close()
+        }
       },
     },
   }

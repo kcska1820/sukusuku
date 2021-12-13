@@ -231,9 +231,18 @@ export default {
             this.group=''
             this.details=''
             this.dialog = false
-        }
+        },
+        Set(){
+            const newDay= new Date()
+            const getmonth = parseInt(newDay.getMonth()) + 1
+            this.startDay = newDay.getFullYear() + '-' + getmonth + '-' + newDay.getDate()
+            this.startTime = newDay.getHours() + ':' + newDay.getMinutes()
+            this.endDay = newDay.getFullYear() + '-' + getmonth + '-' + newDay.getDate()
+            this.endTime = newDay.getHours() + ':' + newDay.getMinutes()
+        },
     },
     created(){
+        this.Set()
         this.getGroup()
     }
 }

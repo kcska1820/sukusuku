@@ -123,6 +123,7 @@ export default {
         tab:"プライベート",
         url:'http://localhost:8000/sukusuku/',
         addurl:'',
+        groupurl:'',
         startDay:'',
         startTime:'',
         endDay:'',
@@ -135,20 +136,8 @@ export default {
         user:[],
         privateschedule:[],
         groupschedule:[],
-        groups:[
-                {
-                    id:"1",
-                    name:"aaa"
-                },
-                {
-                    id:"2",
-                    name:"iii"
-                },
-                {
-                    id:"3",
-                    name:"uuu"
-                }
-            ],
+        groups:[],
+        group1:[],
         colors:[
             {
                 name:"赤",
@@ -169,6 +158,24 @@ export default {
         ],
     }),
     methods:{
+        getGroup(){
+            this.group1 = JSON.parse(localStorage.getItem('group'))
+            for (let i = 0; i < this.group1.length; i++) {
+                this.groupurl = this.url + 'glsel/?groupid='+this.group1[i].groupid_id
+                fetch(this.groupurl,{
+                method:"GET",
+                mode:"cors",
+                credentials: 'include'
+                })
+                .then((res)=>res.json())
+                .then(obj=>{
+                    this.groups.push({
+                    id:this.group1[i].groupid_id,
+                    name:obj[0].groupname,
+                    })
+                })
+            }
+        },
         addGroupSchedule(){
             this.start = this.startDay + 'T' + this.startTime
             this.end = this.endDay + 'T' + this.endTime
@@ -213,6 +220,9 @@ export default {
             this.details=''
             this.dialog = false
         }
+    },
+    created(){
+        this.getGroup()
     }
 }
 </script>

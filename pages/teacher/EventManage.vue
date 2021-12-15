@@ -35,6 +35,7 @@
           </v-icon>
             </v-btn>
           </template>
+          <v-form ref="Eventform">
           <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
@@ -51,6 +52,7 @@
                     <v-text-field
                       v-model="editedItem.eventname"
                       label="イベント名"
+                      :rules="[rules.required]"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -71,6 +73,7 @@
                     <v-text-field
                       v-model="editedItem.end"
                       label="締め切り日時"
+                      :rules="[rules.required]"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -95,6 +98,7 @@
               </v-btn>
             </v-card-actions>
           </v-card>
+          </v-form>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
@@ -130,6 +134,9 @@
 <script>
   export default {
     data: () => ({
+      rules: {
+        required: value => !!value || 'こちらは必須項目です',
+      },
       url:'http://localhost:8000/sukusuku/',
       addurl:'',
       del:'',
@@ -221,6 +228,7 @@
       },
 
       save () {
+        if(this.$refs.Eventform.validate()){
         this.addurl = this.url + 'evadd/?eventname=' + this.editedItem.eventname + '&eventdetails=' + this.editedItem.eventdetails + '&end=' + this.editedItem.end
         console.log(this.addurl)
         fetch(this.addurl,{
@@ -231,6 +239,7 @@
         .then((res)=>res.json())
         .then(obj=>this.events=obj)
         this.close()
+        }
       },
     },
   }

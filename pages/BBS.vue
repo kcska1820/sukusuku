@@ -23,6 +23,7 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </template>
+        <v-form ref="BBSaddform">
         <v-card>
           <v-card-title>
             <span class="text-h5">掲示板の追加申請</span>
@@ -34,6 +35,7 @@
                 <v-text-field
                   v-model="editedItem.title"
                   label="掲示板タイトル"
+                  :rules="[rules.required]"
                 ></v-text-field>
               </v-row><v-row>
                 <v-textarea
@@ -59,6 +61,7 @@
             </v-btn>
           </v-card-actions>
         </v-card>
+        </v-form>
       </v-dialog>
     </v-card-title>
     <v-row class="d-flex justify-end">
@@ -98,6 +101,9 @@ import BBSCard from '/components/BBSCard'
 import searchsup from '/components/searchSup'
 export default {
   data:() => ({
+    rules: {
+        required: value => !!value || 'こちらは必須項目です',
+      },
     url:'http://localhost:8000/sukusuku/',
     addurl:'',
     srcurl:'',
@@ -160,6 +166,7 @@ export default {
     },
 
     save () {
+      if(this.$refs.BBSaddform.validate()){
       this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=0' + '&note=' + this.editedItem.note + '&master=st00000001'
       console.log(this.addurl)
       /*fetch(this.addurl,{
@@ -170,6 +177,7 @@ export default {
       .then((res)=>res.json())
       .then(obj=>this.thdata=obj)*/
       this.sclose()
+      }
     },
 
     sclose (){

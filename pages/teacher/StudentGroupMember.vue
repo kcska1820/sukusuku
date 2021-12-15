@@ -177,7 +177,7 @@
       
       rules: {
         required: value => !!value || 'こちらは必須項目です',
-         max: value => (value && value.length == 10) || '10文字で入力して下さい',
+        max: value => (value && value.length == 10) || '10文字で入力して下さい',
       },
       url:'http://localhost:8000/sukusuku/',
       addurl:'',

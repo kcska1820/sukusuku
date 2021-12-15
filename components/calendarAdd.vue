@@ -164,21 +164,23 @@ export default {
     }),
     methods:{
         getGroup(){
-            this.group1 = JSON.parse(localStorage.getItem('group'))
-            for (let i = 0; i < this.group1.length; i++) {
-                this.groupurl = this.url + 'glsel/?groupid='+this.group1[i].groupid_id
-                fetch(this.groupurl,{
-                method:"GET",
-                mode:"cors",
-                credentials: 'include'
-                })
-                .then((res)=>res.json())
-                .then(obj=>{
-                    this.groups.push({
-                    id:this.group1[i].groupid_id,
-                    name:obj[0].groupname,
+            if(localStorage.getItem('group') != null){
+                this.group1 = JSON.parse(localStorage.getItem('group'))
+                for (let i = 0; i < this.group1.length; i++) {
+                    this.groupurl = this.url + 'glsel/?groupid='+this.group1[i].groupid_id
+                    fetch(this.groupurl,{
+                    method:"GET",
+                    mode:"cors",
+                    credentials: 'include'
                     })
-                })
+                    .then((res)=>res.json())
+                    .then(obj=>{
+                        this.groups.push({
+                        id:this.group1[i].groupid_id,
+                        name:obj[0].groupname,
+                        })
+                    })
+                }
             }
         },
         addGroupSchedule(){

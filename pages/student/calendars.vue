@@ -96,7 +96,7 @@
                     <v-card>
                         <v-toolbar color="accent">
                           <v-toolbar-title>
-                            予定追加
+                            予定更新
                           </v-toolbar-title>
                         </v-toolbar>
                         <v-card-text>

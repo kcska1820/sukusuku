@@ -46,19 +46,6 @@
                 <v-row>
                   <v-col
                     cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.id"
-                      label="グループID"
-                      :rules="[rules.required,rules.max]"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
                   >
                     <v-text-field
                       v-model="editedItem.name"
@@ -125,9 +112,9 @@
     <template v-slot:no-data>
       <v-btn
         color="primary"
-        @click="initialize"
+        @click="dialog = true"
       >
-        Reset
+        追加
       </v-btn>
     </template>
   </v-data-table>
@@ -137,7 +124,6 @@
     data: () => ({
       rules: {
         required: value => !!value || 'こちらは必須項目です',
-        max: value => (value && value.length == 6) || '6文字で入力して下さい',
       },
       dialog: false,
       dialogDelete: false,
@@ -155,6 +141,8 @@
         { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
       ],
       desserts: [],
+      setGroup:[],
+      groupurl : '',
       editedIndex: -1,
       editedItem: {
         id: '',
@@ -187,20 +175,25 @@
 
     methods: {
       initialize () {
-        this.desserts = [
-          {
-            id: 'gl0001',
-            name: '七色デイズ',
-          },
-          {
-            id: 'gl0002',
-            name: 'ベロリンガ',
-          },
-          {
-            id: 'gl0003',
-            name: 'ちゅいん',
-          },
-        ]
+        if(localStorage.getItem('group') != null){
+          this.setGroup = JSON.parse(localStorage.getItem('group'))
+          for (let i = 0; i < this.setGroup.length; i++) {
+                    this.groupurl = 'http://localhost:8000/sukusuku/glsel/?groupid='+this.setGroup[i].groupid_id
+                    fetch(this.groupurl,{
+                    method:"GET",
+                    mode:"cors",
+                    credentials: 'include'
+                    })
+                    .then((res)=>res.json())
+                    .then(obj=>{
+                        this.desserts.push({
+                        id:this.setGroup[i].groupid_id,
+                        name:obj[0].groupname,
+                        })
+                    })
+                }
+        }
+        
       },
 
       editItem (item) {

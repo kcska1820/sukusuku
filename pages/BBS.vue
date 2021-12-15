@@ -48,7 +48,8 @@
             <v-spacer/>
             <v-btn
               color="red darken-2"
-              text>
+              text
+              @click="sclose">
               キャンセル
             </v-btn>
             <v-btn

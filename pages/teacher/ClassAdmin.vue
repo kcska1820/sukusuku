@@ -136,7 +136,7 @@
     data: () => ({
       url:'http://localhost:8000/sukusuku/',
       addurl:'',
-      del:'',
+      delurl:'',
          rules: {
           required: value => !!value || 'こちらは必須項目です',
           max: value => (value && value.length <= 10) || '10文字以下で入力してください',
@@ -197,20 +197,20 @@
         localStorage.setItem('selclassid',item.classid)
         this.$router.push({path: "/teacher/ClassMember"})
       },
-      editItem (item) {
-        this.editedIndex = this.classs.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
 
       deleteItem (item) {
-        this.editedIndex = this.classs.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
+        this.delurl = this.url + 'cldel/?classid=' +  item.classid
+        this.dialogDelete = true 
       },
 
       deleteItemConfirm () {
-        this.classs.splice(this.editedIndex, 1)
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.classs=obj)
         this.closeDelete()
       },
 
@@ -232,12 +232,16 @@
 
       save () {
         if(this.$refs.classaddform.validate()){
-        if (this.editedIndex > -1) {
-          Object.assign(this.classs[this.editedIndex], this.editedItem)
-        } else {
-          this.classs.push(this.editedItem)
-        }
-        this.close()
+          this.addurl = this.url + 'cladd/?classid=' + this.editedItem.id + '&classname=' + this.editedItem.name
+          console.log(this.addurl)
+          fetch(this.addurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+          })
+          .then((res)=>res.json())
+          .then(obj=>this.classs=obj)
+          this.close()
         }
       },
     },

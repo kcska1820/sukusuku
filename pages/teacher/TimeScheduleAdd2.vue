@@ -100,7 +100,7 @@ export default {
       .catch(error => {
         return error.response;
       })
-      
+      this.sheet = !this.sheet
     },
   },
 

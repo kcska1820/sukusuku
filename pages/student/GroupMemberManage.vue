@@ -43,30 +43,11 @@
 
             <v-card-text>
               <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.id"
-                      label="ユーザーID(学籍番号)"
-                      :rules="[rules.required,rules.max]"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="ユーザー名"
-                      :rules="[rules.required]"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
+                <v-text-field
+                  v-model="editedItem.id"
+                  label="ユーザーID(学籍番号)"
+                  :rules="[rules.required,rules.max]"
+                ></v-text-field>
               </v-container>
             </v-card-text>
 
@@ -84,7 +65,7 @@
                 text
                 @click="save"
               >
-                作成
+                追加
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -108,22 +89,14 @@
       fab
       small
       color="primary"
+      @click="deleteItem(item)"
     >
       <v-icon
-        @click="deleteItem(item)"
         size="2em"
       >
         mdi-delete
       </v-icon>
     </v-btn>
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
-      </v-btn>
     </template>
   </v-data-table>
 </template>
@@ -137,15 +110,7 @@
       dialog: false,
       dialogDelete: false,
       headers: [
-        {
-          text: 'ユーザーID',
-          align: 'start',
-          sortable: false,
-          value: 'id',
-          align: "center",
-          width: '200'
-          ,class: "accent"        
-        },
+        { text: 'ユーザーID',align: 'start',sortable: false,value: 'id',align: "center",width: '200',class: "accent"},
         { text: 'ユーザー名', value: 'name', align: "center", width: '400',class: "accent"},
         { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
       ],

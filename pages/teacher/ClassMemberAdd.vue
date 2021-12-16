@@ -11,7 +11,7 @@
     label="EXCEL File input"
     truncate-length="15"
     @change="onChange($event)"
-  ></v-file-input>
+  ></v-file-input>  
   <br>
   <br>
   <br>
@@ -98,6 +98,7 @@ export default {
         .catch(error => {
           return error.response;
         })
+        this.sheet = !this.sheet
       },
     },
   }

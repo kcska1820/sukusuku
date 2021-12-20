@@ -2,10 +2,10 @@
   <div>
     <!--ここの表示方法変える必要がある-->
     <div
-      v-for="(title, i) in threads"
+      v-for="(title, i) in thdata"
       :key="i"
       exact>
-      <template v-if="title.id == thread">
+      <template v-if="title.threadid == thread">
         <v-card>
           <!--ここ増やす-->
           <template v-if="title.flag == '0'">
@@ -101,6 +101,7 @@
         newComment: '',
         index:0,
         num:4,
+        thdata:[],
         cmdata:[],
         thread:this.$route.query.id,
         //items:items,
@@ -112,6 +113,14 @@
       if (this.thread.match(/^\d+$/)) {
         //stselをコメント一覧取得に変える
         //select時に掲示板IDを指定したい
+        console.log(this.url + 'thsel')
+        fetch(this.url + 'thsel/?threadid=' + this.thread,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.thdata=obj)
+
         console.log(this.url + 'cmsel/')
         fetch(this.url + 'cmsel/?threadid=' + this.thread,{
           method:"GET",

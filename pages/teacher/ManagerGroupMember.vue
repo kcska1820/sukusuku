@@ -68,7 +68,7 @@
                     <v-text-field
                       v-model="editedItem.mail"
                       label="メールアドレス"
-                      :rules="[rules.required]"
+                      :rules="[rules.required,rules.email]"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -131,6 +131,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
+    
     <template v-slot:[`item.actions`]="{ item }">
       <v-btn
       fab
@@ -167,6 +168,13 @@
        rules: {
         required: value => !!value || 'こちらは必須項目です',
          max: value => (value && value.length == 10) || '10文字で入力してください',
+         email: value => {
+
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+                return pattern.test(value) || 'メールアドレスの形式が正しくありません'
+
+        }
       },
       url:'http://localhost:8000/sukusuku/',
       addurl:'',

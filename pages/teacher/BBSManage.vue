@@ -40,39 +40,21 @@
               <span class="text-h5">{{ formTitle }}</span>
             </v-card-title>
 
+            <!--ここから変更-->
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.id"
-                      label="トピックID"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.title"
-                      label="話題"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.title"
-                      label="開始日時"
-                    ></v-text-field>
-                  </v-col>
+                  <v-text-field
+                    v-model="editedItem.title"
+                    label="掲示板タイトル"
+                    :rules="[rules.required]"
+                  ></v-text-field>
+                </v-row><v-row>
+                  <v-textarea
+                    v-model="editedItem.note"
+                    label="備考"
+                    outlined>
+                  </v-textarea>
                 </v-row>
               </v-container>
             </v-card-text>
@@ -138,6 +120,9 @@
   import threads from '/components/threadList.json'
   export default {
     data: () => ({
+      rules: {
+        required: value => !!value || 'こちらは必須項目です',
+      },
       url:'http://localhost:8000/sukusuku/',
       delurl:'',
       dialog: false,

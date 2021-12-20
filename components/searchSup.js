@@ -31,15 +31,15 @@ const makekwd = (kwd, tb) => {
             const kwds = kwd2.split(/\s+/)
             for (let i in kwds) {
                 if (flag == true) {
-                    res = "/\?" + tb + "=%" + kwds[i] + "%"
+                    res = "/\?" + tb + "=" + kwds[i]
                     flag = false
                 } else {
-                    res += "&" + tb + "=%" + kwds[i] + "%"
+                    res += "&" + tb + "=" + kwds[i]
                 }
             }
         } else {
             //キーワードにスペースが無かった
-            res = "\?" + tb + "=%" + kwd + "%"
+            res = "/\?" + tb + "=" + kwd
         }
         return {
             sql: res

@@ -24,6 +24,7 @@
           inset
           vertical
         ></v-divider>
+        <h1>{{classname}}</h1>
         <v-spacer></v-spacer>
         <v-text-field
         v-model="search"
@@ -220,6 +221,7 @@
       dialogDelete: false,
       items: ['student', 'teacher', 'master'],
       search:'',
+      classname:'aaa',
       headers: [
         { text: 'ユーザーID',align: 'start',sortable: false,value: 'userid',class:"accent"},
         { text: 'メールアドレス', value: 'mail' ,align: "center", width: '300',class:"accent"},
@@ -259,6 +261,7 @@
     },
 
     created () {
+        this.classname = localStorage.getItem('selclassid')
       fetch(this.url + 'stsel/',{
           method:"GET",
           mode:"cors",

@@ -129,21 +129,19 @@
     },
 
     methods: {
-
-      editItem (item) {
-        this.editedIndex = this.users.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
-
       deleteItem (item) {
-        this.editedIndex = this.users.indexOf(item)
-        this.editedItem = Object.assign({}, item)
+        this.delurl = this.url + 'cddel/?id=' +  item.id
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.users.splice(this.editedIndex, 1)
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.users=obj)
         this.closeDelete()
       },
 
@@ -161,15 +159,6 @@
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
         })
-      },
-
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.users[this.editedIndex], this.editedItem)
-        } else {
-          this.users.push(this.editedItem)
-        }
-        this.close()
       },
     },
   }

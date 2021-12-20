@@ -176,8 +176,8 @@ export default {
                     .then((res)=>res.json())
                     .then(obj=>{
                         this.groups.push({
-                        id:this.group1[i].groupid_id,
-                        name:obj[0].groupname,
+                            id:this.group1[i].groupid_id,
+                            name:obj[0].groupname,
                         })
                     })
                 }
@@ -185,39 +185,42 @@ export default {
         },
         addGroupSchedule(){
             if(this.$refs.addform.validate()){
-            this.start = this.startDay + 'T' + this.startTime
-            this.end = this.endDay + 'T' + this.endTime
-            this.addurl = this.url + 'gsadd/?title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details + '&groupid='+this.group
-            console.log(this.addurl)
-            fetch(this.addurl,{
-            method:"GET",
-            mode:"cors",
-            credentials: 'include'
-            })
-            .then((res)=>res.json())
-            .then(obj=>this.groupschedule=obj)
-            this.close()
+                if(this.startDay <= this.endDay){
+                    if(this.startDay == this.endDay && this.startTime <= this.endTime || this.startDay != this.endDay){
+                        this.start = this.startDay + 'T' + this.startTime
+                        this.end = this.endDay + 'T' + this.endTime
+                        this.addurl = this.url + 'gsadd/?title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details + '&groupid='+this.group
+                        fetch(this.addurl,{
+                        method:"GET",
+                        mode:"cors",
+                        credentials: 'include'
+                        })
+                        .then((res)=>res.json())
+                        .then(obj=>this.groupschedule=obj)
+                        this.close()
+                    }
+                }
             }
         },
         addPrivateSchedule(){
             if(this.$refs.addform.validate()){
-                if(this.startDay >= this.endDay){
-                    this.user = JSON.parse(localStorage.getItem('user'))
-                    this.userid = this.user[0].userid
-                    this.start = this.startDay + 'T' + this.startTime
-                    this.end = this.endDay + 'T' + this.endTime
-                    this.addurl = this.url + 'psadd/?userid=' + this.userid + '&title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details
-                    console.log(this.addurl)
-
-                    /* fetch(this.addurl,{
-                    method:"GET",
-                    mode:"cors",
-                    credentials: 'include'
-                    })
-                    .then((res)=>res.json())
-                    .then(obj=>this.privateschedule=obj)
-                    .catch()
-                    this.close() */
+                if(this.startDay <= this.endDay){
+                    if(this.startDay == this.endDay && this.startTime <= this.endTime || this.startDay != this.endDay){
+                        this.user = JSON.parse(localStorage.getItem('user'))
+                        this.userid = this.user[0].userid
+                        this.start = this.startDay + 'T' + this.startTime
+                        this.end = this.endDay + 'T' + this.endTime
+                        this.addurl = this.url + 'psadd/?userid=' + this.userid + '&title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details
+                        fetch(this.addurl,{
+                        method:"GET",
+                        mode:"cors",
+                        credentials: 'include'
+                        })
+                        .then((res)=>res.json())
+                        .then(obj=>this.privateschedule=obj)
+                        .catch()
+                        this.close()
+                    }
                 }
             }
         },

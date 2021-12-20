@@ -94,15 +94,15 @@
     <v-btn
       color="accent"
       elevation="2"
-      to="/student/GroupMemberManage"
+      @click="MemberManagebtn(item)"
     >メンバー管理</v-btn>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
     <v-btn
       fab
       small
       color="primary"
+      @click="deleteItem(item)"
     >
       <v-icon
-        @click="deleteItem(item)"
         size="2em"
       >
       mdi-logout
@@ -128,21 +128,13 @@
       dialog: false,
       dialogDelete: false,
       headers: [
-        {
-          text: 'グループID',
-          align: 'start',
-          sortable: false,
-          value: 'id',
-          align: "center",
-          width: '200'
-          ,class: "accent"        
-        },
         { text: 'グループ名', value: 'name', align: "center", width: '400',class: "accent"},
         { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
       ],
       desserts: [],
       setGroup:[],
       groupurl : '',
+      deleteurl:'',
       editedIndex: -1,
       editedItem: {
         id: '',
@@ -178,24 +170,27 @@
         if(localStorage.getItem('group') != null){
           this.setGroup = JSON.parse(localStorage.getItem('group'))
           for (let i = 0; i < this.setGroup.length; i++) {
-                    this.groupurl = 'http://localhost:8000/sukusuku/glsel/?groupid='+this.setGroup[i].groupid_id
-                    fetch(this.groupurl,{
-                    method:"GET",
-                    mode:"cors",
-                    credentials: 'include'
-                    })
-                    .then((res)=>res.json())
-                    .then(obj=>{
-                        this.desserts.push({
-                        id:this.setGroup[i].groupid_id,
-                        name:obj[0].groupname,
-                        })
-                    })
-                }
+            this.groupurl = 'http://localhost:8000/sukusuku/glsel/?groupid='+this.setGroup[i].groupid_id
+            fetch(this.groupurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+            })
+            .then((res)=>res.json())
+            .then(obj=>{
+              this.desserts.push({
+                id:this.setGroup[i].groupid_id,
+                name:obj[0].groupname,
+              })
+            })
+          }
         }
         
       },
-
+      MemberManagebtn(item){
+        localStorage.setItem('selgroupid',item.id)
+        this.$router.push({path: "/student/GroupMemberManage"})
+      },
       editItem (item) {
         this.editedIndex = this.desserts.indexOf(item)
         this.editedItem = Object.assign({}, item)
@@ -203,13 +198,25 @@
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
+        const user = JSON.parse(localStorage.getItem('user'))
+        this.deleteurl = 'http://localhost:8000/sukusuku/gddel/?groupid='+item.id+'&userid='+user[0].userid
+        console.log(this.deleteurl)
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        fetch(this.deleteurl,{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+        })
+        .then((res)=>{
+          res.json()
+          this.getGroup()
+        })
+        .catch((reason)=>{
+          console.log(reason)
+        })
         this.closeDelete()
       },
 
@@ -229,13 +236,55 @@
         })
       },
 
+      getGroup(){
+        const user = JSON.parse(localStorage.getItem('user'))
+        fetch('http://localhost:8000/sukusuku/gdsel/?userid=' + user[0].userid,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then(response => {
+        if (response.ok) {
+            return response.json();
+        }       // 404 や 500 ステータスならここに到達する
+        throw new Error('Network response was not ok.');
+        })
+        .then(resJson => {
+          localStorage.setItem('group',JSON.stringify(resJson))
+          this.desserts = []
+          this.initialize ()
+        })
+      },
+
       save () {
+        this.groupurl = 'http://localhost:8000/sukusuku/gladd/?groupname='+this.editedItem.name
         if(this.$refs.addform.validate()){
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
-        }
+        fetch(this.groupurl,{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then((obj)=>{
+          const user = JSON.parse(localStorage.getItem('user'))
+          this.groupurl='http://localhost:8000/sukusuku/gdadd/?groupid='+obj[0].groupid+'&userid='+user[0].userid
+          console.log(this.groupurl)
+          fetch(this.groupurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+          })
+          .then((res)=>{
+            res.json()
+            this.getGroup()
+          })
+          .catch((reason)=>{
+            console.log(reason)
+          })
+        })
+        .catch((reason)=>{
+          console.log(reason)
+        })
         this.close()
         }
       },

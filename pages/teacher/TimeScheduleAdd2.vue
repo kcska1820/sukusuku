@@ -68,7 +68,6 @@ import { METHODS } from 'http';
 </template>
 
 <script>
-import FormData from "form-data"
 import Cookies from 'js-cookie'
 export default {
   data() {
@@ -100,7 +99,7 @@ export default {
       .catch(error => {
         return error.response;
       })
-      
+      this.sheet = !this.sheet
     },
   },
 

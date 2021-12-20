@@ -92,12 +92,12 @@ export default {
         delComment(comid){
             this.delurl = this.url + 'cmdel/?id=' + comid
             console.log(this.delurl)
-            /*fetch(this.delurl,{
+            fetch(this.delurl,{
                 method:"GET",
                 mode:"cors",
                 credentials: 'include'
             }).then((res)=>res.json())
-            .then(obj=>this.cmdata=obj)*/
+            .then(obj=>this.cmdata=obj)
         this.$router.go({path: this.$router.currentRoute.path, force:true})
         }
     }

@@ -68,7 +68,6 @@ import { METHODS } from 'http';
 </template>
 
 <script>
-import FormData from "form-data"
 import Cookies from 'js-cookie'
 export default {
   data() {

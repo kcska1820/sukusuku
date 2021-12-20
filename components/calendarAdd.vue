@@ -176,8 +176,8 @@ export default {
                     .then((res)=>res.json())
                     .then(obj=>{
                         this.groups.push({
-                        id:this.group1[i].groupid_id,
-                        name:obj[0].groupname,
+                            id:this.group1[i].groupid_id,
+                            name:obj[0].groupname,
                         })
                     })
                 }

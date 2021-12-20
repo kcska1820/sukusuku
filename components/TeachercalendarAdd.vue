@@ -28,8 +28,10 @@
                         <v-tabs v-model="tab" grow>
                             <v-tab>プライベート</v-tab>
                             <v-tab>グループ</v-tab>
+                            <v-tab>時間割</v-tab>
                         </v-tabs>
                         <v-tabs-items v-model="tab">
+                          <!-- プライベート -->
                             <v-tab-item>
                                 <v-card-text>
                                     <v-form  :rules="[rules.required]">
@@ -69,6 +71,7 @@
                                     </v-col>
                                 </v-card-actions>
                             </v-tab-item>
+                            <!-- グループ -->
                             <v-tab-item>
                                 <v-card-text>
                                     <v-form  :rules="[rules.required]">
@@ -86,6 +89,47 @@
                                         <v-text-field label="内容" v-model="details" :rules="[rules.required]" />
                                         <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" :rules="[rules.required]" />
                                         <v-select label="グループ" v-model="group" :items="groups" item-text="name" item-value="id" :rules="[rules.required]" />
+                                    </v-form>
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-col cols="6">
+                                        <v-btn
+                                            color="red darken-2 white--text"
+                                            block
+                                            @click="dialog = false"
+                                        >
+                                            閉じる
+                                        </v-btn>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <v-btn
+                                            color="blue darken-1 white--text"
+                                            block
+                                            @click="addGroupSchedule"
+                                        >
+                                            追加
+                                        </v-btn>
+                                    </v-col>
+                                </v-card-actions>
+                            </v-tab-item>
+                            <!-- 時間割 -->
+                            <v-tab-item>
+                                <v-card-text>
+                                    <v-form  :rules="[rules.required]">
+                                        <v-col class="d-flex justify-space-around pt-4">
+                                            <p>開始日時 : </p>
+                                            <input type="date" v-model="startDay" />
+                                            <input type="time" v-model="startTime" />
+                                        </v-col>
+                                        <v-col class="d-flex justify-space-around pt-4">
+                                            <p>終了日時 : </p>
+                                            <input type="date" v-model="endDay" :rules="[rules.required]" />
+                                            <input type="time" v-model="endTime" :rules="[rules.required]" />
+                                        </v-col>
+                                        <v-text-field label="タイトル" v-model="title" :rules="[rules.required]" />
+                                        <v-text-field label="内容" v-model="details" :rules="[rules.required]" />
+                                        <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" :rules="[rules.required]" />
+                                        <v-select label="クラス" v-model="clas" :items="classs" item-text="name" item-value="id" :rules="[rules.required]" />
                                     </v-form>
                                 </v-card-text>
                                 <v-card-actions>
@@ -137,11 +181,13 @@ export default {
         details:'',
         group:'',
         color:'',
+        clas:'',
         userid:'',
         user:[],
         privateschedule:[],
         groupschedule:[],
         groups:[],
+        classs:[],
         group1:[],
         colors:[
             {
@@ -164,24 +210,39 @@ export default {
     }),
     methods:{
         getGroup(){
-            if(localStorage.getItem('group') != null){
-                this.group1 = JSON.parse(localStorage.getItem('group'))
-                for (let i = 0; i < this.group1.length; i++) {
-                    this.groupurl = this.url + 'glsel/?groupid='+this.group1[i].groupid_id
-                    fetch(this.groupurl,{
-                    method:"GET",
-                    mode:"cors",
-                    credentials: 'include'
-                    })
-                    .then((res)=>res.json())
-                    .then(obj=>{
-                        this.groups.push({
-                            id:this.group1[i].groupid_id,
-                            name:obj[0].groupname,
-                        })
-                    })
-                }
+          if(localStorage.getItem('group') != null){
+            this.group1 = JSON.parse(localStorage.getItem('group'))
+            for (let i = 0; i < this.group1.length; i++) {
+              this.groupurl = this.url + 'glsel/?groupid='+this.group1[i].groupid_id
+              fetch(this.groupurl,{
+              method:"GET",
+              mode:"cors",
+              credentials: 'include'
+              })
+              .then((res)=>res.json())
+              .then(obj=>{
+                this.groups.push({
+                id:this.group1[i].groupid_id,
+                name:obj[0].groupname,
+                })
+              })
             }
+          }
+          this.groupurl = this.url +'clall/'
+          fetch(this.groupurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+          })
+          .then((res)=>res.json())
+          .then(obj=>{
+            for(let i=0; i<obj.length; i++){
+              this.classs.push({
+              id:obj[i].classid,
+              name:obj[i].classname,
+              })
+            }
+          })
         },
         addGroupSchedule(){
             if(this.$refs.addform.validate()){

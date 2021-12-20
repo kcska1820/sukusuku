@@ -1,8 +1,9 @@
 <template>
 <div>
+  <!--https://qiita.com/d-yosh/items/9299389b32c496a9b64c-->
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="thdata"
     sort-by="groupadmin"
     class="elevation-1 ma-12"
     disable-sort
@@ -93,12 +94,14 @@
     </div>
 </template>
 <script>
-  import threads from '/components/threadList.json'
+  //import threads from '/components/threadList.json'
   export default {
     data: () => ({
       url:'http://localhost:8000/sukusuku/',
       appurl:'',
       delurl:'',
+      flag:'',
+      search:'0',
       dialog: false,
       dialogApprove: false,
       dialogDelete: false,
@@ -113,25 +116,39 @@
           class:"accent"
         },
         { text: '備考', value: 'note', align: "center", width: '200',class:"accent"},
-        { text: '申請者', value: 'master', align: "center", width: '200',class:"accent"},
+        { text: '申請者', value: 'master_id', align: "center", width: '200',class:"accent"},
+        { text: '状態', value: 'flag', align: "center", width: '200',class:"accent",filter: value => {
+          return value == "0"
+        }},
         { text: '', value: 'actions', sortable: false, align: "center", width: '200',class:"accent"},
       ],
       desserts: [],
+      thdata: [],
       thread:'',
       editedIndex: '-1',
       editedItem: {
         id: '',
-        name: '',
+        title: '',
+        note: '',
+        flag: '',
+        master: ''
       },
       defaultItem: {
         id: '',
-        name: '',
+        title: '',
+        note: '',
+        flag: '',
+        master: ''
       },
     }),
 
     computed: {
       formTitle () {
         return this.editedIndex === '-1' ? 'トピックを作成します' : 'Edit Item'
+      },
+
+      flFilter (val, search, item) {
+        return item == "0"
       },
     },
 
@@ -150,7 +167,14 @@
 
     methods: {
       initialize () {
-        this.desserts = threads.filter(({flag})=>flag===0)
+        //this.desserts = threads.filter(({flag})=>flag===0)
+        console.log(this.url + 'thsel')
+        fetch(this.url + 'thsel/',{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.thdata=obj)
       },
 
       approveItem (item) {
@@ -166,27 +190,27 @@
       },
 
       approveItemConfirm () {
-        this.appurl = this.url + 'thapp/?id=' + this.editedItem.id
+        this.appurl = this.url + 'thapp/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=st00000001'
           console.log(this.appurl)
-          /*fetch(this.appurl,{
+          fetch(this.appurl,{
             method:"GET",
             mode:"cors",
             credentials: 'include'
           }).then((res)=>res.json())
-          .then(obj=>this.thdata=obj)*/
+          .then(obj=>this.thdata=obj)
         this.desserts.splice(this.editedIndex, 1)
         this.closeApprove()
       },
 
       deleteItemConfirm () {
-        this.delurl = this.url + 'threj/?id=' + this.editedItem.id
+        this.delurl = this.url + 'threj/?threadid=' + this.editedItem.threadid
           console.log(this.delurl)
-          /*fetch(this.delurl,{
+          fetch(this.delurl,{
             method:"GET",
             mode:"cors",
             credentials: 'include'
           }).then((res)=>res.json())
-          .then(obj=>this.thdata=obj)*/
+          .then(obj=>this.thdata=obj)
         this.desserts.splice(this.editedIndex, 1)
         this.closeDelete()
       },

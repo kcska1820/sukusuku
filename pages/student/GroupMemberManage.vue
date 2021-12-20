@@ -35,7 +35,7 @@
             </v-icon>
             </v-btn>
           </template>
-          <v-form ref="addform">
+          <v-form ref="addform" @submit.prevent>
           <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
@@ -47,6 +47,7 @@
                   v-model="editedItem.id"
                   label="ユーザーID(学籍番号)"
                   :rules="[rules.required,rules.max]"
+                  @keyup.enter="save"
                 ></v-text-field>
               </v-container>
             </v-card-text>
@@ -64,6 +65,7 @@
                 color="blue darken-1"
                 text
                 @click="save"
+                @keyup.enter="enter"
               >
                 追加
               </v-btn>
@@ -78,6 +80,16 @@
               <v-spacer></v-spacer>
               <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
               <v-btn color="blue darken-1" text @click="deleteItemConfirm">削除</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogMatch" max-width="500px">
+          <v-card>
+            <v-card-title class="text-h5 justify-center">既に登録されています</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="red darken-2" text @click="closeDelete">閉じる</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -109,12 +121,15 @@
       },
       dialog: false,
       dialogDelete: false,
+      dialogMatch: false,
       headers: [
         { text: 'ユーザーID',align: 'start',sortable: false,value: 'id',align: "center",width: '200',class: "accent"},
         { text: 'ユーザー名', value: 'name', align: "center", width: '400',class: "accent"},
         { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
       ],
       desserts: [],
+      user:[],
+      match: '',
       groupname:'',
       selectgroupid:'',
       editedIndex: -1,
@@ -149,6 +164,7 @@
     methods: {
       initialize () {
         this.desserts = []
+        this.user = []
         this.selectgroupid = localStorage.getItem('selgroupid')
         const url = 'http://localhost:8000/sukusuku/glsel/?groupid=' + this.selectgroupid
         fetch(url,{
@@ -246,23 +262,45 @@
 
       closeDelete () {
         this.dialogDelete = false
+        this.dialogMatch = false
       },
 
       save () {
-        if(this.$refs.addform.validate()){
-        const url = 'http://localhost:8000/sukusuku/gdadd/?groupid=' + this.selectgroupid +'&userid=' + this.editedItem.id
-        fetch(url,{
-        method:"GET",
-        mode:"cors",
-        credentials: 'include'
-        })
-        .then((res)=>{
-          res.json()
-          this.initialize()
-        })
-        this.close()
+        this.match = false
+        for(let i=0; i<this.desserts.length;i++){
+          if(this.editedItem.id == this.desserts[i].id){
+            this.match = true
+          }
+        }
+        if(this.match == false){
+          if(this.$refs.addform.validate()){
+          const url = 'http://localhost:8000/sukusuku/gdadd/?groupid=' + this.selectgroupid +'&userid=' + this.editedItem.id
+          fetch(url,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+          })
+          .then((res)=>{
+            res.json()
+            this.initialize()
+          })
+          .catch((error)=>{
+            console.log(error)
+          })
+          this.close()
+          }
+        }else{
+          this.dialogMatch = true
         }
       },
+      enter(event){
+        if(event.keycode !== 13){
+          retrun
+        }else{
+          this.save()
+        }
+
+      }
     },
   }
 </script>

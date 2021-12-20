@@ -24,6 +24,7 @@
           inset
           vertical
         ></v-divider>
+        <h1>{{classname}}</h1>
         <v-spacer></v-spacer>
         <v-text-field
         v-model="search"
@@ -85,7 +86,7 @@
                         <v-text-field
                           v-model="editedItem.mail"
                           label="メールアドレス"
-                          :rules="[rules.required,rules.email]"
+                          :rules="[rules.required]"
                         ></v-text-field>
                       </v-col>
                       <v-col
@@ -212,13 +213,6 @@
       rules: {
         required: value => !!value || 'こちらは必須項目です',
         max: value => (value && value.length == 10) || '10文字で入力して下さい',
-        email: value => {
-
-                            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-                            return pattern.test(value) || 'メールアドレスの形式が正しくありません'
-
-                        }
       },
       url:'http://localhost:8000/sukusuku/',
       addurl:'',
@@ -227,6 +221,7 @@
       dialogDelete: false,
       items: ['student', 'teacher', 'master'],
       search:'',
+      classname:'aaa',
       headers: [
         { text: 'ユーザーID',align: 'start',sortable: false,value: 'userid',class:"accent"},
         { text: 'メールアドレス', value: 'mail' ,align: "center", width: '300',class:"accent"},
@@ -266,6 +261,7 @@
     },
 
     created () {
+        this.classname = localStorage.getItem('selclassid')
       fetch(this.url + 'stsel/',{
           method:"GET",
           mode:"cors",

@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="thdata"
     sort-by="groupadmin"
     class="elevation-1 ma-12"
     disable-sort
@@ -63,7 +63,7 @@
                       label="話題"
                     ></v-text-field>
                   </v-col>
-                   <v-col
+                  <v-col
                     cols="12"
                     sm="6"
                     md="4"
@@ -138,37 +138,44 @@
   import threads from '/components/threadList.json'
   export default {
     data: () => ({
+      url:'http://localhost:8000/sukusuku/',
+      delurl:'',
       dialog: false,
       dialogDelete: false,
       headers: [
         {
-          url:'http://localhost:8000/sukusuku/',
-          delurl:'',
           text: 'ID',
           align: 'start',
           sortable: false,
-          value: 'id',
+          value: 'threadid',
           align: "center",
           width: '30',
           class:"accent"
         },
         { text: '話題', value: 'title', align: "center", width: '150',class:"accent"},
         { text: '備考', value: 'note', align: "center", width: '200',class:"accent"},
-        { text: '申請者', value: 'master', align: "center", width: '200',class:"accent"},
-        { text: '状態', value: 'flag', align: "center", width: '50',class:"accent"},
+        { text: '申請者', value: 'master_id', align: "center", width: '200',class:"accent"},
+        { text: '状態', value: 'flag', align: "center", width: '50',class:"accent",filter: value => {
+          return value != "0"
+        }},
         { text: '', value: 'actions', sortable: false, align: "center", width: '100',class:"accent"},
       ],
       desserts: [],
+      thdata: [],
       editedIndex: -1,
       editedItem: {
         id: '',
         title: '',
-        note: ''
+        note: '',
+        master: '',
+        flag: ''
       },
       defaultItem: {
         id: '',
         title: '',
-        note: ''
+        note: '',
+        master: '',
+        flag: ''
       },
     }),
 
@@ -193,7 +200,13 @@
 
     methods: {
       initialize () {
-        this.desserts = threads.filter(({flag})=>flag!==0)
+        console.log(this.url + 'thsel')
+        fetch(this.url + 'thsel/',{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.thdata=obj)
       },
 
       editItem (item) {
@@ -209,16 +222,16 @@
       },
 
       deleteItemConfirm () {
-        this.delurl = this.url + 'thdel/?id=' + this.editedItem.id
+        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=3' + '&note=' + this.editedItem.note + '&master=st00000001'
           console.log(this.delurl)
-          /*fetch(this.delurl,{
+          fetch(this.delurl,{
             method:"GET",
             mode:"cors",
             credentials: 'include'
           }).then((res)=>res.json())
-          .then(obj=>this.thdata=obj)*/
-        this.desserts.splice(this.editedIndex, 1)
+          .then(obj=>this.thdata=obj)
         this.closeDelete()
+        this.$router.go({path: this.$router.currentRoute.path, force:true})
       },
 
       close () {
@@ -240,13 +253,13 @@
       save () {
         this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=st00000001'
         console.log(this.addurl)
-        /*fetch(this.addurl,{
+        fetch(this.addurl,{
           method:"GET",
           mode:"cors",
           credentials: 'include'
         })
         .then((res)=>res.json())
-        .then(obj=>this.thdata=obj)*/
+        .then(obj=>this.thdata=obj)
         if (this.editedIndex > -1) {
           Object.assign(this.desserts[this.editedIndex], this.editedItem)
         } else {

@@ -88,6 +88,16 @@
             </v-card-actions>
           </v-card>
       </v-dialog>
+      <v-dialog v-model="TTDialog" max-width="500px">
+        <v-card>
+            <v-card-title class="text-h5 justify-center">時間割は編集できません</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="red darken-2" text @click="close">キャンセル</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+      </v-dialog>
       <!-- スケジュール更新 -->
       <v-dialog v-model="EditDialog" max-width="600px">
         <v-container fluid fill-height>
@@ -259,6 +269,7 @@
     dialog: false,
     DeleteDialog: false,
     EditDialog: false,
+    TTDialog: false,
     category:["プライベート","時間割","グループ"]
   }),
   mounted () {
@@ -318,6 +329,7 @@
     close (){
       this.selectedOpen = false
       this.DeleteDialog = false
+      this.TTDialog = false
       this.EditDialog = false
     },
     updSchedule (){
@@ -343,6 +355,10 @@
         })
         .then((res)=>this.updateRange())
         this.close()
+      }else if(this.selectedEvent.category == "時間割"){
+        if(this.user[0].roleid_id == 'student'){
+          this.TTDialog = true
+        }
       }
     },
     deleteSchedule () {
@@ -447,8 +463,6 @@
       })
       this.events=event
     },
-  },
-  /* 未ログイン時index.vueに遷移 */
-  /* middleware:"authenicated" */
+  }
 }
 </script>

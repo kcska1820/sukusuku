@@ -87,6 +87,7 @@
                           label="メールアドレス"
                           :rules="[rules.required,rules.email]"
                         ></v-text-field>
+
                       </v-col>
                       <v-col
                         cols="12"

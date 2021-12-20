@@ -39,7 +39,7 @@
                 ></v-text-field>
               </v-row><v-row>
                 <v-textarea
-                  v-model="editedItem.comment"
+                  v-model="editedItem.note"
                   label="備考"
                   outlined>
                 </v-textarea>
@@ -86,18 +86,20 @@
     <br>
     <!--itemsをthdataにする-->
     <div
-      v-for="item in items"
+      v-for="item in thdata"
       :key="item.id"
       router
       exact>
-      <v-col>
-        <BBSCard :item="item"/>
-      </v-col>
+      <template v-if="item.flag != '0' && item.flag != '3'">
+        <v-col>
+          <BBSCard :item="item"/>
+        </v-col>
+      </template>
     </div>
   </v-card>
 </template>
 <script>
-import items from '/components/threadList.json'
+//import items from '/components/threadList.json'
 import BBSCard from '/components/BBSCard'
 import searchsup from '/components/searchSup'
 export default {
@@ -113,7 +115,7 @@ export default {
     kaijo:false,
     searchtxt:'',
     sql:'',
-    items:items,
+    //items:items,
     thdata:[],
     editedIndex: -1,
     editedItem:{
@@ -145,12 +147,12 @@ export default {
   created () {
     //stselを掲示板一覧取得に変える
     console.log(this.url + 'thsel')
-    /*fetch(this.url + 'thsel/',{
+    fetch(this.url + 'thsel/',{
       method:"GET",
       mode:"cors",
       credentials: 'include'
     }).then((res)=>res.json())
-    .then(obj=>this.thdata=obj)*/
+    .then(obj=>this.thdata=obj)
   },
 
   methods: {
@@ -158,25 +160,25 @@ export default {
       this.sql = searchsup(this.searchtxt, 'title')
       this.srcurl = this.url + 'thsrc' + this.sql.sql
       console.log(this.srcurl)
-      /*fetch(this.srcurl ,{
+      fetch(this.srcurl ,{
         method:"GET",
         mode:"cors",
         credentials: 'include'
       }).then((res)=>res.json())
-      .then(obj=>this.thdata=obj)*/
+      .then(obj=>this.thdata=obj)
     },
 
     save () {
       if(this.$refs.BBSaddform.validate()){
       this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=0' + '&note=' + this.editedItem.note + '&master=st00000001'
       console.log(this.addurl)
-      /*fetch(this.addurl,{
+      fetch(this.addurl,{
         method:"GET",
         mode:"cors",
         credentials: 'include'
       })
       .then((res)=>res.json())
-      .then(obj=>this.thdata=obj)*/
+      .then(obj=>this.thdata=obj)
       this.sclose()
       }
     },

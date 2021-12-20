@@ -36,7 +36,7 @@
                         :to="{
                         path:'/BBScon',
                         query:{
-                        id:item.id
+                        id:item.threadid
                         }}">
                         入室
                     </v-btn>

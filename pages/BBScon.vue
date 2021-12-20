@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--ここの表示方法変える必要がある-->
     <div
       v-for="(title, i) in threads"
       :key="i"
@@ -56,10 +57,10 @@
           <v-list>
             <!--展開中のidに適合するコメントだけ回収したい-->
             <div
-              v-for="(post, i) in items"
+              v-for="(post, i) in cmdata"
               :key="i"
               exact>
-              <template v-if="post.thread === thread">
+              <template v-if="post.thread_id == thread">
                 <BBSCom :post="post"
                   :no="i + 1"/>
               </template>
@@ -89,7 +90,7 @@
 </template>
 
 <script>
-  import items from '/components/thcontent.json'
+  //import items from '/components/thcontent.json'
   import threads from '/components/threadList.json'
   import BBSCom from '/components/BBSComment'
   export default {
@@ -102,7 +103,7 @@
         num:4,
         cmdata:[],
         thread:this.$route.query.id,
-        items:items,
+        //items:items,
         threads:threads
       }
     },
@@ -112,12 +113,12 @@
         //stselをコメント一覧取得に変える
         //select時に掲示板IDを指定したい
         console.log(this.url + 'cmsel/')
-        /*fetch(this.url + 'stsel/',{
+        fetch(this.url + 'cmsel/?threadid=' + this.thread,{
           method:"GET",
           mode:"cors",
           credentials: 'include'
         }).then((res)=>res.json())
-        .then(obj=>this.cmdata=obj)*/
+        .then(obj=>this.cmdata=obj)
       }else{
         this.$router.push('/BBS')
       }
@@ -130,14 +131,14 @@
           alert("文章が入力されていません")
         }else{
           //IDは自動付与される筈
-          this.addurl = this.url + 'cmadd/?thread=' + this.thread + '&user=st00000001&name=seito&comment=' + this.newComment + '&flag=true'
+          this.addurl = this.url + 'cmadd/?thread=' + this.thread + '&user=st00000001&name=seito&comment=' + this.newComment + '&flag=True'
           console.log(this.addurl)
-          /*fetch(this.addurl,{
+          fetch(this.addurl,{
             method:"GET",
             mode:"cors",
             credentials: 'include'
           }).then((res)=>res.json())
-          .then(obj=>this.cmdata=obj)*/
+          .then(obj=>this.cmdata=obj)
           this.$router.go({path: this.$router.currentRoute.path, force:true})
         }
       },

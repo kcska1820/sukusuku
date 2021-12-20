@@ -2,6 +2,7 @@
   <v-data-table
     :headers="headers"
     :items="events"
+    :search="search"
     sort-by="groupadmin"
     class="elevation-1 ma-12"
     disable-sort
@@ -17,6 +18,13 @@
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="検索"
+          single-line
+          hide-details
+        ></v-text-field>
         <v-dialog
           v-model="dialog"
           max-width="500px"
@@ -47,7 +55,7 @@
                   <v-col
                     cols="12"
                     sm="6"
-                    md="4"
+                    md="6"
                   >
                     <v-text-field
                       v-model="editedItem.eventname"
@@ -58,23 +66,40 @@
                   <v-col
                     cols="12"
                     sm="6"
-                    md="4"
+                    md="6"
                   >
                     <v-text-field
                       v-model="editedItem.eventdetails"
                       label="イベント詳細"
                     ></v-text-field>
                   </v-col>
+                </v-row>
+                <v-row>
                   <v-col
                     cols="12"
                     sm="6"
-                    md="4"
+                    md="6"
                   >
-                    <v-text-field
+                    <p> 締め切り日時 : </p>
+                    <input
+                      type="date"
                       v-model="editedItem.end"
-                      label="締め切り日時"
+                      label="締め切り日"
                       :rules="[rules.required]"
-                    ></v-text-field>
+                    />
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="6"
+                  >
+                    <v-select label="グループ"
+                      v-model="editedItem.clas"
+                      :items="classs"
+                      item-text="name"
+                      item-value="id"
+                      :rules="[rules.required]"
+                    />
                   </v-col>
                 </v-row>
               </v-container>
@@ -142,6 +167,7 @@
       del:'',
       dialog: false,
       dialogDelete: false,
+      search:'',
       headers: [
         {
           text: 'イベント名',
@@ -152,20 +178,24 @@
           class:"accent"
         },
         { text: 'イベント詳細', value: 'details', align: "center",class:"accent"},
-        { text: '締め切り日時', value: 'end', align: "center",class:"accent"},
+        { text: '締め切り日', value: 'end', align: "center",class:"accent"},
+        { text: 'クラス', value: 'classid__classname', align: "center",class:"accent"},
         { text: '削除', value: 'actions', sortable: false,class:"accent" }
       ],
       events: [],
+      classs: [],
       editedIndex: -1,
       editedItem: {
         eventname: '',
         eventdetails: '',
         end: '',
+        clas:'',
       },
       defaultItem: {
         eventname: '',
         eventdetails: '',
         end: '',
+        clas:'',
       },
     }),
 
@@ -185,29 +215,44 @@
     },
 
     created () {
-      fetch(this.url + 'evsel/?classid=' + localStorage.getItem('class'),{
+      fetch(this.url + 'evall/',{
         method:"GET",
         mode:"cors",
         credentials: 'include'
       }).then((res)=>res.json())
       .then(obj=>this.events=obj)
+
+      fetch(this.url + 'clall/',{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+      }).then((res)=>res.json())
+      .then(obj=>{   
+        const classtemp = obj
+        for(let i = 0; i < classtemp.length; i++) {
+          this.classs.push({
+            id:classtemp[i].classid,
+            name:classtemp[i].classname,
+          })
+        }
+      })
     },
 
     methods: {
-      editItem (item) {
-        this.editedIndex = this.events.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
 
       deleteItem (item) {
-        this.editedIndex = this.events.indexOf(item)
-        this.editedItem = Object.assign({}, item)
+        this.delurl = this.url + 'evdel/?id=' +  item.id
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.events.splice(this.editedIndex, 1)
+         fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.events=obj)
         this.closeDelete()
       },
 
@@ -229,16 +274,16 @@
 
       save () {
         if(this.$refs.Eventform.validate()){
-        this.addurl = this.url + 'evadd/?eventname=' + this.editedItem.eventname + '&eventdetails=' + this.editedItem.eventdetails + '&end=' + this.editedItem.end
-        console.log(this.addurl)
-        fetch(this.addurl,{
-          method:"GET",
-          mode:"cors",
-          credentials: 'include'
-        })
-        .then((res)=>res.json())
-        .then(obj=>this.events=obj)
-        this.close()
+          this.addurl = this.url + 'evadd/?classid='+ this.editedItem.clas + '&eventname=' + this.editedItem.eventname + '&eventdetails=' + this.editedItem.eventdetails + '&end=' + this.editedItem.end
+          console.log(this.addurl)
+          fetch(this.addurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+          })
+          .then((res)=>res.json())
+          .then(obj=>this.events=obj)
+          this.close()
         }
       },
     },

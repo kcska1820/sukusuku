@@ -31,7 +31,7 @@
         label="IDでメンバーを検索"
         single-line
         hide-details
-      ></v-text-field>
+        ></v-text-field>
         <v-dialog
           v-model="dialog"
           max-width="500px"
@@ -50,80 +50,110 @@
               </v-icon>
             </v-btn>
           </template>
-          <v-form ref="addform">
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">{{ formTitle }}</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
+          <v-form ref="addform" >
+          <v-card v-model="sheet">
+            <v-toolbar color="accent">
+              <v-toolbar-title>
+                <span class="text-h5">学生{{ formTitle }}</span>
+              </v-toolbar-title>
+            </v-toolbar>
+            <v-tabs v-model="tab" grow>
+              <v-tab>一人{{ formTitle }}</v-tab>
+              <v-tab>一括{{ formTitle }}</v-tab>
+            </v-tabs>
+            <v-tabs-items v-model="tab">
+              <v-tab-item>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col
+                        cols="12"
+                        sm="6"
+                        md="4"
+                      >
+                        <v-text-field
+                          v-model="editedItem.userid"
+                          label="ユーザーID(学籍番号)"
+                          :rules="[rules.required,rules.max]"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        sm="6"
+                        md="8"
+                      >
+                        <v-text-field
+                          v-model="editedItem.mail"
+                          label="メールアドレス"
+                          :rules="[rules.required]"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        sm="6"
+                        md="4"
+                      >
+                        <v-select
+                            v-model="editedItem.roleid_id"
+                            :items="items"
+                            label="ロールID"
+                            :rules="[rules.required]"
+                        ></v-select>
+                        </v-col>
+                      <v-col
+                        cols="12"
+                        sm="6"
+                        md="4"
+                      >
+                        <v-text-field
+                          v-model="editedItem.username"
+                          label="ユーザー名"
+                          :rules="[rules.required]"
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="red darken-2"
+                    text
+                    @click="close"
                   >
-                    <v-text-field
-                      v-model="editedItem.userid"
-                      label="ユーザーID(学籍番号)"
-                      :rules="[rules.required,rules.max]"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="8"
+                    キャンセル
+                  </v-btn>
+                  <v-btn
+                    color="blue darken-1"
+                    text
+                    @click="save"
                   >
-                    <v-text-field
-                      v-model="editedItem.mail"
-                      label="メールアドレス"
-                      :rules="[rules.required]"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
+                    保存
+                  </v-btn>
+                </v-card-actions>
+              </v-tab-item>
+              <v-tab-item>
+                <v-card-text>
+                  <v-container>
+                    <v-file-input
+                      class="mt-12"
+                      v-model="file"
+                      accept=".xlsx"
+                      label="EXCEL File input"
+                      truncate-length="15"
+                      @change="onChange($event)"
+                    ></v-file-input>
+                    <v-btn
+                    color="blue darken-1"
+                    text
+                    @click="upload"
                   >
-                    <v-select
-                        v-model="editedItem.role_id"
-                        :items="items"
-                        label="ロールID"
-                        :rules="[rules.required]"
-                    ></v-select>
-                    </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.username"
-                      label="ユーザー名"
-                      :rules="[rules.required]"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="red darken-2"
-                text
-                @click="close"
-              >
-                キャンセル
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="save"
-              >
-                保存
-              </v-btn>
-            </v-card-actions>
+                    保存
+                  </v-btn>
+                  </v-container>
+                </v-card-text>
+              </v-tab-item>
+            </v-tabs-items>
           </v-card>
           </v-form>
         </v-dialog>
@@ -172,9 +202,13 @@
 </template>
 
 <script>
+  import Cookies from 'js-cookie'
   export default {
     data: () => ({
-      
+      file:null,
+      sheet:false,
+      csrftoken:'',
+      tab:'',
       rules: {
         required: value => !!value || 'こちらは必須項目です',
         max: value => (value && value.length == 10) || '10文字で入力して下さい',
@@ -211,7 +245,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? '学生追加' : '編集'
+        return this.editedIndex === -1 ? '追加' : '編集'
       },
     },
 
@@ -287,6 +321,32 @@
           this.close()
         }
       },
+
+      //一括登録処理
+      onChange(event){
+        this.file = event;
+      },
+      async upload() {
+        this.csrftoken = Cookies.get('csrftoken')
+        
+        fetch('http://localhost:8000/sukusuku/usadd/',{
+          method:"POST",
+          headers: {
+            'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'X-CSRFToken':this.csrftoken
+          },
+          body:this.file,
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.userdata=obj)
+        .catch(error => {
+          console.log(error)
+          return error.response;
+        })
+        this.sheet = !this.sheet
+      },
+
     },
   }
 </script>

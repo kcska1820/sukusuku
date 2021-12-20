@@ -77,9 +77,9 @@
                     md="4"
                   >
                     <v-select
-                        v-model="editedItem.roleid_id"
-                        :items="items"
-                        label="ロールID"
+                      v-model="editedItem.roleid_id"
+                      items="teacher"
+                      label="ロールID"
                       :rules="[rules.required]"
                     ></v-select>
                     </v-col>
@@ -173,7 +173,7 @@
       del:'',
       dialog: false,
       dialogDelete: false,
-      items: ['student', 'teacher', 'master'],
+      item: 'teacher',
       headers: [
         {
           text: 'ユーザーID',

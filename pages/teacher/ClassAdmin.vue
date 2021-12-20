@@ -47,7 +47,7 @@
                   <v-col
                     cols="12"
                     sm="6"
-                    md="4"
+                    md="6"
                   >
                     <v-text-field
                       v-model="editedItem.id"
@@ -58,7 +58,7 @@
                   <v-col
                     cols="12"
                     sm="6"
-                    md="4"
+                    md="6"
                   >
                     <v-text-field
                       v-model="editedItem.name"
@@ -195,7 +195,7 @@
     methods: {
       selclassid(item){
         localStorage.setItem('selclassid',item.classid)
-        this.$router.push({path: "/teacher/ClassMember"})
+        this.$router.push({path: "/teacher/ClassMemberManage"})
       },
 
       deleteItem (item) {

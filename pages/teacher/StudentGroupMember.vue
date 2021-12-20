@@ -74,7 +74,7 @@
                         <v-text-field
                           v-model="editedItem.userid"
                           label="ユーザーID(学籍番号)"
-                          :rules="[rules.required,rules.max]"
+                          :rules="[rules.required,rules.max,]"
                         ></v-text-field>
                       </v-col>
                       <v-col

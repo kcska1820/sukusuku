@@ -2,6 +2,7 @@
   <v-row class="fill-height"
   color="primary">
     <v-col cols="12">
+      <!-- カレンダーツールバー -->
       <v-sheet height="65">
         <v-toolbar
           color="accent lighten-1"
@@ -40,7 +41,9 @@
             {{ $refs.calendar.title }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <calendarAdd />
+          <v-btn @click="updateRange" icon><v-icon color="green">mdi-restore</v-icon></v-btn>
+          <calendarAdd v-if="role == 'student'"/>
+          <TeachercalendarAdd v-else-if="role == 'teacher'"/>
           <v-menu
             bottom
             right
@@ -74,6 +77,82 @@
           </v-menu>
         </v-toolbar>
       </v-sheet>
+      <!-- 削除確認 -->
+      <v-dialog v-model="DeleteDialog" max-width="500px">
+        <v-card>
+            <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="red darken-2" text @click="close">キャンセル</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteSchedule">削除</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+      </v-dialog>
+      <v-dialog v-model="TTDialog" max-width="500px">
+        <v-card>
+            <v-card-title class="text-h5 justify-center">時間割は編集できません</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="red darken-2" text @click="close">キャンセル</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+      </v-dialog>
+      <!-- スケジュール更新 -->
+      <v-dialog v-model="EditDialog" max-width="600px">
+        <v-container fluid fill-height>
+            <v-layout xs12 sm8 md4>
+                <v-flex>
+                    <v-card>
+                        <v-toolbar color="accent">
+                          <v-toolbar-title>
+                            予定更新
+                          </v-toolbar-title>
+                        </v-toolbar>
+                        <v-card-text>
+                          <v-form>
+                            <v-col class="d-flex justify-space-around pt-4">
+                              <p>開始日時 : </p>
+                              <input type="date" v-model="startDay" />
+                              <input type="time" v-model="startTime" />
+                            </v-col>
+                            <v-col class="d-flex justify-space-around pt-4">
+                              <p>終了日時 : </p>
+                              <input type="date" v-model="endDay" />
+                              <input type="time" v-model="endTime" />
+                            </v-col>
+                              <v-text-field label="タイトル" v-model="title"  />
+                              <v-text-field label="内容" v-model="details"  />
+                              <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" />
+                          </v-form>
+                      </v-card-text>
+                      <v-card-actions>
+                          <v-col cols="6">
+                              <v-btn
+                                  color="red darken-2 white--text"
+                                  block
+                                  @click="close"
+                              >
+                                  閉じる
+                              </v-btn>
+                          </v-col>
+                          <v-col cols="6">
+                              <v-btn
+                                  color="blue darken-1 white--text"
+                                  block
+                                  @click="updSchedule"
+                              >
+                                  更新
+                              </v-btn>
+                          </v-col>
+                      </v-card-actions>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </v-container>
+      </v-dialog>
+      <!-- カレンダー本体 -->
       <v-sheet height="550">
         <v-calendar
           ref="calendar"
@@ -104,12 +183,12 @@
               :color="selectedEvent.color"
               dark
             >
-              <v-btn icon>
+              <v-btn icon @click="openEdit">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn icon>
+              <v-btn icon @click="DeleteDialog = true">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </v-toolbar>
@@ -133,10 +212,8 @@
 </template>
 
 <script>
-  import items from '/components/timeTable.json'
-  import items2 from '/components/timeTable2.json'
-  import items3 from '/components/timeTable3.json'
   import calendarAdd from '/components/calendarAdd.vue'
+  import TeachercalendarAdd from '/components/TeachercalendarAdd.vue'
   export default {
     data: () => ({
     focus: '',
@@ -147,15 +224,55 @@
       day: 'Day',
       category:'Category'
     },
-    selectedEvent: {},
+    colors:[
+      {
+          name:"赤",
+          value:'red'
+      },
+      {
+          name:"青",
+          value:'blue'
+      },
+      {
+          name:"黄",
+          value:'yellow'
+      },
+      {
+          name:"緑",
+          value:'green'
+      }
+    ],
+    selectedEvent: {
+    },
     selectedElement: null,
     selectedOpen: false,
     CreateOpen:false,
+    url:'http://localhost:8000/sukusuku/',
+    psselurl:'',
+    gdselurl:'',
+    gsselurl:'',
+    ttselurl:'',
+    delurl:'',
+    updurl:'',
+    class:'',
+    start:'',
+    startDay:'',
+    startTime:'',
+    end:'',
+    endDay:'',
+    endTime:'',
+    title:'',
+    details:'',
+    group:'',
+    color:'',
     events: [],
-    items:items,
-    items2:items2,
-    items3:items3,
+    user:[],
+    role:'',
+    userid:'',
     dialog: false,
+    DeleteDialog: false,
+    EditDialog: false,
+    TTDialog: false,
     category:["プライベート","時間割","グループ"]
   }),
   mounted () {
@@ -194,45 +311,177 @@
 
       nativeEvent.stopPropagation()
     },
-    updateRange () {
-      const event = []
-      for (let i = 0; i < items.length; i++) {
-        event.push({
-          id:items[i].id,
-          name: items[i].title,
-          start: items[i].start,
-          end: items[i].end,
-          color: items[i].color,
-          details: items[i].details,
-          category:items[i].category
-        })
-      }
-      for (let i = 0; i < items2.length; i++) {
-        event.push({
-          name: items2[i].title,
-          start: items2[i].start,
-          end: items2[i].end,
-          color: items2[i].color,
-          timed: items2[i].timed,
-          details: items2[i].details,
-          category:items2[i].category
-        })
-      }
-      for (let i = 0; i < items3.length; i++) {
-        event.push({
-          name: items3[i].title,
-          start: items3[i].start,
-          end: items3[i].end,
-          color: items3[i].color,
-          timed: items3[i].timed,
-          details: items3[i].details,
-          category:items3[i].category
-        })
-      }
-      this.events = event
+    openEdit (){
+      //時間分割
+      const startday = this.selectedEvent.start
+      const endday = this.selectedEvent.end
+      const editstartday = startday.substr(0,10)
+      const editstarttime = startday.substr(11,15)
+      this.startDay = editstartday
+      this.startTime = editstarttime
+      const editendday = endday.substr(0,10)
+      const editendtime = endday.substr(11,15)
+      this.endDay = editendday
+      this.endTime = editendtime
+      //スケジュール内容
+      this.title = this.selectedEvent.name
+      this.details = this.selectedEvent.details
+      this.color = this.selectedEvent.color
+      this.EditDialog = true
     },
+    close (){
+      this.selectedOpen = false
+      this.DeleteDialog = false
+      this.TTDialog = false
+      this.EditDialog = false
+    },
+    updSchedule (){
+      this.start = this.startDay + 'T' + this.startTime
+      this.end = this.endDay + 'T' + this.endTime
+      if(this.selectedEvent.category == "プライベート"){
+        this.user = JSON.parse(localStorage.getItem('user'))
+        this.userid = this.user[0].userid
+        this.updurl = this.url + 'psupd/?id=' + this.selectedEvent.id + '&userid=' + this.userid+'&title='+this.title+'&start='+this.start+'&end='+this.end+'&details='+this.details+'&color='+this.color
+        fetch(this.updurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>this.updateRange())
+        this.close()
+      }else if(this.selectedEvent.category == "グループ"){
+        this.updurl = this.url + 'gsupd/?id=' + this.selectedEvent.id + '&groupid=' + this.selectedEvent.groupid+'&title='+this.title+'&start='+this.start+'&end='+this.end+'&details='+this.details+'&color='+this.color
+        fetch(this.updurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>this.updateRange())
+        this.close()
+      }else if(this.selectedEvent.category == "時間割"){
+        if(this.user[0].roleid_id == 'student'){
+          this.TTDialog = true
+        }else if(this.user[0].roleid_id == 'teacher'){
+          this.updurl = this.url + 'ttupd/?id=' + this.selectedEvent.id + '&classid=' +this.selectedEvent.classid+'&title='+this.title+'&start='+this.start+'&end='+this.end+'&details='+this.details+'&color='+this.color
+          fetch(this.updurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+          })
+          .then((res)=>this.updateRange())
+          this.close()
+        }
+      }
+    },
+    deleteSchedule () {
+      if(this.selectedEvent.category == "プライベート"){
+        this.delurl = this.url + 'psdel/?id=' + this.selectedEvent.id + '&userid=' + this.userid
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>this.updateRange())
+        this.close()
+      }else if(this.selectedEvent.category == "グループ"){
+        this.delurl = this.url + 'gsdel/?id=' + this.selectedEvent.id + '&groupid=' + this.selectedEvent.groupid
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>this.updateRange())
+        this.close()
+      }
+    },
+    updateRange () {
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.class = localStorage.getItem('class')
+      this.userid = this.user[0].userid
+      this.psselurl = this.url + 'pssel/?userid=' + this.userid
+      this.gdselurl = this.url + 'gdsel/?userid=' + this.userid
+      this.ttselurl = this.url + 'ttsel/?classid=' + this.class
+      const event = []
+      const groups = []
+      fetch(this.psselurl,{
+      method:"GET",
+      mode:"cors",
+      credentials: 'include'
+      })
+      .then((res)=>res.json())
+      .then(obj=>{
+        for (let i = 0; i < obj.length; i++) {
+          event.push({
+            id:obj[i].id,
+            name: obj[i].title,
+            start: obj[i].start,
+            end: obj[i].end,
+            color: obj[i].color,
+            details: obj[i].details,
+            category: "プライベート"
+          })
+        }
+      })
+      fetch(this.gdselurl,{
+      method:"GET",
+      mode:"cors",
+      credentials: 'include'
+      })
+      .then((res)=>res.json())
+      .then(obj=>{
+        for (let j = 0; j < obj.length; j++) {
+          this.gsselurl = this.url + 'gssel/?groupid=' + obj[j].groupid_id
+          fetch(this.gsselurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+          })
+          .then((res)=>res.json())
+          .then(obj=>{
+            for (let i = 0; i < obj.length; i++) {
+              event.push({
+                id:obj[i].id,
+                groupid:obj[i].groupid_id,
+                name: obj[i].title,
+                start: obj[i].start,
+                end: obj[i].end,
+                color: obj[i].color,
+                details: obj[i].details,
+                category: "グループ"
+              })
+            }
+          })
+        }
+      })
+      fetch(this.ttselurl,{
+      method:"GET",
+      mode:"cors",
+      credentials: 'include'
+      })
+      .then((res)=>res.json())
+      .then(obj=>{
+        for (let i = 0; i < obj.length; i++) {
+          event.push({
+            id:obj[i].id,
+            classid:obj[i].classid_id,
+            name: obj[i].title,
+            start: obj[i].start,
+            end: obj[i].end,
+            color: obj[i].color,
+            details: obj[i].details,
+            category: "時間割"
+          })
+        }
+      })
+      this.events=event
+    },
+    getRole(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.role = this.user[0].roleid_id
+    }
   },
-  /* 未ログイン時index.vueに遷移 */
-  /* middleware:"authenicated" */
+  created(){
+    this.getRole()
+  }
 }
 </script>

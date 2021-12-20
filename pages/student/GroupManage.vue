@@ -268,7 +268,6 @@
         .then((obj)=>{
           const user = JSON.parse(localStorage.getItem('user'))
           this.groupurl='http://localhost:8000/sukusuku/gdadd/?groupid='+obj[0].groupid+'&userid='+user[0].userid
-          console.log(this.groupurl)
           fetch(this.groupurl,{
           method:"GET",
           mode:"cors",

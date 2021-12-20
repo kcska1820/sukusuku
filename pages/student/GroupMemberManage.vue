@@ -272,7 +272,7 @@
             this.match = true
           }
         }
-        if(this.match = false){
+        if(this.match == false){
           if(this.$refs.addform.validate()){
           const url = 'http://localhost:8000/sukusuku/gdadd/?groupid=' + this.selectgroupid +'&userid=' + this.editedItem.id
           fetch(url,{
@@ -283,6 +283,9 @@
           .then((res)=>{
             res.json()
             this.initialize()
+          })
+          .catch((error)=>{
+            console.log(error)
           })
           this.close()
           }

@@ -100,9 +100,9 @@
       fab
       small
       color="primary"
+      @click="deleteItem(item)"
     >
       <v-icon
-        @click="deleteItem(item)"
         size="2em"
       >
       mdi-logout

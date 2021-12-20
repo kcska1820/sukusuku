@@ -80,14 +80,14 @@
       <!-- 削除確認 -->
       <v-dialog v-model="DeleteDialog" max-width="500px">
         <v-card>
-            <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="close">キャンセル</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteSchedule">削除</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
+          <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="red darken-2" text @click="close">キャンセル</v-btn>
+            <v-btn color="blue darken-1" text @click="deleteSchedule">削除</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
       </v-dialog>
       <v-dialog v-model="TTDialog" max-width="500px">
         <v-card>
@@ -111,7 +111,7 @@
                           </v-toolbar-title>
                         </v-toolbar>
                         <v-card-text>
-                          <v-form>
+                          <v-form v-if="categorys == 'プライベート'">
                             <v-col class="d-flex justify-space-around pt-4">
                               <p>開始日時 : </p>
                               <input type="date" v-model="startDay" />
@@ -125,6 +125,38 @@
                               <v-text-field label="タイトル" v-model="title"  />
                               <v-text-field label="内容" v-model="details"  />
                               <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" />
+                          </v-form>
+                          <v-form v-if="categorys == 'グループ'">
+                            <v-col class="d-flex justify-space-around pt-4">
+                              <p>開始日時 : </p>
+                              <input type="date" v-model="startDay" />
+                              <input type="time" v-model="startTime" />
+                            </v-col>
+                            <v-col class="d-flex justify-space-around pt-4">
+                              <p>終了日時 : </p>
+                              <input type="date" v-model="endDay" />
+                              <input type="time" v-model="endTime" />
+                            </v-col>
+                              <v-text-field label="タイトル" v-model="title"  />
+                              <v-text-field label="内容" v-model="details"  />
+                              <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" />
+                              <v-select label="グループ" v-model="gs" :items="gss" item-text="name" item-value="id" />
+                          </v-form>
+                          <v-form v-if="categorys == '時間割'">
+                            <v-col class="d-flex justify-space-around pt-4">
+                              <p>開始日時 : </p>
+                              <input type="date" v-model="startDay" />
+                              <input type="time" v-model="startTime" />
+                            </v-col>
+                            <v-col class="d-flex justify-space-around pt-4">
+                              <p>終了日時 : </p>
+                              <input type="date" v-model="endDay" />
+                              <input type="time" v-model="endTime" />
+                            </v-col>
+                              <v-text-field label="タイトル" v-model="title"  />
+                              <v-text-field label="内容" v-model="details"  />
+                              <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" />
+                              <v-select label="クラス" v-model="clas" :items="cs" item-text="name" item-value="id" />
                           </v-form>
                       </v-card-text>
                       <v-card-actions>
@@ -252,6 +284,7 @@
     gdselurl:'',
     gsselurl:'',
     ttselurl:'',
+    groupurl:'',
     delurl:'',
     updurl:'',
     class:'',
@@ -269,6 +302,12 @@
     user:[],
     role:'',
     userid:'',
+    categorys:'',
+    groups1:[],
+    gs:'',
+    gss:[],
+    clas:'',
+    cs:[],
     dialog: false,
     DeleteDialog: false,
     EditDialog: false,
@@ -327,6 +366,13 @@
       this.title = this.selectedEvent.name
       this.details = this.selectedEvent.details
       this.color = this.selectedEvent.color
+      this.categorys = this.selectedEvent.category
+      if(this.categorys == 'グループ'){
+        this.gs = this.selectedEvent.groupid
+      }
+      if(this.categorys == '時間割'){
+        this.clas = this.selectedEvent.classid
+      }
       this.EditDialog = true
     },
     close (){
@@ -402,7 +448,6 @@
       this.gdselurl = this.url + 'gdsel/?userid=' + this.userid
       this.ttselurl = this.url + 'ttsel/?classid=' + this.class
       const event = []
-      const groups = []
       fetch(this.psselurl,{
       method:"GET",
       mode:"cors",
@@ -478,10 +523,46 @@
     getRole(){
       this.user = JSON.parse(localStorage.getItem('user'))
       this.role = this.user[0].roleid_id
+    },
+    getGroup(){
+      if(localStorage.getItem('group') != null){
+        this.groups1 = JSON.parse(localStorage.getItem('group'))
+        for (let i = 0; i < this.groups1.length; i++) {
+          this.groupurl = this.url + 'glsel/?groupid='+this.groups1[i].groupid_id
+          fetch(this.groupurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+          })
+          .then((res)=>res.json())
+          .then(obj=>{
+            this.gss.push({
+            id:this.groups1[i].groupid_id,
+            name:obj[0].groupname,
+            })
+          })
+        }
+      }
+      this.groupurl = this.url +'clall/'
+      fetch(this.groupurl,{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+      })
+      .then((res)=>res.json())
+      .then(obj=>{
+        for(let j=0; j<obj.length; j++){
+          this.cs.push({
+          id:obj[j].classid,
+          name:obj[j].classname,
+          })
+        }
+      })
     }
   },
   created(){
     this.getRole()
+    this.getGroup()
   }
 }
 </script>

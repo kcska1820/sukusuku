@@ -61,7 +61,7 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item @click="type = 'day'">
+              <v-list-item @click="type = 'category'">
                 <v-list-item-title>Day</v-list-item-title>
               </v-list-item>
               <v-list-item @click="type = 'week'">
@@ -69,9 +69,6 @@
               </v-list-item>
               <v-list-item @click="type = 'month'">
                 <v-list-item-title>Month</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = 'category'">
-                <v-list-item-title>Category</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -249,12 +246,11 @@
   export default {
     data: () => ({
     focus: '',
-    type: 'day',
+    type: 'category',
     typeToLabel: {
       month: 'Month',
       week: 'Week',
-      day: 'Day',
-      category:'Category'
+      category:'Day'
     },
     colors:[
       {
@@ -320,7 +316,7 @@
   methods: {
     viewDay ({ date }) {
       this.focus = date
-      this.type = 'day'
+      this.type = 'category'
     },
     getEventColor (event) {
       return event.color

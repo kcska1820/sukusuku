@@ -146,7 +146,7 @@
                                         <v-btn
                                             color="blue darken-1 white--text"
                                             block
-                                            @click="addGroupSchedule"
+                                            @click="addTTSchedule"
                                         >
                                             追加
                                         </v-btn>
@@ -186,6 +186,7 @@ export default {
         user:[],
         privateschedule:[],
         groupschedule:[],
+        ttschedule:[],
         groups:[],
         classs:[],
         group1:[],
@@ -284,6 +285,26 @@ export default {
                     }
                 }
             }
+        },
+        addTTSchedule(){
+          if(this.$refs.addform.validate()){
+            if(this.startDay <= this.endDay){
+              if(this.startDay == this.endDay && this.startTime <= this.endTime || this.startDay != this.endDay){
+                this.start = this.startDay + 'T' + this.startTime
+                this.end = this.endDay + 'T' + this.endTime
+                this.addurl = this.url + 'ttcreate/?classid=' + this.clas + '&title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details
+                fetch(this.addurl,{
+                method:"GET",
+                mode:"cors",
+                credentials: 'include'
+                })
+                .then((res)=>res.json())
+                .then(obj=>this.ttschedule=obj)
+                .catch()
+                this.close()
+              }
+            }
+          }
         },
         close(){
             this.title=''

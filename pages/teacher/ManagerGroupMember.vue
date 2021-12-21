@@ -2,6 +2,7 @@
   <v-data-table
     :headers="headers"
     :items="userdata"
+    :search="search"
     sort-by="calories"
     class="elevation-1 mt-12"
     disable-sort
@@ -22,6 +23,13 @@
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="IDでメンバーを検索"
+          single-line
+          hide-details
+        ></v-text-field>
         <v-dialog
           v-model="dialog"
           max-width="500px"
@@ -58,6 +66,7 @@
                       v-model="editedItem.userid"
                       label="ユーザーID"
                       :rules="[rules.required,rules.max]"
+                      :disabled="textdisabled"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -68,7 +77,7 @@
                     <v-text-field
                       v-model="editedItem.mail"
                       label="メールアドレス"
-                      :rules="[rules.required]"
+                      :rules="[rules.required,rules.email]"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -120,17 +129,19 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">本当に削除してもよろしいですか？</v-card-title>
+            <v-card-title class="text-h5 ">本当に削除してもよろしいですか？</v-card-title>
+            <h3 class="text-center">{{editedItem.username}}</h3>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="closeDelete">いいえ</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">はい</v-btn>
+              <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">削除</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-toolbar>
     </template>
+    
     <template v-slot:[`item.actions`]="{ item }">
       <v-btn
       fab
@@ -167,6 +178,13 @@
        rules: {
         required: value => !!value || 'こちらは必須項目です',
          max: value => (value && value.length == 10) || '10文字で入力してください',
+         email: value => {
+
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+                return pattern.test(value) || 'メールアドレスの形式が正しくありません'
+
+        }
       },
       url:'http://localhost:8000/sukusuku/',
       addurl:'',
@@ -174,6 +192,7 @@
       dialog: false,
       dialogDelete: false,
       item: 'teacher',
+      search: "",
       headers: [
         {
           text: 'ユーザーID',
@@ -207,6 +226,9 @@
       formTitle () {
         return this.editedIndex === -1 ? '新規管理者を追加します' : '編集'
       },
+      textdisabled(){
+      return this.editedIndex === -1 ? false : true;
+    }
     },
 
     watch: {
@@ -235,6 +257,7 @@
       },
 
       deleteItem (item) {
+        this.editedItem = Object.assign({}, item)
         this.delurl = this.url + 'trdel/?userid=' +  item.userid
         this.dialogDelete = true
       },

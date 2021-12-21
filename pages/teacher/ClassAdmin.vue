@@ -2,6 +2,7 @@
   <v-data-table
     :headers="headers"
     :items="classs"
+    :search="search"
     sort-by="classadmin"
     class="elevation-1 ma-12"
     disable-sort
@@ -17,6 +18,13 @@
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="クラスを検索"
+          single-line
+          hide-details
+        ></v-text-field>
         <v-dialog
           v-model="dialog"
           max-width="500px"
@@ -47,7 +55,7 @@
                   <v-col
                     cols="12"
                     sm="6"
-                    md="4"
+                    md="6"
                   >
                     <v-text-field
                       v-model="editedItem.id"
@@ -58,7 +66,7 @@
                   <v-col
                     cols="12"
                     sm="6"
-                    md="4"
+                    md="6"
                   >
                     <v-text-field
                       v-model="editedItem.name"
@@ -93,6 +101,7 @@
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
+            <h3 class="text-center">{{editedItem.classid}}<v-spacer></v-spacer>{{editedItem.classname}}</h3>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
@@ -143,6 +152,7 @@
       },
       dialog: false,
       dialogDelete: false,
+      search: "",
       headers: [
         {
           text: 'クラスID',
@@ -195,10 +205,11 @@
     methods: {
       selclassid(item){
         localStorage.setItem('selclassid',item.classid)
-        this.$router.push({path: "/teacher/ClassMember"})
+        this.$router.push({path: "/teacher/ClassMemberManage"})
       },
 
       deleteItem (item) {
+        this.editedItem = Object.assign({}, item);
         this.delurl = this.url + 'cldel/?classid=' +  item.classid
         this.dialogDelete = true 
       },

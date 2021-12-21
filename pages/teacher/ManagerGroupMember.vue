@@ -2,6 +2,7 @@
   <v-data-table
     :headers="headers"
     :items="userdata"
+    :search="search"
     sort-by="calories"
     class="elevation-1 mt-12"
     disable-sort
@@ -22,6 +23,13 @@
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="IDでメンバーを検索"
+          single-line
+          hide-details
+        ></v-text-field>
         <v-dialog
           v-model="dialog"
           max-width="500px"
@@ -58,6 +66,7 @@
                       v-model="editedItem.userid"
                       label="ユーザーID"
                       :rules="[rules.required,rules.max]"
+                      :disabled="textdisabled"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -182,6 +191,7 @@
       dialog: false,
       dialogDelete: false,
       item: 'teacher',
+      search: "",
       headers: [
         {
           text: 'ユーザーID',
@@ -215,6 +225,9 @@
       formTitle () {
         return this.editedIndex === -1 ? '新規管理者を追加します' : '編集'
       },
+      textdisabled(){
+      return this.editedIndex === -1 ? false : true;
+    }
     },
 
     watch: {

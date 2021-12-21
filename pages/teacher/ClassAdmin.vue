@@ -2,6 +2,7 @@
   <v-data-table
     :headers="headers"
     :items="classs"
+    :search="search"
     sort-by="classadmin"
     class="elevation-1 ma-12"
     disable-sort
@@ -17,6 +18,13 @@
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="クラスを検索"
+          single-line
+          hide-details
+        ></v-text-field>
         <v-dialog
           v-model="dialog"
           max-width="500px"
@@ -143,6 +151,7 @@
       },
       dialog: false,
       dialogDelete: false,
+      search: "",
       headers: [
         {
           text: 'クラスID',

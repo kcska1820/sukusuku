@@ -80,6 +80,7 @@
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5">本当にグループから退出しますか？</v-card-title>
+            <h3 class="text-center">{{editedItem.name}}</h3>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
@@ -198,6 +199,7 @@
       },
 
       deleteItem (item) {
+        this.editedItem = Object.assign({}, item)
         const user = JSON.parse(localStorage.getItem('user'))
         this.deleteurl = 'http://localhost:8000/sukusuku/gddel/?groupid='+item.id+'&userid='+user[0].userid
         console.log(this.deleteurl)

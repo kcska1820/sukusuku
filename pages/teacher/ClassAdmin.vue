@@ -101,6 +101,7 @@
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
+            <h3 class="text-center">{{editedItem.classid}}<v-spacer></v-spacer>{{editedItem.classname}}</h3>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
@@ -208,6 +209,7 @@
       },
 
       deleteItem (item) {
+        this.editedItem = Object.assign({}, item);
         this.delurl = this.url + 'cldel/?classid=' +  item.classid
         this.dialogDelete = true 
       },

@@ -101,16 +101,15 @@
           </v-dialog>
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
-              <v-card-title class="text-h5"
-                >本当に削除してもよろしいですか？</v-card-title
-              >
+              <v-card-title class="text-h5">本当に削除してもよろしいですか？</v-card-title>
+              <h3 class="text-center">{{classname}}<v-spacer></v-spacer>{{editedItem.userid__username}}</h3>
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="red darken-2" text @click="closeDelete"
-                  >いいえ</v-btn
+                  >キャンセル</v-btn
                 >
                 <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                  >はい</v-btn
+                  >削除</v-btn
                 >
                 <v-spacer></v-spacer>
               </v-card-actions>
@@ -146,7 +145,7 @@ export default {
     dialog: false,
     dialogDelete: false,
     search: "",
-    classname: "aaa",
+    classname: "",
     headers: [
       {
         text: "ユーザーID",
@@ -161,9 +160,11 @@ export default {
     editedIndex: -1,
     editedItem: {
         userid: '',
+        userid__username:'',
         },
       defaultItem: {
         userid: '',
+        userid__username:'',
         },
   }),
 
@@ -189,6 +190,7 @@ export default {
 
   methods: {
     deleteItem(item) {
+      this.editedItem = Object.assign({}, item);
       this.delurl = this.url + "cddel/?id=" + item.id + "&classid=" + this.classname;
       this.dialogDelete = true;
     },

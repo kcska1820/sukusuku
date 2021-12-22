@@ -35,48 +35,51 @@
           </v-icon>
             </v-btn>
           </template>
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">{{ formTitle }}</span>
-            </v-card-title>
+          <v-form
+            ref="BBSaddform"
+            v-model="valid"
+            lazy-validation>
+            <v-card>
+              <v-card-title>
+                <span class="text-h5">{{ formTitle }}</span>
+              </v-card-title>
 
-            <!--ここから変更-->
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-text-field
-                    v-model="editedItem.title"
-                    label="掲示板タイトル"
-                    :rules="[rules.required]"
-                  ></v-text-field>
-                </v-row><v-row>
-                  <v-textarea
-                    v-model="editedItem.note"
-                    label="備考"
-                    outlined>
-                  </v-textarea>
-                </v-row>
-              </v-container>
-            </v-card-text>
+              <!--ここから変更-->
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-text-field
+                      v-model="editedItem.title"
+                      label="掲示板タイトル"
+                      :rules="[rules.required]"/>
+                  </v-row><v-row>
+                    <v-textarea
+                      v-model="editedItem.note"
+                      label="備考"
+                      outlined/>
+                  </v-row>
+                </v-container>
+              </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="red darken-2"
-                text
-                @click="close"
-              >
-                キャンセル
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="save"
-              >
-                作成
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="red darken-2"
+                  text
+                  @click="close"
+                >
+                  キャンセル
+                </v-btn>
+                <v-btn
+                  :disabled="!valid"
+                  color="blue darken-1"
+                  text
+                  @click="save">
+                  作成
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-form>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
@@ -117,7 +120,6 @@
   </v-data-table>
 </template>
 <script>
-  import threads from '/components/threadList.json'
   export default {
     data: () => ({
       rules: {
@@ -125,6 +127,7 @@
       },
       url:'http://localhost:8000/sukusuku/',
       delurl:'',
+      valid:true,
       dialog: false,
       dialogDelete: false,
       headers: [
@@ -236,6 +239,7 @@
       },
 
       save () {
+        if(this.$refs.BBSaddform.validate()){
         this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=st00000001'
         console.log(this.addurl)
         fetch(this.addurl,{
@@ -251,6 +255,7 @@
           this.desserts.push(this.editedItem)
         }
         this.close()
+        }
       },
     },
   }

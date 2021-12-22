@@ -106,10 +106,10 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="red darken-2" text @click="closeDelete"
-                  >いいえ</v-btn
+                  >キャンセル</v-btn
                 >
                 <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                  >はい</v-btn
+                  >削除</v-btn
                 >
                 <v-spacer></v-spacer>
               </v-card-actions>

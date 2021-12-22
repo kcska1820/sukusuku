@@ -23,7 +23,10 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </template>
-        <v-form ref="BBSaddform">
+        <v-form
+          ref="BBSaddform"
+          v-model="valid"
+          lazy-validation>
         <v-card>
           <v-card-title>
             <span class="text-h5">掲示板の追加申請</span>
@@ -36,13 +39,12 @@
                   v-model="editedItem.title"
                   label="掲示板タイトル"
                   :rules="[rules.required]"
-                ></v-text-field>
+                  required/>
               </v-row><v-row>
                 <v-textarea
                   v-model="editedItem.note"
                   label="備考"
-                  outlined>
-                </v-textarea>
+                  outlined/>
               </v-row>
             </v-container>
           </v-card-text>
@@ -55,6 +57,7 @@
               キャンセル
             </v-btn>
             <v-btn
+              :disabled="!valid"
               color="blue darken-1"
               text
               @click="save">
@@ -110,6 +113,7 @@ export default {
     url:'http://localhost:8000/sukusuku/',
     addurl:'',
     srcurl:'',
+    valid:true,
     sinsei:false,
     touketu:false,
     kaijo:false,

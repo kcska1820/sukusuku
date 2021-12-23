@@ -95,7 +95,7 @@
       exact>
       <template v-if="item.flag != '0' && item.flag != '3'">
         <v-col>
-          <BBSCard :item="item"/>
+          <BBSCard :item="item" :user="user.userid"/>
         </v-col>
       </template>
     </div>
@@ -119,6 +119,8 @@ export default {
     kaijo:false,
     searchtxt:'',
     kw:'',
+    user:[],
+    userid:'',
     //items:items,
     thdata:[],
     editedIndex: -1,
@@ -157,9 +159,17 @@ export default {
       credentials: 'include'
     }).then((res)=>res.json())
     .then(obj=>this.thdata=obj)
+
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.userid = this.user[0].userid
   },
 
   methods: {
+    /*
+      ログイン中ユーザ取得
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.userid = this.user[0].userid
+    */
     search (){
       this.kw = searchsup(this.searchtxt, 'title')
       this.srcurl = this.url + 'thsrc' + this.kw.sql
@@ -174,7 +184,7 @@ export default {
 
     save () {
       if(this.$refs.BBSaddform.validate()){
-      this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=0' + '&note=' + this.editedItem.note + '&master=st00000001'
+      this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=0' + '&note=' + this.editedItem.note + '&master=' + this.userid
       console.log(this.addurl)
       fetch(this.addurl,{
         method:"GET",

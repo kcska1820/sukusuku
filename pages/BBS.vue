@@ -150,6 +150,11 @@ export default {
     },
   },
   
+  mounted () {
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.userid = this.user[0].userid
+  },
+
   created () {
     //stselを掲示板一覧取得に変える
     console.log(this.url + 'thsel')
@@ -159,9 +164,6 @@ export default {
       credentials: 'include'
     }).then((res)=>res.json())
     .then(obj=>this.thdata=obj)
-
-    this.user = JSON.parse(localStorage.getItem('user'))
-    this.userid = this.user[0].userid
   },
 
   methods: {

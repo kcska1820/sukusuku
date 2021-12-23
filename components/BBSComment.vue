@@ -1,7 +1,7 @@
 <template>
     <div>
         <template v-if="post.flag == true">
-            <template v-if="post.user == 'st00000001'">
+            <template v-if="post.user_id == user">
                 <!--ログイン中ユーザなら削除ボタンの表示-->
                 <!--v-menu-->
                 <v-menu
@@ -85,7 +85,8 @@ export default {
 
     props:{
         post:Object,
-        no:Number
+        no:Number,
+        user:String
     },
 
     methods:{

@@ -1,10 +1,5 @@
 [
     {
-        "icon":"mdi-apps",
-        "title":"Welcome",
-        "to":"/"
-    },
-    {
         "icon":"mdi-calendar",
         "title":"ホーム",
         "to":"/student/Home"
@@ -23,15 +18,5 @@
         "icon":"mdi-cog",
         "title":"設定",
         "to":"/setting"
-    },
-    {
-        "icon":"mdi-account-key",
-        "title":"管理者メニュー",
-        "to":"/AdminMenu"
-    },
-    {
-        "icon":"mdi-account-child-outline",
-        "title":"かれんだ",
-        "to":"/student/calendars"
     }
 ]

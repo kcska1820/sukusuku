@@ -106,9 +106,15 @@
                         truncate-length="15"
                         @change="onChange($event)"
                       ></v-file-input>
+                      <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="red darken-2" text @click="close">
+                      キャンセル
+                    </v-btn>
                       <v-btn color="blue darken-1" text @click="upload">
                         保存
                       </v-btn>
+                      </v-card-actions>
                     </v-container>
                   </v-card-text>
                 </v-tab-item>

@@ -41,8 +41,8 @@ export default {
             signInWithPopup(auth, provider)
             .then((result) => {
                 this.Set()
-                this.$router.push("/student/Home")
-            }).catch((error) => {
+            })
+            .catch((error) => {
                 console.log("error")
             })
         },
@@ -66,7 +66,6 @@ export default {
             })
             .then(resJson => {
                 localStorage.setItem('user',JSON.stringify(resJson))
-                console.log(resJson)
 
                 fetch('http://localhost:8000/sukusuku/cdselu/?userid=' + resJson[0].userid,{
                     method:"GET",
@@ -95,6 +94,7 @@ export default {
                 })
                 .then(resJson => {
                     localStorage.setItem('group',JSON.stringify(resJson))
+                    this.$router.push("/student/Home")
                 })
             })
             .catch(error => {       // ネットワークエラーの場合はここに到達する

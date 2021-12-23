@@ -128,7 +128,7 @@ export default {
       })
     }
   },
-  created(){
+  mounted(){
     this.createTask()
   }
 }

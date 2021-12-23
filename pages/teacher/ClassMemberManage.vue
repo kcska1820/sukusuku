@@ -4,7 +4,7 @@
       <v-icon size="1.5em" color="blue-grey darken-3">
         mdi-account-details
       </v-icon>
-      <h2>メンバー管理</h2>
+      <h2>クラスメンバー管理</h2>
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -44,7 +44,7 @@
               <v-card v-model="sheet">
                 <v-toolbar color="accent">
                   <v-toolbar-title>
-                    <span class="text-h5">メンバー追加</span>
+                    <span class="text-h5">クラスメンバー追加</span>
                   </v-toolbar-title>
                 </v-toolbar>
                 <v-tabs v-model="tab" grow>

@@ -61,5 +61,18 @@ export default {
         }
       ]
     }),
+    methods:{
+        getRole(){
+            const user = JSON.parse(localStorage.getItem('user'))
+            const role = user[0].roleid_id
+            if(role !== 'teacher'){
+                this.$router.push("/student/Home")
+            }
+        }
+    },
+    mounted(){
+        
+    },
+    middleware: 'teacherauth'
 }
 </script>

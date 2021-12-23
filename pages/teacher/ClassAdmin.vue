@@ -121,7 +121,6 @@
     <v-btn
       fab
       small
-      class="ml-5"
       color="primary"
       @click="deleteItem(item)"
     >

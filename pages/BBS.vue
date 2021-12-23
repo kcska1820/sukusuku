@@ -222,6 +222,7 @@ export default {
         this.editedIndex = -1
       })
     },
-  }
+  },
+  middleware:"authenicated"
 }
 </script>

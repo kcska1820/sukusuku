@@ -97,6 +97,17 @@
         </v-dialog>
       </v-toolbar>
     </template>
+    <template v-slot:[`item.flag`]="flag">
+      <template v-if="flag.item.flag == '1'">
+        通常
+      </template>
+      <template v-else-if="flag.item.flag == '2'">
+        凍結中
+      </template>
+      <template v-else-if="flag.item.flag == '3'">
+        非表示
+      </template>
+    </template>
     <template v-slot:[`item.actions`]="{ item }">
     
     <v-btn
@@ -148,7 +159,7 @@
         { text: 'スレッドタイトル', value: 'title', align: "center", width: '150',class:"accent"},
         { text: '備考', value: 'note', align: "center", width: '200',class:"accent"},
         { text: '申請者', value: 'master_id', align: "center", width: '200',class:"accent"},
-        { text: '状態', value: 'flag', align: "center", width: '50',class:"accent",filter: value => {
+        { text: '状態', value: 'flag', align: "center", width: '100',class:"accent",filter: value => {
           return value != "0"
         }},
         { text: '', value: 'actions', sortable: false, align: "center", width: '100',class:"accent"},
@@ -265,5 +276,6 @@
         }
       },
     },
+  middleware:"authenicated"
   }
 </script>

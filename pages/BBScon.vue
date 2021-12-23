@@ -91,8 +91,6 @@
 </template>
 
 <script>
-  //import items from '/components/thcontent.json'
-  import threads from '/components/threadList.json'
   import BBSCom from '/components/BBSComment'
   export default {
     data() {
@@ -108,7 +106,6 @@
         cmdata:[],
         thread:this.$route.query.id,
         //items:items,
-        threads:threads
       }
     },
 
@@ -160,7 +157,8 @@
     },
     components:{
       BBSCom
-    }
+    },
+  middleware:"authenicated"
   }
 </script>
 

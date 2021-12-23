@@ -45,6 +45,9 @@
         </v-dialog>
       </v-toolbar>
     </template>
+    <template v-slot:[`item.flag`]>
+      承認待ち
+    </template>
     <template v-slot:[`item.actions`]="{ item }">
     
     <v-btn
@@ -249,5 +252,6 @@
         this.close()
       },
     },
+  middleware:"authenicated"
   }
 </script>

@@ -266,5 +266,7 @@ export default {
       this.sheet = !this.sheet
     },
   },
-};
+  /* 未ログイン時index.vueに遷移 */
+  middleware:"authenicated"
+}
 </script>

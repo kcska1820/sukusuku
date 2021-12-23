@@ -20,6 +20,6 @@
 <script>
   export default {
   /* 未ログイン時index.vueに遷移 */
-  /* middleware:"authenicated" */
+  middleware:"authenicated"
 }
 </script>

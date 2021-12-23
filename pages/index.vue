@@ -102,7 +102,7 @@ export default {
             })
         }
     },
-    created(){
+    mounted(){
         setTimeout(()=>{
             //ログイン処理を実行
             this.login()

@@ -96,9 +96,7 @@
   </v-card>
 </template>
 <script>
-import PasswordReset from '../components/PasswordReset.vue'
   export default {
-  components: { PasswordReset },
   data () {
     return {
       settings: [],

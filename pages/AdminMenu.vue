@@ -44,7 +44,7 @@ export default {
             title:"学生管理"
         },
         {
-            to:"/teacher/TimeScheduleAdd2",
+            to:"/teacher/Timetable",
             title:"時間割登録"
         },
         {
@@ -61,18 +61,7 @@ export default {
         }
       ]
     }),
-    methods:{
-        getRole(){
-            const user = JSON.parse(localStorage.getItem('user'))
-            const role = user[0].roleid_id
-            if(role !== 'teacher'){
-                this.$router.push("/student/Home")
-            }
-        }
-    },
-    mounted(){
-        
-    },
-    middleware: 'teacherauth'
+    /* 未ログイン時index.vueに遷移 */
+    middleware:"authenicated"
 }
 </script>

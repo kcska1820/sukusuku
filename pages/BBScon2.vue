@@ -78,8 +78,6 @@
 </template>
 
 <script>
-  import items from '/components/thcontent.json'
-  import threads from '/components/threadList.json'
   export default {
     data() {
       return {
@@ -87,8 +85,6 @@
         num:4,
         index:0,
         thread:Number(this.$route.query.id),
-        items:items,
-        threads:threads
       }
     },
     methods: {

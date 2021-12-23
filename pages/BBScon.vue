@@ -105,7 +105,6 @@
         thdata:[],
         cmdata:[],
         thread:this.$route.query.id,
-        //items:items,
       }
     },
 

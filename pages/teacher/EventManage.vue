@@ -93,7 +93,7 @@
                     sm="6"
                     md="6"
                   >
-                    <v-select label="グループ"
+                    <v-select label="クラス"
                       v-model="editedItem.clas"
                       :items="classs"
                       item-text="name"

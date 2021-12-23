@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title><h2>承認済みトピック管理</h2></v-toolbar-title>
+        <v-toolbar-title><h2>承認済みスレッド管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -44,22 +44,24 @@
                 <span class="text-h5">{{ formTitle }}</span>
               </v-card-title>
 
-              <!--ここから変更-->
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-text-field
-                      v-model="editedItem.title"
-                      label="掲示板タイトル"
-                      :rules="[rules.required]"/>
-                  </v-row><v-row>
-                    <v-textarea
-                      v-model="editedItem.note"
-                      label="備考"
-                      outlined/>
-                  </v-row>
-                </v-container>
-              </v-card-text>
+            <!--ここから変更-->
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-text-field
+                    v-model="editedItem.title"
+                    label="スレッドタイトル"
+                    :rules="[rules.required]"
+                  ></v-text-field>
+                </v-row><v-row>
+                  <v-textarea
+                    v-model="editedItem.note"
+                    label="備考"
+                    outlined>
+                  </v-textarea>
+                </v-row>
+              </v-container>
+            </v-card-text>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -83,7 +85,8 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
+            <v-card-title class="text-h5">スレッドを本当に削除しますか？</v-card-title>
+            <h3 class="text-center">{{editedItem.title}}</h3>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
@@ -130,6 +133,8 @@
       valid:true,
       dialog: false,
       dialogDelete: false,
+      user:[],
+      userid:'',
       headers: [
         {
           text: 'ID',
@@ -140,7 +145,7 @@
           width: '30',
           class:"accent"
         },
-        { text: '話題', value: 'title', align: "center", width: '150',class:"accent"},
+        { text: 'スレッドタイトル', value: 'title', align: "center", width: '150',class:"accent"},
         { text: '備考', value: 'note', align: "center", width: '200',class:"accent"},
         { text: '申請者', value: 'master_id', align: "center", width: '200',class:"accent"},
         { text: '状態', value: 'flag', align: "center", width: '50',class:"accent",filter: value => {
@@ -155,21 +160,21 @@
         id: '',
         title: '',
         note: '',
-        master: '',
+        master_id: '',
         flag: ''
       },
       defaultItem: {
         id: '',
         title: '',
         note: '',
-        master: '',
+        master_id: '',
         flag: ''
       },
     }),
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'トピックを作成します' : 'Edit Item'
+        return this.editedIndex === -1 ? 'スレッドを作成します' : 'Edit Item'
       },
     },
 
@@ -210,7 +215,7 @@
       },
 
       deleteItemConfirm () {
-        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=3' + '&note=' + this.editedItem.note + '&master=st00000001'
+        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=3' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id
           console.log(this.delurl)
           fetch(this.delurl,{
             method:"GET",
@@ -240,7 +245,9 @@
 
       save () {
         if(this.$refs.BBSaddform.validate()){
-        this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=st00000001'
+        this.user = JSON.parse(localStorage.getItem('user'))
+        this.userid = this.user[0].userid
+        this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.userid
         console.log(this.addurl)
         fetch(this.addurl,{
           method:"GET",

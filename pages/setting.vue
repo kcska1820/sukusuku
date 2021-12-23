@@ -4,23 +4,26 @@
     max-width="800"
     class="mx-auto"
   >
-  <h1 class="pt-8">
+  <h1 class="py-6 pl-3 mb-3 accent">
     <v-icon
     size="1.5em"
+    class="mr-5"
     color="blue-grey darken-3">
       mdi-cog
     </v-icon>
-    &emsp;設定</h1><br>
-    <v-divider></v-divider><br><br>
+    設定
+  </h1>
   <h2>
     <v-toolbar
     elevation="1"
     >
     <v-icon
-    size="1.5em">
+    size="1.5em"
+    class="mr-5"
+    >
       mdi-account-edit
     </v-icon>
-    &emsp;アカウント設定
+    アカウント設定
     <v-spacer></v-spacer>
     </v-toolbar>
     </h2>
@@ -32,21 +35,21 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>学籍番号</v-list-item-title>
-          <v-list-item-subtitle>{{userid}}</v-list-item-subtitle>
+          <v-list-item-subtitle class="ml-2">{{userid}}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>メールアドレス</v-list-item-title>
-          <v-list-item-subtitle>{{email}}</v-list-item-subtitle>
+          <v-list-item-subtitle class="ml-2">{{email}}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>区分</v-list-item-title>
-          <v-list-item-subtitle>{{role}}</v-list-item-subtitle>
+          <v-list-item-subtitle class="ml-2">{{role}}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -63,21 +66,32 @@
     elevation="1"
     >
     <v-icon
-    size="1.5em">
+    size="1.5em"
+    class="mr-5"
+    >
       mdi-wrench
     </v-icon>
-    &emsp;アプリ設定
+    アプリ設定
     </v-toolbar>
     </h2>
     </v-list>
     <v-list>
-      <v-list-item-title>
-      &emsp;テーマ変更
+      <v-list-item-title class="ml-3">
+      テーマ変更
       </v-list-item-title>
       <v-switch
-          v-model="theme"
-          :prepend-icon="themeIcon"
-        ></v-switch>
+        class="ml-6"
+        v-model="theme"
+        :prepend-icon="themeIcon"
+      ></v-switch>
+      <v-btn
+      class="px-16 ml-6"
+      v-if="role=='teacher'"
+      color="accent"
+      to="/AdminMenu"
+      >
+        管理者メニュー
+      </v-btn>
     </v-list>
   </v-card>
 </template>
@@ -113,7 +127,7 @@ import PasswordReset from '../components/PasswordReset.vue'
       this.$vuetify.theme.dark = this.theme
     }
   },
-  created(){
+  mounted(){
     this.getUser()
   },
   /* 未ログイン時index.vueに遷移 */

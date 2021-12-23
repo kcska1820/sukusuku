@@ -241,8 +241,6 @@
 </template>
 
 <script>
-  import calendarAdd from '/components/calendarAdd.vue'
-  import TeachercalendarAdd from '/components/TeachercalendarAdd.vue'
   export default {
     data: () => ({
     focus: '',
@@ -569,7 +567,7 @@
       })
     }
   },
-  created(){
+  mounted(){
     this.getRole()
     this.getGroup()
   }

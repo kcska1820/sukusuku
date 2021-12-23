@@ -5,6 +5,7 @@
       <v-container>
         <Nuxt />
       </v-container>
+      <Backbtn />
     </v-main>
     <CompFooter />
     <BtnNav />

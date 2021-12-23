@@ -145,7 +145,6 @@
         fab
         small
         color="primary"
-        icon
       >
       <v-icon
         @click="deleteItem(item)"

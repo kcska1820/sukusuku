@@ -136,10 +136,10 @@
     </template>
 
     <template v-slot:[`item.actions`]="{ item }">
-      <v-btn fab small color="primary" icon>
-        <v-icon class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+      <v-btn fab small color="primary">
+        <v-icon @click="editItem(item)"> mdi-pencil </v-icon>
       </v-btn>
-      <v-btn fab small color="primary" icon>
+      <v-btn fab small color="primary">
         <v-icon @click="deleteItem(item)"> mdi-delete </v-icon>
       </v-btn>
     </template>

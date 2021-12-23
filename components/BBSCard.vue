@@ -3,7 +3,7 @@
         <v-dialog v-model="enter"  max-width="500px">
             <v-card>
                 <v-card-title>
-                    <span class="text-h5">この掲示板に入室しますか？</span>
+                    <span class="text-h5">このスレッドに入室しますか？</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -35,7 +35,7 @@
         <v-dialog v-model="suspender" max-width="500px">
             <v-card>
                 <v-card-title>
-                    <span class="text-h5">この掲示板を凍結しますか？</span>
+                    <span class="text-h5">このスレッドを凍結しますか？</span>
                 </v-card-title>
 
                 <v-card-text>

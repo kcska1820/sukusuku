@@ -39,7 +39,6 @@
               color="accent"
               dark
               fab
-              class="mb-2"
               v-bind="attrs"
               v-on="on"
             >
@@ -149,7 +148,6 @@
       color="primary"
     >
       <v-icon
-        class="mr-2"
         @click="editItem(item)"
         size="2em"
       >

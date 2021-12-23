@@ -62,7 +62,8 @@
               exact>
               <template v-if="post.thread_id == thread">
                 <BBSCom :post="post"
-                  :no="i + 1"/>
+                  :no="i + 1"
+                  :user="userid"/>
               </template>
             </div>
           </v-list>
@@ -99,16 +100,21 @@
         newComment: '',
         index:0,
         num:4,
+        user:[],
+        userid:'',
         thdata:[],
         cmdata:[],
         thread:this.$route.query.id,
       }
     },
 
+    mounted () {
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.userid = this.user[0].userid
+    },
+
     created () {
       if (this.thread.match(/^\d+$/)) {
-        //データ取得時に他テーブルのデータも引っ張れる？
-        //別テーブル指定してjson中に入れられるらしい
         console.log(this.url + 'thsel')
         fetch(this.url + 'thsel/?threadid=' + this.thread,{
           method:"GET",
@@ -136,7 +142,7 @@
           alert("文章が入力されていません")
         }else{
           //IDは自動付与される筈
-          this.addurl = this.url + 'cmadd/?thread=' + this.thread + '&user=st00000001&name=seito&comment=' + this.newComment + '&flag=True'
+          this.addurl = this.url + 'cmadd/?thread=' + this.thread + '&user=' + this.userid + '&name=' + this.user[0].username + '&comment=' + this.newComment + '&flag=True'
           console.log(this.addurl)
           fetch(this.addurl,{
             method:"GET",

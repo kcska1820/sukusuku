@@ -29,7 +29,7 @@
           lazy-validation>
         <v-card>
           <v-card-title>
-            <span class="text-h5">掲示板の追加申請</span>
+            <span class="text-h5">スレッドの追加申請</span>
           </v-card-title>
 
           <v-card-text>
@@ -37,7 +37,7 @@
               <v-row>
                 <v-text-field
                   v-model="editedItem.title"
-                  label="掲示板タイトル"
+                  label="スレッドタイトル"
                   :rules="[rules.required]"
                   required/>
               </v-row><v-row>

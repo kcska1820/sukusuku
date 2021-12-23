@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title><h2>承認済みトピック管理</h2></v-toolbar-title>
+        <v-toolbar-title><h2>承認済みスレッド管理</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -46,7 +46,7 @@
                 <v-row>
                   <v-text-field
                     v-model="editedItem.title"
-                    label="掲示板タイトル"
+                    label="スレッドタイトル"
                     :rules="[rules.required]"
                   ></v-text-field>
                 </v-row><v-row>
@@ -80,7 +80,8 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
+            <v-card-title class="text-h5">スレッドを本当に削除しますか？</v-card-title>
+            <h3 class="text-center">{{editedItem.title}}</h3>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
@@ -137,7 +138,7 @@
           width: '30',
           class:"accent"
         },
-        { text: '話題', value: 'title', align: "center", width: '150',class:"accent"},
+        { text: 'スレッドタイトル', value: 'title', align: "center", width: '150',class:"accent"},
         { text: '備考', value: 'note', align: "center", width: '200',class:"accent"},
         { text: '申請者', value: 'master_id', align: "center", width: '200',class:"accent"},
         { text: '状態', value: 'flag', align: "center", width: '50',class:"accent",filter: value => {
@@ -166,7 +167,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'トピックを作成します' : 'Edit Item'
+        return this.editedIndex === -1 ? 'スレッドを作成します' : 'Edit Item'
       },
     },
 

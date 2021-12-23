@@ -36,7 +36,7 @@
       items: [],
     }),
 
-    created() {
+    mounted() {
       fetch(this.url + "evsel/?classid=" + localStorage.getItem('class'), {
         method: "GET",
         mode: "cors",

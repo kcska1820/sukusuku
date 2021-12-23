@@ -117,26 +117,19 @@
       color="accent"
       elevation="2"
       @click="selclassid(item)"
-    >メンバー管理</v-btn>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    >メンバー管理</v-btn>
     <v-btn
       fab
       small
       color="primary"
+      @click="deleteItem(item)"
     >
       <v-icon
-        @click="deleteItem(item)"
         size="2em"
       >
         mdi-delete
       </v-icon>
     </v-btn>
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-      >
-        Reset
-      </v-btn>
     </template>
   </v-data-table>
 </template>

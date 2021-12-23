@@ -18,11 +18,6 @@
 </template>
 
 <script>
-  import items from '/components/timeTable.json'
-  import calendarAdd from '/components/calendarAdd.vue'
-  import CompCalendar from '/components/CompCalendar.vue'
-  import CompEventCD from '/components/CompEventCD.vue'
-  import CompToDo from '/components/CompToDo.vue'
   export default {
   /* 未ログイン時index.vueに遷移 */
   /* middleware:"authenicated" */

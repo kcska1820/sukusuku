@@ -158,7 +158,7 @@
       },
     },
 
-    created () {
+    mounted () {
       this.initialize()
     },
 

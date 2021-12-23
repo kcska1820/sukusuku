@@ -1,0 +1,27 @@
+[
+  {
+      "icon":"mdi-calendar",
+      "title":"ホーム",
+      "to":"/student/Home"
+  },
+  {
+      "icon":"mdi-message-text",
+      "title":"掲示板",
+      "to":"/BBS"
+  },
+  {
+      "icon":"mdi-account-child-outline",
+      "title":"グループ",
+      "to":"/student/GroupManage"
+  },
+  {
+      "icon":"mdi-cog",
+      "title":"設定",
+      "to":"/setting"
+  },
+  {
+      "icon":"mdi-account-key",
+      "title":"管理者メニュー",
+      "to":"/AdminMenu"
+  }
+]

@@ -111,8 +111,8 @@
 
     created () {
       if (this.thread.match(/^\d+$/)) {
-        //stselをコメント一覧取得に変える
-        //select時に掲示板IDを指定したい
+        //データ取得時に他テーブルのデータも引っ張れる？
+        //別テーブル指定してjson中に入れられるらしい
         console.log(this.url + 'thsel')
         fetch(this.url + 'thsel/?threadid=' + this.thread,{
           method:"GET",

@@ -132,14 +132,14 @@
         title: '',
         note: '',
         flag: '',
-        master: ''
+        master_id: ''
       },
       defaultItem: {
         id: '',
         title: '',
         note: '',
         flag: '',
-        master: ''
+        master_id: ''
       },
     }),
 
@@ -191,7 +191,7 @@
       },
 
       approveItemConfirm () {
-        this.appurl = this.url + 'thapp/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=st00000001'
+        this.appurl = this.url + 'thapp/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id
           console.log(this.appurl)
           fetch(this.appurl,{
             method:"GET",

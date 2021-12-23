@@ -1,17 +1,6 @@
 <template>
-    <v-card>
+    <div>
         <v-dialog v-model="enter"  max-width="500px">
-            <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                    elevation="6"
-                    text
-                    x-large
-                    block
-                    v-bind="attrs"
-                    v-on="on">
-                    {{item.title}}
-                </v-btn>
-            </template>
             <v-card>
                 <v-card-title>
                     <span class="text-h5">この掲示板に入室しますか？</span>
@@ -43,20 +32,137 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-    </v-card>
+        <v-dialog v-model="suspender" max-width="500px">
+            <v-card>
+                <v-card-title>
+                    <span class="text-h5">この掲示板を凍結しますか？</span>
+                </v-card-title>
+
+                <v-card-text>
+                    <span class="text-h5">{{item.title}}</span><br>
+                    <span>{{item.note}}</span>
+                </v-card-text>
+
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="suspender=false">
+                        キャンセル
+                    </v-btn>
+                    <v-btn
+                        color="red darken-2"
+                        text
+                        @click="suspend">
+                        凍結
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <template v-if="item.master === user">
+        <v-card>
+            <v-row>
+                <v-col
+                    cols="12"
+                    sm="10"
+                    class="col">
+                    <v-btn
+                        text
+                        x-large
+                        block
+                        @click="enter=true">
+                        {{item.title}}
+                    </v-btn>
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="2"
+                    class="col">
+                    <v-btn
+                        icon
+                        x-large
+                        @click="suspender=true">
+                        <v-icon
+                            size="1em">
+                            mdi-dots-horizontal
+                        </v-icon>
+                    </v-btn>
+                </v-col>
+            </v-row>
+            <v-divider/>
+        </v-card>
+        </template>
+        <template v-else>
+        <v-card>
+            <v-row>
+                <v-col
+                    cols="12"
+                    sm="12"
+                    class="sup">
+                    <v-btn
+                        text
+                        x-large
+                        block
+                        @click="enter=true">
+                        {{item.title}}
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-card>
+        </template>
+    </div>
 </template>
 <script>
 export default {
     data:()=>({
+        url:'http://localhost:8000/sukusuku/',
+        susurl:'',
+        suspender:false,
         enter:false,
         touketu:false,
+        btns:null,
         editedItem:{
-          title:'',
-          comment:'',
+            threadid:'',
+            master_id:'',
+            title:'',
+            note:'',
+            flag:'',
         },
     }),
     props:{
-        item:Object    
+        item:Object,
+        user:String
+    },
+    methods: {
+        suspendConfirm (){
+            this.suspender = true
+            this.enter = false
+        },
+
+        suspend (){
+            this.susurl = this.url + 'thdel/?threadid=' + this.item.threadid + '&title=' + this.item.title + '&flag=2&note=' + this.item.note + '&master=' + this.item.master_id
+            console.log(this.susurl)
+            fetch(this.susurl,{
+                method:"GET",
+                mode:"cors",
+                credentials: 'include'
+            })
+            .then((res)=>res.json())
+            .then(obj=>this.thdata=obj)
+            this.suspender = false
+        }
     }
 }
 </script>
+<style scoped>
+    .col{
+        padding-top:0;
+        padding-bottom:12;
+    }
+
+    .sup{
+        padding-top:0;
+        padding-bottom:12;
+    }
+</style>

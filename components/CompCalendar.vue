@@ -434,6 +434,19 @@
         })
         .then((res)=>this.updateRange())
         this.close()
+      }else if(this.selectedEvent.category == "時間割"){
+        if(this.user[0].roleid_id == 'student'){
+          this.TTDialog = true
+        }else if(this.user[0].roleid_id == 'teacher'){
+          this.delurl = this.url + 'ttdel/?id=' + this.selectedEvent.id + '&classid=' + this.selectedEvent.classid
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>this.updateRange())
+        this.close()
+        }
       }
     },
     updateRange () {

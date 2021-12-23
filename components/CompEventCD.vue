@@ -18,7 +18,7 @@
                   {{item.title}}
                   </v-card-title>
                   <v-card-subtitle>
-                  {{item.limit}}
+                  あと{{item.end}}日
                   </v-card-subtitle>
                 </v-card>
               </v-flex>
@@ -30,10 +30,32 @@
 </template>
 
 <script>
-  import items from '/components/eventList.json'
   export default {
-    data: () => (
-        {items:items}
-    ),
+    data: () => ({
+      url: "http://localhost:8000/sukusuku/",
+      items: [],
+    }),
+
+    created() {
+      fetch(this.url + "evsel/?classid=" + localStorage.getItem('class'), {
+        method: "GET",
+        mode: "cors",
+        credentials: "include",
+      }).then((res) => res.json())
+      .then((obj) => {
+        this.items = obj
+        for(let i = this.items.length-1;i >= 0 ; i= i-1){
+          this.items[i].end = Date.parse(new Date) - Date.parse(this.items[i].end.replaceAll('-', '/'))
+          this.items[i].end = Math.floor(this.items[i].end / 86400000)
+          if(this.items[i].end <= 0){
+            this.items[i].end =  this.items[i].end* -1
+          }else{
+            this.items.splice(i,1)
+          }
+          this.items.sort((a,b) => a.end - b.end)
+        }
+      })
+    },
+
   }
 </script>

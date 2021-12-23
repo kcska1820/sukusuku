@@ -95,7 +95,7 @@
       exact>
       <template v-if="item.flag != '0' && item.flag != '3'">
         <v-col>
-          <BBSCard :item="item" :user="user.userid"/>
+          <BBSCard :item="item" :user="userid"/>
         </v-col>
       </template>
     </div>

@@ -60,7 +60,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <template v-if="item.master === user">
+        <template v-if="item.master_id === user">
         <v-card>
             <v-row>
                 <v-col
@@ -79,15 +79,30 @@
                     cols="12"
                     sm="2"
                     class="col">
-                    <v-btn
-                        icon
-                        x-large
-                        @click="suspender=true">
-                        <v-icon
-                            size="1em">
-                            mdi-dots-horizontal
-                        </v-icon>
-                    </v-btn>
+                    <v-menu>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                            icon
+                            x-large
+                            v-bind="attrs"
+                            v-on="on">
+                            <v-icon
+                                size="1em">
+                                mdi-dots-horizontal
+                            </v-icon>
+                        </v-btn>
+                    </template>
+                    <v-list
+                        class="list">
+                        <v-btn
+                            x-large
+                            @click="suspender=true">
+                            <v-list-item>
+                                凍結
+                            </v-list-item>
+                        </v-btn>
+                    </v-list>
+                    </v-menu>
                 </v-col>
             </v-row>
             <v-divider/>
@@ -109,6 +124,7 @@
                     </v-btn>
                 </v-col>
             </v-row>
+            <v-divider/>
         </v-card>
         </template>
     </div>
@@ -164,5 +180,9 @@ export default {
     .sup{
         padding-top:0;
         padding-bottom:12;
+    }
+
+    .list{
+        padding:0
     }
 </style>

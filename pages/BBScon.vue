@@ -142,7 +142,7 @@
           alert("文章が入力されていません")
         }else{
           //IDは自動付与される筈
-          this.addurl = this.url + 'cmadd/?thread=' + this.thread + '&user=' + this.userid + '&name=' + this.user[0].username + '&comment=' + this.newComment + '&flag=True'
+          this.addurl = this.url + 'cmadd/?thread=' + this.thread + '&user=' + this.userid + '&comment=' + this.newComment + '&flag=True'
           console.log(this.addurl)
           fetch(this.addurl,{
             method:"GET",
@@ -157,6 +157,7 @@
     components:{
       BBSCom
     },
+    
   }
 </script>
 

@@ -95,11 +95,13 @@
     <v-btn
       color="accent"
       elevation="2"
+      class="mr-6"
       @click="MemberManagebtn(item)"
-    >メンバー管理</v-btn>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    >メンバー管理</v-btn>
     <v-btn
       fab
       small
+      class="ml-6"
       color="primary"
       @click="deleteItem(item)"
     >

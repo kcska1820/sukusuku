@@ -57,8 +57,6 @@
 
 <script>
 import items from '/components/pagesList.json'
-import firebase from "~/plugins/firebase"
-import { getAuth, signOut } from "firebase/auth"
 export default {
   data () {
     return {

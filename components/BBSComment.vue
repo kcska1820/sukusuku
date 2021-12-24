@@ -1,6 +1,6 @@
 <template>
     <div>
-        <template v-if="post.flag == true">
+        <template v-if="post.flag">
             <template v-if="post.user_id == user">
                 <!--ログイン中ユーザなら削除ボタンの表示-->
                 <!--v-menu-->
@@ -62,7 +62,7 @@
             <p class="thread">{{no}}:{{post.name}}</p>
             <p class="comment">{{post.comment}}</p>
         </template>
-        <template v-else-if="post.user == 'st00000001'">
+        <template v-else-if="post.user_id == user">
             <!--削除コメントがログイン中ユーザなら(削除済)込みで表示-->
             <p class="thread">{{no}}:{{post.name}} (削除済)</p>
             <p class="comment">{{post.comment}}</p>

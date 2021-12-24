@@ -156,7 +156,7 @@
     },
     components:{
       BBSCom
-    }
+    },
   }
 </script>
 

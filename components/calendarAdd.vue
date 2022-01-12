@@ -8,6 +8,7 @@
                 color="green"
                 v-bind="attrs"
                 v-on="on"
+                @click="addSet"
                 icon
             >
                 <v-icon>
@@ -237,17 +238,16 @@ export default {
             this.details=''
             this.dialog = false
         },
-        Set(){
+        addSet(){
             const newDay= new Date()
             const getmonth = parseInt(newDay.getMonth()) + 1
-            this.startDay = newDay.getFullYear() + '-' + getmonth + '-' + newDay.getDate()
-            this.startTime = newDay.getHours() + ':' + newDay.getMinutes()
-            this.endDay = newDay.getFullYear() + '-' + getmonth + '-' + newDay.getDate()
-            this.endTime = newDay.getHours() + ':' + newDay.getMinutes()
+            this.startDay = newDay.getFullYear() + '-' + ("00" + getmonth).slice(-2) + '-' + ("00" + newDay.getDate()).slice(-2)
+            this.startTime = ("00" + newDay.getHours()).slice(-2) + ':' + ("00" + newDay.getMinutes()).slice(-2)
+            this.endDay = newDay.getFullYear() + '-' + ("00" + getmonth).slice(-2) + '-' + ("00" + newDay.getDate()).slice(-2)
+            this.endTime = ("00" + newDay.getHours()).slice(-2) + ':' + ("00" + newDay.getMinutes()).slice(-2)
         },
     },
     created(){
-        this.Set()
         this.getGroup()
     }
 }

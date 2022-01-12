@@ -33,7 +33,15 @@
           <v-list-item-title
           :class="{ 'text-decoration-line-through' : item.done }"
           >
-              {{ item.title }}
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <span
+                    v-bind="attrs"
+                    v-on="on"
+                  >{{ item.title }}</span>
+                </template>
+                <span>{{ item.title }}</span>
+              </v-tooltip>
             </v-list-item-title>
         </v-list-item-content>
         <v-list-item-action>

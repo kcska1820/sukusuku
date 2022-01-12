@@ -13,14 +13,22 @@
           <template v-slot:default="{ item }">
             <v-list-item>
               <v-flex>
-                <v-card>
-                  <v-card-title>
-                  {{item.title}}
-                  </v-card-title>
-                  <v-card-subtitle>
-                  あと{{item.end}}日
-                  </v-card-subtitle>
-                </v-card>
+                  <v-card height="85" class="headline" min-width="240">
+                    <v-card-title>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <span
+                            v-bind="attrs"
+                            v-on="on"
+                          >{{item.title.slice(0,10)}}</span>
+                        </template>
+                        <span>{{item.title}}</span>
+                      </v-tooltip>
+                    </v-card-title>
+                    <v-card-subtitle>
+                    あと{{item.end}}日
+                    </v-card-subtitle>
+                  </v-card>
               </v-flex>
             </v-list-item>
           </template>
@@ -59,3 +67,9 @@
 
   }
 </script>
+
+<style>
+  .headline{
+    white-space: nowrap
+  }
+</style>

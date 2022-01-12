@@ -1,7 +1,7 @@
 <template>
     <div>
         <template v-if="post.flag">
-            <template v-if="post.user_id == user">
+            <template v-if="post.user == user">
                 <!--ログイン中ユーザなら削除ボタンの表示-->
                 <!--v-menu-->
                 <v-menu
@@ -62,11 +62,6 @@
             <p class="thread">{{no}}:{{post.user__username}}</p>
             <p class="comment">{{post.comment}}</p>
         </template>
-        <template v-else-if="post.user_id == user">
-            <!--削除コメントがログイン中ユーザなら(削除済)込みで表示-->
-            <p class="thread">{{no}}:{{post.user__username}} (削除済)</p>
-            <p class="comment">{{post.comment}}</p>
-        </template>
     </div>
 </template>
 
@@ -101,7 +96,8 @@ export default {
             .then(obj=>this.cmdata=obj)
         this.$router.go({path: this.$router.currentRoute.path, force:true})
         }
-    }
+    },
+    middleware:"authenicated"
 }
 </script>
 

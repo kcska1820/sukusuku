@@ -100,6 +100,7 @@ export default {
         return error.response;
       })
       this.sheet = !this.sheet
+      this.file = null
     },
   },
   /* 未ログイン時index.vueに遷移 */

@@ -22,7 +22,10 @@
                             v-on="on"
                           >{{item.title.slice(0,10)}}</span>
                         </template>
-                        <span>{{item.title}}</span>
+                        <span>
+                          {{item.title}}<br>
+                          {{item.details}}
+                        </span>
                       </v-tooltip>
                     </v-card-title>
                     <v-card-subtitle>

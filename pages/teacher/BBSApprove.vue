@@ -23,6 +23,7 @@
         <v-dialog v-model="dialogApprove" max-width="500px">
           <v-card>
             <v-card-title class="text-h5">このスレッドを承認しますか？</v-card-title>
+            <h3 class="text-center">{{editedItem.title}}</h3>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-2" text @click="closeApprove">キャンセル</v-btn>

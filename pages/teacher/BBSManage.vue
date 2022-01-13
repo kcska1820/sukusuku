@@ -235,7 +235,6 @@
           }).then((res)=>res.json())
           .then(obj=>this.thdata=obj)
         this.closeDelete()
-        this.$router.go({path: this.$router.currentRoute.path, force:true})
       },
 
       close () {

@@ -157,7 +157,7 @@
     components:{
       BBSCom
     },
-    
+    middleware:"authenicated"
   }
 </script>
 

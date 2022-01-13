@@ -96,8 +96,7 @@ export default {
             .then(obj=>this.cmdata=obj)
         this.$router.go({path: this.$router.currentRoute.path, force:true})
         }
-    },
-    middleware:"authenicated"
+    }
 }
 </script>
 

@@ -326,7 +326,7 @@ export default {
             this.startDay = newDay.getFullYear() + '-' + ("00" + getmonth).slice(-2) + '-' + ("00" + newDay.getDate()).slice(-2)
             this.startTime = ("00" + newDay.getHours()).slice(-2) + ':' + ("00" + newDay.getMinutes()).slice(-2)
             this.endDay = newDay.getFullYear() + '-' + ("00" + getmonth).slice(-2) + '-' + ("00" + newDay.getDate()).slice(-2)
-            this.endTime = ("00" + newDay.getHours()).slice(-2) + ':' + ("00" + newDay.getMinutes()).slice(-2)
+            this.endTime = ("00" + (newDay.getHours() + 1)).slice(-2) + ':' + ("00" + newDay.getMinutes()).slice(-2)
         },
     },
     created(){

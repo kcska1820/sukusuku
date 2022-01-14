@@ -150,7 +150,6 @@
             credentials: 'include'
           }).then((res)=>res.json())
           .then(obj=>this.cmdata=obj)
-          this.$router.go({path: this.$router.currentRoute.path, force:true})
         }
       },
     },

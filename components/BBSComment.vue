@@ -49,7 +49,7 @@
                                         <v-btn
                                             color="blue darken-1"
                                             text
-                                            @click="delComment(post.id)">
+                                            @click="delComment(post.id, post.thread_id)">
                                             削除
                                         </v-btn>
                                     </v-card-actions>
@@ -85,8 +85,8 @@ export default {
     },
 
     methods:{
-        delComment(comid){
-            this.delurl = this.url + 'cmdel/?id=' + comid
+        delComment(comid,threadid){
+            this.delurl = this.url + 'cmdel/?id=' + comid + '&thread=' + threadid
             console.log(this.delurl)
             fetch(this.delurl,{
                 method:"GET",
@@ -94,7 +94,7 @@ export default {
                 credentials: 'include'
             }).then((res)=>res.json())
             .then(obj=>this.cmdata=obj)
-        this.$router.go({path: this.$router.currentRoute.path, force:true})
+            this.$router.push({path: this.$router.currentRoute.path, query:{id:this.thread}, force:true})
         }
     }
 }

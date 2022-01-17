@@ -1,8 +1,11 @@
 
 import firebase from "firebase/compat"
+import 'firebase/firestore' 
+import 'firebase/auth'
+
 const firebaseConfig = {
     apiKey: "AIzaSyCHu-Fjs2LAtUTla0Wky7R0fYlHWNU2VDA",
-    authDomain: "sukusuku-6d5ed.firebaseapp.com",
+    authDomain: "7colordays.net",
     projectId: "sukusuku-6d5ed",
     storageBucket: "sukusuku-6d5ed.appspot.com",
     messagingSenderId: "10877504968",

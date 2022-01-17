@@ -1,6 +1,6 @@
 <template>
 <div>
-    <v-btn @click="hoge">hoge</v-btn>
+    <v-btn @click="login">hoge</v-btn>
     <v-btn @click="GetAuth">gethuga</v-btn>
 </div>
 </template>
@@ -32,10 +32,6 @@ export default {
             signInWithPopup(auth, provider)
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = OAuthProvider.credentialFromResult(result);
-                const accessToken = credential.accessToken;
-                const idToken = credential.idToken;
-                console.log(credential,accessToken,idToken)
                 this.$router.push("/student/Home")
             }).catch((error) => {
                console.log("error")

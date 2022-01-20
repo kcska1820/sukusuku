@@ -94,7 +94,9 @@ export default {
                 credentials: 'include'
             }).then((res)=>res.json())
             .then(obj=>this.cmdata=obj)
-            this.$router.push({path: this.$router.currentRoute.path, query:{id:this.thread}, force:true})
+            this.dmenu = false
+            this.sakujo = false
+            this.$emit("delete")
         }
     }
 }

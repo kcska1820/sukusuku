@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import firebase from "~/plugins/firebase"
 import { getAuth, signInWithPopup, OAuthProvider } from "firebase/auth";
 export default {
     layout: 'Top',

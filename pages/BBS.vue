@@ -10,7 +10,9 @@
       </h2>
       <v-dialog
         v-model="sinsei"
-        max-width="500px">
+        max-width="500px"
+        persistent
+        >
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             color="primary"
@@ -26,7 +28,9 @@
         <v-form
           ref="BBSaddform"
           v-model="valid"
-          lazy-validation>
+          lazy-validation
+          @submit.prevent
+          >
         <v-card>
           <v-card-title>
             <span class="text-h5">スレッドの追加申請</span>

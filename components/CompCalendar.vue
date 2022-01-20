@@ -91,7 +91,7 @@
             <v-card-title class="text-h5 justify-center">時間割は編集できません</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="close">キャンセル</v-btn>
+              <v-btn color="red darken-2" text @click="close">閉じる</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>

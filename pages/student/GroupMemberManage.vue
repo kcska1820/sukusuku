@@ -167,7 +167,7 @@
         this.desserts = []
         this.user = []
         this.selectgroupid = localStorage.getItem('selgroupid')
-        const url = 'http://localhost:8000/sukusuku/glsel/?groupid=' + this.selectgroupid
+        const url = 'https://sukusukuserver.7colordays.net/sukusuku/glsel/?groupid=' + this.selectgroupid
         fetch(url,{
         method:"GET",
         mode:"cors",
@@ -177,7 +177,7 @@
         .then(obj=>{
           this.groupname = obj[0].groupname
         })
-        const selurl = 'http://localhost:8000/sukusuku/gdall/?groupid=' + this.selectgroupid
+        const selurl = 'https://sukusukuserver.7colordays.net/sukusuku/gdall/?groupid=' + this.selectgroupid
         fetch(selurl,{
         method:"GET",
         mode:"cors",
@@ -186,7 +186,7 @@
         .then((res)=>res.json())
         .then(obj=>{
           for(let i = 0; i < obj.length; i++){
-            const selurl = 'http://localhost:8000/sukusuku/stsel2/?userid=' + obj[i].userid_id
+            const selurl = 'https://sukusukuserver.7colordays.net/sukusuku/stsel2/?userid=' + obj[i].userid_id
             fetch(selurl,{
             method:"GET",
             mode:"cors",
@@ -215,7 +215,7 @@
       },
 
       deleteItemConfirm () {
-        const url = 'http://localhost:8000/sukusuku/gddel/?groupid=' + this.selectgroupid +'&userid=' + this.editedItem.id
+        const url = 'https://sukusukuserver.7colordays.net/sukusuku/gddel/?groupid=' + this.selectgroupid +'&userid=' + this.editedItem.id
         console.log(url)
         fetch(url,{
         method:"GET",
@@ -237,7 +237,7 @@
 
       getGroup(){
         const user = JSON.parse(localStorage.getItem('user'))
-        fetch('http://localhost:8000/sukusuku/gdsel/?userid=' + user[0].userid,{
+        fetch('https://sukusukuserver.7colordays.net/sukusuku/gdsel/?userid=' + user[0].userid,{
           method:"GET",
           mode:"cors",
           credentials: 'include'
@@ -275,7 +275,7 @@
         }
         if(this.match == false){
           if(this.$refs.addform.validate()){
-          const url = 'http://localhost:8000/sukusuku/gdadd/?groupid=' + this.selectgroupid +'&userid=' + this.editedItem.id
+          const url = 'https://sukusukuserver.7colordays.net/sukusuku/gdadd/?groupid=' + this.selectgroupid +'&userid=' + this.editedItem.id
           fetch(url,{
           method:"GET",
           mode:"cors",

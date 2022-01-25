@@ -69,7 +69,7 @@
 export default {
     data() {
     return {
-        url:'http://localhost:8000/sukusuku/',
+        url:'https://sukusukuserver.7colordays.net/sukusuku/',
         delurl:'',
         sakujo:false,
         dmenu:false,

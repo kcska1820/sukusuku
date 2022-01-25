@@ -10,7 +10,7 @@
         >
           <v-btn
             class="mr-4"
-            color="green"
+            color="primary"
             @click="setToday"
           >
             Today
@@ -41,7 +41,7 @@
             {{ $refs.calendar.title }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn @click="updateRange" icon><v-icon color="green">mdi-restore</v-icon></v-btn>
+          <v-btn @click="updateRange" icon><v-icon color="primary">mdi-restore</v-icon></v-btn>
           <calendarAdd v-if="role == 'student'"/>
           <TeachercalendarAdd v-else-if="role == 'teacher'"/>
           <v-menu
@@ -50,7 +50,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                color="green"
+                color="primary"
                 v-bind="attrs"
                 v-on="on"
               >
@@ -273,7 +273,7 @@
     selectedElement: null,
     selectedOpen: false,
     CreateOpen:false,
-    url:'http://localhost:8000/sukusuku/',
+    url:'https://sukusukuserver.7colordays.net/sukusuku/',
     psselurl:'',
     gdselurl:'',
     gsselurl:'',

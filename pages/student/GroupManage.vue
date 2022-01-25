@@ -3,7 +3,7 @@
     :headers="headers"
     :items="desserts"
     sort-by="groupadmin"
-    class="elevation-1 ma-12"
+    class="elevation-1 ma-6"
     disable-sort
   >
     <template v-slot:top>
@@ -17,6 +17,16 @@
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
+        <v-btn
+          color="accent"
+          small
+          dark
+          fab
+          class="mb-1 mr-2"
+          @click="getGroup"
+        >
+          <v-icon>mdi-restore</v-icon>
+        </v-btn>
         <v-dialog
           v-model="dialog"
           max-width="500px"
@@ -24,15 +34,16 @@
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               color="accent"
+              small
               dark
               fab
-              class="mb-2"
+              class="mb-1"
               v-bind="attrs"
               v-on="on"
             >
-          <v-icon dark>
-            mdi-plus
-          </v-icon>
+              <v-icon dark>
+                mdi-plus
+              </v-icon>
             </v-btn>
           </template>
           <v-form ref="addform">
@@ -173,7 +184,7 @@
         if(localStorage.getItem('group') != null){
           this.setGroup = JSON.parse(localStorage.getItem('group'))
           for (let i = 0; i < this.setGroup.length; i++) {
-            this.groupurl = 'http://localhost:8000/sukusuku/glsel/?groupid='+this.setGroup[i].groupid_id
+            this.groupurl = 'https://sukusukuserver.7colordays.net/sukusuku/glsel/?groupid='+this.setGroup[i].groupid_id
             fetch(this.groupurl,{
             method:"GET",
             mode:"cors",
@@ -203,7 +214,7 @@
       deleteItem (item) {
         this.editedItem = Object.assign({}, item)
         const user = JSON.parse(localStorage.getItem('user'))
-        this.deleteurl = 'http://localhost:8000/sukusuku/gddel/?groupid='+item.id+'&userid='+user[0].userid
+        this.deleteurl = 'https://sukusukuserver.7colordays.net/sukusuku/gddel/?groupid='+item.id+'&userid='+user[0].userid
         console.log(this.deleteurl)
         this.dialogDelete = true
       },
@@ -242,7 +253,7 @@
 
       getGroup(){
         const user = JSON.parse(localStorage.getItem('user'))
-        fetch('http://localhost:8000/sukusuku/gdsel/?userid=' + user[0].userid,{
+        fetch('https://sukusukuserver.7colordays.net/sukusuku/gdsel/?userid=' + user[0].userid,{
           method:"GET",
           mode:"cors",
           credentials: 'include'
@@ -261,7 +272,7 @@
       },
 
       save () {
-        this.groupurl = 'http://localhost:8000/sukusuku/gladd/?groupname='+this.editedItem.name
+        this.groupurl = 'https://sukusukuserver.7colordays.net/sukusuku/gladd/?groupname='+this.editedItem.name
         if(this.$refs.addform.validate()){
         fetch(this.groupurl,{
         method:"GET",
@@ -271,7 +282,7 @@
         .then((res)=>res.json())
         .then((obj)=>{
           const user = JSON.parse(localStorage.getItem('user'))
-          this.groupurl='http://localhost:8000/sukusuku/gdadd/?groupid='+obj[0].groupid+'&userid='+user[0].userid
+          this.groupurl='https://sukusukuserver.7colordays.net/sukusuku/gdadd/?groupid='+obj[0].groupid+'&userid='+user[0].userid
           fetch(this.groupurl,{
           method:"GET",
           mode:"cors",

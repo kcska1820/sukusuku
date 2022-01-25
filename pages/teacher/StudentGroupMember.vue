@@ -169,7 +169,7 @@ export default {
         return pattern.test(value) || "メールアドレスの形式が正しくありません";
       },
     },
-    url: "http://localhost:8000/sukusuku/",
+    url: "https://sukusukuserver.7colordays.net/sukusuku/",
     addurl: "",
     del: "",
     dialog: false,
@@ -323,7 +323,7 @@ export default {
     async upload() {
       this.csrftoken = Cookies.get("csrftoken");
 
-      fetch("http://localhost:8000/sukusuku/usadd/", {
+      fetch("https://sukusukuserver.7colordays.net/sukusuku/usadd/", {
         method: "POST",
         headers: {
           "content-type":

@@ -5,7 +5,7 @@
     >
         <template v-slot:activator="{ on, attrs }">
             <v-btn
-                color="green"
+                color="primary"
                 v-bind="attrs"
                 v-on="on"
                 @click="addSet"
@@ -171,7 +171,7 @@ export default {
         },
         dialog: false,
         tab:"プライベート",
-        url:'http://localhost:8000/sukusuku/',
+        url:'https://sukusukuserver.7colordays.net/sukusuku/',
         addurl:'',
         groupurl:'',
         startDay:'',

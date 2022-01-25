@@ -132,7 +132,7 @@
 <script>
 export default {
     data:()=>({
-        url:'http://localhost:8000/sukusuku/',
+        url:'https://sukusukuserver.7colordays.net/sukusuku/',
         susurl:'',
         suspender:false,
         enter:false,

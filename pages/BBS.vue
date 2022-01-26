@@ -160,8 +160,6 @@ export default {
   },
 
   created () {
-    //stselを掲示板一覧取得に変える
-    console.log(this.url + 'thsel')
     fetch(this.url + 'thsel/',{
       method:"GET",
       mode:"cors",
@@ -179,7 +177,6 @@ export default {
     search (){
       this.kw = searchsup(this.searchtxt, 'title')
       this.srcurl = this.url + 'thsrc' + this.kw.sql
-      console.log(this.srcurl)
       fetch(this.srcurl ,{
         method:"GET",
         mode:"cors",
@@ -191,7 +188,6 @@ export default {
     save () {
       if(this.$refs.BBSaddform.validate()){
       this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=0' + '&note=' + this.editedItem.note + '&master=' + this.userid
-      console.log(this.addurl)
       fetch(this.addurl,{
         method:"GET",
         mode:"cors",

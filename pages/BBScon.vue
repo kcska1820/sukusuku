@@ -123,7 +123,6 @@
 
     created () {
       if (this.thread.match(/^\d+$/)) {
-        console.log(this.url + 'thsel')
         fetch(this.url + 'thsel/?threadid=' + this.thread,{
           method:"GET",
           mode:"cors",
@@ -131,7 +130,6 @@
         }).then((res)=>res.json())
         .then(obj=>this.thdata=obj)
 
-        console.log(this.url + 'cmsel/')
         fetch(this.url + 'cmsel/?threadid=' + this.thread,{
           method:"GET",
           mode:"cors",
@@ -169,7 +167,6 @@
         }else{
           //IDは自動付与される筈
           this.addurl = this.url + 'cmadd/?thread=' + this.thread + '&user=' + this.userid + '&comment=' + this.newComment + '&flag=True'
-          console.log(this.addurl)
           fetch(this.addurl,{
             method:"GET",
             mode:"cors",
@@ -181,7 +178,6 @@
       },
 
       reflesh(){
-        console.log(this.url + 'cmsel/')
         fetch(this.url + 'cmsel/?threadid=' + this.thread,{
           method:"GET",
           mode:"cors",

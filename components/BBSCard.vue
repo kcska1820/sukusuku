@@ -158,7 +158,6 @@ export default {
 
         suspend (){
             this.susurl = this.url + 'thdel/?threadid=' + this.item.threadid + '&title=' + this.item.title + '&flag=2&note=' + this.item.note + '&master=' + this.item.master_id
-            console.log(this.susurl)
             fetch(this.susurl,{
                 method:"GET",
                 mode:"cors",

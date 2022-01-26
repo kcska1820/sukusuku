@@ -87,7 +87,6 @@ export default {
     methods:{
         delComment(comid,threadid){
             this.delurl = this.url + 'cmdel/?id=' + comid + '&thread=' + threadid
-            console.log(this.delurl)
             fetch(this.delurl,{
                 method:"GET",
                 mode:"cors",

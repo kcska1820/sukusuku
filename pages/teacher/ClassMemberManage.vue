@@ -139,7 +139,7 @@ export default {
       required: (value) => !!value || "こちらは必須項目です",
       max: (value) => (value && value.length == 10) || "10文字で入力して下さい",
     },
-    url: "http://localhost:8000/sukusuku/",
+    url: "https://sukusukuserver.7colordays.net/sukusuku/",
     addurl: "",
     del: "",
     dialog: false,
@@ -249,7 +249,7 @@ export default {
     async upload() {
       this.csrftoken = Cookies.get('csrftoken')
       
-      fetch('http://localhost:8000/sukusuku/cdadd/',{
+      fetch('https://sukusukuserver.7colordays.net/sukusuku/cdadd/',{
         method:"POST",
         headers: {
           'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',

@@ -74,7 +74,7 @@ export default {
   methods: {
     addTask(){
       if(this.$refs.Todo.validate()) {
-        this.url='http://localhost:8000/sukusuku/tdadd/?userid='+this.user[0].userid+'&title='+this.newTaskTitle+'&done=False'
+        this.url='https://sukusukuserver.7colordays.net/sukusuku/tdadd/?userid='+this.user[0].userid+'&title='+this.newTaskTitle+'&done=False'
         fetch(this.url,{
         method:"GET",
         mode:"cors",
@@ -91,9 +91,9 @@ export default {
       this.item = this.items.filter(item => item.id === id) [0]
       this.item.done = !this.item.done
       if(this.item.done == true){
-        this.url='http://localhost:8000/sukusuku/tddone/?id='+this.item.id +'&userid='+this.user[0].userid+'&title='+this.item.title+'&done=True'
+        this.url='https://sukusukuserver.7colordays.net/sukusuku/tddone/?id='+this.item.id +'&userid='+this.user[0].userid+'&title='+this.item.title+'&done=True'
       }else{
-        this.url='http://localhost:8000/sukusuku/tddone/?id='+this.item.id +'&userid='+this.user[0].userid+'&title='+this.item.title+'&done=False'
+        this.url='https://sukusukuserver.7colordays.net/sukusuku/tddone/?id='+this.item.id +'&userid='+this.user[0].userid+'&title='+this.item.title+'&done=False'
       }
       fetch(this.url,{
         method:"GET",
@@ -104,7 +104,7 @@ export default {
     },
     deleteTask(id) {
       this.item = this.items.filter(item => item.id === id) [0]
-      this.url='http://localhost:8000/sukusuku/tddel/?tdid='+this.item.id+'&userid='+this.user[0].userid
+      this.url='https://sukusukuserver.7colordays.net/sukusuku/tddel/?tdid='+this.item.id+'&userid='+this.user[0].userid
       fetch(this.url,{
         method:"GET",
         mode:"cors",
@@ -117,7 +117,7 @@ export default {
     },
     createTask(){
       this.user = JSON.parse(localStorage.getItem('user'))
-      this.url = 'http://localhost:8000/sukusuku/tdsel/?userid='+this.user[0].userid
+      this.url = 'https://sukusukuserver.7colordays.net/sukusuku/tdsel/?userid='+this.user[0].userid
       fetch(this.url,{
         method:"GET",
         mode:"cors",

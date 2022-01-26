@@ -85,7 +85,7 @@ export default {
     async upload() {
       this.csrftoken = Cookies.get('csrftoken')
       
-      fetch('http://localhost:8000/sukusuku/ttadd/',{
+      fetch('https://sukusukuserver.7colordays.net/sukusuku/ttadd/',{
         method:"POST",
         headers: {
           'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',

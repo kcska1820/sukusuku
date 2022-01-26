@@ -114,7 +114,7 @@ export default {
     rules: {
         required: value => !!value || 'こちらは必須項目です',
       },
-    url:'http://localhost:8000/sukusuku/',
+    url:'https://sukusukuserver.7colordays.net/sukusuku/',
     addurl:'',
     srcurl:'',
     valid:true,

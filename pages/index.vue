@@ -22,7 +22,7 @@ export default {
     data(){
         return{
             email:'',
-            url:'http://localhost:8000/sukusuku/'
+            url:'https://sukusukuserver.7colordays.net/sukusuku/'
         }
     },
     methods:{
@@ -65,7 +65,7 @@ export default {
             .then(resJson => {
                 localStorage.setItem('user',JSON.stringify(resJson))
 
-                fetch('http://localhost:8000/sukusuku/cdselu/?userid=' + resJson[0].userid,{
+                fetch('https://sukusukuserver.7colordays.net/sukusuku/cdselu/?userid=' + resJson[0].userid,{
                     method:"GET",
                     mode:"cors",
                     credentials: 'include'
@@ -79,7 +79,7 @@ export default {
                 .then(resJson => {
                     localStorage.setItem('class',resJson[0].classid_id)
                 })
-                fetch('http://localhost:8000/sukusuku/gdsel/?userid=' + resJson[0].userid,{
+                fetch('https://sukusukuserver.7colordays.net/sukusuku/gdsel/?userid=' + resJson[0].userid,{
                     method:"GET",
                     mode:"cors",
                     credentials: 'include'

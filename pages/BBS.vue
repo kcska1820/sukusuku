@@ -20,6 +20,7 @@
             fab
             absolute
             right
+            small
             v-bind="attrs"
             v-on="on">
             <v-icon>mdi-plus</v-icon>
@@ -73,19 +74,15 @@
       </v-dialog>
     </v-card-title>
     <v-row class="d-flex justify-end">
-      <v-col cols="12" sm="5" class="px-6">
-        <v-toolbar floating>
-          <v-row>
-            <!--検索欄-->
-            <v-col cols="12" class="pr-7">
-              <v-text-field
-                v-model="searchtxt"
-                @keyup.enter="search"
-                clearable
-                append-icon="mdi-magnify">
-              </v-text-field>
-            </v-col>
-          </v-row>
+      <v-col cols="12" sm="5">
+        <v-toolbar class="mx-3">
+        <!--検索欄-->
+          <v-text-field
+            v-model="searchtxt"
+            @keyup.enter="search"
+            clearable
+            append-icon="mdi-magnify">
+          </v-text-field>
         </v-toolbar>
       </v-col>
     </v-row>
@@ -102,7 +99,7 @@
           <BBSCard
             :item="item"
             :user="userid"
-            @suspend="reflesh"/>
+            @reflesh="reflesh"/>
         </v-col>
       </template>
       <!--凍結済みかつユーザが板立て人-->
@@ -111,14 +108,22 @@
           <BBSCard
             :item="item"
             :user="userid"
-            @suspend="reflesh"/>
+            @reflesh="reflesh"/>
+        </v-col>
+      </template>
+      <!--非表示かつユーザのロールが教師-->
+      <template v-else-if="item.flag == '3' && role == 'teacher'">
+        <v-col>
+          <BBSCard
+            :item="item"
+            :user="userid"
+            @reflesh="reflesh"/>
         </v-col>
       </template>
     </div>
   </v-card>
 </template>
 <script>
-//import items from '/components/threadList.json'
 import BBSCard from '/components/BBSCard'
 import searchsup from '/components/searchSup'
 export default {
@@ -137,6 +142,7 @@ export default {
     kw:'',
     user:[],
     userid:'',
+    role:'',
     //items:items,
     thdata:[],
     editedIndex: -1,
@@ -169,6 +175,8 @@ export default {
   mounted () {
     this.user = JSON.parse(localStorage.getItem('user'))
     this.userid = this.user[0].userid
+    this.role = this.user[0].roleid_id
+    console.log(this.role)
   },
 
   created () {

@@ -60,25 +60,50 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-dialog v-model="unlocker" max-width="500px">
+            <v-card>
+                <v-card-title>
+                    <span class="text-h5">このスレッドの凍結を解除しますか？</span>
+                </v-card-title>
+
+                <v-card-text>
+                    <span class="text-h5">{{item.title}}</span><br>
+                    <span>{{item.note}}</span>
+                </v-card-text>
+
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="unlocker=false">
+                        キャンセル
+                    </v-btn>
+                    <v-btn
+                        color="red darken-2"
+                        text
+                        @click="unsuspend">
+                        凍結解除
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
         <template v-if="item.master_id === user">
-        <v-card>
+        <v-card color="info">
             <v-row>
-                <v-col
-                    cols="12"
-                    sm="10"
-                    class="col">
+                <v-col cols="12" sm="10" class="col">
                     <v-btn
                         text
                         x-large
                         block
                         @click="enter=true">
                         {{item.title}}
+                        <template v-if="item.flag == 3">
+                            (非表示)
+                        </template>
                     </v-btn>
                 </v-col>
-                <v-col
-                    cols="12"
-                    sm="2"
-                    class="col">
+                <v-col cols="2" class="col">
                     <v-menu>
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
@@ -92,16 +117,30 @@
                             </v-icon>
                         </v-btn>
                     </template>
-                    <v-list
-                        class="list">
-                        <v-btn
-                            x-large
-                            @click="suspender=true">
-                            <v-list-item>
-                                凍結
-                            </v-list-item>
-                        </v-btn>
-                    </v-list>
+                    <template v-if="item.flag == 1">
+                        <v-list
+                            class="list">
+                            <v-btn
+                                x-large
+                                @click="suspender=true">
+                                <v-list-item>
+                                    凍結
+                                </v-list-item>
+                            </v-btn>
+                        </v-list>
+                    </template>
+                    <template v-else-if="item.flag == 2">
+                        <v-list
+                            class="list">
+                            <v-btn
+                                x-large
+                                @click="unlocker=true">
+                                <v-list-item>
+                                    凍結解除
+                                </v-list-item>
+                            </v-btn>
+                        </v-list>
+                    </template>
                     </v-menu>
                 </v-col>
             </v-row>
@@ -109,18 +148,18 @@
         </v-card>
         </template>
         <template v-else>
-        <v-card>
+        <v-card color="info">
             <v-row>
-                <v-col
-                    cols="12"
-                    sm="12"
-                    class="sup">
+                <v-col cols="12" class="sup">
                     <v-btn
                         text
                         x-large
                         block
                         @click="enter=true">
                         {{item.title}}
+                        <template v-if="item.flag == 3">
+                            (非表示)
+                        </template>
                     </v-btn>
                 </v-col>
             </v-row>
@@ -135,6 +174,7 @@ export default {
         url:'https://sukusukuserver.7colordays.net/sukusuku/',
         susurl:'',
         suspender:false,
+        unlocker:false,
         enter:false,
         touketu:false,
         btns:null,
@@ -166,7 +206,20 @@ export default {
             .then((res)=>res.json())
             .then(obj=>this.thdata=obj)
             this.suspender = false
-            this.$emit("suspend")
+            this.$emit("reflesh")
+        },
+
+        unsuspend () {
+            this.susurl = this.url + 'thdel/?threadid=' + this.item.threadid + '&title=' + this.item.title + '&flag=1&note=' + this.item.note + '&master=' + this.item.master_id
+            fetch(this.susurl,{
+                method:"GET",
+                mode:"cors",
+                credentials: 'include'
+            })
+            .then((res)=>res.json())
+            .then(obj=>this.thdata=obj)
+            this.unlocker = false
+            this.$emit("reflesh")
         }
     }
 }

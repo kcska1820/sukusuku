@@ -34,7 +34,9 @@
               color="accent"
               dark
               fab
-              class="mb-2"
+              small
+              elevation="1"
+              class="mx-2"
               v-bind="attrs"
               v-on="on"
             >

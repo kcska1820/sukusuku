@@ -19,7 +19,7 @@
             </v-icon>
           </v-btn>
         </template>
-        <v-card>
+        <v-card color="info">
           <v-list-item-content class="justify-center">
             <div class="mx-auto text-center">
               <div class="pa-2 mb-2">
@@ -33,7 +33,7 @@
                 text
                 @click="logout"
               >
-                ログアウト
+                <h3>ログアウト</h3>
               </v-btn>
               </div>
               <div class="pa-1">
@@ -43,7 +43,7 @@
                 text
                 color="red darken-2"
               >
-                キャンセル
+                <h3>キャンセル</h3>
               </v-btn>
               </div>
             </div>

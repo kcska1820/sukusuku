@@ -5,14 +5,12 @@
       <CompCalendar />
     </v-col>
     <v-col cols="12" sm="4">
-      <v-col>
-        <v-card>
-          <CompEventCD />
-        </v-card>
-      </v-col>
-      <v-col>
+      <v-card class="mb-4">
+        <CompEventCD />
+      </v-card>
+      <v-card>
         <CompToDo />
-      </v-col>
+      </v-card>
     </v-col>
   </v-row>
 </template>

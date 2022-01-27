@@ -10,7 +10,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title><h2>{{groupname}}&emsp;メンバー管理</h2></v-toolbar-title>
+        <v-toolbar-title><h2>{{groupname}}</h2></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -24,9 +24,11 @@
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               color="accent"
+              small
               dark
               fab
               class="mb-2"
+              elevation="1"
               v-bind="attrs"
               v-on="on"
             >

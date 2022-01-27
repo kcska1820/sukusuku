@@ -164,6 +164,8 @@
       addPost(){
         if (this.newComment == "" || /^\s+$/.test(this.newComment)) {
           alert("文章が入力されていません")
+        }else if (this.thdata[0].flag != 1){
+          alert("この掲示板は現在書き込みできません")
         }else{
           //IDは自動付与される筈
           this.addurl = this.url + 'cmadd/?thread=' + this.thread + '&user=' + this.userid + '&comment=' + this.newComment + '&flag=True'

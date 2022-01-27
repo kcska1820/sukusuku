@@ -56,6 +56,7 @@
       small
       dark
       color="blue"
+      class="mr-1"
     >
       <v-icon
         @click="approveItem(item)"
@@ -69,6 +70,7 @@
       small
       dark
       color="red"
+      class="ml-1"
     >
       <v-icon
         @click="deleteItem(item)"

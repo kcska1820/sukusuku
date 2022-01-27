@@ -3,7 +3,7 @@
 <h1 class="pt-4">
     <v-icon
     size="1.5em"
-    color="blue-grey darken-3">
+    color="icon">
       mdi-account-key
     </v-icon>
     &emsp;管理者メニュー</h1>

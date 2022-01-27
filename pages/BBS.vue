@@ -176,7 +176,6 @@ export default {
     this.user = JSON.parse(localStorage.getItem('user'))
     this.userid = this.user[0].userid
     this.role = this.user[0].roleid_id
-    console.log(this.role)
   },
 
   created () {

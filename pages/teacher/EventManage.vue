@@ -62,7 +62,8 @@
                     <v-text-field
                       v-model="editedItem.eventname"
                       label="イベント名"
-                      :rules="[rules.required]"
+                      :rules="[rules.required,rules.limit_length_100]"
+                      counter="100"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -73,6 +74,8 @@
                     <v-text-field
                       v-model="editedItem.eventdetails"
                       label="イベント詳細"
+                      :rules="[rules.limit_length_100]"
+                      counter="100"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -163,6 +166,7 @@
     data: () => ({
       rules: {
         required: value => !!value || 'こちらは必須項目です',
+        limit_length_100: value => value.length <= 100 || "100文字以内で入力してください",
       },
       url:'https://sukusukuserver.7colordays.net/sukusuku/',
       addurl:'',

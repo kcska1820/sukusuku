@@ -12,6 +12,7 @@
       label="Todoを作成"
       append-icon="mdi-plus"
       clearable
+      counter="100"
       :rules="[rules.required]"
       ></v-text-field>
     </v-form>

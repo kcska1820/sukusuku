@@ -90,10 +90,10 @@
         </v-dialog>
         <template v-if="item.master_id === user">
         <v-card>
-            <v-row>
+            <v-row
+                :justify="'space-around'">
                 <v-col
-                    cols="12"
-                    sm="10"
+                    cols="10"
                     class="col">
                     <v-btn
                         text
@@ -107,46 +107,45 @@
                     </v-btn>
                 </v-col>
                 <v-col
-                    cols="12"
-                    sm="2"
-                    class="col">
+                    cols="2"
+                    class="icon">
                     <v-menu>
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                            icon
-                            x-large
-                            v-bind="attrs"
-                            v-on="on">
-                            <v-icon
-                                size="1em">
-                                mdi-dots-horizontal
-                            </v-icon>
-                        </v-btn>
-                    </template>
-                    <template v-if="item.flag == 1">
-                        <v-list
-                            class="list">
+                        <template v-slot:activator="{ on, attrs }">
                             <v-btn
+                                icon
                                 x-large
-                                @click="suspender=true">
-                                <v-list-item>
-                                    凍結
-                                </v-list-item>
+                                v-bind="attrs"
+                                v-on="on">
+                                <v-icon
+                                    size="1em">
+                                    mdi-dots-horizontal
+                                </v-icon>
                             </v-btn>
-                        </v-list>
-                    </template>
-                    <template v-else-if="item.flag == 2">
-                        <v-list
-                            class="list">
-                            <v-btn
-                                x-large
-                                @click="unlocker=true">
-                                <v-list-item>
-                                    凍結解除
-                                </v-list-item>
-                            </v-btn>
-                        </v-list>
-                    </template>
+                        </template>
+                        <template v-if="item.flag == 1">
+                            <v-list
+                                class="list">
+                                <v-btn
+                                    x-large
+                                    @click="suspender=true">
+                                    <v-list-item>
+                                        凍結
+                                    </v-list-item>
+                                </v-btn>
+                            </v-list>
+                        </template>
+                        <template v-else-if="item.flag == 2">
+                            <v-list
+                                class="list">
+                                <v-btn
+                                    x-large
+                                    @click="unlocker=true">
+                                    <v-list-item>
+                                        凍結解除
+                                    </v-list-item>
+                                </v-btn>
+                            </v-list>
+                        </template>
                     </v-menu>
                 </v-col>
             </v-row>
@@ -237,6 +236,12 @@ export default {
     .col{
         padding-top:0;
         padding-bottom:12;
+    }
+
+    .icon{
+        padding-top:0;
+        padding-bottom:12;
+        padding-right:7;
     }
 
     .sup{

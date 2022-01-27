@@ -205,7 +205,6 @@
 
     methods: {
       initialize () {
-        console.log(this.url + 'thsel')
         fetch(this.url + 'thsel/',{
           method:"GET",
           mode:"cors",
@@ -228,7 +227,6 @@
 
       deleteItemConfirm () {
         this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=3' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id
-          console.log(this.delurl)
           fetch(this.delurl,{
             method:"GET",
             mode:"cors",
@@ -259,7 +257,6 @@
         this.user = JSON.parse(localStorage.getItem('user'))
         this.userid = this.user[0].userid
         this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.userid
-        console.log(this.addurl)
         fetch(this.addurl,{
           method:"GET",
           mode:"cors",

@@ -94,9 +94,30 @@
       :key="item.id"
       router
       exact>
-      <template v-if="item.flag != '0' && item.flag != '3'">
+      <template v-if="item.flag == '1'">
         <v-col>
-          <BBSCard :item="item" :user="userid"/>
+          <BBSCard
+            :item="item"
+            :user="userid"
+            @reflesh="reflesh"/>
+        </v-col>
+      </template>
+      <!--凍結済みかつユーザが板立て人-->
+      <template v-else-if="item.flag == '2' && item.master_id == userid">
+        <v-col>
+          <BBSCard
+            :item="item"
+            :user="userid"
+            @reflesh="reflesh"/>
+        </v-col>
+      </template>
+      <!--非表示かつユーザのロールが教師-->
+      <template v-else-if="item.flag == '3' && role == 'teacher'">
+        <v-col>
+          <BBSCard
+            :item="item"
+            :user="userid"
+            @reflesh="reflesh"/>
         </v-col>
       </template>
     </div>
@@ -121,6 +142,7 @@ export default {
     kw:'',
     user:[],
     userid:'',
+    role:'',
     //items:items,
     thdata:[],
     editedIndex: -1,
@@ -153,6 +175,8 @@ export default {
   mounted () {
     this.user = JSON.parse(localStorage.getItem('user'))
     this.userid = this.user[0].userid
+    this.role = this.user[0].roleid_id
+    console.log(this.role)
   },
 
   created () {
@@ -217,6 +241,15 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
+    },
+
+    reflesh () {
+      fetch(this.url + 'thsel/',{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+      }).then((res)=>res.json())
+      .then(obj=>this.thdata=obj)
     },
   },
   middleware:"authenicated"

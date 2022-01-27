@@ -101,6 +101,9 @@
                         block
                         @click="enter=true">
                         {{item.title}}
+                        <template v-if="item.flag == 3">
+                            (非表示)
+                        </template>
                     </v-btn>
                 </v-col>
                 <v-col
@@ -120,7 +123,6 @@
                             </v-icon>
                         </v-btn>
                     </template>
-                    <!--多分ここをいじる-->
                     <template v-if="item.flag == 1">
                         <v-list
                             class="list">
@@ -164,6 +166,9 @@
                         block
                         @click="enter=true">
                         {{item.title}}
+                        <template v-if="item.flag == 3">
+                            (非表示)
+                        </template>
                     </v-btn>
                 </v-col>
             </v-row>

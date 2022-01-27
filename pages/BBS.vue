@@ -114,6 +114,15 @@
             @reflesh="reflesh"/>
         </v-col>
       </template>
+      <!--非表示かつユーザのロールが教師-->
+      <template v-else-if="item.flag == '3' && role == 'teacher'">
+        <v-col>
+          <BBSCard
+            :item="item"
+            :user="userid"
+            @reflesh="reflesh"/>
+        </v-col>
+      </template>
     </div>
   </v-card>
 </template>
@@ -137,6 +146,7 @@ export default {
     kw:'',
     user:[],
     userid:'',
+    role:'',
     //items:items,
     thdata:[],
     editedIndex: -1,
@@ -169,6 +179,8 @@ export default {
   mounted () {
     this.user = JSON.parse(localStorage.getItem('user'))
     this.userid = this.user[0].userid
+    this.role = this.user[0].roleid_id
+    console.log(this.role)
   },
 
   created () {

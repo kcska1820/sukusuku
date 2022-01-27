@@ -91,7 +91,7 @@
         @click:append="addPost"
         @keyup.enter="addPost"
         outlined
-        filled
+        solo
         label="発言を入力"
         hide-details
         clearable

@@ -166,6 +166,7 @@ export default {
             .then((res)=>res.json())
             .then(obj=>this.thdata=obj)
             this.suspender = false
+            this.$emit("suspend")
         }
     }
 }

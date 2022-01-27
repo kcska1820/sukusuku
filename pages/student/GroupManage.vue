@@ -23,6 +23,7 @@
           dark
           fab
           class="mb-1 mr-2"
+          elevation="1"
           @click="getGroup"
         >
           <v-icon>mdi-restore</v-icon>
@@ -38,6 +39,7 @@
               dark
               fab
               class="mb-1"
+              elevation="1"
               v-bind="attrs"
               v-on="on"
             >
@@ -113,6 +115,7 @@
       fab
       small
       class="ml-6"
+      elevation="1"
       color="primary"
       @click="deleteItem(item)"
     >

@@ -19,10 +19,10 @@
         </v-badge>
       </v-btn>
     </template>
-      <v-card color="primary">
+      <v-card color="accent">
         <v-list-item-content class="justify-center">
           <div class="mx-auto text-center">
-            <v-toolbar color="primary white--text" elevation="0" class="d-flex justify-center align-center pa-2 mb-2">
+            <v-toolbar color="accent" elevation="0" class="d-flex justify-center align-center pa-2 mb-2">
               <v-toolbar-title dense><h2>通知</h2></v-toolbar-title>
             </v-toolbar>
             <v-divider />
@@ -35,7 +35,7 @@
               <template v-slot:default="{ item }">
                 <v-list-item>
                   <v-flex>
-                    <v-card>
+                    <v-card color="info">
                       <v-card-title>
                       {{item.title}}
                       </v-card-title>

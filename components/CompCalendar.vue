@@ -5,7 +5,7 @@
       <!-- カレンダーツールバー -->
       <v-sheet height="65">
         <v-toolbar
-          color="accent lighten-1"
+          color="accent"
           flat
         >
           <v-btn
@@ -19,7 +19,7 @@
             fab
             text
             small
-            color="grey darken-2"
+            color="button"
             @click="prev"
           >
             <v-icon small>
@@ -30,7 +30,7 @@
             fab
             text
             small
-            color="grey darken-2"
+            color="button"
             @click="next"
           >
             <v-icon small>
@@ -41,7 +41,7 @@
             {{ $refs.calendar.title }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn @click="updateRange" icon><v-icon color="primary">mdi-restore</v-icon></v-btn>
+          <v-btn @click="updateRange" icon><v-icon color="button">mdi-restore</v-icon></v-btn>
           <calendarAdd v-if="role == 'student'"/>
           <TeachercalendarAdd v-else-if="role == 'teacher'"/>
           <v-menu
@@ -76,7 +76,7 @@
       </v-sheet>
       <!-- 削除確認 -->
       <v-dialog v-model="DeleteDialog" max-width="500px">
-        <v-card>
+        <v-card color="info">
           <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -222,7 +222,7 @@
               </v-btn>
             </v-toolbar>
             <v-card-text>
-              <span v-html="selectedEvent.details"></span>
+              <v-text-field class="primary--text" dense readonly v-html="selectedEvent.details"></v-text-field>
             </v-card-text>
             <v-card-actions>
               <v-btn

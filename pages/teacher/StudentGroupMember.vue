@@ -9,7 +9,7 @@
   >
     <template v-slot:top>
       <v-toolbar flat>
-        <v-icon size="1.5em" color="blue-grey darken-3">
+        <v-icon size="1.5em" color="icon">
           mdi-account-details
         </v-icon>
 
@@ -29,7 +29,8 @@
               color="accent"
               dark
               fab
-              class="mb-2"
+              small
+              class="mx-2"
               v-bind="attrs"
               v-on="on"
             >
@@ -142,11 +143,11 @@
     </template>
 
     <template v-slot:[`item.actions`]="{ item }">
-      <v-btn fab small color="primary">
-        <v-icon @click="editItem(item)"> mdi-pencil </v-icon>
+      <v-btn fab small color="primary" @click="editItem(item)" class="mr-1">
+        <v-icon> mdi-pencil </v-icon>
       </v-btn>
-      <v-btn fab small color="primary">
-        <v-icon @click="deleteItem(item)"> mdi-delete </v-icon>
+      <v-btn fab small color="primary" @click="deleteItem(item)" class="ml-1">
+        <v-icon> mdi-delete </v-icon>
       </v-btn>
     </template>
   </v-data-table>

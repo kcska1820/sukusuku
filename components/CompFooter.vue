@@ -1,6 +1,6 @@
 <template>
     <v-footer
-    color="secondary darken2"
+    color="primary"
     padless
     >
     <v-row
@@ -19,7 +19,7 @@
         {{ link.title }}
       </v-btn>
       <v-col
-        class="primary py-4 text-center white--text"
+        class="secondary py-4 text-center white--text"
         cols="12"
       >
         <strong>スクスク～suku-suku～</strong>

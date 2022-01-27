@@ -61,12 +61,9 @@
             </v-card>
         </v-dialog>
         <template v-if="item.master_id === user">
-        <v-card>
+        <v-card color="info">
             <v-row>
-                <v-col
-                    cols="12"
-                    sm="10"
-                    class="col">
+                <v-col cols="12" sm="10" class="col">
                     <v-btn
                         text
                         x-large
@@ -75,10 +72,7 @@
                         {{item.title}}
                     </v-btn>
                 </v-col>
-                <v-col
-                    cols="12"
-                    sm="2"
-                    class="col">
+                <v-col cols="2" class="col">
                     <v-menu>
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
@@ -109,12 +103,9 @@
         </v-card>
         </template>
         <template v-else>
-        <v-card>
+        <v-card color="info">
             <v-row>
-                <v-col
-                    cols="12"
-                    sm="12"
-                    class="sup">
+                <v-col cols="12" class="sup">
                     <v-btn
                         text
                         x-large

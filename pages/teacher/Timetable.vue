@@ -1,7 +1,7 @@
 import { METHODS } from 'http';
 <template>
 <div>
-    <h1 class="mt-10"><v-icon size="1em">mdi-clock-plus-outline</v-icon>&emsp;時間割を登録する</h1>
+    <h1 class="mt-5"><v-icon color="icon" size="1.3em">mdi-clock-plus-outline</v-icon>&emsp;時間割を登録する</h1>
     <v-divider></v-divider>
     <br>
     <br>
@@ -27,7 +27,7 @@ import { METHODS } from 'http';
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="light-green darken-1"
+          color="accent"
           dark
           v-bind="attrs"
           v-on="on"

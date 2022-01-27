@@ -34,7 +34,9 @@
               color="accent"
               dark
               fab
-              class="mb-2"
+              class="mx-2"
+              small
+              elevation="1"
               v-bind="attrs"
               v-on="on"
             >
@@ -116,6 +118,7 @@
     <v-btn
       color="accent"
       elevation="2"
+      class="mr-2"
       @click="selclassid(item)"
     >メンバー管理</v-btn>
     <v-btn

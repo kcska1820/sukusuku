@@ -102,7 +102,7 @@
           <BBSCard
             :item="item"
             :user="userid"
-            @suspend="reflesh"/>
+            @reflesh="reflesh"/>
         </v-col>
       </template>
       <!--凍結済みかつユーザが板立て人-->
@@ -111,7 +111,7 @@
           <BBSCard
             :item="item"
             :user="userid"
-            @suspend="reflesh"/>
+            @reflesh="reflesh"/>
         </v-col>
       </template>
     </div>

@@ -89,7 +89,7 @@
             </v-card>
         </v-dialog>
         <template v-if="item.master_id === user">
-        <v-card>
+        <v-card color="info">
             <v-row
                 :justify="'space-around'">
                 <v-col
@@ -153,12 +153,9 @@
         </v-card>
         </template>
         <template v-else>
-        <v-card>
+        <v-card color="info">
             <v-row>
-                <v-col
-                    cols="12"
-                    sm="12"
-                    class="sup">
+                <v-col cols="12" class="sup">
                     <v-btn
                         text
                         x-large

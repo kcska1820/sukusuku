@@ -20,6 +20,7 @@
             fab
             absolute
             right
+            small
             v-bind="attrs"
             v-on="on">
             <v-icon>mdi-plus</v-icon>
@@ -73,19 +74,15 @@
       </v-dialog>
     </v-card-title>
     <v-row class="d-flex justify-end">
-      <v-col cols="12" sm="5" class="px-6">
-        <v-toolbar floating>
-          <v-row>
-            <!--検索欄-->
-            <v-col cols="12" class="pr-7">
-              <v-text-field
-                v-model="searchtxt"
-                @keyup.enter="search"
-                clearable
-                append-icon="mdi-magnify">
-              </v-text-field>
-            </v-col>
-          </v-row>
+      <v-col cols="12" sm="5">
+        <v-toolbar class="mx-3">
+        <!--検索欄-->
+          <v-text-field
+            v-model="searchtxt"
+            @keyup.enter="search"
+            clearable
+            append-icon="mdi-magnify">
+          </v-text-field>
         </v-toolbar>
       </v-col>
     </v-row>
@@ -127,7 +124,6 @@
   </v-card>
 </template>
 <script>
-//import items from '/components/threadList.json'
 import BBSCard from '/components/BBSCard'
 import searchsup from '/components/searchSup'
 export default {

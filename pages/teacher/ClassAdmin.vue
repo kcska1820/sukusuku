@@ -60,6 +60,7 @@
                     <v-text-field
                       v-model="editedItem.id"
                       label="クラスID"
+                      counter="10"
                       :rules="[rules.required,rules.max]"
                     ></v-text-field>
                   </v-col>
@@ -71,7 +72,8 @@
                     <v-text-field
                       v-model="editedItem.name"
                       label="クラス名"
-                      :rules="[rules.required]"
+                      counter="100"
+                      :rules="[rules.required,rules.limit_length_100]"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -142,6 +144,7 @@
          rules: {
           required: value => !!value || 'こちらは必須項目です',
           max: value => (value && value.length <= 10) || '10文字以下で入力してください',
+          limit_length_100: value => value.length <= 100 || "100文字以内で入力してください",
       },
       dialog: false,
       dialogDelete: false,

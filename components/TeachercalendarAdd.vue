@@ -46,8 +46,8 @@
                                             <input type="date" v-model="endDay" />
                                             <input type="time" v-model="endTime" />
                                         </v-col>
-                                        <v-text-field label="タイトル" v-model="title" :rules="[rules.required]" />
-                                        <v-text-field label="内容" v-model="details" :rules="[rules.required]" />
+                                        <v-text-field counter="100" label="タイトル" v-model="title" :rules="[rules.required,rules.limit_length_100]" />
+                                        <v-text-field counter="100" label="内容" v-model="details" :rules="[rules.required,rules.limit_length_100]" />
                                         <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" :rules="[rules.required]" />
                                     </v-form>
                                 </v-card-text>
@@ -86,8 +86,8 @@
                                             <input type="date" v-model="endDay" :rules="[rules.required]" />
                                             <input type="time" v-model="endTime" :rules="[rules.required]" />
                                         </v-col>
-                                        <v-text-field label="タイトル" v-model="title" :rules="[rules.required]" />
-                                        <v-text-field label="内容" v-model="details" :rules="[rules.required]" />
+                                        <v-text-field counter="100" label="タイトル" v-model="title" :rules="[rules.required,rules.limit_length_100]" />
+                                        <v-text-field counter="100" label="内容" v-model="details" :rules="[rules.required,rules.limit_length_100]" />
                                         <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" :rules="[rules.required]" />
                                         <v-select label="グループ" v-model="group" :items="groups" item-text="name" item-value="id" :rules="[rules.required]" />
                                     </v-form>
@@ -127,8 +127,8 @@
                                             <input type="date" v-model="endDay" :rules="[rules.required]" />
                                             <input type="time" v-model="endTime" :rules="[rules.required]" />
                                         </v-col>
-                                        <v-text-field label="タイトル" v-model="title" :rules="[rules.required]" />
-                                        <v-text-field label="内容" v-model="details" :rules="[rules.required]" />
+                                        <v-text-field counter="100" label="タイトル" v-model="title" :rules="[rules.required,rules.limit_length_100]" />
+                                        <v-text-field counter="100" label="内容" v-model="details" :rules="[rules.required,rules.limit_length_100]" />
                                         <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" :rules="[rules.required]" />
                                         <v-select label="クラス" v-model="clas" :items="classs" item-text="name" item-value="id" :rules="[rules.required]" />
                                     </v-form>
@@ -168,6 +168,7 @@ export default {
     data: () => ({
         rules: {
             required: value => !!value || 'こちらは必須項目です',
+            limit_length_100: value => value.length <= 100 || "100文字以内で入力してください",
         },
         dialog: false,
         tab:"プライベート",

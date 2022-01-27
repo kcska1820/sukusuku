@@ -61,7 +61,8 @@
                     <v-text-field
                       v-model="editedItem.name"
                       label="グループ名"
-                      :rules="[rules.required]"
+                      counter="100"
+                      :rules="[rules.required,rules.limit_length_100]"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -138,6 +139,7 @@
     data: () => ({
       rules: {
         required: value => !!value || 'こちらは必須項目です',
+        limit_length_100: value => value.length <= 100 || "100文字以内で入力してください"
       },
       dialog: false,
       dialogDelete: false,

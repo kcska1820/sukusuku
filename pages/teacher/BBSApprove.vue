@@ -23,7 +23,16 @@
         <v-dialog v-model="dialogApprove" max-width="500px">
           <v-card>
             <v-card-title class="text-h5">このスレッドを承認しますか？</v-card-title>
-            <h3 class="text-center">{{editedItem.title}}</h3>
+            <v-container>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field v-model="editTitle" label="タイトル"/>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field v-model="editNote" label="備考"/>
+                </v-col>
+              </v-row>
+            </v-container>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-2" text @click="closeApprove">キャンセル</v-btn>
@@ -147,6 +156,8 @@
         flag: '',
         master_id: ''
       },
+      editTitle: '', 
+      editNote:'',
     }),
 
     computed: {
@@ -185,6 +196,8 @@
       approveItem (item) {
         this.editedIndex = this.desserts.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.editTitle = this.editedItem.title
+        this.editNote = this.editedItem.note
         this.dialogApprove = true
       },
 
@@ -195,7 +208,7 @@
       },
 
       approveItemConfirm () {
-        this.appurl = this.url + 'thapp/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id
+        this.appurl = this.url + 'thapp/?threadid=' + this.editedItem.threadid + '&title=' + this.editTitle + '&flag=1' + '&note=' + this.editNote + '&master=' + this.editedItem.master_id
           fetch(this.appurl,{
             method:"GET",
             mode:"cors",

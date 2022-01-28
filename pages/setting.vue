@@ -1,5 +1,4 @@
 <template>
-
   <v-card
     max-width="800"
     class="mx-auto"
@@ -8,7 +7,7 @@
     <v-icon
     size="1.5em"
     class="mr-5"
-    color="blue-grey darken-3">
+    color="icon">
       mdi-cog
     </v-icon>
     設定
@@ -16,10 +15,12 @@
   <h2>
     <v-toolbar
     elevation="1"
+    color="info"
     >
     <v-icon
     size="1.5em"
     class="mr-5"
+    color="icon"
     >
       mdi-account-edit
     </v-icon>
@@ -63,10 +64,12 @@
 
     <h2>
     <v-toolbar
+    color="info"
     elevation="1"
     >
     <v-icon
     size="1.5em"
+    color="icon"
     class="mr-5"
     >
       mdi-wrench
@@ -82,6 +85,7 @@
       <v-switch
         class="ml-6"
         v-model="theme"
+        color="accent"
         :prepend-icon="themeIcon"
       ></v-switch>
       <v-btn

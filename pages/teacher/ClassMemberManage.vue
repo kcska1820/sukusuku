@@ -1,7 +1,7 @@
 <template>
   <v-card class="mt-12">
     <v-card-title>
-      <v-icon size="1.5em" color="blue-grey darken-3">
+      <v-icon size="1.5em" color="icon">
         mdi-account-details
       </v-icon>
       <h2>クラスメンバー管理</h2>
@@ -33,7 +33,8 @@
                 color="accent"
                 dark
                 fab
-                class="mb-2"
+                small
+                elevation="1"
                 v-bind="attrs"
                 v-on="on"
               >

@@ -60,21 +60,22 @@ export default {
       dark: false,
       themes: {
         light: {
-          primary: colors.brown.darken2,
-          secondary: colors.brown.darken1,
+          primary: colors.brown.darken1,
+          secondary: colors.brown.darken2,
           accent: colors.lightGreen.lighten1,
-          accent2: colors.lightGreen.lighten3,
-          accent3: colors.lightGreen.lighten2,
-          info: colors.teal.lighten1
+          info: colors.grey.lighten4,
+          button: colors.brown.darken1,
+          icon:colors.blueGrey.darken3,
+          back:colors.blueGrey.lighten4
         },
         dark: {
-          primary: colors.indigo.darken1,
-          secondary: colors.indigo.lighten1,
-          accent: colors.blueGrey.darken1,
-          accent2: colors.blueGrey.darken1,
-          accent3: colors.blueGrey.darken2,
+          primary: colors.grey.darken1,
+          secondary: colors.blueGrey.darken3,
+          accent: colors.blueGrey.darken3,
           error: colors.red.accent3,
-          info: colors.teal.lighten1,
+          info: colors.blueGrey.darken4,
+          button: colors.grey.lighten5,
+          icon:colors.blueGrey.lighten4,
           warning: colors.amber.base,
           success: colors.green.accent3
         }

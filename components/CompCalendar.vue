@@ -573,3 +573,12 @@
   }
 }
 </script>
+
+<style>
+input[type=date] {
+  color: #8b8b8b;
+}
+input[type=time] {
+  color: #8b8b8b;
+}
+</style>

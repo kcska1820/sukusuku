@@ -10,6 +10,7 @@
     v-for="(item, i) in items"
     :key="i"
     :to="item.to"
+    color="info"
     router
     exact
     >

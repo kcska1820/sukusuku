@@ -1,5 +1,5 @@
 <template>
-  <v-card color="accent2">
+  <v-card color="accent">
     <h1 class="mt-06"><v-icon size="1em">mdi-notebook-check-outline</v-icon>&emsp;Todoリスト</h1>
     <v-divider></v-divider>
     <v-form ref='Todo' @submit.prevent>
@@ -27,7 +27,7 @@
           <v-checkbox
             :input-value="item.done"
             @click="doneTask(item.id)"
-            color="primary"
+            color="button"
           ></v-checkbox>
         </v-list-item-action>
         <v-list-item-content>
@@ -49,7 +49,7 @@
           <v-btn
             @click.stop="deleteTask(item.id)"
             icon>
-            <v-icon  color="primary">mdi-delete-circle</v-icon>
+            <v-icon  color="button">mdi-delete-circle</v-icon>
           </v-btn>
         </v-list-item-action>
         </v-list-item>

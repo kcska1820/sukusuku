@@ -108,7 +108,7 @@
                 </v-col>
                 <v-col
                     cols="2"
-                    class="icon">
+                    class="but">
                     <v-menu>
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
@@ -235,7 +235,7 @@ export default {
         padding-bottom:12;
     }
 
-    .icon{
+    .but{
         padding-top:0;
         padding-bottom:12;
         padding-right:7;

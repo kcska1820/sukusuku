@@ -174,8 +174,6 @@
 
     methods: {
       initialize () {
-        //this.desserts = threads.filter(({flag})=>flag===0)
-        console.log(this.url + 'thsel')
         fetch(this.url + 'thsel/',{
           method:"GET",
           mode:"cors",
@@ -198,7 +196,6 @@
 
       approveItemConfirm () {
         this.appurl = this.url + 'thapp/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id
-          console.log(this.appurl)
           fetch(this.appurl,{
             method:"GET",
             mode:"cors",
@@ -211,7 +208,6 @@
 
       deleteItemConfirm () {
         this.delurl = this.url + 'threj/?threadid=' + this.editedItem.threadid
-          console.log(this.delurl)
           fetch(this.delurl,{
             method:"GET",
             mode:"cors",

@@ -1,5 +1,5 @@
 <template>
-    <v-card color="accent3">
+    <v-card color="accent">
         <v-card-title>
           <h3><v-icon size="1.3em">mdi-archive-clock-outline</v-icon>&emsp;イベントカウントダウン</h3>
         </v-card-title>
@@ -13,7 +13,7 @@
           <template v-slot:default="{ item }">
             <v-list-item>
               <v-flex>
-                  <v-card height="85" class="headline" min-width="240">
+                  <v-card height="85" class="headline" min-width="240" color="info">
                     <v-card-title>
                       <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">

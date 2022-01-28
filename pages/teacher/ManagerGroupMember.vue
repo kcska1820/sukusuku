@@ -13,7 +13,7 @@
       >
       <v-icon
     size="1.5em"
-    color="blue-grey darken-3">
+    color="icon">
       mdi-account
     </v-icon>
         <v-toolbar-title><h2>管理者管理</h2></v-toolbar-title>
@@ -39,6 +39,9 @@
               color="accent"
               dark
               fab
+              class="mx-2"
+              small
+              elevation="1"
               v-bind="attrs"
               v-on="on"
             >
@@ -146,9 +149,10 @@
       fab
       small
       color="primary"
+      @click="editItem(item)"
+      class="mr-1"
     >
       <v-icon
-        @click="editItem(item)"
         size="2em"
       >
         mdi-pencil
@@ -158,9 +162,10 @@
       fab
       small
       color="primary"
+      @click="deleteItem(item)"
+      class="ml-1"
     >
       <v-icon
-        @click="deleteItem(item)"
         size="2em"
       >
         mdi-delete

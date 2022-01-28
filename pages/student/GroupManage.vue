@@ -48,7 +48,7 @@
               </v-icon>
             </v-btn>
           </template>
-          <v-form ref="addform">
+          <v-form ref="addform" @submit.prevent>
           <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
@@ -103,6 +103,50 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+        <v-dialog v-model="dialogChange" max-width="500px">
+          <v-form ref="changeform" @submit.prevent>
+          <v-card>
+            <v-card-title>
+              <span class="text-h5">{{ editedTitle }}</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col
+                    cols="12"
+                  >
+                    <v-text-field
+                      v-model="editedItem.name"
+                      label="グループ名"
+                      counter="100"
+                      :rules="[rules.required,rules.limit_length_100]"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="red darken-2"
+                text
+                @click="close"
+              >
+                キャンセル
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="GroupNameChange"
+              >
+                変更
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          </v-form>
+        </v-dialog>
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
@@ -115,7 +159,21 @@
     <v-btn
       fab
       small
-      class="ml-6"
+      class="ml-2"
+      elevation="1"
+      color="primary"
+      @click="editItem(item)"
+    >
+      <v-icon
+        size="2em"
+      >
+      mdi-pencil
+      </v-icon>
+    </v-btn>
+    <v-btn
+      fab
+      small
+      class="ml-2"
       elevation="1"
       color="primary"
       @click="deleteItem(item)"
@@ -146,6 +204,7 @@
       },
       dialog: false,
       dialogDelete: false,
+      dialogChange: false,
       headers: [
         { text: 'グループ名', value: 'name', align: "center", width: '400',class: "accent"},
         { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
@@ -154,6 +213,7 @@
       setGroup:[],
       groupurl : '',
       deleteurl:'',
+      editedTitle:'',
       editedIndex: -1,
       editedItem: {
         id: '',
@@ -211,9 +271,28 @@
         this.$router.push({path: "/student/GroupMemberManage"})
       },
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
         this.editedItem = Object.assign({}, item)
-        this.dialog = true
+        this.editedTitle = this.editedItem.name
+        this.dialogChange = true
+      },
+
+      GroupNameChange(){
+        this.groupurl = 'https://sukusukuserver.7colordays.net/sukusuku/glupd/?groupid='+this.editedItem.id+'&groupname='+this.editedItem.name
+        if(this.$refs.changeform.validate()){
+        fetch(this.groupurl,{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+        })
+        .then((res)=>{
+          res.json()
+          this.getGroup()
+        })
+        .catch((reason)=>{
+          console.log(reason)
+        })
+        }
+        this.dialogChange = false
       },
 
       deleteItem (item) {
@@ -242,6 +321,7 @@
 
       close () {
         this.dialog = false
+        this.dialogChange = false
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1

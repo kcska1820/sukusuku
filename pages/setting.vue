@@ -85,7 +85,7 @@
       <v-switch
         class="ml-6"
         v-model="theme"
-        color="accent"
+        color="icon"
         :prepend-icon="themeIcon"
       ></v-switch>
       <v-btn

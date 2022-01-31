@@ -85,7 +85,7 @@
                     sm="6"
                     md="6"
                   >
-                    <p> 締め切り日時 : </p>
+                    <p> 締め切り日 : </p>
                     <input
                       type="date"
                       v-model="editedItem.end"
@@ -174,6 +174,7 @@
       dialog: false,
       dialogDelete: false,
       search:'',
+      date:'',
       headers: [
         {
           text: 'イベント名',
@@ -242,6 +243,7 @@
           })
         }
       })
+      this.set()
     },
 
     methods: {
@@ -293,6 +295,11 @@
           this.close()
         }
       },
+      set(){
+        const newDay= new Date()
+        const getmonth = parseInt(newDay.getMonth()) + 1
+        this.editedItem.end = newDay.getFullYear() + '-' + ("00" + getmonth).slice(-2) + '-' + ("00" + newDay.getDate()).slice(-2)
+      }
     },
     /* 未ログイン時index.vueに遷移 */
     middleware:"authenicated"

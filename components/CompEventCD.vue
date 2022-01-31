@@ -20,6 +20,7 @@
                           <span
                             v-bind="attrs"
                             v-on="on"
+                            :style=item.color
                           >{{item.title.slice(0,10)}}</span>
                         </template>
                         <span>
@@ -29,7 +30,7 @@
                       </v-tooltip>
                     </v-card-title>
                     <v-card-subtitle>
-                    あと{{item.end}}日
+                    あと{{item.end}}日({{item.date.slice(0,10)}})
                     </v-card-subtitle>
                   </v-card>
               </v-flex>
@@ -56,10 +57,14 @@
       .then((obj) => {
         this.items = obj
         for(let i = this.items.length-1;i >= 0 ; i= i-1){
+          this.items[i].date = this.items[i].end.replaceAll('-', '/')
           this.items[i].end = Date.parse(new Date) - Date.parse(this.items[i].end.replaceAll('-', '/'))
           this.items[i].end = Math.floor(this.items[i].end / 86400000)
           if(this.items[i].end <= 0){
             this.items[i].end =  this.items[i].end* -1
+            if(this.items[i].end <= 5){
+              this.items[i].color =  "color:#FF6E40"
+            }
           }else{
             this.items.splice(i,1)
           }

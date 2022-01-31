@@ -41,7 +41,7 @@
                     v-on="on"
                   >{{ item.title }}</span>
                 </template>
-                <span>{{ item.title }}</span>
+                <span>{{item.date}}:{{ item.title }}</span>
               </v-tooltip>
             </v-list-item-title>
         </v-list-item-content>
@@ -69,13 +69,17 @@ export default {
             items:[],
             item:[],
             user:[],
-            url:''
+            url:'',
+            date:''
         }
     },
   methods: {
     addTask(){
+      const newDay= new Date()
+      const getmonth = parseInt(newDay.getMonth()) + 1
+      this.date = newDay.getFullYear() + '/' + ("00" + getmonth).slice(-2) + '/' + ("00" + newDay.getDate()).slice(-2)
       if(this.$refs.Todo.validate()) {
-        this.url='https://sukusukuserver.7colordays.net/sukusuku/tdadd/?userid='+this.user[0].userid+'&title='+this.newTaskTitle+'&done=False'
+        this.url='https://sukusukuserver.7colordays.net/sukusuku/tdadd/?userid='+this.user[0].userid+'&title='+this.newTaskTitle+'&done=False'+'&date='+this.date
         fetch(this.url,{
         method:"GET",
         mode:"cors",
@@ -92,9 +96,9 @@ export default {
       this.item = this.items.filter(item => item.id === id) [0]
       this.item.done = !this.item.done
       if(this.item.done == true){
-        this.url='https://sukusukuserver.7colordays.net/sukusuku/tddone/?id='+this.item.id +'&userid='+this.user[0].userid+'&title='+this.item.title+'&done=True'
+        this.url='https://sukusukuserver.7colordays.net/sukusuku/tddone/?id='+this.item.id +'&userid='+this.user[0].userid+'&title='+this.item.title+'&done=True'+'&date='+this.item.date
       }else{
-        this.url='https://sukusukuserver.7colordays.net/sukusuku/tddone/?id='+this.item.id +'&userid='+this.user[0].userid+'&title='+this.item.title+'&done=False'
+        this.url='https://sukusukuserver.7colordays.net/sukusuku/tddone/?id='+this.item.id +'&userid='+this.user[0].userid+'&title='+this.item.title+'&done=False'+'&date='+this.item.date
       }
       fetch(this.url,{
         method:"GET",
@@ -132,6 +136,7 @@ export default {
           id:obj[j].id,
           title:obj[j].title,
           done:obj[j].done,
+          date:obj[j].date
           })
         }
       })

@@ -139,7 +139,7 @@
                               <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" />
                               <v-select label="グループ" v-model="gs" :items="gss" item-text="name" item-value="id" />
                           </v-form>
-                          <v-form v-if="categorys == '時間割'">
+                          <v-form v-if="categorys == '時間割' && selectedEvent.timed == 1">
                             <v-col class="d-flex justify-space-around pt-4">
                               <p>開始日時 : </p>
                               <input type="date" v-model="startDay" />
@@ -152,6 +152,20 @@
                             </v-col>
                               <v-text-field label="タイトル" v-model="title"  />
                               <v-text-field label="内容" v-model="details"  />
+                              <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" />
+                              <v-select label="クラス" v-model="clas" :items="cs" item-text="name" item-value="id" />
+                          </v-form>
+                          <v-form v-if="categorys == '時間割' && selectedEvent.timed == 0">
+                            <v-col class="d-flex justify-space-around pt-4">
+                              <p>開始日 : </p>
+                              <input type="date" v-model="startDay" />
+                            </v-col>
+                            <v-col class="d-flex justify-space-around pt-4">
+                              <p>終了日 : </p>
+                              <input type="date" v-model="endDay" />
+                            </v-col>
+                              <v-text-field label="タイトル" v-model="title" />
+                              <v-text-field label="内容" v-model="details" />
                               <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" />
                               <v-select label="クラス" v-model="clas" :items="cs" item-text="name" item-value="id" />
                           </v-form>
@@ -252,24 +266,35 @@
     },
     colors:[
       {
-          name:"赤",
-          value:'red'
-      },
-      {
-          name:"青",
-          value:'blue'
-      },
-      {
-          name:"黄",
-          value:'yellow'
-      },
-      {
-          name:"緑",
-          value:'green'
-      }
+                name:"赤色",
+                value:'red'
+            },
+            {
+                name:"橙色",
+                value:'orange darken-2'
+            },
+            {
+                name:"黄緑色",
+                value:'light-green accent-4'
+            },
+            {
+                name:"緑色",
+                value:'green darken-3'
+            },
+            {
+                name:"水色",
+                value:'indigo accent-2'
+            },
+            {
+                name:"青色",
+                value:'indigo darken-4'
+            },
+            {
+                name:"紫色",
+                value:'deep-purple accent-4'
+            }
     ],
-    selectedEvent: {
-    },
+    selectedEvent: {},
     selectedElement: null,
     selectedOpen: false,
     CreateOpen:false,
@@ -376,9 +401,9 @@
       this.EditDialog = false
     },
     updSchedule (){
-      this.start = this.startDay + 'T' + this.startTime
-      this.end = this.endDay + 'T' + this.endTime
       if(this.selectedEvent.category == "プライベート"){
+        this.start = this.startDay + 'T' + this.startTime
+        this.end = this.endDay + 'T' + this.endTime
         this.user = JSON.parse(localStorage.getItem('user'))
         this.userid = this.user[0].userid
         this.updurl = this.url + 'psupd/?id=' + this.selectedEvent.id + '&userid=' + this.userid+'&title='+this.title+'&start='+this.start+'&end='+this.end+'&details='+this.details+'&color='+this.color
@@ -390,6 +415,8 @@
         .then((res)=>this.updateRange())
         this.close()
       }else if(this.selectedEvent.category == "グループ"){
+        this.start = this.startDay + 'T' + this.startTime
+        this.end = this.endDay + 'T' + this.endTime
         this.updurl = this.url + 'gsupd/?id=' + this.selectedEvent.id + '&groupid=' + this.selectedEvent.groupid+'&title='+this.title+'&start='+this.start+'&end='+this.end+'&details='+this.details+'&color='+this.color
         fetch(this.updurl,{
           method:"GET",
@@ -402,7 +429,14 @@
         if(this.user[0].roleid_id == 'student'){
           this.TTDialog = true
         }else if(this.user[0].roleid_id == 'teacher'){
-          this.updurl = this.url + 'ttupd/?id=' + this.selectedEvent.id + '&classid=' +this.selectedEvent.classid+'&title='+this.title+'&start='+this.start+'&end='+this.end+'&details='+this.details+'&color='+this.color
+          if(this.selectedEvent.timed == 1){
+            this.start = this.startDay + 'T' + this.startTime
+            this.end = this.endDay + 'T' + this.endTime
+          }else{
+            this.start = this.startDay
+            this.end = this.endDay
+          }
+          this.updurl = this.url + 'ttupd/?id=' + this.selectedEvent.id + '&classid=' +this.selectedEvent.classid+'&title='+this.title+'&start='+this.start+'&end='+this.end+'&details='+this.details+'&color='+this.color+'&timed='+this.selectedEvent.timed
           fetch(this.updurl,{
           method:"GET",
           mode:"cors",
@@ -470,6 +504,7 @@
             end: obj[i].end,
             color: obj[i].color,
             details: obj[i].details,
+            timed:true,
             category: "プライベート"
           })
         }
@@ -499,6 +534,7 @@
                 end: obj[i].end,
                 color: obj[i].color,
                 details: obj[i].details,
+                timed:true,
                 category: "グループ"
               })
             }
@@ -513,7 +549,8 @@
       .then((res)=>res.json())
       .then(obj=>{
         for (let i = 0; i < obj.length; i++) {
-          event.push({
+          if(obj[i].timed == 1){
+            event.push({
             id:obj[i].id,
             classid:obj[i].classid_id,
             name: obj[i].title,
@@ -521,8 +558,22 @@
             end: obj[i].end,
             color: obj[i].color,
             details: obj[i].details,
+            timed:obj[i].timed,
             category: "時間割"
           })
+          }else{
+            event.push({
+            id:obj[i].id,
+            classid:obj[i].classid_id,
+            name: obj[i].title,
+            start: obj[i].start.substr(0,10),
+            end: obj[i].end.substr(0,10),
+            color: obj[i].color,
+            details: obj[i].details,
+            timed:obj[i].timed,
+            category: "時間割"
+          })
+          }
         }
       })
       this.events=event
@@ -570,6 +621,7 @@
   mounted(){
     this.getRole()
     this.getGroup()
+    this.$refs.calendar.scrollToTime('08:00')
   }
 }
 </script>

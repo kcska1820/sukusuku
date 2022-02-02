@@ -147,20 +147,32 @@ export default {
         group1:[],
         colors:[
             {
-                name:"赤",
+                name:"赤色",
                 value:'red'
             },
             {
-                name:"青",
-                value:'blue'
+                name:"橙色",
+                value:'orange darken-2'
             },
             {
-                name:"黄",
-                value:'yellow'
+                name:"黄緑色",
+                value:'light-green accent-4'
             },
             {
-                name:"緑",
-                value:'green'
+                name:"緑色",
+                value:'green darken-3'
+            },
+            {
+                name:"水色",
+                value:'indigo accent-2'
+            },
+            {
+                name:"青色",
+                value:'indigo darken-4'
+            },
+            {
+                name:"紫色",
+                value:'deep-purple accent-4'
             }
         ],
     }),

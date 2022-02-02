@@ -113,46 +113,94 @@
                                     </v-col>
                                 </v-card-actions>
                             </v-tab-item>
-                            <!-- 時間割 -->
+                            <!-- 時間割/祝日 -->
                             <v-tab-item>
-                                <v-card-text>
-                                    <v-form  :rules="[rules.required]">
+                                <v-tabs v-model="tttab" grow>
+                                    <v-tab>時間割</v-tab>
+                                    <v-tab>祝日</v-tab>
+                                </v-tabs>
+                                <v-tabs-items v-model="tttab">
+                                <!-- 時間割 -->
+                                    <v-tab-item>
+                                        <v-card-text>
+                                        <v-form  :rules="[rules.required]">
                                         <v-col class="d-flex justify-space-around pt-4">
-                                            <p>開始日時 : </p>
-                                            <input type="date" v-model="startDay" />
-                                            <input type="time" v-model="startTime" />
+                                        <p>開始日時 : </p>
+                                        <input type="date" v-model="startDay" />
+                                        <input type="time" v-model="startTime" />
                                         </v-col>
                                         <v-col class="d-flex justify-space-around pt-4">
-                                            <p>終了日時 : </p>
-                                            <input type="date" v-model="endDay" :rules="[rules.required]" />
-                                            <input type="time" v-model="endTime" :rules="[rules.required]" />
+                                        <p>終了日時 : </p>
+                                        <input type="date" v-model="endDay" :rules="[rules.required]" />
+                                        <input type="time" v-model="endTime" :rules="[rules.required]" />
                                         </v-col>
                                         <v-text-field counter="100" label="タイトル" v-model="title" :rules="[rules.required,rules.limit_length_100]" />
                                         <v-text-field counter="100" label="内容" v-model="details" :rules="[rules.required,rules.limit_length_100]" />
                                         <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" :rules="[rules.required]" />
                                         <v-select label="クラス" v-model="clas" :items="classs" item-text="name" item-value="id" :rules="[rules.required]" />
-                                    </v-form>
-                                </v-card-text>
-                                <v-card-actions>
-                                    <v-col cols="6">
+                                        </v-form>
+                                        </v-card-text>
+                                        <v-card-actions>
+                                        <v-col cols="6">
                                         <v-btn
-                                            color="red darken-2 white--text"
-                                            block
-                                            @click="dialog = false"
+                                        color="red darken-2 white--text"
+                                        block
+                                        @click="dialog = false"
                                         >
-                                            閉じる
+                                        閉じる
                                         </v-btn>
-                                    </v-col>
-                                    <v-col cols="6">
+                                        </v-col>
+                                        <v-col cols="6">
                                         <v-btn
-                                            color="blue darken-1 white--text"
-                                            block
-                                            @click="addTTSchedule"
+                                        color="blue darken-1 white--text"
+                                        block
+                                        @click="addTTSchedule"
                                         >
-                                            追加
+                                        追加
                                         </v-btn>
-                                    </v-col>
-                                </v-card-actions>
+                                        </v-col>
+                                        </v-card-actions>
+                                    </v-tab-item>
+                                <!-- 祝日 -->
+                                    <v-tab-item>
+                                        <v-card-text>
+                                        <v-form  :rules="[rules.required]">
+                                        <v-col class="d-flex justify-space-around pt-4">
+                                        <p>開始日 : </p>
+                                        <input type="date" v-model="startDay" />
+                                        </v-col>
+                                        <v-col class="d-flex justify-space-around pt-4">
+                                        <p>終了日 : </p>
+                                        <input type="date" v-model="endDay" :rules="[rules.required]" />
+                                        </v-col>
+                                        <v-text-field counter="100" label="タイトル" v-model="title" :rules="[rules.required,rules.limit_length_100]" />
+                                        <v-text-field counter="100" label="内容" v-model="details" :rules="[rules.required,rules.limit_length_100]" />
+                                        <v-select label="カラー" v-model="color" :items="colors" item-text="name" item-value="value" :rules="[rules.required]" />
+                                        <v-select label="クラス" v-model="clas" :items="classs" item-text="name" item-value="id" :rules="[rules.required]" />
+                                        </v-form>
+                                        </v-card-text>
+                                        <v-card-actions>
+                                        <v-col cols="6">
+                                        <v-btn
+                                        color="red darken-2 white--text"
+                                        block
+                                        @click="dialog = false"
+                                        >
+                                        閉じる
+                                        </v-btn>
+                                        </v-col>
+                                        <v-col cols="6">
+                                        <v-btn
+                                        color="blue darken-1 white--text"
+                                        block
+                                        @click="addHoliday"
+                                        >
+                                        追加
+                                        </v-btn>
+                                        </v-col>
+                                        </v-card-actions>
+                                    </v-tab-item>
+                                </v-tabs-items>
                             </v-tab-item>
                         </v-tabs-items>
                     </v-card>
@@ -164,7 +212,9 @@
 </template>
 
 <script>
+import Timetable from '~/pages/teacher/Timetable.vue'
 export default {
+  components: { Timetable },
     data: () => ({
         rules: {
             required: value => !!value || 'こちらは必須項目です',
@@ -172,6 +222,7 @@ export default {
         },
         dialog: false,
         tab:"プライベート",
+        tttab:"時間割",
         url:'https://sukusukuserver.7colordays.net/sukusuku/',
         addurl:'',
         groupurl:'',
@@ -194,20 +245,32 @@ export default {
         group1:[],
         colors:[
             {
-                name:"赤",
+                name:"赤色",
                 value:'red'
             },
             {
-                name:"青",
-                value:'blue'
+                name:"橙色",
+                value:'orange darken-2'
             },
             {
-                name:"黄",
-                value:'yellow'
+                name:"黄緑色",
+                value:'light-green accent-4'
             },
             {
-                name:"緑",
-                value:'green'
+                name:"緑色",
+                value:'green darken-3'
+            },
+            {
+                name:"水色",
+                value:'indigo accent-2'
+            },
+            {
+                name:"青色",
+                value:'indigo darken-4'
+            },
+            {
+                name:"紫色",
+                value:'deep-purple accent-4'
             }
         ],
     }),
@@ -294,7 +357,25 @@ export default {
               if(this.startDay == this.endDay && this.startTime <= this.endTime || this.startDay != this.endDay){
                 this.start = this.startDay + 'T' + this.startTime
                 this.end = this.endDay + 'T' + this.endTime
-                this.addurl = this.url + 'ttcreate/?classid=' + this.clas + '&title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details
+                this.addurl = this.url + 'ttcreate/?classid=' + this.clas + '&title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details+'&timed=1'
+                fetch(this.addurl,{
+                method:"GET",
+                mode:"cors",
+                credentials: 'include'
+                })
+                .then((res)=>res.json())
+                .then(obj=>this.ttschedule=obj)
+                .catch()
+                this.close()
+              }
+            }
+          }
+        },
+        addHoliday(){
+          if(this.$refs.addform.validate()){
+            if(this.startDay <= this.endDay){
+              if(this.startDay == this.endDay || this.startDay != this.endDay){
+                this.addurl = this.url + 'ttcreate/?classid=' + this.clas + '&title=' + this.title + '&start='+ this.startDay + '&end=' + this.endDay +'&color=' + this.color +'&details='+this.details+'&timed=0'
                 fetch(this.addurl,{
                 method:"GET",
                 mode:"cors",

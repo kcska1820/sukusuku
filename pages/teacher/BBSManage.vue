@@ -226,7 +226,7 @@
       },
 
       deleteItemConfirm () {
-        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=3' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id
+        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=3' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id + '&latest=' + this.editedItem.latest
           fetch(this.delurl,{
             method:"GET",
             mode:"cors",

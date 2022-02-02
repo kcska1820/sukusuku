@@ -147,14 +147,16 @@
         title: '',
         note: '',
         flag: '',
-        master_id: ''
+        master_id: '',
+        latest: ''
       },
       defaultItem: {
         id: '',
         title: '',
         note: '',
         flag: '',
-        master_id: ''
+        master_id: '',
+        latest: ''
       },
       editTitle: '', 
       editNote:'',
@@ -208,7 +210,7 @@
       },
 
       approveItemConfirm () {
-        this.appurl = this.url + 'thapp/?threadid=' + this.editedItem.threadid + '&title=' + this.editTitle + '&flag=1' + '&note=' + this.editNote + '&master=' + this.editedItem.master_id
+        this.appurl = this.url + 'thapp/?threadid=' + this.editedItem.threadid + '&title=' + this.editTitle + '&flag=1' + '&note=' + this.editNote + '&master=' + this.editedItem.master_id + '&latest=new'
           fetch(this.appurl,{
             method:"GET",
             mode:"cors",

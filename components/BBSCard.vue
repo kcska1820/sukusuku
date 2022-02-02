@@ -101,6 +101,8 @@
                         block
                         @click="enter=true">
                         {{item.title}}
+                        <!--更新時間の表示-->
+                        ({{item.latest}})
                         <template v-if="item.flag == 3">
                             (非表示)
                         </template>
@@ -162,6 +164,8 @@
                         block
                         @click="enter=true">
                         {{item.title}}
+                        <!--更新時間の表示-->
+                        ({{item.latest}})
                         <template v-if="item.flag == 3">
                             (非表示)
                         </template>
@@ -183,13 +187,6 @@ export default {
         enter:false,
         touketu:false,
         btns:null,
-        editedItem:{
-            threadid:'',
-            master_id:'',
-            title:'',
-            note:'',
-            flag:'',
-        },
     }),
     props:{
         item:Object,
@@ -202,7 +199,7 @@ export default {
         },
 
         suspend (){
-            this.susurl = this.url + 'thdel/?threadid=' + this.item.threadid + '&title=' + this.item.title + '&flag=2&note=' + this.item.note + '&master=' + this.item.master_id
+            this.susurl = this.url + 'thdel/?threadid=' + this.item.threadid + '&title=' + this.item.title + '&flag=2&note=' + this.item.note + '&master=' + this.item.master_id + '&latest=' + this.item.latest
             fetch(this.susurl,{
                 method:"GET",
                 mode:"cors",
@@ -215,7 +212,7 @@ export default {
         },
 
         unsuspend () {
-            this.susurl = this.url + 'thdel/?threadid=' + this.item.threadid + '&title=' + this.item.title + '&flag=1&note=' + this.item.note + '&master=' + this.item.master_id
+            this.susurl = this.url + 'thdel/?threadid=' + this.item.threadid + '&title=' + this.item.title + '&flag=1&note=' + this.item.note + '&master=' + this.item.master_id + '&latest=' + this.item.latest
             fetch(this.susurl,{
                 method:"GET",
                 mode:"cors",

@@ -59,7 +59,8 @@
                     </v-list>
                 </v-menu>
             </template>
-            <p class="thread">{{no}}:{{post.user__username}}</p>
+            <!--投稿時間の追加-->
+            <p class="thread">{{no}}:{{post.user__username}}　{{post.ptime}}</p>
             <p class="comment">{{post.comment}}</p>
         </template>
     </div>

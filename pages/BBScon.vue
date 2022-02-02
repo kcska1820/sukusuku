@@ -113,6 +113,7 @@
         num:4,
         user:[],
         userid:'',
+        ptime:'',
         loader:null,
         refbtn:false,
         thdata:[],
@@ -167,8 +168,11 @@
         }else if (this.thdata[0].flag != 1){
           alert("この掲示板は現在書き込みできません")
         }else{
-          //IDは自動付与される筈
-          this.addurl = this.url + 'cmadd/?thread=' + this.thread + '&user=' + this.userid + '&comment=' + this.newComment + '&flag=True'
+          //YYYY-MM-DD/HH:mm
+          let date = new Date()
+          this.ptime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay() + ' ' + date.getHours() + ':' + date.getMinutes()
+          console.log(typeof(this.ptime))
+          this.addurl = this.url + 'cmadd/?thread=' + this.thread + '&user=' + this.userid + '&comment=' + this.newComment + '&ptime=' + this.ptime + '&flag=True'
           fetch(this.addurl,{
             method:"GET",
             mode:"cors",

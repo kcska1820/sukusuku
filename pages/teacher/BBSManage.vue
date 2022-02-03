@@ -122,25 +122,10 @@
       </template>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-    <v-btn
-      fab
-      small
-      color="primary"
-      elevation="2"
-    >
-      <v-icon
-        @click="deleteItem(item)"
-        size="2em"
-      >
-        mdi-eye-off
-      </v-icon>
-    </v-btn>
-    </template>
-    <template v-slot:no-data>
       <v-btn
         fab
         small
-        v-if="item.item.flag == '1' || item.item.flag == '2'"
+        v-if="item.flag == '1' || item.flag == '2'"
         color="primary">
         <v-icon
           @click="blindItem(item)"
@@ -151,7 +136,7 @@
       <v-btn
         fab
         small
-        v-if="item.item.flag == '3'"
+        v-if="item.flag == '3'"
         color="gray">
         <v-icon
           @click="unblindItem(item)"

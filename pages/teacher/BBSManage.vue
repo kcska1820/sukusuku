@@ -96,7 +96,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="unblind" max-width="500px">
+        <v-dialog v-model="dialogUnblind" max-width="500px">
           <v-card>
             <v-card-title class="text-h5">このスレッドを再表示しますか？</v-card-title>
             <h3 class="text-center">{{editedItem.title}}</h3>
@@ -158,7 +158,7 @@
       valid:true,
       dialog: false,
       dialogDelete: false,
-      unblind: false,
+      dialogUnblind: false,
       user:[],
       userid:'',
       headers: [

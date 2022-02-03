@@ -125,7 +125,7 @@
       <v-btn
         fab
         small
-        v-if="item.flag == '1' || item.flag == '2'"
+        v-if="item.item.flag == '1' || item.item.flag == '2'"
         color="primary">
         <v-icon
           @click="blindItem(item)"
@@ -136,7 +136,7 @@
       <v-btn
         fab
         small
-        v-if="item.flag == '3'"
+        v-if="item.item.flag == '3'"
         color="gray">
         <v-icon
           @click="unblindItem(item)"

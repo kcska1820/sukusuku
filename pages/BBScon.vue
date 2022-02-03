@@ -170,8 +170,12 @@
         }else{
           //YYYY-MM-DD/HH:mm
           let date = new Date()
-          this.ptime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay() + ' ' + date.getHours() + ':' + date.getMinutes()
-          console.log(typeof(this.ptime))
+          this.ptime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay() + ' ' + date.getHours() + ':'
+          if (date.getMinutes() < 10){
+            this.ptime += ('0' + date.getMinutes())
+          }else{
+            this.ptime += date.getMinutes()
+          }
           this.addurl = this.url + 'cmadd/?thread=' + this.thread + '&user=' + this.userid + '&comment=' + this.newComment + '&ptime=' + this.ptime + '&flag=True'
           fetch(this.addurl,{
             method:"GET",

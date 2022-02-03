@@ -249,25 +249,25 @@
       },
 
       blindItemConfirm () {
-        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id + '&latest=' + this.editedItem.latest
-          fetch(this.delurl,{
-            method:"GET",
-            mode:"cors",
-            credentials: 'include'
-          }).then((res)=>res.json())
-          .then(obj=>this.thdata=obj)
-        this.closeUnblind()
+        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=3' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id + '&latest=' + this.editedItem.latest
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.thdata=obj)
+        this.closeDelete()
       },
 
       unblindItemConfirm () {
-        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=3' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id + '&latest=' + this.editedItem.latest
-          fetch(this.delurl,{
-            method:"GET",
-            mode:"cors",
-            credentials: 'include'
-          }).then((res)=>res.json())
-          .then(obj=>this.thdata=obj)
-        this.closeDelete()
+        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id + '&latest=' + this.editedItem.latest
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.thdata=obj)
+        this.closeUnblind()
       },
 
       close () {

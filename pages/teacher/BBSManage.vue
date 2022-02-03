@@ -115,12 +115,13 @@
       fab
       small
       color="primary"
+      elevation="2"
     >
       <v-icon
         @click="deleteItem(item)"
         size="2em"
       >
-        mdi-delete
+        mdi-eye-off
       </v-icon>
     </v-btn>
     </template>

@@ -122,6 +122,21 @@
       </template>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
+    <v-btn
+      fab
+      small
+      color="primary"
+      elevation="2"
+    >
+      <v-icon
+        @click="deleteItem(item)"
+        size="2em"
+      >
+        mdi-eye-off
+      </v-icon>
+    </v-btn>
+    </template>
+    <template v-slot:no-data>
       <v-btn
         fab
         small

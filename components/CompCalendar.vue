@@ -219,7 +219,7 @@
         >
           <v-card
             color="grey lighten-4"
-            min-width="350px"
+            width="350px"
             flat
           >
             <v-toolbar

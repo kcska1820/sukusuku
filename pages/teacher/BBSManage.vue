@@ -91,7 +91,19 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">非表示</v-btn>
+              <v-btn color="blue darken-1" text @click="blindItemConfirm">非表示</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="unblind" max-width="500px">
+          <v-card>
+            <v-card-title class="text-h5">このスレッドを再表示しますか？</v-card-title>
+            <h3 class="text-center">{{editedItem.title}}</h3>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="red darken-2" text @click="closeUnblind">キャンセル</v-btn>
+              <v-btn color="blue darken-1" text @click="unblindItemConfirm">非表示</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -110,26 +122,27 @@
       </template>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-    
-    <v-btn
-      fab
-      small
-      color="primary"
-    >
-      <v-icon
-        @click="deleteItem(item)"
-        size="2em"
-      >
-        mdi-delete
-      </v-icon>
-    </v-btn>
-    </template>
-    <template v-slot:no-data>
       <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
+        fab
+        small
+        v-if="item.flag == '1' || item.flag == '2'"
+        color="primary">
+        <v-icon
+          @click="blindItem(item)"
+          size="2em">
+          mdi-eye-outline
+        </v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        small
+        v-if="item.flag == '3'"
+        color="gray">
+        <v-icon
+          @click="unblindItem(item)"
+          size="2em">
+          mdi-eye-off-outline
+        </v-icon>
       </v-btn>
     </template>
   </v-data-table>
@@ -145,6 +158,7 @@
       valid:true,
       dialog: false,
       dialogDelete: false,
+      unblind: false,
       user:[],
       userid:'',
       headers: [
@@ -197,6 +211,9 @@
       dialogDelete (val) {
         val || this.closeDelete()
       },
+      dialigUnblind (val) {
+        val || this.closeUnblind()
+      }
     },
 
     created () {
@@ -219,13 +236,30 @@
         this.dialog = true
       },
 
-      deleteItem (item) {
+      blindItem (item) {
         this.editedIndex = this.desserts.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
 
-      deleteItemConfirm () {
+      unblindItem (item) {
+        this.editedIndex = this.desserts.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialogUnblind = true
+      },
+
+      blindItemConfirm () {
+        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id + '&latest=' + this.editedItem.latest
+          fetch(this.delurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+          }).then((res)=>res.json())
+          .then(obj=>this.thdata=obj)
+        this.closeUnblind()
+      },
+
+      unblindItemConfirm () {
         this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=3' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id + '&latest=' + this.editedItem.latest
           fetch(this.delurl,{
             method:"GET",
@@ -246,6 +280,14 @@
 
       closeDelete () {
         this.dialogDelete = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      closeUnblind () {
+        this.dialogUnblind = false
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1

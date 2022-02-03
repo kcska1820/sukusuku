@@ -229,7 +229,16 @@
               <v-btn icon @click="openEdit">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
-              <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-toolbar-title
+                    v-bind="attrs"
+                    v-on="on" 
+                    v-html="selectedEvent.name"
+                  ></v-toolbar-title>
+                </template>
+                <span>{{selectedEvent.groupname}}</span>
+              </v-tooltip>
               <v-spacer></v-spacer>
               <v-btn icon @click="DeleteDialog = true">
                 <v-icon>mdi-delete</v-icon>
@@ -307,6 +316,7 @@
     delurl:'',
     updurl:'',
     class:'',
+    myclassname:'',
     start:'',
     startDay:'',
     startTime:'',
@@ -489,6 +499,12 @@
       this.gdselurl = this.url + 'gdsel/?userid=' + this.userid
       this.ttselurl = this.url + 'ttsel/?classid=' + this.class
       const event = []
+      for(let i = 0; i < this.cs.length; i++){
+        if(this.cs[i].id == this.class){
+          this.myclassname = this.cs[i].name
+          break
+        }
+      }
       fetch(this.psselurl,{
       method:"GET",
       mode:"cors",
@@ -500,6 +516,7 @@
           event.push({
             id:obj[i].id,
             name: obj[i].title,
+            groupname:this.userid,
             start: obj[i].start,
             end: obj[i].end,
             color: obj[i].color,
@@ -509,38 +526,31 @@
           })
         }
       })
-      fetch(this.gdselurl,{
-      method:"GET",
-      mode:"cors",
-      credentials: 'include'
-      })
-      .then((res)=>res.json())
-      .then(obj=>{
-        for (let j = 0; j < obj.length; j++) {
-          this.gsselurl = this.url + 'gssel/?groupid=' + obj[j].groupid_id
-          fetch(this.gsselurl,{
-          method:"GET",
-          mode:"cors",
-          credentials: 'include'
-          })
-          .then((res)=>res.json())
-          .then(obj=>{
-            for (let i = 0; i < obj.length; i++) {
-              event.push({
-                id:obj[i].id,
-                groupid:obj[i].groupid_id,
-                name: obj[i].title,
-                start: obj[i].start,
-                end: obj[i].end,
-                color: obj[i].color,
-                details: obj[i].details,
-                timed:true,
-                category: "グループ"
-              })
-            }
-          })
-        }
-      })
+      for (let j = 0; j < this.gss.length; j++) {
+        this.gsselurl = this.url + 'gssel/?groupid=' + this.gss[j].id
+        fetch(this.gsselurl,{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>{
+          for (let i = 0; i < obj.length; i++) {
+            event.push({
+              id:obj[i].id,
+              groupid:obj[i].groupid_id,
+              groupname:this.gss[j].name,
+              name: obj[i].title,
+              start: obj[i].start,
+              end: obj[i].end,
+              color: obj[i].color,
+              details: obj[i].details,
+              timed:true,
+              category: "グループ"
+            })
+          }
+        })
+      }
       fetch(this.ttselurl,{
       method:"GET",
       mode:"cors",
@@ -553,6 +563,7 @@
             event.push({
             id:obj[i].id,
             classid:obj[i].classid_id,
+            groupname:this.myclassname,
             name: obj[i].title,
             start: obj[i].start,
             end: obj[i].end,
@@ -565,6 +576,7 @@
             event.push({
             id:obj[i].id,
             classid:obj[i].classid_id,
+            groupname:"祝日",
             name: obj[i].title,
             start: obj[i].start.substr(0,10),
             end: obj[i].end.substr(0,10),

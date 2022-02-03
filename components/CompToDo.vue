@@ -7,8 +7,8 @@
       v-model="newTaskTitle"
       @click:append="addTask"
       @keyup.enter="addTask"
-      class="pa-0"
-      outlined
+      class="pa-0 mx-2"
+      solo
       label="Todoを作成"
       append-icon="mdi-plus"
       clearable
@@ -22,6 +22,7 @@
       height="150"
     >
       <template v-slot:default="{ item }">
+        <v-card max-height="45" class="d-flex align-center mx-2" color="info">
         <v-list-item>
         <v-list-item-action>
           <v-checkbox
@@ -53,6 +54,7 @@
           </v-btn>
         </v-list-item-action>
         </v-list-item>
+        </v-card>
       </template>
     </v-virtual-scroll>
   </v-card>

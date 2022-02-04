@@ -1,19 +1,24 @@
 <template>
-  <v-card color="accent">
+  <v-card 
+    color="accent"
+  >
     <v-card-title>
-      <v-icon
-        size="2em">
-        mdi-message-text
+      <v-icon 
+        size="2em"
+      > 
+      mdi-message-text 
       </v-icon>
       <h2>
         掲示板
       </h2>
-      <v-dialog
-        v-model="sinsei"
-        max-width="500px"
+      <v-dialog 
+        v-model="sinsei" 
+        max-width="500px" 
         persistent
+      >
+        <template 
+          v-slot:activator="{ on, attrs }"
         >
-        <template v-slot:activator="{ on, attrs }">
           <v-btn
             color="primary"
             dark
@@ -22,8 +27,11 @@
             right
             small
             v-bind="attrs"
-            v-on="on">
-            <v-icon>mdi-plus</v-icon>
+            v-on="on"
+          >
+            <v-icon>
+              mdi-plus
+            </v-icon>
           </v-btn>
         </template>
         <v-form
@@ -31,52 +39,68 @@
           v-model="valid"
           lazy-validation
           @submit.prevent
-          >
-        <v-card>
-          <v-card-title>
-            <span class="text-h5">スレッドの追加申請</span>
-          </v-card-title>
+        >
+          <v-card>
+            <v-card-title>
+              <span 
+                class="text-h5"
+              >
+              スレッドの追加申請
+              </span>
+            </v-card-title>
 
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-text-field
-                  v-model="editedItem.title"
-                  label="スレッドタイトル"
-                  :rules="[rules.required]"
-                  required/>
-              </v-row><v-row>
-                <v-textarea
-                  v-model="editedItem.note"
-                  label="備考"
-                  outlined/>
-              </v-row>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer/>
-            <v-btn
-              color="red darken-2"
-              text
-              @click="sclose">
-              キャンセル
-            </v-btn>
-            <v-btn
-              :disabled="!valid"
-              color="blue darken-1"
-              text
-              @click="save">
-              申請
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-text-field
+                    v-model="editedItem.title"
+                    label="スレッドタイトル"
+                    :rules="[rules.required]"
+                    required
+                  /> 
+                  </v-row>
+                  <v-row>
+                  <v-textarea 
+                    v-model="editedItem.note" 
+                    label="備考" 
+                    outlined 
+                  />
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn 
+                color="red darken-2" 
+                text 
+                @click="sclose"
+              >
+                キャンセル
+              </v-btn>
+              <v-btn
+                :disabled="!valid"
+                color="blue darken-1"
+                text
+                @click="save"
+              >
+                申請
+              </v-btn>
+            </v-card-actions>
+          </v-card>
         </v-form>
       </v-dialog>
     </v-card-title>
-    <v-row class="d-flex justify-end">
-      <v-col cols="12" sm="5">
-        <v-toolbar class="mx-3">
-        <!--検索欄-->
+    <v-row 
+      class="d-flex justify-end"
+    >
+      <v-col 
+        cols="12" 
+        sm="5"
+      >
+        <v-toolbar 
+          class="mx-3"
+        >
+          <!--検索欄-->
           <v-text-field
             v-model="searchtxt"
             @keyup.enter="search"
@@ -89,35 +113,45 @@
     <v-divider/>
     <br>
     <!--itemsをthdataにする-->
-    <div
-      v-for="item in thdata"
-      :key="item.id"
-      router
-      exact>
-      <template v-if="item.flag == '1'">
+    <div 
+      v-for="item in thdata" 
+      :key="item.id" 
+      router 
+      exact
+    >
+      <template 
+        v-if="item.flag == '1'"
+      >
         <v-col>
-          <BBSCard
-            :item="item"
-            :user="userid"
-            @reflesh="reflesh"/>
+          <BBSCard 
+            :item="item" 
+            :user="userid" 
+            @reflesh="reflesh" 
+          />
         </v-col>
       </template>
       <!--凍結済みかつユーザが板立て人-->
-      <template v-else-if="item.flag == '2' && item.master_id == userid">
+      <template 
+        v-else-if="item.flag == '2' && item.master_id == userid"
+      >
         <v-col>
-          <BBSCard
-            :item="item"
-            :user="userid"
-            @reflesh="reflesh"/>
+          <BBSCard 
+            :item="item" 
+            :user="userid" 
+            @reflesh="reflesh" 
+          />
         </v-col>
       </template>
       <!--非表示かつユーザのロールが教師-->
-      <template v-else-if="item.flag == '3' && role == 'teacher'">
+      <template 
+        v-else-if="item.flag == '3' && role == 'teacher'"
+      >
         <v-col>
-          <BBSCard
-            :item="item"
-            :user="userid"
-            @reflesh="reflesh"/>
+          <BBSCard 
+            :item="item" 
+            :user="userid" 
+            @reflesh="reflesh" 
+          />
         </v-col>
       </template>
     </div>

@@ -6,22 +6,30 @@
     class="elevation-1 ma-12"
     disable-sort
   >
-    <template v-slot:top>
-      <v-toolbar
+    <template 
+      v-slot:top
+    >
+      <v-toolbar 
         flat
       >
-        <v-toolbar-title><h2>承認済みスレッド管理</h2></v-toolbar-title>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        ></v-divider>
+        <v-toolbar-title>
+          <h2>
+            承認済みスレッド管理
+          </h2>
+        </v-toolbar-title>
+        <v-divider 
+          class="mx-4" 
+          inset vertical
+        >
+        </v-divider>
         <v-spacer></v-spacer>
-        <v-dialog
-          v-model="dialog"
+        <v-dialog 
+          v-model="dialog" 
           max-width="500px"
         >
-          <template v-slot:activator="{ on, attrs }">
+          <template 
+            v-slot:activator="{ on, attrs }"
+          >
             <v-btn
               color="accent"
               dark
@@ -31,45 +39,54 @@
               v-bind="attrs"
               v-on="on"
             >
-          <v-icon dark>
-            mdi-plus
-          </v-icon>
+              <v-icon 
+                dark
+              > 
+              mdi-plus 
+              </v-icon>
             </v-btn>
           </template>
-          <v-form
-            ref="BBSaddform"
-            v-model="valid"
-            lazy-validation>
+          <v-form 
+            ref="BBSaddform" 
+            v-model="valid" 
+            lazy-validation
+          >
             <v-card>
               <v-card-title>
-                <span class="text-h5">{{ formTitle }}</span>
+                <span 
+                  class="text-h5"
+                >
+                {{ formTitle }}
+                </span>
               </v-card-title>
 
-            <!--ここから変更-->
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-text-field
-                    v-model="editedItem.title"
-                    label="スレッドタイトル"
-                    :rules="[rules.required]"
-                  ></v-text-field>
-                </v-row><v-row>
-                  <v-textarea
-                    v-model="editedItem.note"
-                    label="備考"
-                    outlined>
-                  </v-textarea>
-                </v-row>
-              </v-container>
-            </v-card-text>
+              <!--ここから変更-->
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-text-field
+                      v-model="editedItem.title"
+                      label="スレッドタイトル"
+                      :rules="[rules.required]"
+                    ></v-text-field> 
+                    </v-row>
+                    <v-row>
+                    <v-textarea 
+                      v-model="editedItem.note" 
+                      label="備考" 
+                      outlined
+                    >
+                    </v-textarea>
+                  </v-row>
+                </v-container>
+              </v-card-text>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                  color="red darken-2"
-                  text
-                  @click="close"
+                <v-btn 
+                 color="red darken-2" 
+                 text 
+                 @click="close"
                 >
                   キャンセル
                 </v-btn>
@@ -84,64 +101,123 @@
             </v-card>
           </v-form>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-dialog 
+          v-model="dialogDelete" 
+          max-width="500px"
+        >
           <v-card>
-            <v-card-title class="text-h5">スレッドを本当に非表示にしますか？</v-card-title>
-            <h3 class="text-center">{{editedItem.title}}</h3>
+            <v-card-title 
+              class="text-h5"
+            >
+            スレッドを本当に非表示にしますか？
+            </v-card-title>
+            <h3 
+              class="text-center"
+            >
+            {{ editedItem.title }}
+            </h3>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
-              <v-btn color="blue darken-1" text @click="blindItemConfirm">非表示</v-btn>
+              <v-btn 
+                color="red darken-2" 
+                text 
+                @click="closeDelete"
+              >
+              キャンセル
+              </v-btn>
+              <v-btn 
+                color="blue darken-1" 
+                text 
+                @click="blindItemConfirm"
+              >
+              非表示
+              </v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogUnblind" max-width="500px">
+        <v-dialog 
+          v-model="dialogUnblind" 
+          max-width="500px"
+        >
           <v-card>
-            <v-card-title class="text-h5">このスレッドを再表示しますか？</v-card-title>
-            <h3 class="text-center">{{editedItem.title}}</h3>
+            <v-card-title 
+              class="text-h5"
+            >
+            このスレッドを再表示しますか？
+            </v-card-title>
+            <h3 
+              class="text-center"
+            >
+            {{ editedItem.title }}
+            </h3>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="closeUnblind">キャンセル</v-btn>
-              <v-btn color="blue darken-1" text @click="unblindItemConfirm">非表示</v-btn>
+              <v-btn 
+                color="red darken-2" 
+                text 
+                @click="closeUnblind"
+              >
+              キャンセル
+              </v-btn>
+              <v-btn 
+                color="blue darken-1" 
+                text 
+                @click="unblindItemConfirm"
+              >
+              非表示
+              </v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:[`item.flag`]="flag">
-      <template v-if="flag.item.flag == '1'">
-        通常
+    <template 
+      v-slot:[`item.flag`]="flag"
+    >
+      <template 
+        v-if="flag.item.flag == '1'"
+      > 
+      通常 
       </template>
-      <template v-else-if="flag.item.flag == '2'">
-        凍結中
+      <template 
+        v-else-if="flag.item.flag == '2'"
+      > 凍結中 
       </template>
-      <template v-else-if="flag.item.flag == '3'">
-        非表示
+      <template 
+        v-else-if="flag.item.flag == '3'"
+      > 
+      非表示 
       </template>
     </template>
-    <template v-slot:[`item.actions`]="{ item }">
+    <template 
+      v-slot:[`item.actions`]="{ item }"
+    >
       <v-btn
         fab
         small
         v-if="item.flag == '1' || item.flag == '2'"
-        color="primary">
-        <v-icon
-          @click="blindItem(item)"
-          size="2em">
-          mdi-eye-outline
+        color="primary"
+      >
+        <v-icon 
+          @click="blindItem(item)" 
+          size="2em"
+        > 
+        mdi-eye-outline 
         </v-icon>
       </v-btn>
-      <v-btn
-        fab
-        small
-        v-if="item.flag == '3'"
-        color="gray">
-        <v-icon
-          @click="unblindItem(item)"
-          size="2em">
-          mdi-eye-off-outline
+      <v-btn 
+        fab 
+        small 
+        v-if="item.flag == '3'" 
+        color="gray"
+      >
+        <v-icon 
+          @click="unblindItem(item)" 
+          size="2em"
+        >
+        mdi-eye-off-outline
         </v-icon>
       </v-btn>
     </template>

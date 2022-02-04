@@ -1,65 +1,82 @@
 <template>
   <div>
     <!--ここの表示方法変える必要がある-->
-    <div
-      v-for="(title, i) in thdata"
-      :key="i"
-      exact>
+    <div 
+      v-for="(title, i) in thdata" 
+      :key="i" 
+      exact
+    >
       <v-card>
         <!--ここ増やす-->
-        <template v-if="title.flag == '0'">
+        <template 
+          v-if="title.flag == '0'"
+        >
           <h1>
-            <v-icon
-              size="1.5em">
-              mdi-message-text
+            <v-icon 
+              size="1.5em"
+            > 
+            mdi-message-text 
             </v-icon>
             掲示板-未承認
           </h1>
         </template>
-        <template v-else-if="title.flag == '1'">
+        <template 
+          v-else-if="title.flag == '1'"
+        >
           <h1>
-            <v-icon
-              size="1.5em">
-              mdi-message-text
+            <v-icon size="1.5em">
+              mdi-message-text 
             </v-icon>
             掲示板
           </h1>
         </template>
-        <template v-else-if="title.flag == '2'">
+        <template 
+          v-else-if="title.flag == '2'"
+        >
           <h1>
-            <v-icon
-              size="1.5em">
-              mdi-message-text
+            <v-icon 
+              size="1.5em"
+            > 
+            mdi-message-text 
             </v-icon>
             掲示板-凍結中
           </h1>
         </template>
-        <template v-else-if="title.flag == '3'">
+        <template 
+          v-else-if="title.flag == '3'"
+        >
           <h1>
-            <v-icon
-              size="1.5em">
-              mdi-message-text
+            <v-icon 
+              size="1.5em"
+            > 
+            mdi-message-text 
             </v-icon>
             掲示板-削除済み
           </h1>
         </template>
-          <v-btn
-            :loading="refbtn"
-            :disabled="refbtn"
-            class="ref"
-            color="primary"
-            size="0.5em"
-            fab
-            fixed
-            right
-            top
-            @click="loader = 'refbtn'">
-            <v-icon>mdi-reload</v-icon>
-          </v-btn>
-        <v-card color="accent">
-          <v-toolbar
-            color="accent"
-            elevation="0">
+        <v-btn
+          :loading="refbtn"
+          :disabled="refbtn"
+          class="ref"
+          color="primary"
+          size="0.5em"
+          fab
+          fixed
+          right
+          top
+          @click="loader = 'refbtn'"
+        >
+          <v-icon>
+            mdi-reload
+          </v-icon>
+        </v-btn>
+        <v-card 
+          color="accent"
+        >
+          <v-toolbar 
+            color="accent" 
+            elevation="0"
+          >
             <v-toolbar-title>
               {{title.title}}
             </v-toolbar-title>
@@ -68,12 +85,16 @@
 
         <v-list>
           <!--展開中のidに適合するコメントだけ回収したい-->
-          <div
-            v-for="(post, i) in cmdata"
-            :key="i"
-            exact>
-            <template v-if="post.thread_id == thread">
-              <BBSCom :post="post"
+          <div 
+            v-for="(post, i) in cmdata" 
+            :key="i" 
+            exact
+          >
+            <template 
+              v-if="post.thread_id == thread"
+            >
+              <BBSCom
+                :post="post"
                 :no="i + 1"
                 :user="userid"
                 @delete="reflesh"/>
@@ -83,9 +104,13 @@
       </v-card>
     </div>
 
-    <v-divider class="divide"/>
+    <v-divider 
+      class="divide" 
+    />
 
-    <div class="chat">
+    <div 
+      class="chat"
+    >
       <v-text-field
         v-model="newComment"
         @click:append="addPost"

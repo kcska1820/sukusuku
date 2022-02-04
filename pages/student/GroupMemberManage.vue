@@ -6,22 +6,29 @@
     class="elevation-1 ma-12"
     disable-sort
   >
-    <template v-slot:top>
-      <v-toolbar
+    <template 
+      v-slot:top
+    >
+      <v-toolbar 
         flat
       >
-        <v-toolbar-title><h2>{{groupname}}</h2></v-toolbar-title>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
+        <v-toolbar-title>
+          <h2>
+            {{ groupname }}
+          </h2>
+        </v-toolbar-title>
+        <v-divider 
+          class="mx-4" 
+          inset vertical
         ></v-divider>
         <v-spacer></v-spacer>
-        <v-dialog
-          v-model="dialog"
+        <v-dialog 
+          v-model="dialog" 
           max-width="500px"
         >
-          <template v-slot:activator="{ on, attrs }">
+          <template 
+            v-slot:activator="{ on, attrs }"
+          >
             <v-btn
               color="accent"
               small
@@ -32,16 +39,25 @@
               v-bind="attrs"
               v-on="on"
             >
-            <v-icon dark>
-              mdi-plus
-            </v-icon>
+              <v-icon 
+                dark
+              > 
+              mdi-plus 
+              </v-icon>
             </v-btn>
           </template>
-          <v-form ref="addform" @submit.prevent>
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">{{ formTitle }}</span>
-            </v-card-title>
+          <v-form 
+            ref="addform" 
+            @submit.prevent
+          >
+            <v-card>
+              <v-card-title>
+                <span 
+                  class="text-h5"
+                >
+                {{ formTitle }}
+                </span>
+              </v-card-title>
 
             <v-card-text>
               <v-container>
@@ -54,64 +70,101 @@
               </v-container>
             </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="red darken-2"
-                text
-                @click="close"
-              >
-                キャンセル
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="save"
-                @keyup.enter="enter"
-              >
-                追加
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn 
+                  color="red darken-2" 
+                  text @click="close"
+                >
+                  キャンセル
+                </v-btn>
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="save"
+                  @keyup.enter="enter"
+                >
+                  追加
+                </v-btn>
+              </v-card-actions>
+            </v-card>
           </v-form>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-dialog 
+          v-model="dialogDelete" 
+          max-width="500px"
+        >
           <v-card>
-            <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
-            <h3 class="text-center">{{editedItem.name}}</h3>
+            <v-card-title 
+              class="text-h5"
+            >
+            本当に削除しますか？
+            </v-card-title>
+            <h3 
+            class="text-center"
+            >
+            {{ editedItem.name }}
+            </h3>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="closeDelete">キャンセル</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">削除</v-btn>
+              <v-btn 
+                color="red darken-2" 
+                text 
+                @click="closeDelete"
+                >
+                キャンセル
+              </v-btn>
+              <v-btn 
+                color="blue darken-1" 
+                text 
+                @click="deleteItemConfirm"
+              >
+              削除
+              </v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogMatch" max-width="500px">
+        <v-dialog 
+          v-model="dialogMatch" 
+          max-width="500px"
+        >
           <v-card>
-            <v-card-title class="text-h5 justify-center">既に登録されています</v-card-title>
+            <v-card-title 
+              class="text-h5 justify-center"
+            >
+            既に登録されています
+            </v-card-title >
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="closeDelete">閉じる</v-btn>
+              <v-btn 
+                color="red darken-2" 
+                text 
+                @click="closeDelete"
+              >
+              閉じる
+              </v-btn >
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:[`item.actions`]="{ item }">
-    <v-btn
-      fab
-      small
-      color="primary"
-      @click="deleteItem(item)"
+    <template 
+      v-slot:[`item.actions`]="{ item }"
     >
-      <v-icon
-        size="2em"
+      <v-btn 
+        fab 
+        small 
+        color="primary" 
+        @click="deleteItem(item)"
       >
-        mdi-delete
-      </v-icon>
-    </v-btn>
+        <v-icon 
+          size="2em"
+        > 
+        mdi-delete 
+        </v-icon>
+      </v-btn>
     </template>
   </v-data-table>
 </template>

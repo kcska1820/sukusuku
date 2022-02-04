@@ -1,27 +1,54 @@
 <template>
-  <v-card color="accent">
+  <v-card
+    color="accent"
+  >
     <v-card-title>
       <h3>
-        <v-icon size="1.3em">mdi-archive-clock-outline</v-icon
-        >&emsp;イベントカウントダウン
+        <v-icon
+        size="1.3em"
+        >
+          mdi-archive-clock-outline
+        </v-icon>
+          &emsp;イベントカウントダウン
       </h3>
     </v-card-title>
     <div>
-      <v-divider></v-divider>
-      <v-virtual-scroll :items="items" :item-height="90" height="250">
-        <template v-slot:default="{ item }">
+      <v-divider>
+      </v-divider>
+      <v-virtual-scroll
+        :items="items"
+        :item-height="90"
+        height="250"
+      >
+        <template
+          v-slot:default="{ item }"
+        >
           <v-list-item>
             <v-flex>
-              <v-card height="85" class="headline" min-width="240" color="info">
+              <v-card
+                height="85"
+                class="headline"
+                min-width="240"
+                color="info"
+              >
                 <v-card-title>
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                      <span v-bind="attrs" v-on="on" :style="item.color">{{
-                        item.title.slice(0, 10)
-                      }}</span>
+                  <v-tooltip
+                    bottom
+                  >
+                    <template
+                      v-slot:activator="{ on, attrs }"
+                    >
+                      <span
+                      v-bind="attrs"
+                      v-on="on"
+                      :style="item.color"
+                      >
+                        {{item.title.slice(0, 10)}}
+                      </span>
                     </template>
                     <span>
-                      {{ item.title }}<br />
+                      {{ item.title }}
+                      <br />
                       {{ item.details }}
                     </span>
                   </v-tooltip>

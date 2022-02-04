@@ -18,20 +18,35 @@
           exact
         >
           <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>
+              {{ item.icon }}
+            </v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" class="white--text" />
+            <v-list-item-title
+              v-text="item.title"
+              class="white--text"
+            />
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed color="accent" app>
+    <v-app-bar
+      :clipped-left="clipped"
+      fixed color="accent"
+      app
+    >
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"
         v-if="!$vuetify.breakpoint.xs"
       />
-      <v-btn text fab height="46px" width="46px" to="/student/home">
+      <v-btn
+        text
+        fab
+        height="46px"
+        width="46px"
+        to="/student/home"
+      >
         <sukusukuLogoS />
       </v-btn>
       <v-spacer />

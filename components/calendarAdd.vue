@@ -1,35 +1,92 @@
 <template>
-  <v-dialog v-model="dialog" max-width="600px">
-    <template v-slot:activator="{ on, attrs }">
-      <v-btn color="button" v-bind="attrs" v-on="on" @click="addSet" icon>
-        <v-icon> mdi-plus </v-icon>
+  <v-dialog
+    v-model="dialog"
+    max-width="600px"
+  >
+    <template
+      v-slot:activator="{ on, attrs }"
+    >
+      <v-btn
+        color="button"
+        v-bind="attrs"
+        v-on="on"
+        @click="addSet"
+        icon
+      >
+        <v-icon>
+          mdi-plus
+        </v-icon>
       </v-btn>
     </template>
-    <v-container fluid fill-height>
-      <v-layout xs12 sm8 md4>
+    <v-container
+      fluid
+      fill-height
+    >
+      <v-layout
+        xs12
+        sm8
+        md4
+      >
         <v-flex>
-          <v-form ref="addform">
+          <v-form
+            ref="addform"
+          >
             <v-card>
-              <v-toolbar color="accent">
-                <v-toolbar-title> 予定追加 </v-toolbar-title>
+              <v-toolbar
+                color="accent"
+              >
+                <v-toolbar-title>
+                  予定追加
+                </v-toolbar-title>
               </v-toolbar>
-              <v-tabs v-model="tab" grow>
-                <v-tab>プライベート</v-tab>
-                <v-tab>グループ</v-tab>
+              <v-tabs
+                v-model="tab"
+                grow
+              >
+                <v-tab>
+                  プライベート
+                </v-tab>
+                <v-tab>
+                  グループ
+                </v-tab>
               </v-tabs>
-              <v-tabs-items v-model="tab">
+              <v-tabs-items
+                v-model="tab"
+              >
                 <v-tab-item>
                   <v-card-text>
-                    <v-form :rules="[rules.required]">
-                      <v-col class="d-flex justify-space-around pt-4">
-                        <p>開始日時 :</p>
-                        <input type="date" v-model="startDay" />
-                        <input type="time" v-model="startTime" />
+                    <v-form
+                      :rules="[rules.required]"
+                    >
+                      <v-col
+                        class="d-flex justify-space-around pt-4"
+                      >
+                        <p>
+                          開始日時 :
+                        </p>
+                        <input
+                          type="date"
+                          v-model="startDay"
+                        />
+                        <input
+                          type="time"
+                          v-model="startTime"
+                        />
                       </v-col>
-                      <v-col class="d-flex justify-space-around pt-4">
-                        <p>終了日時 :</p>
-                        <input type="date" v-model="endDay" />
-                        <input type="time" v-model="endTime" />
+                      <v-col
+                        class="d-flex justify-space-around pt-4"
+                      >
+                        <p>
+                          終了日時 :
+                        </p>
+                        <input
+                          type="date"
+                          v-model="endDay"
+                        />
+                        <input
+                          type="time"
+                          v-model="endTime"
+                        />
                       </v-col>
                       <v-text-field
                         counter="100"
@@ -54,7 +111,9 @@
                     </v-form>
                   </v-card-text>
                   <v-card-actions>
-                    <v-col cols="6">
+                    <v-col
+                      cols="6"
+                    >
                       <v-btn
                         color="red darken-2 white--text"
                         block
@@ -63,7 +122,9 @@
                         閉じる
                       </v-btn>
                     </v-col>
-                    <v-col cols="6">
+                    <v-col
+                      cols="6"
+                    >
                       <v-btn
                         color="blue darken-1 white--text"
                         block
@@ -76,14 +137,30 @@
                 </v-tab-item>
                 <v-tab-item>
                   <v-card-text>
-                    <v-form :rules="[rules.required]">
-                      <v-col class="d-flex justify-space-around pt-4">
-                        <p>開始日時 :</p>
-                        <input type="date" v-model="startDay" />
-                        <input type="time" v-model="startTime" />
+                    <v-form
+                      :rules="[rules.required]"
+                    >
+                      <v-col
+                        class="d-flex justify-space-around pt-4"
+                      >
+                        <p>
+                          開始日時 :
+                        </p>
+                        <input
+                          type="date"
+                          v-model="startDay"
+                        />
+                        <input
+                          type="time"
+                          v-model="startTime"
+                        />
                       </v-col>
-                      <v-col class="d-flex justify-space-around pt-4">
-                        <p>終了日時 :</p>
+                      <v-col
+                        class="d-flex justify-space-around pt-4"
+                      >
+                        <p>
+                          終了日時 :
+                        </p>
                         <input
                           type="date"
                           v-model="endDay"
@@ -126,7 +203,9 @@
                     </v-form>
                   </v-card-text>
                   <v-card-actions>
-                    <v-col cols="6">
+                    <v-col
+                      cols="6"
+                    >
                       <v-btn
                         color="red darken-2 white--text"
                         block

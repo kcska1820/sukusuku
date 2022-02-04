@@ -1,6 +1,10 @@
 <template>
-  <v-tooltip bottom>
-    <template v-slot:activator="{ on, attrs }">
+  <v-tooltip
+    bottom
+  >
+    <template
+      v-slot:activator="{ on, attrs }"
+    >
       <v-icon
         color="white"
         v-bind="attrs"
@@ -11,7 +15,9 @@
         mdi-login
       </v-icon>
     </template>
-    <span>ログイン</span>
+    <span>
+      ログイン
+    </span>
   </v-tooltip>
 </template>
 

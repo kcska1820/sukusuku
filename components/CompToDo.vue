@@ -1,10 +1,23 @@
 <template>
-  <v-card color="accent">
-    <h1 class="mt-06">
-      <v-icon size="1em">mdi-notebook-check-outline</v-icon>&emsp;Todoリスト
+  <v-card
+    color="accent"
+  >
+    <h1
+      class="mt-06"
+    >
+      <v-icon
+      size="1em"
+      >
+        mdi-notebook-check-outline
+      </v-icon>
+      &emsp;Todoリスト
     </h1>
-    <v-divider></v-divider>
-    <v-form ref="Todo" @submit.prevent>
+    <v-divider>
+    </v-divider>
+    <v-form
+      ref="Todo"
+      @submit.prevent
+    >
       <v-text-field
         v-model="newTaskTitle"
         @click:append="addTask"
@@ -18,9 +31,19 @@
         :rules="[rules.required]"
       ></v-text-field>
     </v-form>
-    <v-virtual-scroll :items="items" :item-height="49" height="150">
-      <template v-slot:default="{ item }">
-        <v-card max-height="45" class="d-flex align-center mx-2" color="info">
+    <v-virtual-scroll
+      :items="items"
+      :item-height="49"
+      height="150"
+    >
+      <template
+        v-slot:default="{ item }"
+      >
+        <v-card
+          max-height="45"
+          class="d-flex align-center mx-2"
+          color="info"
+        >
           <v-list-item>
             <v-list-item-action>
               <v-checkbox
@@ -33,17 +56,35 @@
               <v-list-item-title
                 :class="{ 'text-decoration-line-through': item.done }"
               >
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on, attrs }">
-                    <span v-bind="attrs" v-on="on">{{ item.title }}</span>
+                <v-tooltip
+                  bottom
+                >
+                  <template
+                    v-slot:activator="{ on, attrs }"
+                  >
+                    <span
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      {{ item.title }}
+                    </span>
                   </template>
-                  <span>{{ item.date }}:{{ item.title }}</span>
+                  <span>
+                    {{ item.date }}:{{ item.title }}
+                  </span>
                 </v-tooltip>
               </v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
-              <v-btn @click.stop="deleteTask(item.id)" icon>
-                <v-icon color="button">mdi-delete-circle</v-icon>
+              <v-btn
+                @click.stop="deleteTask(item.id)"
+                icon
+              >
+                <v-icon
+                  color="button"
+                >
+                  mdi-delete-circle
+                </v-icon>
               </v-btn>
             </v-list-item-action>
           </v-list-item>

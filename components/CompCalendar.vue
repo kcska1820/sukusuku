@@ -1,95 +1,248 @@
 <template>
-  <v-row class="fill-height" color="primary">
-    <v-col cols="12">
+  <v-row
+    class="fill-height"
+    color="primary"
+  >
+    <v-col
+      cols="12"
+    >
       <!-- カレンダーツールバー -->
-      <v-sheet height="65">
-        <v-toolbar color="accent" flat>
-          <v-btn class="mr-4" color="primary" @click="setToday"> Today </v-btn>
-          <v-btn fab text small color="button" @click="prev">
-            <v-icon small> mdi-chevron-left </v-icon>
+      <v-sheet
+        height="65"
+      >
+        <v-toolbar
+          color="accent"
+          flat
+        >
+          <v-btn
+            class="mr-4"
+            color="primary"
+            @click="setToday"
+          >
+            Today
           </v-btn>
-          <v-btn fab text small color="button" @click="next">
-            <v-icon small> mdi-chevron-right </v-icon>
+          <v-btn
+            fab
+            text
+            small
+            color="button"
+            @click="prev"
+          >
+            <v-icon
+              small
+            >
+              mdi-chevron-left
+            </v-icon>
           </v-btn>
-          <v-toolbar-title v-if="$refs.calendar">
+          <v-btn
+            fab
+            text
+            small
+            color="button"
+            @click="next"
+          >
+            <v-icon
+              small
+            >
+              mdi-chevron-right
+            </v-icon>
+          </v-btn>
+          <v-toolbar-title
+            v-if="$refs.calendar"
+          >
             {{ $refs.calendar.title }}
           </v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn @click="updateRange" icon
-            ><v-icon color="button">mdi-restore</v-icon></v-btn
+          <v-spacer>
+          </v-spacer>
+          <v-btn
+            @click="updateRange"
+            icon
           >
-          <calendarAdd v-if="role == 'student'" />
-          <TeachercalendarAdd v-else-if="role == 'teacher'" />
-          <v-menu bottom right>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" v-bind="attrs" v-on="on">
-                <span>{{ typeToLabel[type] }}</span>
-                <v-icon right> mdi-menu-down </v-icon>
+            <v-icon
+              color="button"
+            >
+              mdi-restore
+            </v-icon>
+          </v-btn>
+          <calendarAdd
+            v-if="role == 'student'"
+          />
+          <TeachercalendarAdd
+            v-else-if="role == 'teacher'"
+          />
+          <v-menu
+            bottom
+            right
+          >
+            <template
+              v-slot:activator="{ on, attrs }"
+            >
+              <v-btn
+                color="primary"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <span>
+                  {{ typeToLabel[type] }}
+                </span>
+                <v-icon
+                  right
+                >
+                  mdi-menu-down
+                </v-icon>
               </v-btn>
             </template>
             <v-list>
-              <v-list-item @click="type = 'category'">
-                <v-list-item-title>Day</v-list-item-title>
+              <v-list-item
+                @click="type = 'category'"
+              >
+                <v-list-item-title>
+                  Day
+                </v-list-item-title>
               </v-list-item>
-              <v-list-item @click="type = 'week'">
-                <v-list-item-title>Week</v-list-item-title>
+              <v-list-item
+                @click="type = 'week'"
+              >
+                <v-list-item-title>
+                  Week
+                </v-list-item-title>
               </v-list-item>
-              <v-list-item @click="type = 'month'">
-                <v-list-item-title>Month</v-list-item-title>
+              <v-list-item
+                @click="type = 'month'"
+              >
+                <v-list-item-title>
+                  Month
+                </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
         </v-toolbar>
       </v-sheet>
       <!-- 削除確認 -->
-      <v-dialog v-model="DeleteDialog" max-width="500px">
-        <v-card color="info">
-          <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
+      <v-dialog
+        v-model="DeleteDialog"
+        max-width="500px"
+      >
+        <v-card
+          color="info"
+        >
+          <v-card-title
+            class="text-h5"
+          >
+            本当に削除しますか？
+          </v-card-title>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="red darken-2" text @click="close">キャンセル</v-btn>
-            <v-btn color="blue darken-1" text @click="deleteSchedule"
-              >削除</v-btn
+            <v-spacer>
+            </v-spacer>
+            <v-btn
+              color="red darken-2"
+              text
+              @click="close"
             >
-            <v-spacer></v-spacer>
+              キャンセル
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="deleteSchedule"
+            >
+            削除
+            </v-btn>
+            <v-spacer>
+            </v-spacer>
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-dialog v-model="TTDialog" max-width="500px">
+      <v-dialog
+        v-model="TTDialog"
+        max-width="500px"
+      >
         <v-card>
-          <v-card-title class="text-h5 justify-center"
-            >時間割は編集できません</v-card-title
+          <v-card-title
+          class="text-h5 justify-center"
           >
+            時間割は編集できません
+          </v-card-title>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="red darken-2" text @click="close">閉じる</v-btn>
-            <v-spacer></v-spacer>
+            <v-spacer>
+            </v-spacer>
+            <v-btn
+              color="red darken-2"
+              text
+              @click="close"
+            >
+            閉じる
+            </v-btn>
+            <v-spacer>
+            </v-spacer>
           </v-card-actions>
         </v-card>
       </v-dialog>
       <!-- スケジュール更新 -->
-      <v-dialog v-model="EditDialog" max-width="600px">
-        <v-container fluid fill-height>
-          <v-layout xs12 sm8 md4>
+      <v-dialog
+        v-model="EditDialog"
+        max-width="600px"
+      >
+        <v-container
+          fluid
+          fill-height
+        >
+          <v-layout
+            xs12
+            sm8
+            md4
+          >
             <v-flex>
               <v-card>
-                <v-toolbar color="accent">
-                  <v-toolbar-title> 予定更新 </v-toolbar-title>
+                <v-toolbar
+                  color="accent"
+                >
+                  <v-toolbar-title>
+                    予定更新
+                  </v-toolbar-title>
                 </v-toolbar>
                 <v-card-text>
-                  <v-form v-if="categorys == 'プライベート'">
-                    <v-col class="d-flex justify-space-around pt-4">
-                      <p>開始日時 :</p>
-                      <input type="date" v-model="startDay" />
-                      <input type="time" v-model="startTime" />
+                  <v-form
+                    v-if="categorys == 'プライベート'"
+                  >
+                    <v-col
+                      class="d-flex justify-space-around pt-4"
+                    >
+                      <p>
+                        開始日時 :
+                      </p>
+                      <input
+                        type="date"
+                        v-model="startDay"
+                      />
+                      <input
+                        type="time"
+                        v-model="startTime"
+                      />
                     </v-col>
-                    <v-col class="d-flex justify-space-around pt-4">
-                      <p>終了日時 :</p>
-                      <input type="date" v-model="endDay" />
-                      <input type="time" v-model="endTime" />
+                    <v-col
+                      class="d-flex justify-space-around pt-4"
+                    >
+                      <p>
+                        終了日時 :
+                      </p>
+                      <input
+                        type="date"
+                        v-model="endDay"
+                      />
+                      <input
+                        type="time"
+                        v-model="endTime"
+                      />
                     </v-col>
-                    <v-text-field label="タイトル" v-model="title" />
-                    <v-text-field label="内容" v-model="details" />
+                    <v-text-field
+                      label="タイトル"
+                      v-model="title"
+                    />
+                    <v-text-field
+                      label="内容"
+                      v-model="details"
+                    />
                     <v-select
                       label="カラー"
                       v-model="color"
@@ -98,19 +251,45 @@
                       item-value="value"
                     />
                   </v-form>
-                  <v-form v-if="categorys == 'グループ'">
-                    <v-col class="d-flex justify-space-around pt-4">
-                      <p>開始日時 :</p>
-                      <input type="date" v-model="startDay" />
-                      <input type="time" v-model="startTime" />
+                  <v-form
+                    v-if="categorys == 'グループ'"
+                  >
+                    <v-col
+                      class="d-flex justify-space-around pt-4"
+                    >
+                      <p>
+                        開始日時 :
+                      </p>
+                      <input
+                        type="date"
+                        v-model="startDay"
+                      />
+                      <input
+                        type="time"
+                        v-model="startTime"
+                      />
                     </v-col>
-                    <v-col class="d-flex justify-space-around pt-4">
+                    <v-col
+                      class="d-flex justify-space-around pt-4"
+                    >
                       <p>終了日時 :</p>
-                      <input type="date" v-model="endDay" />
-                      <input type="time" v-model="endTime" />
+                      <input
+                        type="date"
+                        v-model="endDay"
+                      />
+                      <input
+                        type="time"
+                        v-model="endTime"
+                      />
                     </v-col>
-                    <v-text-field label="タイトル" v-model="title" />
-                    <v-text-field label="内容" v-model="details" />
+                    <v-text-field
+                      label="タイトル"
+                      v-model="title"
+                    />
+                    <v-text-field
+                      label="内容"
+                      v-model="details"
+                    />
                     <v-select
                       label="カラー"
                       v-model="color"
@@ -130,17 +309,41 @@
                     v-if="categorys == '時間割' && selectedEvent.timed == 1"
                   >
                     <v-col class="d-flex justify-space-around pt-4">
-                      <p>開始日時 :</p>
-                      <input type="date" v-model="startDay" />
-                      <input type="time" v-model="startTime" />
+                      <p>
+                        開始日時 :
+                      </p>
+                      <input
+                        type="date"
+                        v-model="startDay"
+                      />
+                      <input
+                        type="time"
+                        v-model="startTime"
+                      />
                     </v-col>
-                    <v-col class="d-flex justify-space-around pt-4">
-                      <p>終了日時 :</p>
-                      <input type="date" v-model="endDay" />
-                      <input type="time" v-model="endTime" />
+                    <v-col
+                      class="d-flex justify-space-around pt-4"
+                    >
+                      <p>
+                        終了日時 :
+                      </p>
+                      <input
+                        type="date"
+                        v-model="endDay"
+                      />
+                      <input
+                        type="time"
+                        v-model="endTime"
+                      />
                     </v-col>
-                    <v-text-field label="タイトル" v-model="title" />
-                    <v-text-field label="内容" v-model="details" />
+                    <v-text-field
+                      label="タイトル"
+                      v-model="title"
+                    />
+                    <v-text-field
+                      label="内容"
+                      v-model="details"
+                    />
                     <v-select
                       label="カラー"
                       v-model="color"
@@ -160,15 +363,31 @@
                     v-if="categorys == '時間割' && selectedEvent.timed == 0"
                   >
                     <v-col class="d-flex justify-space-around pt-4">
-                      <p>開始日 :</p>
-                      <input type="date" v-model="startDay" />
+                      <p>
+                        開始日 :
+                      </p>
+                      <input
+                        type="date"
+                        v-model="startDay"
+                      />
                     </v-col>
-                    <v-col class="d-flex justify-space-around pt-4">
+                    <v-col
+                      class="d-flex justify-space-around pt-4"
+                    >
                       <p>終了日 :</p>
-                      <input type="date" v-model="endDay" />
+                      <input
+                        type="date"
+                        v-model="endDay"
+                      />
                     </v-col>
-                    <v-text-field label="タイトル" v-model="title" />
-                    <v-text-field label="内容" v-model="details" />
+                    <v-text-field
+                      label="タイトル"
+                      v-model="title"
+                    />
+                    <v-text-field
+                      label="内容"
+                      v-model="details"
+                    />
                     <v-select
                       label="カラー"
                       v-model="color"
@@ -186,7 +405,9 @@
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
-                  <v-col cols="6">
+                  <v-col
+                    cols="6"
+                  >
                     <v-btn
                       color="red darken-2 white--text"
                       block
@@ -195,7 +416,9 @@
                       閉じる
                     </v-btn>
                   </v-col>
-                  <v-col cols="6">
+                  <v-col
+                    cols="6"
+                  >
                     <v-btn
                       color="blue darken-1 white--text"
                       block
@@ -211,7 +434,9 @@
         </v-container>
       </v-dialog>
       <!-- カレンダー本体 -->
-      <v-sheet height="550">
+      <v-sheet
+        height="550"
+      >
         <v-calendar
           ref="calendar"
           v-model="focus"
@@ -232,24 +457,47 @@
           :activator="selectedElement"
           offset-y
         >
-          <v-card color="grey lighten-4" width="350px" flat>
-            <v-toolbar :color="selectedEvent.color" dark>
-              <v-btn icon @click="openEdit">
-                <v-icon>mdi-pencil</v-icon>
+          <v-card
+            color="grey lighten-4"
+            width="350px"
+            flat
+          >
+            <v-toolbar
+              :color="selectedEvent.color"
+              dark
+            >
+              <v-btn
+                icon
+                @click="openEdit"
+              >
+                <v-icon>
+                  mdi-pencil
+                </v-icon>
               </v-btn>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on, attrs }">
+              <v-tooltip
+                bottom
+              >
+                <template
+                  v-slot:activator="{ on, attrs }"
+                >
                   <v-toolbar-title
                     v-bind="attrs"
                     v-on="on"
                     v-html="selectedEvent.name"
                   ></v-toolbar-title>
                 </template>
-                <span>{{ selectedEvent.groupname }}</span>
+                <span>
+                  {{ selectedEvent.groupname }}
+                </span>
               </v-tooltip>
               <v-spacer></v-spacer>
-              <v-btn icon @click="DeleteDialog = true">
-                <v-icon>mdi-delete</v-icon>
+              <v-btn
+                icon
+                @click="DeleteDialog = true"
+              >
+                <v-icon>
+                  mdi-delete
+                </v-icon>
               </v-btn>
             </v-toolbar>
             <v-card-text>
@@ -261,7 +509,11 @@
               ></v-text-field>
             </v-card-text>
             <v-card-actions>
-              <v-btn text color="secondary" @click="selectedOpen = false">
+              <v-btn
+                text
+                color="secondary"
+                @click="selectedOpen = false"
+              >
                 Cancel
               </v-btn>
             </v-card-actions>

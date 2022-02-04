@@ -1,6 +1,12 @@
 <template>
-  <v-footer color="primary" padless>
-    <v-row justify="center" no-gutters>
+  <v-footer
+    color="primary"
+    padless
+  >
+    <v-row
+      justify="center"
+      no-gutters
+    >
       <v-btn
         v-for="(link, i) in links"
         :key="i"
@@ -12,8 +18,13 @@
       >
         {{ link.title }}
       </v-btn>
-      <v-col class="secondary py-4 text-center white--text" cols="12">
-        <strong>スクスク～suku-suku～</strong>
+      <v-col
+        class="secondary py-4 text-center white--text"
+        cols="12"
+      >
+        <strong>
+          スクスク～suku-suku～
+        </strong>
       </v-col>
     </v-row>
   </v-footer>

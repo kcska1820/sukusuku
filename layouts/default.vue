@@ -1,5 +1,7 @@
 <template>
-  <v-app class="v-application">
+  <v-app
+    class="v-application"
+  >
     <CompHeader />
     <v-main>
       <v-container>

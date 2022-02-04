@@ -1,10 +1,18 @@
 <template>
   <div>
-    <v-col class="d-flex justify-center" cols="12">
+    <v-col
+      class="d-flex justify-center"
+      cols="12"
+    >
       <sukusukuLogo />
     </v-col>
-    <v-col class="d-flex justify-center" cols="12">
-      <h1 class="font-italic">
+    <v-col
+      class="d-flex justify-center"
+      cols="12"
+    >
+      <h1
+        class="font-italic"
+      >
         スクスクはあなたの学生生活をより良いものにします。
       </h1>
     </v-col>

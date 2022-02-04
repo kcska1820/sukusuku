@@ -7,10 +7,23 @@
     class="elevation-1 ma-12"
     disable-sort
   >
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-toolbar-title><h2>イベント管理</h2></v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
+    <template 
+      v-slot:top
+    >
+      <v-toolbar 
+        flat
+      >
+        <v-toolbar-title>
+          <h2>
+            イベント管理
+          </h2>
+        </v-toolbar-title>
+        <v-divider 
+          class="mx-4" 
+          inset 
+          vertical
+        >
+        </v-divider>
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -19,8 +32,13 @@
           single-line
           hide-details
         ></v-text-field>
-        <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on, attrs }">
+        <v-dialog 
+          v-model="dialog" 
+          max-width="500px"
+        >
+          <template 
+            v-slot:activator="{ on, attrs }"
+          >
             <v-btn
               color="accent"
               dark
@@ -31,38 +49,64 @@
               v-bind="attrs"
               v-on="on"
             >
-              <v-icon dark> mdi-plus </v-icon>
+              <v-icon 
+                dark
+              > 
+              mdi-plus 
+              </v-icon>
             </v-btn>
           </template>
-          <v-form ref="Eventform">
+          <v-form 
+            ref="Eventform"
+          >
             <v-card>
               <v-card-title>
-                <span class="text-h5">{{ formTitle }}</span>
+                <span 
+                  class="text-h5"
+                >
+                {{ formTitle }}
+                </span>
               </v-card-title>
 
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col 
+                      cols="12" 
+                      sm="6" 
+                      md="6"
+                    >
                       <v-text-field
                         v-model="editedItem.eventname"
                         label="イベント名"
                         :rules="[rules.required, rules.limit_length_100]"
                         counter="100"
-                      ></v-text-field>
+                      >
+                      </v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col 
+                      cols="12" 
+                      sm="6"
+                      md="6"
+                    >
                       <v-text-field
                         v-model="editedItem.eventdetails"
                         label="イベント詳細"
                         :rules="[rules.limit_length_100]"
                         counter="100"
-                      ></v-text-field>
+                      >
+                      </v-text-field>
                     </v-col>
                   </v-row>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6">
-                      <p>締め切り日 :</p>
+                    <v-col 
+                      cols="12" 
+                      sm="6" 
+                      md="6"
+                    >
+                      <p>
+                        締め切り日 :
+                      </p>
                       <input
                         type="date"
                         v-model="editedItem.end"
@@ -70,7 +114,11 @@
                         :rules="[rules.required]"
                       />
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col 
+                      cols="12" 
+                      sm="6" 
+                      md="6"
+                    >
                       <v-select
                         label="クラス"
                         v-model="editedItem.clas"
@@ -86,29 +134,58 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red darken-2" text @click="close">
+                <v-btn 
+                  color="red darken-2" 
+                  text 
+                  @click="close"
+                >
                   キャンセル
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="save"> 作成 </v-btn>
+                <v-btn 
+                  color="blue darken-1" 
+                  text 
+                  @click="save"
+                > 
+                作成 
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-form>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-dialog 
+          v-model="dialogDelete" 
+          max-width="500px"
+        >
           <v-card>
-            <v-card-title class="text-h5">本当に削除しますか？</v-card-title>
-            <h3 class="text-center">
-              {{ editedItem.title }}<v-spacer></v-spacer
-              >{{ editedItem.classid__classname }}
+            <v-card-title 
+              class="text-h5"
+            >
+            本当に削除しますか？
+            </v-card-title>
+            <h3 
+              class="text-center"
+            >
+              {{ editedItem.title }}
+              <v-spacer></v-spacer
+              >
+              {{ editedItem.classid__classname }}
             </h3>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="closeDelete"
-                >キャンセル</v-btn
+              <v-btn 
+                color="red darken-2" 
+                text 
+                @click="closeDelete"
               >
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                >削除</v-btn
+              キャンセル
+              </v-btn>
+              <v-btn 
+                color="blue darken-1" 
+                text 
+                @click="deleteItemConfirm"
               >
+              削除
+              </v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -116,9 +193,19 @@
       </v-toolbar>
     </template>
 
-    <template v-slot:[`item.actions`]="{ item }">
-      <v-btn fab small color="primary">
-        <v-icon @click="deleteItem(item)"> mdi-delete </v-icon>
+    <template 
+      v-slot:[`item.actions`]="{ item }"
+    >
+      <v-btn 
+        fab 
+        small 
+        color="primary"
+      >
+        <v-icon 
+          @click="deleteItem(item)"
+        > 
+        mdi-delete 
+        </v-icon>
       </v-btn>
     </template>
   </v-data-table>

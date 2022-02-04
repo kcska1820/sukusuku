@@ -7,12 +7,30 @@
     class="elevation-1"
     disable-sort
   >
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-icon size="1.5em" color="icon"> mdi-account-details </v-icon>
+    <template 
+      v-slot:top
+    >
+      <v-toolbar 
+        flat
+      >
+        <v-icon 
+          size="1.5em" 
+          color="icon"
+        > 
+          mdi-account-details 
+        </v-icon>
 
-        <v-toolbar-title><h2>学生管理</h2></v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-toolbar-title>
+          <h2>
+            学生管理
+          </h2>
+        </v-toolbar-title>
+        <v-divider 
+          class="mx-4" 
+          inset 
+          vertical
+        >
+        </v-divider>
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -20,9 +38,15 @@
           label="IDでメンバーを検索"
           single-line
           hide-details
-        ></v-text-field>
-        <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on, attrs }">
+        >
+        </v-text-field>
+        <v-dialog 
+          v-model="dialog" 
+          max-width="500px"
+        >
+          <template 
+            v-slot:activator="{ on, attrs }"
+          >
             <v-btn
               color="accent"
               dark
@@ -32,64 +56,114 @@
               v-bind="attrs"
               v-on="on"
             >
-              <v-icon dark> mdi-plus </v-icon>
+              <v-icon 
+                dark
+              > 
+              mdi-plus 
+              </v-icon>
             </v-btn>
           </template>
-          <v-form ref="addform">
-            <v-card v-model="sheet">
-              <v-toolbar color="accent">
+          <v-form 
+            ref="addform"
+          >
+            <v-card 
+              v-model="sheet"
+            >
+              <v-toolbar 
+                color="accent"
+              >
                 <v-toolbar-title>
-                  <span class="text-h5">学生{{ formTitle }}</span>
+                  <span 
+                    class="text-h5"
+                  >
+                  学生 {{ formTitle }}
+                  </span>
                 </v-toolbar-title>
               </v-toolbar>
-              <v-tabs v-model="tab" grow>
-                <v-tab>一人{{ formTitle }}</v-tab>
-                <v-tab>一括{{ formTitle }}</v-tab>
+              <v-tabs 
+                v-model="tab" grow
+              >
+                <v-tab>
+                  一人{{ formTitle }}
+                </v-tab>
+                <v-tab>
+                  一括{{ formTitle }}
+                </v-tab>
               </v-tabs>
-              <v-tabs-items v-model="tab">
+              <v-tabs-items 
+                v-model="tab"
+              >
                 <v-tab-item>
                   <v-card-text>
                     <v-container>
                       <v-row>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col 
+                          cols="12" 
+                          sm="6" 
+                          md="4"
+                        >
                           <v-text-field
                             v-model="editedItem.userid"
                             label="ユーザーID(学籍番号)"
                             :rules="[rules.required, rules.max]"
                             :disabled="textdisabled"
-                          ></v-text-field>
+                          >
+                          </v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="8">
+                        <v-col 
+                          cols="12" 
+                          sm="6" 
+                          md="8"
+                        >
                           <v-text-field
                             v-model="editedItem.mail"
                             label="メールアドレス"
                             :rules="[rules.required, rules.email]"
-                          ></v-text-field>
+                          >
+                          </v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col 
+                          cols="12" 
+                          sm="6" 
+                          md="4"
+                        >
                           <v-select
                             v-model="editedItem.roleid_id"
                             :items="items"
                             label="ロールID"
                             :rules="[rules.required]"
-                          ></v-select>
+                          >
+                          </v-select>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col 
+                          cols="12" 
+                          sm="6" 
+                          md="4"
+                        >
                           <v-text-field
                             v-model="editedItem.username"
                             label="ユーザー名"
                             :rules="[rules.required]"
-                          ></v-text-field>
+                          >
+                          </v-text-field>
                         </v-col>
                       </v-row>
                     </v-container>
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="red darken-2" text @click="close">
+                    <v-btn 
+                      color="red darken-2" 
+                      text 
+                      @click="close"
+                    >
                       キャンセル
                     </v-btn>
-                    <v-btn color="blue darken-1" text @click="save">
+                    <v-btn 
+                      color="blue darken-1" 
+                      text 
+                    @click="save"
+                    >
                       保存
                     </v-btn>
                   </v-card-actions>
@@ -104,13 +178,22 @@
                         label="EXCEL File input"
                         truncate-length="15"
                         @change="onChange($event)"
-                      ></v-file-input>
+                      >
+                      </v-file-input>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="red darken-2" text @click="close">
+                        <v-btn 
+                          color="red darken-2" 
+                          text 
+                          @click="close"
+                        >
                           キャンセル
                         </v-btn>
-                        <v-btn color="blue darken-1" text @click="upload">
+                        <v-btn 
+                          color="blue darken-1" 
+                          text 
+                          @click="upload"
+                        >
                           保存
                         </v-btn>
                       </v-card-actions>
@@ -121,20 +204,37 @@
             </v-card>
           </v-form>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-dialog 
+          v-model="dialogDelete" 
+          max-width="500px"
+        >
           <v-card>
-            <v-card-title class="text-h5"
-              >本当に削除してもよろしいですか？</v-card-title
+            <v-card-title 
+              class="text-h5"
             >
-            <h3 class="text-center">{{ editedItem.username }}</h3>
+            本当に削除してもよろしいですか？
+            </v-card-title>
+            <h3 
+              class="text-center"
+            >
+            {{ editedItem.username }}
+            </h3>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="closeDelete"
-                >キャンセル</v-btn
+              <v-btn 
+                color="red darken-2" 
+                text 
+                @click="closeDelete"
               >
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                >削除</v-btn
+              キャンセル
+              </v-btn>
+              <v-btn 
+                color="blue darken-1" 
+                text 
+                @click="deleteItemConfirm"
               >
+              削除
+              </v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -142,12 +242,30 @@
       </v-toolbar>
     </template>
 
-    <template v-slot:[`item.actions`]="{ item }">
-      <v-btn fab small color="primary" @click="editItem(item)" class="mr-1">
-        <v-icon> mdi-pencil </v-icon>
+    <template 
+      v-slot:[`item.actions`]="{ item }"
+    >
+      <v-btn 
+        fab 
+        small 
+        color="primary" 
+        @click="editItem(item)" 
+        class="mr-1"
+      >
+        <v-icon> 
+          mdi-pencil 
+        </v-icon>
       </v-btn>
-      <v-btn fab small color="primary" @click="deleteItem(item)" class="ml-1">
-        <v-icon> mdi-delete </v-icon>
+      <v-btn 
+        fab 
+        small 
+        color="primary" 
+        @click="deleteItem(item)" 
+        class="ml-1"
+      >
+        <v-icon> 
+          mdi-delete 
+        </v-icon>
       </v-btn>
     </template>
   </v-data-table>

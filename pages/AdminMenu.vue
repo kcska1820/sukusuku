@@ -1,15 +1,36 @@
 <template>
   <div>
-    <h1 class="pt-4">
-      <v-icon size="1.5em" color="icon"> mdi-account-key </v-icon>
+    <h1 
+      class="pt-4"
+    >
+      <v-icon 
+        size="1.5em" 
+        color="icon"
+      > 
+      mdi-account-key 
+      </v-icon>
       &emsp;管理者メニュー
     </h1>
     <v-divider></v-divider>
-    <v-container class="d-flex align-center" style="height: 480px">
+    <v-container 
+      class="d-flex align-center" 
+      style="height: 480px"
+    >
       <v-row>
-        <v-col v-for="(menu, i) in menus" :key="i" cols="12" sm="6">
-          <v-btn color="accent" :to="menu.to" x-large block>
-            <h2>{{ menu.title }}</h2>
+        <v-col 
+          v-for="(menu, i) in menus" 
+          :key="i" 
+          cols="12" 
+          sm="6"
+        >
+          <v-btn 
+            color="accent" 
+            :to="menu.to" 
+            x-large 
+            block>
+            <h2>
+              {{ menu.title }}
+            </h2>
           </v-btn>
         </v-col>
       </v-row>

@@ -6,10 +6,19 @@
     class="elevation-1 ma-6"
     disable-sort
   >
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-toolbar-title><h2>所属グループ</h2></v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
+    <template 
+    v-slot:top
+    >
+      <v-toolbar 
+      flat
+      >
+        <v-toolbar-title>
+          <h2>所属グループ</h2>
+        </v-toolbar-title>
+        <v-divider 
+          class="mx-4" 
+          inset vertical>
+        </v-divider>
         <v-spacer></v-spacer>
         <v-btn
           color="accent"
@@ -22,8 +31,13 @@
         >
           <v-icon>mdi-restore</v-icon>
         </v-btn>
-        <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on, attrs }">
+        <v-dialog 
+          v-model="dialog" 
+          max-width="500px"
+        >
+          <template 
+            v-slot:activator="{ on, attrs }"
+          >
             <v-btn
               color="accent"
               small
@@ -34,25 +48,36 @@
               v-bind="attrs"
               v-on="on"
             >
-              <v-icon dark> mdi-plus </v-icon>
+              <v-icon 
+                dark
+              > mdi-plus 
+              </v-icon>
             </v-btn>
           </template>
-          <v-form ref="addform" @submit.prevent>
+          <v-form 
+            ref="addform" 
+            @submit.prevent
+          >
             <v-card>
               <v-card-title>
-                <span class="text-h5">{{ formTitle }}</span>
+                <span 
+                  class="text-h5"
+                >{{ formTitle }}
+                </span>
               </v-card-title>
-
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12">
+                    <v-col 
+                      cols="12"
+                    >
                       <v-text-field
                         v-model="editedItem.name"
                         label="グループ名"
                         counter="100"
                         :rules="[rules.required, rules.limit_length_100]"
-                      ></v-text-field>
+                      >
+                      </v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -60,43 +85,77 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red darken-2" text @click="close">
+                <v-btn 
+                  color="red darken-2" 
+                  text 
+                  @click="close"
+                >
                   キャンセル
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="save"> 作成 </v-btn>
+                <v-btn 
+                  color="blue darken-1" 
+                  text 
+                  @click="save"
+                > 作成 
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-form>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-dialog 
+          v-model="dialogDelete" 
+          max-width="500px"
+        >
           <v-card>
-            <v-card-title class="text-h5"
-              >本当にグループから退出しますか？</v-card-title
-            >
-            <h3 class="text-center">{{ editedItem.name }}</h3>
+            <v-card-title 
+              class="text-h5"
+              >本当にグループから退出しますか？
+              </v-card-title>
+            <h3 
+              class="text-center"
+            >{{ editedItem.name }}
+            </h3>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="closeDelete"
-                >キャンセル</v-btn
-              >
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                >退出</v-btn
-              >
+              <v-btn 
+                color="red darken-2" 
+                text 
+                @click="closeDelete"
+                >キャンセル
+              </v-btn>
+              <v-btn 
+                color="blue darken-1" 
+                text 
+                @click="deleteItemConfirm"
+                >退出
+              </v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogChange" max-width="500px">
-          <v-form ref="changeform" @submit.prevent>
+        <v-dialog 
+          v-model="dialogChange" 
+          max-width="500px"
+        >
+          <v-form 
+            ref="changeform" 
+            @submit.prevent
+          >
             <v-card>
               <v-card-title>
-                <span class="text-h5">{{ editedTitle }}</span>
+                <span 
+                  class="text-h5"
+                >
+                {{ editedTitle }}
+                </span>
               </v-card-title>
 
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12">
+                    <v-col 
+                      cols="12"
+                    >
                       <v-text-field
                         v-model="editedItem.name"
                         label="グループ名"
@@ -110,10 +169,18 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red darken-2" text @click="close">
+                <v-btn 
+                  color="red darken-2" 
+                  text 
+                  @click="close"
+                >
                   キャンセル
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="GroupNameChange">
+                <v-btn 
+                  color="blue darken-1" 
+                  text 
+                  @click="GroupNameChange"
+                >
                   変更
                 </v-btn>
               </v-card-actions>
@@ -122,14 +189,17 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:[`item.actions`]="{ item }">
+    <template 
+      v-slot:[`item.actions`]="{ item }"
+    >
       <v-btn
         color="accent"
         elevation="2"
         class="mr-6"
         @click="MemberManagebtn(item)"
-        >メンバー管理</v-btn
       >
+        メンバー管理
+      </v-btn>
       <v-btn
         fab
         small
@@ -138,7 +208,11 @@
         color="primary"
         @click="editItem(item)"
       >
-        <v-icon size="2em"> mdi-pencil </v-icon>
+        <v-icon 
+          size="2em"
+        > 
+        mdi-pencil 
+        </v-icon>
       </v-btn>
       <v-btn
         fab
@@ -148,11 +222,22 @@
         color="primary"
         @click="deleteItem(item)"
       >
-        <v-icon size="2em"> mdi-logout </v-icon>
+        <v-icon 
+          size="2em"
+        > 
+        mdi-logout 
+        </v-icon>
       </v-btn>
     </template>
-    <template v-slot:no-data>
-      <v-btn color="primary" @click="dialog = true"> 追加 </v-btn>
+    <template 
+      v-slot:no-data]
+    >
+      <v-btn 
+        color="primary" 
+        @click="dialog = true"
+      > 
+      追加 
+      </v-btn>
     </template>
   </v-data-table>
 </template>

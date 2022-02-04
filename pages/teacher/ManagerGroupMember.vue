@@ -7,11 +7,29 @@
     class="elevation-1 mt-12"
     disable-sort
   >
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-icon size="1.5em" color="icon"> mdi-account </v-icon>
-        <v-toolbar-title><h2>管理者管理</h2></v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
+    <template 
+      v-slot:top
+    >
+      <v-toolbar 
+        flat
+      >
+        <v-icon 
+          size="1.5em" 
+          color="icon"
+        > 
+        mdi-account 
+        </v-icon>
+        <v-toolbar-title>
+          <h2>
+            管理者管理
+          </h2>
+        </v-toolbar-title>
+        <v-divider 
+          class="mx-4" 
+          inset 
+          vertical
+        >
+        </v-divider>
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -20,8 +38,13 @@
           single-line
           hide-details
         ></v-text-field>
-        <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on, attrs }">
+        <v-dialog 
+          v-model="dialog" 
+          max-width="500px"
+        >
+          <template 
+            v-slot:activator="{ on, attrs }"
+          >
             <v-btn
               color="accent"
               dark
@@ -32,13 +55,23 @@
               v-bind="attrs"
               v-on="on"
             >
-              <v-icon dark> mdi-plus </v-icon>
+              <v-icon 
+                dark
+              > 
+                mdi-plus 
+              </v-icon>
             </v-btn>
           </template>
-          <v-form ref="Manageaddform">
+          <v-form 
+            ref="Manageaddform"
+          >
             <v-card>
               <v-card-title>
-                <span class="text-h5">{{ formTitle }}</span>
+                <span 
+                  class="text-h5"
+                >
+                {{ formTitle }}
+                </span>
               </v-card-title>
 
               <v-card-text>
@@ -50,29 +83,45 @@
                         label="ユーザーID"
                         :rules="[rules.required, rules.max]"
                         :disabled="textdisabled"
-                      ></v-text-field>
+                      >
+                      </v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="8">
+                    <v-col 
+                      cols="12" 
+                      sm="6" 
+                      md="8"
+                    >
                       <v-text-field
                         v-model="editedItem.mail"
                         label="メールアドレス"
                         :rules="[rules.required, rules.email]"
-                      ></v-text-field>
+                      >
+                      </v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col 
+                      cols="12" 
+                      sm="6" 
+                      md="4"
+                    >
                       <v-select
                         v-model="editedItem.roleid_id"
                         items="teacher"
                         label="ロールID"
                         :rules="[rules.required]"
-                      ></v-select>
+                      >
+                      </v-select>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col 
+                      cols="12" 
+                      sm="6" 
+                      md="4"
+                    >
                       <v-text-field
                         v-model="editedItem.username"
                         label="ユーザー名"
                         :rules="[rules.required]"
-                      ></v-text-field>
+                      >
+                      </v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -80,28 +129,55 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red darken-2" text @click="close">
+                <v-btn 
+                  color="red darken-2" 
+                  text 
+                  @click="close"
+                >
                   キャンセル
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="save"> 保存 </v-btn>
+                <v-btn 
+                  color="blue darken-1" 
+                  text 
+                  @click="save"
+                > 
+                保存 
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-form>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-dialog 
+          v-model="dialogDelete" 
+          max-width="500px"
+        >
           <v-card>
-            <v-card-title class="text-h5"
-              >本当に削除してもよろしいですか？</v-card-title
+            <v-card-title 
+             class="text-h5"
             >
-            <h3 class="text-center">{{ editedItem.username }}</h3>
+            本当に削除してもよろしいですか？
+            </v-card-title>
+            <h3 
+              class="text-center"
+            >
+            {{ editedItem.username }}
+            </h3>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-2" text @click="closeDelete"
-                >キャンセル</v-btn
+              <v-btn 
+                color="red darken-2" 
+                text 
+                @click="closeDelete"
               >
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                >削除</v-btn
+              キャンセル
+              </v-btn>
+              <v-btn 
+                color="blue darken-1" 
+                text 
+                @click="deleteItemConfirm"
               >
+              削除
+              </v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -109,12 +185,34 @@
       </v-toolbar>
     </template>
 
-    <template v-slot:[`item.actions`]="{ item }">
-      <v-btn fab small color="primary" @click="editItem(item)" class="mr-1">
-        <v-icon size="2em"> mdi-pencil </v-icon>
+    <template 
+      v-slot:[`item.actions`]="{ item }"
+    >
+      <v-btn 
+        fab 
+        small 
+        color="primary" 
+        @click="editItem(item)" 
+        class="mr-1"
+      >
+        <v-icon 
+          size="2em"
+        > 
+        mdi-pencil 
+        </v-icon>
       </v-btn>
-      <v-btn fab small color="primary" @click="deleteItem(item)" class="ml-1">
-        <v-icon size="2em"> mdi-delete </v-icon>
+      <v-btn 
+        fab 
+        small 
+        color="primary" 
+        @click="deleteItem(item)" 
+        class="ml-1"
+        >
+        <v-icon 
+          size="2em"
+        > 
+          mdi-delete 
+        </v-icon>
       </v-btn>
     </template>
   </v-data-table>

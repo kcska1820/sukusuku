@@ -1,10 +1,21 @@
 <template>
-  <v-row class="fill-height" color="primary">
-    <v-col cols="12" sm="8">
+  <v-row 
+    class="fill-height" 
+    color="primary"
+  >
+    <v-col 
+      cols="12" 
+      sm="8"
+    >
       <CompCalendar />
     </v-col>
-    <v-col cols="12" sm="4">
-      <v-card class="mb-4">
+    <v-col 
+      cols="12" 
+      sm="4"
+    >
+      <v-card 
+        class="mb-4"
+      >
         <CompEventCD />
       </v-card>
       <v-card>

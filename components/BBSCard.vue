@@ -103,7 +103,9 @@
                             ({{item.latest}})
                         </template>
                         <!--コメント件数の表示-->
-                        [コメント件数:{{cmdata.length}}]
+                        <template v-if="cmdata.length >= 1">
+                            [コメント件数:{{cmdata.length}}]
+                        </template>
                         <template v-if="item.flag == 3">
                             (非表示)
                         </template>

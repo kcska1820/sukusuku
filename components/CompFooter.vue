@@ -8,7 +8,7 @@
       no-gutters
     >
       <v-btn
-        v-for="(link, i) in links"
+        v-for="(link,i) in links"
         :key="i"
         :href="link.href"
         color="white"
@@ -32,24 +32,24 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       fixed: true,
       links: [
         {
-          title: "無限大キャンパス",
-          href: "https://z3.mugendai.do-johodai.ac.jp/portal/",
+          title: '無限大キャンパス',
+          href:'https://z3.mugendai.do-johodai.ac.jp/portal/'
         },
         {
-          title: "PINE NET",
-          href: "https://pine-net.jp",
+          title:'PINE NET',
+          href:'https://pine-net.jp'
         },
         {
-          title: "PINE Cloud",
-          href: "https://kcska.pine-cloud.jp",
-        },
-      ],
-    };
-  },
-};
+          title:'PINE Cloud',
+          href:'https://kcska.pine-cloud.jp'
+        }
+      ]
+    }
+  }
+}
 </script>

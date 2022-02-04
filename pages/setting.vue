@@ -110,10 +110,10 @@
         :prepend-icon="themeIcon"
       ></v-switch>
       <v-btn
-        class="px-16 ml-6"
-        v-if="role == 'teacher'"
-        color="accent"
-        to="/AdminMenu"
+      class="px-16 ml-6"
+      v-if="role=='teacher'"
+      color="accent"
+      to="/AdminMenu"
       >
         管理者メニュー
       </v-btn>
@@ -121,39 +121,39 @@
   </v-card>
 </template>
 <script>
-export default {
-  data() {
+  export default {
+  data () {
     return {
       settings: [],
       user: [],
-      userid: "",
-      email: "",
-      role: "",
-      theme: this.$vuetify.theme.dark,
-    };
+      userid:'',
+      email:'',
+      role:'',
+      theme:this.$vuetify.theme.dark,
+    }
   },
-  methods: {
-    getUser() {
-      this.user = JSON.parse(localStorage.getItem("user"));
-      this.userid = this.user[0].userid;
-      this.email = this.user[0].mail;
-      this.role = this.user[0].roleid_id;
-    },
+  methods:{
+    getUser(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.userid = this.user[0].userid
+      this.email = this.user[0].mail
+      this.role = this.user[0].roleid_id
+    }
   },
-  computed: {
-    themeIcon() {
-      return this.theme ? "mdi-weather-night" : "mdi-weather-sunny";
-    },
+  computed:{
+    themeIcon(){
+      return this.theme ? 'mdi-weather-night' : 'mdi-weather-sunny'
+    }
   },
-  watch: {
+  watch:{
     theme() {
-      this.$vuetify.theme.dark = this.theme;
-    },
+      this.$vuetify.theme.dark = this.theme
+    }
   },
-  mounted() {
-    this.getUser();
+  mounted(){
+    this.getUser()
   },
   /* 未ログイン時index.vueに遷移 */
-  middleware: "authenicated",
-};
+  middleware:"authenicated"
+  }
 </script>

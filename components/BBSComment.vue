@@ -102,52 +102,51 @@
 
 <script>
 export default {
-  data() {
+    data() {
     return {
-      url: "https://sukusukuserver.7colordays.net/sukusuku/",
-      delurl: "",
-      sakujo: false,
-      dmenu: false,
-      cmdata: [],
-      thread: this.$route.query.id,
-    };
-  },
-
-  props: {
-    post: Object,
-    no: Number,
-    user: String,
-  },
-
-  methods: {
-    delComment(comid, threadid) {
-      this.delurl = this.url + "cmdel/?id=" + comid + "&thread=" + threadid;
-      fetch(this.delurl, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.cmdata = obj));
-      this.dmenu = false;
-      this.sakujo = false;
-      this.$emit("delete");
+        url:'https://sukusukuserver.7colordays.net/sukusuku/',
+        delurl:'',
+        sakujo:false,
+        dmenu:false,
+        cmdata:[],
+        thread:this.$route.query.id,
+    }
     },
-  },
-};
+
+    props:{
+        post:Object,
+        no:Number,
+        user:String
+    },
+
+    methods:{
+        delComment(comid,threadid){
+            this.delurl = this.url + 'cmdel/?id=' + comid + '&thread=' + threadid
+            fetch(this.delurl,{
+                method:"GET",
+                mode:"cors",
+                credentials: 'include'
+            }).then((res)=>res.json())
+            .then(obj=>this.cmdata=obj)
+            this.dmenu = false
+            this.sakujo = false
+            this.$emit("delete")
+        }
+    }
+}
 </script>
 
 <style scoped>
 .thread {
-  padding: 10px 1em 0 0.5em;
+    padding:10px 1em 0 0.5em;
 }
 .comment {
-  padding: 0 1em 0 1em;
+    padding:0 1em 0 1em;
 }
 .divide {
-  margin: 8px;
+    margin:8px;
 }
 .dbtn {
-  max-width: 900px;
+    max-width: 900px;
 }
 </style>

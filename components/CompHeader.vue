@@ -1,6 +1,6 @@
 <template>
   <header>
-    <v-navigation-drawer
+      <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -8,9 +8,9 @@
       color="accent"
       fixed
       app
-    >
-      <v-list>
-        <v-list-item
+      >
+        <v-list>
+          <v-list-item
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
@@ -57,11 +57,11 @@
 </template>
 
 <script>
-import items from "/components/pagesList.json";
+import items from '/components/pagesList.json'
 export default {
-  data() {
+  data () {
     return {
-      items: items,
+      items:items,
       clipped: true,
       drawer: false,
       fixed: true,
@@ -69,7 +69,7 @@ export default {
       right: true,
       rightDrawer: false,
       title: "スクスク",
-    };
-  },
-};
+    }
+  }
+}
 </script>

@@ -1,5 +1,9 @@
 <template>
-  <img class="sukusukuLogo" alt="sukusuku Logo" src="/sukusuku.svg" />
+  <img
+    class="sukusukuLogo"
+    alt="sukusuku Logo"
+    src="/sukusuku.svg"
+  >
 </template>
 
 <style>

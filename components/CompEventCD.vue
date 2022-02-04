@@ -66,44 +66,42 @@
 </template>
 
 <script>
-export default {
-  data: () => ({
-    url: "https://sukusukuserver.7colordays.net/sukusuku/",
-    items: [],
-  }),
+  export default {
+    data: () => ({
+      url: "https://sukusukuserver.7colordays.net/sukusuku/",
+      items: [],
+    }),
 
-  mounted() {
-    fetch(this.url + "evsel/?classid=" + localStorage.getItem("class"), {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-    })
-      .then((res) => res.json())
+    mounted() {
+      fetch(this.url + "evsel/?classid=" + localStorage.getItem('class'), {
+        method: "GET",
+        mode: "cors",
+        credentials: "include",
+      }).then((res) => res.json())
       .then((obj) => {
-        this.items = obj;
-        for (let i = this.items.length - 1; i >= 0; i = i - 1) {
-          this.items[i].date = this.items[i].end.replaceAll("-", "/");
-          this.items[i].end =
-            Date.parse(new Date()) -
-            Date.parse(this.items[i].end.replaceAll("-", "/"));
-          this.items[i].end = Math.floor(this.items[i].end / 86400000);
-          if (this.items[i].end <= 0) {
-            this.items[i].end = this.items[i].end * -1;
-            if (this.items[i].end <= 5) {
-              this.items[i].color = "color:#FF6E40";
+        this.items = obj
+        for(let i = this.items.length-1;i >= 0 ; i= i-1){
+          this.items[i].date = this.items[i].end.replaceAll('-', '/')
+          this.items[i].end = Date.parse(new Date) - Date.parse(this.items[i].end.replaceAll('-', '/'))
+          this.items[i].end = Math.floor(this.items[i].end / 86400000)
+          if(this.items[i].end <= 0){
+            this.items[i].end =  this.items[i].end* -1
+            if(this.items[i].end <= 5){
+              this.items[i].color =  "color:#FF6E40"
             }
-          } else {
-            this.items.splice(i, 1);
+          }else{
+            this.items.splice(i,1)
           }
-          this.items.sort((a, b) => a.end - b.end);
+          this.items.sort((a,b) => a.end - b.end)
         }
-      });
-  },
-};
+      })
+    },
+
+  }
 </script>
 
 <style>
-.headline {
-  white-space: nowrap;
-}
+  .headline{
+    white-space: nowrap
+  }
 </style>

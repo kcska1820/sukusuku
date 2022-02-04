@@ -32,21 +32,21 @@
             @click="enter = false"
           >
             キャンセル
-          </v-btn>
-          <v-btn
+            </v-btn>
+            <v-btn
             color="blue darken-1"
             text
             :to="{
-              path: '/BBScon',
-              query: {
+                path: '/BBScon',
+                query: {
                 id: item.threadid,
-              },
+                },
             }"
-          >
+            >
             入室
-          </v-btn>
+            </v-btn>
         </v-card-actions>
-      </v-card>
+        </v-card>
     </v-dialog>
     <v-dialog
       v-model="suspender"
@@ -89,11 +89,11 @@
             凍結
           </v-btn>
         </v-card-actions>
-      </v-card>
+        </v-card>
     </v-dialog>
     <v-dialog
-    v-model="unlocker"
-    max-width="500px"
+      v-model="unlocker"
+      max-width="500px"
     >
       <v-card>
         <v-card-title>
@@ -125,9 +125,9 @@
             キャンセル
           </v-btn>
           <v-btn
-          color="red darken-2"
-          text
-          @click="unsuspend"
+            color="red darken-2"
+            text
+            @click="unsuspend"
           >
             凍結解除
           </v-btn>
@@ -259,106 +259,106 @@
 </template>
 <script>
 export default {
-  data: () => ({
-    url: "https://sukusukuserver.7colordays.net/sukusuku/",
-    susurl: "",
-    cmdata: [],
-    suspender: false,
-    unlocker: false,
-    enter: false,
-    touketu: false,
-    btns: null,
-  }),
+    data: () => ({
+        url: "https://sukusukuserver.7colordays.net/sukusuku/",
+        susurl: "",
+        cmdata: [],
+        suspender: false,
+        unlocker: false,
+        enter: false,
+        touketu: false,
+        btns: null,
+    }),
 
-  props: {
-    item: Object,
-    user: String,
-  },
-
-  created() {
-    fetch(this.url + "cmsel/?threadid=" + this.item.threadid, {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((obj) => (this.cmdata = obj));
-  },
-
-  methods: {
-    suspendConfirm() {
-      this.suspender = true;
-      this.enter = false;
+    props: {
+        item: Object,
+        user: String,
     },
 
-    suspend() {
-      this.susurl =
-        this.url +
-        "thdel/?threadid=" +
-        this.item.threadid +
-        "&title=" +
-        this.item.title +
-        "&flag=2&note=" +
-        this.item.note +
-        "&master=" +
-        this.item.master_id +
-        "&latest=" +
-        this.item.latest;
-      fetch(this.susurl, {
+    created() {
+        fetch(this.url + "cmsel/?threadid=" + this.item.threadid, {
         method: "GET",
         mode: "cors",
         credentials: "include",
-      })
+        })
         .then((res) => res.json())
-        .then((obj) => (this.thdata = obj));
-      this.suspender = false;
-      this.$emit("reflesh");
+        .then((obj) => (this.cmdata = obj));
     },
 
-    unsuspend() {
-      this.susurl =
-        this.url +
-        "thdel/?threadid=" +
-        this.item.threadid +
-        "&title=" +
-        this.item.title +
-        "&flag=1&note=" +
-        this.item.note +
-        "&master=" +
-        this.item.master_id +
-        "&latest=" +
-        this.item.latest;
-      fetch(this.susurl, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.thdata = obj));
-      this.unlocker = false;
-      this.$emit("reflesh");
+    methods: {
+        suspendConfirm() {
+        this.suspender = true;
+        this.enter = false;
+        },
+
+        suspend() {
+        this.susurl =
+            this.url +
+            "thdel/?threadid=" +
+            this.item.threadid +
+            "&title=" +
+            this.item.title +
+            "&flag=2&note=" +
+            this.item.note +
+            "&master=" +
+            this.item.master_id +
+            "&latest=" +
+            this.item.latest;
+        fetch(this.susurl, {
+            method: "GET",
+            mode: "cors",
+            credentials: "include",
+        })
+            .then((res) => res.json())
+            .then((obj) => (this.thdata = obj));
+        this.suspender = false;
+        this.$emit("reflesh");
+        },
+
+        unsuspend() {
+        this.susurl =
+            this.url +
+            "thdel/?threadid=" +
+            this.item.threadid +
+            "&title=" +
+            this.item.title +
+            "&flag=1&note=" +
+            this.item.note +
+            "&master=" +
+            this.item.master_id +
+            "&latest=" +
+            this.item.latest;
+        fetch(this.susurl, {
+            method: "GET",
+            mode: "cors",
+            credentials: "include",
+        })
+            .then((res) => res.json())
+            .then((obj) => (this.thdata = obj));
+        this.unlocker = false;
+        this.$emit("reflesh");
+        },
     },
-  },
 };
 </script>
 <style scoped>
 .col {
-  padding-top: 0;
-  padding-bottom: 12;
+padding-top: 0;
+padding-bottom: 12;
 }
 
 .but {
-  padding-top: 0;
-  padding-bottom: 12;
-  padding-right: 7;
+padding-top: 0;
+padding-bottom: 12;
+padding-right: 7;
 }
 
 .sup {
-  padding-top: 0;
-  padding-bottom: 12;
+padding-top: 0;
+padding-bottom: 12;
 }
 
 .list {
-  padding: 0;
+padding: 0;
 }
 </style>

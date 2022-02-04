@@ -23,11 +23,11 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       clipped: true,
       title: "スクスク",
-    };
-  },
-};
+    }
+  }
+}
 </script>

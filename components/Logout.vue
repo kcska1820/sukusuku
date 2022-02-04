@@ -69,21 +69,19 @@
 </template>
 
 <script>
-import firebase from "~/plugins/firebase";
-import { getAuth, signOut } from "firebase/auth";
+import firebase from "~/plugins/firebase"
+import { getAuth, signOut } from "firebase/auth"
 export default {
   methods: {
     logout() {
       const auth = getAuth();
-      signOut(auth)
-        .then(() => {
-          // Sign-out successful.
-          localStorage.clear();
-          this.$router.push("/");
-        })
-        .catch((error) => {
-          // An error happened.
-        });
+      signOut(auth).then(() => {
+        // Sign-out successful.
+        localStorage.clear()
+        this.$router.push("/")
+      }).catch((error) => {
+        // An error happened.
+      });
     },
   },
 };

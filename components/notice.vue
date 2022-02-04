@@ -83,13 +83,13 @@
 </template>
 
 <script>
-import items from "/components/noticeList.json";
+import items from '/components/noticeList.json'
 export default {
-  data() {
-    return {
-      items: items,
-      messages: "!",
-    };
-  },
-};
+    data () {
+        return {
+            items:items,
+            messages: '!',
+        }
+    }
+}
 </script>

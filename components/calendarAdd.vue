@@ -236,206 +236,156 @@
 
 <script>
 export default {
-  data: () => ({
-    rules: {
-      required: (value) => !!value || "こちらは必須項目です",
-      limit_length_100: (value) =>
-        value.length <= 100 || "100文字以内で入力してください",
+    data: () => ({
+        rules: {
+            required: value => !!value || 'こちらは必須項目です',
+            limit_length_100: value => value.length <= 100 || "100文字以内で入力してください" 
+        },
+        dialog: false,
+        tab:"プライベート",
+        url:'https://sukusukuserver.7colordays.net/sukusuku/',
+        addurl:'',
+        groupurl:'',
+        startDay:'',
+        startTime:'',
+        endDay:'',
+        endTime:'',
+        title:'',
+        details:'',
+        group:'',
+        color:'',
+        userid:'',
+        user:[],
+        privateschedule:[],
+        groupschedule:[],
+        groups:[],
+        group1:[],
+        colors:[
+            {
+                name:"赤色",
+                value:'red'
+            },
+            {
+                name:"橙色",
+                value:'orange darken-2'
+            },
+            {
+                name:"黄緑色",
+                value:'light-green accent-4'
+            },
+            {
+                name:"緑色",
+                value:'green darken-3'
+            },
+            {
+                name:"水色",
+                value:'indigo accent-2'
+            },
+            {
+                name:"青色",
+                value:'indigo darken-4'
+            },
+            {
+                name:"紫色",
+                value:'deep-purple accent-4'
+            }
+        ],
+    }),
+    methods:{
+        getGroup(){
+            if(localStorage.getItem('group') != null){
+                this.group1 = JSON.parse(localStorage.getItem('group'))
+                for (let i = 0; i < this.group1.length; i++) {
+                    this.groupurl = this.url + 'glsel/?groupid='+this.group1[i].groupid_id
+                    fetch(this.groupurl,{
+                    method:"GET",
+                    mode:"cors",
+                    credentials: 'include'
+                    })
+                    .then((res)=>res.json())
+                    .then(obj=>{
+                        this.groups.push({
+                            id:this.group1[i].groupid_id,
+                            name:obj[0].groupname,
+                        })
+                    })
+                }
+            }
+        },
+        addGroupSchedule(){
+            if(this.$refs.addform.validate()){
+                if(this.startDay <= this.endDay){
+                    if(this.startDay == this.endDay && this.startTime <= this.endTime || this.startDay != this.endDay){
+                        this.start = this.startDay + 'T' + this.startTime
+                        this.end = this.endDay + 'T' + this.endTime
+                        this.addurl = this.url + 'gsadd/?title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details + '&groupid='+this.group
+                        fetch(this.addurl,{
+                        method:"GET",
+                        mode:"cors",
+                        credentials: 'include'
+                        })
+                        .then((res)=>res.json())
+                        .then(obj=>this.groupschedule=obj)
+                        this.close()
+                    }
+                }
+            }
+        },
+        addPrivateSchedule(){
+            if(this.$refs.addform.validate()){
+                if(this.startDay <= this.endDay){
+                    if(this.startDay == this.endDay && this.startTime <= this.endTime || this.startDay != this.endDay){
+                        this.user = JSON.parse(localStorage.getItem('user'))
+                        this.userid = this.user[0].userid
+                        this.start = this.startDay + 'T' + this.startTime
+                        this.end = this.endDay + 'T' + this.endTime
+                        this.addurl = this.url + 'psadd/?userid=' + this.userid + '&title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details
+                        fetch(this.addurl,{
+                        method:"GET",
+                        mode:"cors",
+                        credentials: 'include'
+                        })
+                        .then((res)=>res.json())
+                        .then(obj=>this.privateschedule=obj)
+                        .catch()
+                        this.close()
+                    }
+                }
+            }
+        },
+        close(){
+            this.title=''
+            this.startDay=''
+            this.startTime=''
+            this.start=''
+            this.endDay=''
+            this.endTime=''
+            this.end=''
+            this.color=''
+            this.group=''
+            this.details=''
+            this.dialog = false
+        },
+        addSet(){
+            const newDay= new Date()
+            const getmonth = parseInt(newDay.getMonth()) + 1
+            this.startDay = newDay.getFullYear() + '-' + ("00" + getmonth).slice(-2) + '-' + ("00" + newDay.getDate()).slice(-2)
+            this.startTime = ("00" + newDay.getHours()).slice(-2) + ':' + ("00" + newDay.getMinutes()).slice(-2)
+            this.endDay = newDay.getFullYear() + '-' + ("00" + getmonth).slice(-2) + '-' + ("00" + newDay.getDate()).slice(-2)
+            this.endTime = ("00" + (newDay.getHours() + 1)).slice(-2) + ':' + ("00" + newDay.getMinutes()).slice(-2)
+        },
     },
-    dialog: false,
-    tab: "プライベート",
-    url: "https://sukusukuserver.7colordays.net/sukusuku/",
-    addurl: "",
-    groupurl: "",
-    startDay: "",
-    startTime: "",
-    endDay: "",
-    endTime: "",
-    title: "",
-    details: "",
-    group: "",
-    color: "",
-    userid: "",
-    user: [],
-    privateschedule: [],
-    groupschedule: [],
-    groups: [],
-    group1: [],
-    colors: [
-      {
-        name: "赤色",
-        value: "red",
-      },
-      {
-        name: "橙色",
-        value: "orange darken-2",
-      },
-      {
-        name: "黄緑色",
-        value: "light-green accent-4",
-      },
-      {
-        name: "緑色",
-        value: "green darken-3",
-      },
-      {
-        name: "水色",
-        value: "indigo accent-2",
-      },
-      {
-        name: "青色",
-        value: "indigo darken-4",
-      },
-      {
-        name: "紫色",
-        value: "deep-purple accent-4",
-      },
-    ],
-  }),
-  methods: {
-    getGroup() {
-      if (localStorage.getItem("group") != null) {
-        this.group1 = JSON.parse(localStorage.getItem("group"));
-        for (let i = 0; i < this.group1.length; i++) {
-          this.groupurl =
-            this.url + "glsel/?groupid=" + this.group1[i].groupid_id;
-          fetch(this.groupurl, {
-            method: "GET",
-            mode: "cors",
-            credentials: "include",
-          })
-            .then((res) => res.json())
-            .then((obj) => {
-              this.groups.push({
-                id: this.group1[i].groupid_id,
-                name: obj[0].groupname,
-              });
-            });
-        }
-      }
-    },
-    addGroupSchedule() {
-      if (this.$refs.addform.validate()) {
-        if (this.startDay <= this.endDay) {
-          if (
-            (this.startDay == this.endDay && this.startTime <= this.endTime) ||
-            this.startDay != this.endDay
-          ) {
-            this.start = this.startDay + "T" + this.startTime;
-            this.end = this.endDay + "T" + this.endTime;
-            this.addurl =
-              this.url +
-              "gsadd/?title=" +
-              this.title +
-              "&start=" +
-              this.start +
-              "&end=" +
-              this.end +
-              "&color=" +
-              this.color +
-              "&details=" +
-              this.details +
-              "&groupid=" +
-              this.group;
-            fetch(this.addurl, {
-              method: "GET",
-              mode: "cors",
-              credentials: "include",
-            })
-              .then((res) => res.json())
-              .then((obj) => (this.groupschedule = obj));
-            this.close();
-          }
-        }
-      }
-    },
-    addPrivateSchedule() {
-      if (this.$refs.addform.validate()) {
-        if (this.startDay <= this.endDay) {
-          if (
-            (this.startDay == this.endDay && this.startTime <= this.endTime) ||
-            this.startDay != this.endDay
-          ) {
-            this.user = JSON.parse(localStorage.getItem("user"));
-            this.userid = this.user[0].userid;
-            this.start = this.startDay + "T" + this.startTime;
-            this.end = this.endDay + "T" + this.endTime;
-            this.addurl =
-              this.url +
-              "psadd/?userid=" +
-              this.userid +
-              "&title=" +
-              this.title +
-              "&start=" +
-              this.start +
-              "&end=" +
-              this.end +
-              "&color=" +
-              this.color +
-              "&details=" +
-              this.details;
-            fetch(this.addurl, {
-              method: "GET",
-              mode: "cors",
-              credentials: "include",
-            })
-              .then((res) => res.json())
-              .then((obj) => (this.privateschedule = obj))
-              .catch();
-            this.close();
-          }
-        }
-      }
-    },
-    close() {
-      this.title = "";
-      this.startDay = "";
-      this.startTime = "";
-      this.start = "";
-      this.endDay = "";
-      this.endTime = "";
-      this.end = "";
-      this.color = "";
-      this.group = "";
-      this.details = "";
-      this.dialog = false;
-    },
-    addSet() {
-      const newDay = new Date();
-      const getmonth = parseInt(newDay.getMonth()) + 1;
-      this.startDay =
-        newDay.getFullYear() +
-        "-" +
-        ("00" + getmonth).slice(-2) +
-        "-" +
-        ("00" + newDay.getDate()).slice(-2);
-      this.startTime =
-        ("00" + newDay.getHours()).slice(-2) +
-        ":" +
-        ("00" + newDay.getMinutes()).slice(-2);
-      this.endDay =
-        newDay.getFullYear() +
-        "-" +
-        ("00" + getmonth).slice(-2) +
-        "-" +
-        ("00" + newDay.getDate()).slice(-2);
-      this.endTime =
-        ("00" + (newDay.getHours() + 1)).slice(-2) +
-        ":" +
-        ("00" + newDay.getMinutes()).slice(-2);
-    },
-  },
-  created() {
-    this.getGroup();
-  },
-};
+    created(){
+        this.getGroup()
+    }
+}
 </script>
 
 <style>
-input[type="date"] {
+input[type=date] {
   color: #8b8b8b;
 }
-input[type="time"] {
+input[type=time] {
   color: #8b8b8b;
 }
 </style>

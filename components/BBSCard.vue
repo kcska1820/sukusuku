@@ -102,7 +102,15 @@
                         @click="enter=true">
                         {{item.title}}
                         <!--更新時間の表示-->
-                        ({{item.latest}})
+                        <font color=red
+                            v-if="item.latest == 'new'">
+                            ({{item.latest}})
+                        </font>
+                        <template v-else>
+                            ({{item.latest}})
+                        </template>
+                        <!--コメント件数の表示-->
+                        [コメント件数:{{cmdata.length}}]
                         <template v-if="item.flag == 3">
                             (非表示)
                         </template>
@@ -165,7 +173,13 @@
                         @click="enter=true">
                         {{item.title}}
                         <!--更新時間の表示-->
-                        ({{item.latest}})
+                        <font color=red
+                            v-if="item.latest == 'new'">
+                            ({{item.latest}})
+                        </font>
+                        <template v-else>
+                            ({{item.latest}})
+                        </template>
                         <!--コメント件数の表示-->
                         [コメント件数:{{cmdata.length}}]
                         <template v-if="item.flag == 3">

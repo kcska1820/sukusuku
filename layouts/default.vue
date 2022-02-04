@@ -13,8 +13,7 @@
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>
 
 <style scoped>
@@ -22,7 +21,7 @@ export default {
   background-color: #424242;
 }
 .theme--light.v-application {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 </style>
 

@@ -1,6 +1,5 @@
 <template>
-  <v-row class="fill-height"
-  color="primary">
+  <v-row class="fill-height" color="primary">
     <v-col cols="12" sm="8">
       <CompCalendar />
     </v-col>
@@ -16,8 +15,8 @@
 </template>
 
 <script>
-  export default {
+export default {
   /* 未ログイン時index.vueに遷移 */
-  middleware:"authenicated"
-}
+  middleware: "authenicated",
+};
 </script>

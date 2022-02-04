@@ -9,9 +9,7 @@
   >
     <template v-slot:top>
       <v-toolbar flat>
-        <v-icon size="1.5em" color="icon">
-          mdi-account-details
-        </v-icon>
+        <v-icon size="1.5em" color="icon"> mdi-account-details </v-icon>
 
         <v-toolbar-title><h2>学生管理</h2></v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
@@ -108,13 +106,13 @@
                         @change="onChange($event)"
                       ></v-file-input>
                       <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="red darken-2" text @click="close">
-                      キャンセル
-                    </v-btn>
-                      <v-btn color="blue darken-1" text @click="upload">
-                        保存
-                      </v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn color="red darken-2" text @click="close">
+                          キャンセル
+                        </v-btn>
+                        <v-btn color="blue darken-1" text @click="upload">
+                          保存
+                        </v-btn>
                       </v-card-actions>
                     </v-container>
                   </v-card-text>
@@ -125,8 +123,10 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">本当に削除してもよろしいですか？</v-card-title>
-            <h3 class="text-center">{{editedItem.username}}</h3>
+            <v-card-title class="text-h5"
+              >本当に削除してもよろしいですか？</v-card-title
+            >
+            <h3 class="text-center">{{ editedItem.username }}</h3>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-2" text @click="closeDelete"
@@ -228,9 +228,9 @@ export default {
     formTitle() {
       return this.editedIndex === -1 ? "追加" : "編集";
     },
-    textdisabled(){
+    textdisabled() {
       return this.editedIndex === -1 ? false : true;
-    }
+    },
   },
 
   watch: {
@@ -345,6 +345,6 @@ export default {
     },
   },
   /* 未ログイン時index.vueに遷移 */
-  middleware:"authenicated"
-}
+  middleware: "authenicated",
+};
 </script>

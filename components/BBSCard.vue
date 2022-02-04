@@ -120,6 +120,8 @@
               {{ item.title }}
               <!--更新時間の表示-->
               ({{ item.latest }})
+              <!--コメント件数の表示-->
+              [コメント件数:{{ cmdata.length }}]
               <template v-if="item.flag == 3"> (非表示) </template>
             </v-btn>
           </v-col>
@@ -134,16 +136,29 @@ export default {
   data: () => ({
     url: "https://sukusukuserver.7colordays.net/sukusuku/",
     susurl: "",
+    cmdata: [],
     suspender: false,
     unlocker: false,
     enter: false,
     touketu: false,
     btns: null,
   }),
+
   props: {
     item: Object,
     user: String,
   },
+
+  created() {
+    fetch(this.url + "cmsel/?threadid=" + this.item.threadid, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((obj) => (this.cmdata = obj));
+  },
+
   methods: {
     suspendConfirm() {
       this.suspender = true;

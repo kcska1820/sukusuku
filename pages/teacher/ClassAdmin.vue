@@ -187,144 +187,123 @@
   </v-data-table>
 </template>
 <script>
-export default {
-  data: () => ({
-    url: "https://sukusukuserver.7colordays.net/sukusuku/",
-    addurl: "",
-    delurl: "",
-    rules: {
-      required: (value) => !!value || "こちらは必須項目です",
-      max: (value) =>
-        (value && value.length <= 10) || "10文字以下で入力してください",
-      limit_length_100: (value) =>
-        value.length <= 100 || "100文字以内で入力してください",
-    },
-    dialog: false,
-    dialogDelete: false,
-    search: "",
-    headers: [
-      {
-        text: "クラスID",
-        align: "start",
-        sortable: false,
-        value: "classid",
-        align: "center",
-        width: "200",
-        class: "accent",
+  export default {
+    data: () => ({
+      url:'https://sukusukuserver.7colordays.net/sukusuku/',
+      addurl:'',
+      delurl:'',
+         rules: {
+          required: value => !!value || 'こちらは必須項目です',
+          max: value => (value && value.length <= 10) || '10文字以下で入力してください',
+          limit_length_100: value => value.length <= 100 || "100文字以内で入力してください",
       },
-      {
-        text: "クラス名",
-        value: "classname",
-        align: "center",
-        width: "400",
-        class: "accent",
+      dialog: false,
+      dialogDelete: false,
+      search: "",
+      headers: [
+        {
+          text: 'クラスID',
+          align: 'start',
+          sortable: false,
+          value: 'classid',
+          align: "center",
+          width: '200',
+          class: "accent"        
+        },
+        { text: 'クラス名', value: 'classname', align: "center", width: '400',class: "accent"},
+        { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
+      ],
+      classs: [],
+      editedIndex: -1,
+      editedItem: {
+        id: '',
+        name: '',
       },
-      {
-        text: "",
-        value: "actions",
-        sortable: false,
-        align: "center",
-        width: "300",
-        class: "accent",
+      defaultItem: {
+        id: '',
+        name: '',
       },
-    ],
-    classs: [],
-    editedIndex: -1,
-    editedItem: {
-      id: "",
-      name: "",
-    },
-    defaultItem: {
-      id: "",
-      name: "",
-    },
-  }),
+    }),
 
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "新規クラスを作成します" : "Edit Item";
-    },
-  },
-
-  watch: {
-    dialog(val) {
-      val || this.close();
-    },
-    dialogDelete(val) {
-      val || this.closeDelete();
-    },
-  },
-
-  created() {
-    fetch(this.url + "clall/", {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((obj) => (this.classs = obj));
-  },
-
-  methods: {
-    selclassid(item) {
-      localStorage.setItem("selclassid", item.classid);
-      this.$router.push({ path: "/teacher/ClassMemberManage" });
+    computed: {
+      formTitle () {
+        return this.editedIndex === -1 ? '新規クラスを作成します' : 'Edit Item'
+      },
     },
 
-    deleteItem(item) {
-      this.editedItem = Object.assign({}, item);
-      this.delurl = this.url + "cldel/?classid=" + item.classid;
-      this.dialogDelete = true;
+    watch: {
+      dialog (val) {
+        val || this.close()
+      },
+      dialogDelete (val) {
+        val || this.closeDelete()
+      },
     },
 
-    deleteItemConfirm() {
-      fetch(this.delurl, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.classs = obj));
-      this.closeDelete();
+    created () {
+      fetch(this.url + 'clall/',{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.classs=obj)
     },
 
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
+    methods: {
+      selclassid(item){
+        localStorage.setItem('selclassid',item.classid)
+        this.$router.push({path: "/teacher/ClassMemberManage"})
+      },
 
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
+      deleteItem (item) {
+        this.editedItem = Object.assign({}, item);
+        this.delurl = this.url + 'cldel/?classid=' +  item.classid
+        this.dialogDelete = true 
+      },
 
-    save() {
-      if (this.$refs.classaddform.validate()) {
-        this.addurl =
-          this.url +
-          "cladd/?classid=" +
-          this.editedItem.id +
-          "&classname=" +
-          this.editedItem.name;
-        console.log(this.addurl);
-        fetch(this.addurl, {
-          method: "GET",
-          mode: "cors",
-          credentials: "include",
+      deleteItemConfirm () {
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
         })
-          .then((res) => res.json())
-          .then((obj) => (this.classs = obj));
-        this.close();
-      }
+        .then((res)=>res.json())
+        .then(obj=>this.classs=obj)
+        this.closeDelete()
+      },
+
+      close () {
+        this.dialog = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      closeDelete () {
+        this.dialogDelete = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      save () {
+        if(this.$refs.classaddform.validate()){
+          this.addurl = this.url + 'cladd/?classid=' + this.editedItem.id + '&classname=' + this.editedItem.name
+          console.log(this.addurl)
+          fetch(this.addurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+          })
+          .then((res)=>res.json())
+          .then(obj=>this.classs=obj)
+          this.close()
+        }
+      },
     },
-  },
-  /* 未ログイン時index.vueに遷移 */
-  middleware: "authenicated",
-};
+    /* 未ログイン時index.vueに遷移 */
+    middleware:"authenicated"
+  }
 </script>

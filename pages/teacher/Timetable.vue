@@ -80,48 +80,46 @@ import { METHODS } from 'http';
         </v-bottom-sheet>
       </v-row>
     </v-col>
-  </div>
+</div>
 </template>
 
 <script>
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie'
 export default {
   data() {
     return {
       file: null,
-      sheet: false,
-      csrftoken: "",
-    };
+      sheet:false,
+      csrftoken:'',
+    }
   },
   methods: {
-    onChange(event) {
+    onChange(event){
       console.log(event);
       this.file = event;
     },
     async upload() {
-      this.csrftoken = Cookies.get("csrftoken");
-
-      fetch("https://sukusukuserver.7colordays.net/sukusuku/ttadd/", {
-        method: "POST",
+      this.csrftoken = Cookies.get('csrftoken')
+      
+      fetch('https://sukusukuserver.7colordays.net/sukusuku/ttadd/',{
+        method:"POST",
         headers: {
-          "content-type":
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-          "X-CSRFToken": this.csrftoken,
+          'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'X-CSRFToken':this.csrftoken
         },
-        body: this.file,
-        mode: "cors",
-        credentials: "include",
+        body:this.file,
+        mode:"cors",
+        credentials: 'include'
+      }).then((res)=>res.json())
+      .then(obj=>this.json=obj)
+      .catch(error => {
+        return error.response;
       })
-        .then((res) => res.json())
-        .then((obj) => (this.json = obj))
-        .catch((error) => {
-          return error.response;
-        });
-      this.sheet = !this.sheet;
-      this.file = null;
+      this.sheet = !this.sheet
+      this.file = null
     },
   },
   /* 未ログイン時index.vueに遷移 */
-  middleware: "authenicated",
-};
+  middleware:"authenicated"
+}
 </script>

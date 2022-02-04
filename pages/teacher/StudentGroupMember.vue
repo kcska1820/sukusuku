@@ -346,9 +346,9 @@ export default {
     formTitle() {
       return this.editedIndex === -1 ? "追加" : "編集";
     },
-    textdisabled() {
+    textdisabled(){
       return this.editedIndex === -1 ? false : true;
-    },
+    }
   },
 
   watch: {
@@ -463,6 +463,6 @@ export default {
     },
   },
   /* 未ログイン時index.vueに遷移 */
-  middleware: "authenicated",
-};
+  middleware:"authenicated"
+}
 </script>

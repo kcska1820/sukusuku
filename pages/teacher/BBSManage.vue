@@ -94,8 +94,7 @@
                   :disabled="!valid"
                   color="blue darken-1"
                   text
-                  @click="save"
-                >
+                  @click="save">
                   作成
                 </v-btn>
               </v-card-actions>
@@ -225,240 +224,173 @@
   </v-data-table>
 </template>
 <script>
-export default {
-  data: () => ({
-    rules: {
-      required: (value) => !!value || "こちらは必須項目です",
-    },
-    url: "https://sukusukuserver.7colordays.net/sukusuku/",
-    delurl: "",
-    valid: true,
-    dialog: false,
-    dialogDelete: false,
-    dialogUnblind: false,
-    user: [],
-    userid: "",
-    headers: [
-      {
-        text: "ID",
-        align: "start",
-        sortable: false,
-        value: "threadid",
-        align: "center",
-        width: "30",
-        class: "accent",
+  export default {
+    data: () => ({
+      rules: {
+        required: value => !!value || 'こちらは必須項目です',
       },
-      {
-        text: "スレッドタイトル",
-        value: "title",
-        align: "center",
-        width: "150",
-        class: "accent",
-      },
-      {
-        text: "備考",
-        value: "note",
-        align: "center",
-        width: "200",
-        class: "accent",
-      },
-      {
-        text: "申請者",
-        value: "master_id",
-        align: "center",
-        width: "200",
-        class: "accent",
-      },
-      {
-        text: "状態",
-        value: "flag",
-        align: "center",
-        width: "100",
-        class: "accent",
-        filter: (value) => {
-          return value != "0";
+      url:'https://sukusukuserver.7colordays.net/sukusuku/',
+      delurl:'',
+      valid:true,
+      dialog: false,
+      dialogDelete: false,
+      dialogUnblind: false,
+      user:[],
+      userid:'',
+      headers: [
+        {
+          text: 'ID',
+          align: 'start',
+          sortable: false,
+          value: 'threadid',
+          align: "center",
+          width: '30',
+          class:"accent"
         },
+        { text: 'スレッドタイトル', value: 'title', align: "center", width: '150',class:"accent"},
+        { text: '備考', value: 'note', align: "center", width: '200',class:"accent"},
+        { text: '申請者', value: 'master_id', align: "center", width: '200',class:"accent"},
+        { text: '状態', value: 'flag', align: "center", width: '100',class:"accent",filter: value => {
+          return value != "0"
+        }},
+        { text: '', value: 'actions', sortable: false, align: "center", width: '100',class:"accent"},
+      ],
+      desserts: [],
+      thdata: [],
+      editedIndex: -1,
+      editedItem: {
+        id: '',
+        title: '',
+        note: '',
+        master_id: '',
+        flag: ''
       },
-      {
-        text: "",
-        value: "actions",
-        sortable: false,
-        align: "center",
-        width: "100",
-        class: "accent",
+      defaultItem: {
+        id: '',
+        title: '',
+        note: '',
+        master_id: '',
+        flag: ''
       },
-    ],
-    desserts: [],
-    thdata: [],
-    editedIndex: -1,
-    editedItem: {
-      id: "",
-      title: "",
-      note: "",
-      master_id: "",
-      flag: "",
-    },
-    defaultItem: {
-      id: "",
-      title: "",
-      note: "",
-      master_id: "",
-      flag: "",
-    },
-  }),
+    }),
 
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "スレッドを作成します" : "Edit Item";
-    },
-  },
-
-  watch: {
-    dialog(val) {
-      val || this.close();
-    },
-    dialogDelete(val) {
-      val || this.closeDelete();
-    },
-    dialigUnblind(val) {
-      val || this.closeUnblind();
-    },
-  },
-
-  created() {
-    this.initialize();
-  },
-
-  methods: {
-    initialize() {
-      fetch(this.url + "thsel/", {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.thdata = obj));
+    computed: {
+      formTitle () {
+        return this.editedIndex === -1 ? 'スレッドを作成します' : 'Edit Item'
+      },
     },
 
-    editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
-
-    blindItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialogDelete = true;
-    },
-
-    unblindItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialogUnblind = true;
-    },
-
-    blindItemConfirm() {
-      this.delurl =
-        this.url +
-        "thdel/?threadid=" +
-        this.editedItem.threadid +
-        "&title=" +
-        this.editedItem.title +
-        "&flag=3" +
-        "&note=" +
-        this.editedItem.note +
-        "&master=" +
-        this.editedItem.master_id +
-        "&latest=" +
-        this.editedItem.latest;
-      fetch(this.delurl, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.thdata = obj));
-      this.closeDelete();
-    },
-
-    unblindItemConfirm() {
-      this.delurl =
-        this.url +
-        "thdel/?threadid=" +
-        this.editedItem.threadid +
-        "&title=" +
-        this.editedItem.title +
-        "&flag=1" +
-        "&note=" +
-        this.editedItem.note +
-        "&master=" +
-        this.editedItem.master_id +
-        "&latest=" +
-        this.editedItem.latest;
-      fetch(this.delurl, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.thdata = obj));
-      this.closeUnblind();
-    },
-
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    closeUnblind() {
-      this.dialogUnblind = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    save() {
-      if (this.$refs.BBSaddform.validate()) {
-        this.user = JSON.parse(localStorage.getItem("user"));
-        this.userid = this.user[0].userid;
-        this.addurl =
-          this.url +
-          "thadd/?title=" +
-          this.editedItem.title +
-          "&flag=1" +
-          "&note=" +
-          this.editedItem.note +
-          "&master=" +
-          this.userid;
-        fetch(this.addurl, {
-          method: "GET",
-          mode: "cors",
-          credentials: "include",
-        })
-          .then((res) => res.json())
-          .then((obj) => (this.thdata = obj));
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem);
-        } else {
-          this.desserts.push(this.editedItem);
-        }
-        this.close();
+    watch: {
+      dialog (val) {
+        val || this.close()
+      },
+      dialogDelete (val) {
+        val || this.closeDelete()
+      },
+      dialigUnblind (val) {
+        val || this.closeUnblind()
       }
     },
-  },
-  middleware: "authenicated",
-};
+
+    created () {
+      this.initialize()
+    },
+
+    methods: {
+      initialize () {
+        fetch(this.url + 'thsel/',{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.thdata=obj)
+      },
+
+      editItem (item) {
+        this.editedIndex = this.desserts.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialog = true
+      },
+
+      blindItem (item) {
+        this.editedIndex = this.desserts.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialogDelete = true
+      },
+
+      unblindItem (item) {
+        this.editedIndex = this.desserts.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialogUnblind = true
+      },
+
+      blindItemConfirm () {
+        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=3' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id + '&latest=' + this.editedItem.latest
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.thdata=obj)
+        this.closeDelete()
+      },
+
+      unblindItemConfirm () {
+        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id + '&latest=' + this.editedItem.latest
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.thdata=obj)
+        this.closeUnblind()
+      },
+
+      close () {
+        this.dialog = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      closeDelete () {
+        this.dialogDelete = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      closeUnblind () {
+        this.dialogUnblind = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      save () {
+        if(this.$refs.BBSaddform.validate()){
+        this.user = JSON.parse(localStorage.getItem('user'))
+        this.userid = this.user[0].userid
+        this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.userid
+        fetch(this.addurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.thdata=obj)
+        if (this.editedIndex > -1) {
+          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        } else {
+          this.desserts.push(this.editedItem)
+        }
+        this.close()
+        }
+      },
+    },
+  middleware:"authenicated"
+  }
 </script>

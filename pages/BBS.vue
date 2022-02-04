@@ -105,14 +105,13 @@
             v-model="searchtxt"
             @keyup.enter="search"
             clearable
-            append-icon="mdi-magnify"
-          >
+            append-icon="mdi-magnify">
           </v-text-field>
         </v-toolbar>
       </v-col>
     </v-row>
-    <v-divider />
-    <br />
+    <v-divider/>
+    <br>
     <!--itemsをthdataにする-->
     <div 
       v-for="item in thdata" 
@@ -159,68 +158,67 @@
   </v-card>
 </template>
 <script>
-import BBSCard from "/components/BBSCard";
-import searchsup from "/components/searchSup";
+import BBSCard from '/components/BBSCard'
+import searchsup from '/components/searchSup'
 export default {
-  data: () => ({
+  data:() => ({
     rules: {
-      required: (value) => !!value || "こちらは必須項目です",
-    },
-    url: "https://sukusukuserver.7colordays.net/sukusuku/",
-    addurl: "",
-    srcurl: "",
-    valid: true,
-    sinsei: false,
-    touketu: false,
-    kaijo: false,
-    searchtxt: "",
-    kw: "",
-    user: [],
-    userid: "",
-    role: "",
+        required: value => !!value || 'こちらは必須項目です',
+      },
+    url:'https://sukusukuserver.7colordays.net/sukusuku/',
+    addurl:'',
+    srcurl:'',
+    valid:true,
+    sinsei:false,
+    touketu:false,
+    kaijo:false,
+    searchtxt:'',
+    kw:'',
+    user:[],
+    userid:'',
+    role:'',
     //items:items,
-    thdata: [],
+    thdata:[],
     editedIndex: -1,
-    editedItem: {
-      title: "",
-      note: "",
+    editedItem:{
+      title:'',
+      note:'',
     },
-    defaultItem: {
-      title: "",
-      note: "",
+    defaultItem:{
+      title:'',
+      note:'',
     },
   }),
 
   components: {
-    BBSCard,
+      BBSCard
   },
 
   watch: {
-    sinsei(val) {
-      val || this.sclose();
+    sinsei (val) {
+      val || this.sclose()
     },
-    touketu(val) {
-      val || this.tclose();
+    touketu (val) {
+      val || this.tclose()
     },
-    kaijo(val) {
-      val || this.kclose();
+    kaijo (val) {
+      val || this.kclose()
     },
   },
-
-  mounted() {
-    this.user = JSON.parse(localStorage.getItem("user"));
-    this.userid = this.user[0].userid;
-    this.role = this.user[0].roleid_id;
+  
+  mounted () {
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.userid = this.user[0].userid
+    this.role = this.user[0].roleid_id
   },
 
-  created() {
-    fetch(this.url + "thsel/", {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((obj) => (this.thdata = obj));
+  created () {
+    fetch(this.url + 'thsel/',{
+      method:"GET",
+      mode:"cors",
+      credentials: 'include'
+    }).then((res)=>res.json())
+    .then(obj=>this.thdata=obj)
   },
 
   methods: {
@@ -229,74 +227,64 @@ export default {
       this.user = JSON.parse(localStorage.getItem('user'))
       this.userid = this.user[0].userid
     */
-    search() {
-      this.kw = searchsup(this.searchtxt, "title");
-      this.srcurl = this.url + "thsrc" + this.kw.sql;
-      fetch(this.srcurl, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.thdata = obj));
+    search (){
+      this.kw = searchsup(this.searchtxt, 'title')
+      this.srcurl = this.url + 'thsrc' + this.kw.sql
+      fetch(this.srcurl ,{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+      }).then((res)=>res.json())
+      .then(obj=>this.thdata=obj)
     },
 
-    save() {
-      if (this.$refs.BBSaddform.validate()) {
-        this.addurl =
-          this.url +
-          "thadd/?title=" +
-          this.editedItem.title +
-          "&flag=0" +
-          "&note=" +
-          this.editedItem.note +
-          "&master=" +
-          this.userid;
-        fetch(this.addurl, {
-          method: "GET",
-          mode: "cors",
-          credentials: "include",
-        })
-          .then((res) => res.json())
-          .then((obj) => (this.thdata = obj));
-        this.sclose();
+    save () {
+      if(this.$refs.BBSaddform.validate()){
+      this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=0' + '&note=' + this.editedItem.note + '&master=' + this.userid
+      fetch(this.addurl,{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+      })
+      .then((res)=>res.json())
+      .then(obj=>this.thdata=obj)
+      this.sclose()
       }
     },
 
-    sclose() {
-      this.sinsei = false;
+    sclose (){
+      this.sinsei = false
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    tclose() {
-      this.touketu = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    kclose() {
-      this.kaijo = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    reflesh() {
-      fetch(this.url + "thsel/", {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
       })
-        .then((res) => res.json())
-        .then((obj) => (this.thdata = obj));
+    },
+
+    tclose (){
+      this.touketu = false
+      this.$nextTick(() => {
+      this.editedItem = Object.assign({}, this.defaultItem)
+      this.editedIndex = -1
+      })
+    },
+
+    kclose (){
+      this.kaijo = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+
+    reflesh () {
+      fetch(this.url + 'thsel/',{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+      }).then((res)=>res.json())
+      .then(obj=>this.thdata=obj)
     },
   },
-  middleware: "authenicated",
-};
+  middleware:"authenicated"
+}
 </script>

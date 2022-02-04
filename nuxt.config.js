@@ -65,8 +65,8 @@ export default {
           accent: colors.lightGreen.lighten1,
           info: colors.grey.lighten4,
           button: colors.brown.darken1,
-          icon: colors.blueGrey.darken3,
-          back: colors.blueGrey.lighten4
+          icon:colors.blueGrey.darken3,
+          back:colors.blueGrey.lighten4
         },
         dark: {
           primary: colors.grey.darken1,
@@ -75,7 +75,7 @@ export default {
           error: colors.red.accent3,
           info: colors.blueGrey.darken4,
           button: colors.grey.lighten5,
-          icon: colors.blueGrey.lighten4,
+          icon:colors.blueGrey.lighten4,
           warning: colors.amber.base,
           success: colors.green.accent3
         }

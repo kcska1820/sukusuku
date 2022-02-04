@@ -78,7 +78,7 @@
             elevation="0"
           >
             <v-toolbar-title>
-              {{ title.title }}
+              {{title.title}}
             </v-toolbar-title>
           </v-toolbar>
         </v-card>
@@ -97,8 +97,7 @@
                 :post="post"
                 :no="i + 1"
                 :user="userid"
-                @delete="reflesh"
-              />
+                @delete="reflesh"/>
             </template>
           </div>
         </v-list>
@@ -121,189 +120,166 @@
         label="発言を入力"
         hide-details
         clearable
-        append-icon="mdi-chat"
-      >
+        append-icon="mdi-chat">
       </v-text-field>
     </div>
   </div>
 </template>
 
 <script>
-import BBSCom from "/components/BBSComment";
-export default {
-  data() {
-    return {
-      url: "https://sukusukuserver.7colordays.net/sukusuku/",
-      addurl: "",
-      newComment: "",
-      index: 0,
-      num: 4,
-      user: [],
-      userid: "",
-      ptime: "",
-      loader: null,
-      refbtn: false,
-      thdata: [],
-      cmdata: [],
-      thread: this.$route.query.id,
-    };
-  },
-
-  created() {
-    if (this.thread.match(/^\d+$/)) {
-      fetch(this.url + "thsel/?threadid=" + this.thread, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.thdata = obj));
-
-      fetch(this.url + "cmsel/?threadid=" + this.thread, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.cmdata = obj));
-    } else {
-      this.$router.push("/BBS");
-    }
-  },
-
-  mounted() {
-    this.user = JSON.parse(localStorage.getItem("user"));
-    this.userid = this.user[0].userid;
-  },
-
-  watch: {
-    loader() {
-      if (this.loader != null) {
-        const l = this.loader;
-        this[l] = !this[l];
-
-        setTimeout(() => (this[l] = false), 3000);
-        this.reflesh();
-
-        this.loader = null;
+  import BBSCom from '/components/BBSComment'
+  export default {
+    data() {
+      return {
+        url:'https://sukusukuserver.7colordays.net/sukusuku/',
+        addurl:'',
+        newComment: '',
+        index:0,
+        num:4,
+        user:[],
+        userid:'',
+        ptime:'',
+        loader:null,
+        refbtn:false,
+        thdata:[],
+        cmdata:[],
+        thread:this.$route.query.id,
       }
     },
-  },
 
-  methods: {
-    addPost() {
-      if (this.newComment == "" || /^\s+$/.test(this.newComment)) {
-        alert("文章が入力されていません");
-      } else if (this.thdata[0].flag != 1) {
-        alert("この掲示板は現在書き込みできません");
-      } else {
-        //YYYY-MM-DD/HH:mm
-        let date = new Date();
-        this.ptime =
-          date.getFullYear() +
-          "-" +
-          (date.getMonth() + 1) +
-          "-" +
-          date.getDay() +
-          " " +
-          date.getHours() +
-          ":";
-        if (date.getMinutes() < 10) {
-          this.ptime += "0" + date.getMinutes();
-        } else {
-          this.ptime += date.getMinutes();
+    created () {
+      if (this.thread.match(/^\d+$/)) {
+        fetch(this.url + 'thsel/?threadid=' + this.thread,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.thdata=obj)
+
+        fetch(this.url + 'cmsel/?threadid=' + this.thread,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.cmdata=obj)
+      }else{
+        this.$router.push('/BBS')
+      }
+    },
+
+    mounted () {
+    this.user = JSON.parse(localStorage.getItem('user'))
+    this.userid = this.user[0].userid
+    },
+
+    watch: {
+      loader() {
+        if (this.loader != null){
+          const l = this.loader
+          this[l] = !this[l]
+
+          setTimeout(() => (this[l] = false), 3000)
+          this.reflesh()
+
+          this.loader = null
         }
-        this.addurl =
-          this.url +
-          "cmadd/?thread=" +
-          this.thread +
-          "&user=" +
-          this.userid +
-          "&comment=" +
-          this.newComment +
-          "&ptime=" +
-          this.ptime +
-          "&flag=True";
-        fetch(this.addurl, {
-          method: "GET",
-          mode: "cors",
-          credentials: "include",
-        })
-          .then((res) => res.json())
-          .then((obj) => (this.cmdata = obj));
-        this.newComment = "";
-      }
+      },
     },
+    
+    methods: {
+      addPost(){
+        if (this.newComment == "" || /^\s+$/.test(this.newComment)) {
+          alert("文章が入力されていません")
+        }else if (this.thdata[0].flag != 1){
+          alert("この掲示板は現在書き込みできません")
+        }else{
+          //YYYY-MM-DD/HH:mm
+          let date = new Date()
+          this.ptime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay() + ' ' + date.getHours() + ':'
+          if (date.getMinutes() < 10){
+            this.ptime += ('0' + date.getMinutes())
+          }else{
+            this.ptime += date.getMinutes()
+          }
+          this.addurl = this.url + 'cmadd/?thread=' + this.thread + '&user=' + this.userid + '&comment=' + this.newComment + '&ptime=' + this.ptime + '&flag=True'
+          fetch(this.addurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+          }).then((res)=>res.json())
+          .then(obj=>this.cmdata=obj)
+          this.newComment = ''
+        }
+      },
 
-    reflesh() {
-      fetch(this.url + "cmsel/?threadid=" + this.thread, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.cmdata = obj));
+      reflesh(){
+        fetch(this.url + 'cmsel/?threadid=' + this.thread,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.cmdata=obj)
+      },
     },
-  },
-  components: {
-    BBSCom,
-  },
-  middleware: "authenicated",
-};
+    components:{
+      BBSCom
+    },
+    middleware:"authenicated"
+  }
 </script>
 
 <style scoped>
-.thread {
-  padding: 10px 1em 0 0.5em;
-}
-.comment {
-  padding: 0 1em 0 1em;
-}
-.divide {
-  margin: 8px;
-}
-.chat {
-  position: sticky;
-  bottom: 60px;
-  background-color: #fff;
-}
-.ref {
-  margin-top: 60px;
-}
-.custom-loader {
-  animation: loader 1s infinite;
-  display: flex;
-}
-@-moz-keyframes loader {
-  from {
-    transform: rotate(0);
+  .thread {
+    padding:10px 1em 0 0.5em;
   }
-  to {
-    transform: rotate(360deg);
+  .comment {
+    padding:0 1em 0 1em;
   }
-}
-@-webkit-keyframes loader {
-  from {
-    transform: rotate(0);
+  .divide {
+    margin:8px;
   }
-  to {
-    transform: rotate(360deg);
+  .chat {
+    position:sticky;
+    bottom:60px;
+    background-color: #FFF;
   }
-}
-@-o-keyframes loader {
-  from {
-    transform: rotate(0);
+  .ref {
+    margin-top:60px;
   }
-  to {
-    transform: rotate(360deg);
+  .custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
   }
-}
-@keyframes loader {
-  from {
-    transform: rotate(0);
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
-  to {
-    transform: rotate(360deg);
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
-}
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 </style>

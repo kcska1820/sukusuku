@@ -242,232 +242,199 @@
   </v-data-table>
 </template>
 <script>
-export default {
-  data: () => ({
-    rules: {
-      required: (value) => !!value || "こちらは必須項目です",
-      limit_length_100: (value) =>
-        value.length <= 100 || "100文字以内で入力してください",
-    },
-    dialog: false,
-    dialogDelete: false,
-    dialogChange: false,
-    headers: [
-      {
-        text: "グループ名",
-        value: "name",
-        align: "center",
-        width: "400",
-        class: "accent",
+  export default {
+    data: () => ({
+      rules: {
+        required: value => !!value || 'こちらは必須項目です',
+        limit_length_100: value => value.length <= 100 || "100文字以内で入力してください"
       },
-      {
-        text: "",
-        value: "actions",
-        sortable: false,
-        align: "center",
-        width: "300",
-        class: "accent",
+      dialog: false,
+      dialogDelete: false,
+      dialogChange: false,
+      headers: [
+        { text: 'グループ名', value: 'name', align: "center", width: '400',class: "accent"},
+        { text: '', value: 'actions', sortable: false, align: "center", width: '300',class: "accent"},
+      ],
+      desserts: [],
+      setGroup:[],
+      groupurl : '',
+      deleteurl:'',
+      editedTitle:'',
+      editedIndex: -1,
+      editedItem: {
+        id: '',
+        name: '',
       },
-    ],
-    desserts: [],
-    setGroup: [],
-    groupurl: "",
-    deleteurl: "",
-    editedTitle: "",
-    editedIndex: -1,
-    editedItem: {
-      id: "",
-      name: "",
-    },
-    defaultItem: {
-      id: "",
-      name: "",
-    },
-  }),
+      defaultItem: {
+        id: '',
+        name: '',
+      },
+    }),
 
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "新規グループを作成します" : "Edit Item";
-    },
-  },
-
-  watch: {
-    dialog(val) {
-      val || this.close();
-    },
-    dialogDelete(val) {
-      val || this.closeDelete();
-    },
-  },
-
-  mounted() {
-    this.initialize();
-  },
-
-  methods: {
-    initialize() {
-      if (localStorage.getItem("group") != null) {
-        this.setGroup = JSON.parse(localStorage.getItem("group"));
-        for (let i = 0; i < this.setGroup.length; i++) {
-          this.groupurl =
-            "https://sukusukuserver.7colordays.net/sukusuku/glsel/?groupid=" +
-            this.setGroup[i].groupid_id;
-          fetch(this.groupurl, {
-            method: "GET",
-            mode: "cors",
-            credentials: "include",
-          })
-            .then((res) => res.json())
-            .then((obj) => {
-              this.desserts.push({
-                id: this.setGroup[i].groupid_id,
-                name: obj[0].groupname,
-              });
-            });
-        }
-      }
-    },
-    MemberManagebtn(item) {
-      localStorage.setItem("selgroupid", item.id);
-      this.$router.push({ path: "/student/GroupMemberManage" });
-    },
-    editItem(item) {
-      this.editedItem = Object.assign({}, item);
-      this.editedTitle = this.editedItem.name;
-      this.dialogChange = true;
+    computed: {
+      formTitle () {
+        return this.editedIndex === -1 ? '新規グループを作成します' : 'Edit Item'
+      },
     },
 
-    GroupNameChange() {
-      this.groupurl =
-        "https://sukusukuserver.7colordays.net/sukusuku/glupd/?groupid=" +
-        this.editedItem.id +
-        "&groupname=" +
-        this.editedItem.name;
-      if (this.$refs.changeform.validate()) {
-        fetch(this.groupurl, {
-          method: "GET",
-          mode: "cors",
-          credentials: "include",
-        })
-          .then((res) => {
-            res.json();
-            this.getGroup();
-          })
-          .catch((reason) => {
-            console.log(reason);
-          });
-      }
-      this.dialogChange = false;
+    watch: {
+      dialog (val) {
+        val || this.close()
+      },
+      dialogDelete (val) {
+        val || this.closeDelete()
+      },
     },
 
-    deleteItem(item) {
-      this.editedItem = Object.assign({}, item);
-      const user = JSON.parse(localStorage.getItem("user"));
-      this.deleteurl =
-        "https://sukusukuserver.7colordays.net/sukusuku/gddel/?groupid=" +
-        item.id +
-        "&userid=" +
-        user[0].userid;
-      console.log(this.deleteurl);
-      this.dialogDelete = true;
+    mounted () {
+      this.initialize()
     },
 
-    deleteItemConfirm() {
-      fetch(this.deleteurl, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => {
-          res.json();
-          this.getGroup();
-        })
-        .catch((reason) => {
-          console.log(reason);
-        });
-      this.closeDelete();
-    },
-
-    close() {
-      this.dialog = false;
-      this.dialogChange = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    getGroup() {
-      const user = JSON.parse(localStorage.getItem("user"));
-      fetch(
-        "https://sukusukuserver.7colordays.net/sukusuku/gdsel/?userid=" +
-          user[0].userid,
-        {
-          method: "GET",
-          mode: "cors",
-          credentials: "include",
-        }
-      )
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } // 404 や 500 ステータスならここに到達する
-          throw new Error("Network response was not ok.");
-        })
-        .then((resJson) => {
-          localStorage.setItem("group", JSON.stringify(resJson));
-          this.desserts = [];
-          this.initialize();
-        });
-    },
-
-    save() {
-      this.groupurl =
-        "https://sukusukuserver.7colordays.net/sukusuku/gladd/?groupname=" +
-        this.editedItem.name;
-      if (this.$refs.addform.validate()) {
-        fetch(this.groupurl, {
-          method: "GET",
-          mode: "cors",
-          credentials: "include",
-        })
-          .then((res) => res.json())
-          .then((obj) => {
-            const user = JSON.parse(localStorage.getItem("user"));
-            this.groupurl =
-              "https://sukusukuserver.7colordays.net/sukusuku/gdadd/?groupid=" +
-              obj[0].groupid +
-              "&userid=" +
-              user[0].userid;
-            fetch(this.groupurl, {
-              method: "GET",
-              mode: "cors",
-              credentials: "include",
+    methods: {
+      initialize () {
+        if(localStorage.getItem('group') != null){
+          this.setGroup = JSON.parse(localStorage.getItem('group'))
+          for (let i = 0; i < this.setGroup.length; i++) {
+            this.groupurl = 'https://sukusukuserver.7colordays.net/sukusuku/glsel/?groupid='+this.setGroup[i].groupid_id
+            fetch(this.groupurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
             })
-              .then((res) => {
-                res.json();
-                this.getGroup();
+            .then((res)=>res.json())
+            .then(obj=>{
+              this.desserts.push({
+                id:this.setGroup[i].groupid_id,
+                name:obj[0].groupname,
               })
-              .catch((reason) => {
-                console.log(reason);
-              });
+            })
+          }
+        }
+        
+      },
+      MemberManagebtn(item){
+        localStorage.setItem('selgroupid',item.id)
+        this.$router.push({path: "/student/GroupMemberManage"})
+      },
+      editItem (item) {
+        this.editedItem = Object.assign({}, item)
+        this.editedTitle = this.editedItem.name
+        this.dialogChange = true
+      },
+
+      GroupNameChange(){
+        this.groupurl = 'https://sukusukuserver.7colordays.net/sukusuku/glupd/?groupid='+this.editedItem.id+'&groupname='+this.editedItem.name
+        if(this.$refs.changeform.validate()){
+        fetch(this.groupurl,{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+        })
+        .then((res)=>{
+          res.json()
+          this.getGroup()
+        })
+        .catch((reason)=>{
+          console.log(reason)
+        })
+        }
+        this.dialogChange = false
+      },
+
+      deleteItem (item) {
+        this.editedItem = Object.assign({}, item)
+        const user = JSON.parse(localStorage.getItem('user'))
+        this.deleteurl = 'https://sukusukuserver.7colordays.net/sukusuku/gddel/?groupid='+item.id+'&userid='+user[0].userid
+        console.log(this.deleteurl)
+        this.dialogDelete = true
+      },
+
+      deleteItemConfirm () {
+        fetch(this.deleteurl,{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+        })
+        .then((res)=>{
+          res.json()
+          this.getGroup()
+        })
+        .catch((reason)=>{
+          console.log(reason)
+        })
+        this.closeDelete()
+      },
+
+      close () {
+        this.dialog = false
+        this.dialogChange = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      closeDelete () {
+        this.dialogDelete = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      getGroup(){
+        const user = JSON.parse(localStorage.getItem('user'))
+        fetch('https://sukusukuserver.7colordays.net/sukusuku/gdsel/?userid=' + user[0].userid,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then(response => {
+        if (response.ok) {
+            return response.json();
+        }       // 404 や 500 ステータスならここに到達する
+        throw new Error('Network response was not ok.');
+        })
+        .then(resJson => {
+          localStorage.setItem('group',JSON.stringify(resJson))
+          this.desserts = []
+          this.initialize ()
+        })
+      },
+
+      save () {
+        this.groupurl = 'https://sukusukuserver.7colordays.net/sukusuku/gladd/?groupname='+this.editedItem.name
+        if(this.$refs.addform.validate()){
+        fetch(this.groupurl,{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then((obj)=>{
+          const user = JSON.parse(localStorage.getItem('user'))
+          this.groupurl='https://sukusukuserver.7colordays.net/sukusuku/gdadd/?groupid='+obj[0].groupid+'&userid='+user[0].userid
+          fetch(this.groupurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
           })
-          .catch((reason) => {
-            console.log(reason);
-          });
-        this.close();
-      }
+          .then((res)=>{
+            res.json()
+            this.getGroup()
+          })
+          .catch((reason)=>{
+            console.log(reason)
+          })
+        })
+        .catch((reason)=>{
+          console.log(reason)
+        })
+        this.close()
+        }
+      },
     },
-  },
-  /* 未ログイン時index.vueに遷移 */
-  middleware: "authenicated",
-};
+    /* 未ログイン時index.vueに遷移 */
+    middleware:"authenicated"
+  }
 </script>

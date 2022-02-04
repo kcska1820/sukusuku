@@ -219,166 +219,138 @@
 </template>
 
 <script>
-export default {
-  data: () => ({
-    rules: {
-      required: (value) => !!value || "こちらは必須項目です",
-      max: (value) =>
-        (value && value.length == 10) || "10文字で入力してください",
-      email: (value) => {
-        const pattern =
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  export default {
+    data: () => ({
+       rules: {
+        required: value => !!value || 'こちらは必須項目です',
+         max: value => (value && value.length == 10) || '10文字で入力してください',
+         email: value => {
 
-        return pattern.test(value) || "メールアドレスの形式が正しくありません";
-      },
-    },
-    url: "https://sukusukuserver.7colordays.net/sukusuku/",
-    addurl: "",
-    del: "",
-    dialog: false,
-    dialogDelete: false,
-    item: "teacher",
-    search: "",
-    headers: [
-      {
-        text: "ユーザーID",
-        align: "start",
-        sortable: false,
-        value: "userid",
-        class: "accent",
-      },
-      {
-        text: "メールアドレス",
-        value: "mail",
-        align: "center",
-        width: "250",
-        class: "accent",
-      },
-      {
-        text: "ロールID",
-        value: "roleid_id",
-        align: "center",
-        width: "250",
-        class: "accent",
-      },
-      {
-        text: "ユーザー名",
-        value: "username",
-        align: "center",
-        width: "300",
-        class: "accent",
-      },
-      { text: "編集", value: "actions", sortable: false, class: "accent" },
-    ],
-    userdata: [],
-    editedIndex: -1,
-    editedItem: {
-      userid: "",
-      mail: "",
-      roleid_id: "",
-      username: "",
-    },
-    defaultItem: {
-      userid: "",
-      mail: "",
-      roleid_id: "",
-      username: "",
-    },
-  }),
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "新規管理者を追加します" : "編集";
-    },
-    textdisabled() {
+                return pattern.test(value) || 'メールアドレスの形式が正しくありません'
+
+        }
+      },
+      url:'https://sukusukuserver.7colordays.net/sukusuku/',
+      addurl:'',
+      del:'',
+      dialog: false,
+      dialogDelete: false,
+      item: 'teacher',
+      search: "",
+      headers: [
+        {
+          text: 'ユーザーID',
+          align: 'start',
+          sortable: false,
+          value: 'userid',
+          class: "accent"
+        },
+        { text: 'メールアドレス', value: 'mail',align: "center", width: '250',class: "accent"},
+        { text: 'ロールID', value: 'roleid_id',align: "center", width: '250',class: "accent"},
+        { text: 'ユーザー名', value: 'username',align: "center", width: '300' ,class: "accent"},
+        { text: '編集', value: 'actions', sortable: false,class: "accent"},
+      ],
+      userdata:[],
+      editedIndex: -1,
+      editedItem: {
+        userid: '',
+        mail: '',
+        roleid_id: '',
+        username: '',
+        },
+      defaultItem: {
+        userid: '',
+        mail: '',
+        roleid_id: '',
+        username: '',
+        },
+    }),
+
+    computed: {
+      formTitle () {
+        return this.editedIndex === -1 ? '新規管理者を追加します' : '編集'
+      },
+      textdisabled(){
       return this.editedIndex === -1 ? false : true;
-    },
-  },
-
-  watch: {
-    dialog(val) {
-      val || this.close();
-    },
-    dialogDelete(val) {
-      val || this.closeDelete();
-    },
-  },
-
-  created() {
-    fetch(this.url + "trsel/", {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((obj) => (this.userdata = obj));
-  },
-
-  methods: {
-    editItem(item) {
-      this.editedIndex = this.userdata.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
+    }
     },
 
-    deleteItem(item) {
-      this.editedItem = Object.assign({}, item);
-      this.delurl = this.url + "trdel/?userid=" + item.userid;
-      this.dialogDelete = true;
+    watch: {
+      dialog (val) {
+        val || this.close()
+      },
+      dialogDelete (val) {
+        val || this.closeDelete()
+      },
     },
 
-    deleteItemConfirm() {
-      fetch(this.delurl, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.userdata = obj));
-      this.closeDelete();
+    created () {
+      fetch(this.url + 'trsel/',{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.userdata=obj)
     },
 
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
+    methods: {
+      editItem (item) {
+        this.editedIndex = this.userdata.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialog = true
+      },
 
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
+      deleteItem (item) {
+        this.editedItem = Object.assign({}, item)
+        this.delurl = this.url + 'trdel/?userid=' +  item.userid
+        this.dialogDelete = true
+      },
 
-    save() {
-      if (this.$refs.Manageaddform.validate()) {
-        this.addurl =
-          this.url +
-          "tradd/?userid=" +
-          this.editedItem.userid +
-          "&mail=" +
-          this.editedItem.mail +
-          "&roleid_id=" +
-          this.editedItem.roleid_id +
-          "&username=" +
-          this.editedItem.username;
-        console.log(this.addurl);
-        fetch(this.addurl, {
-          method: "GET",
-          mode: "cors",
-          credentials: "include",
+      deleteItemConfirm () {
+        fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
         })
-          .then((res) => res.json())
-          .then((obj) => (this.userdata = obj));
-        this.close();
-      }
+        .then((res)=>res.json())
+        .then(obj=>this.userdata=obj)
+        this.closeDelete()
+      },
+
+      close () {
+        this.dialog = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      closeDelete () {
+        this.dialogDelete = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      save () {
+        if(this.$refs.Manageaddform.validate()){
+        this.addurl = this.url + 'tradd/?userid=' + this.editedItem.userid + '&mail=' + this.editedItem.mail + '&roleid_id=' + this.editedItem.roleid_id + '&username=' + this.editedItem.username
+        console.log(this.addurl)
+        fetch(this.addurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then(obj=>this.userdata=obj)
+        this.close()
+        }
+      },
     },
-  },
-  /* 未ログイン時index.vueに遷移 */
-  middleware: "authenicated",
-};
+    /* 未ログイン時index.vueに遷移 */
+    middleware:"authenicated"
+  }
 </script>

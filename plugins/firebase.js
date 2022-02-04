@@ -1,6 +1,6 @@
 
 import firebase from "firebase/compat"
-import 'firebase/firestore'
+import 'firebase/firestore' 
 import 'firebase/auth'
 
 const firebaseConfig = {

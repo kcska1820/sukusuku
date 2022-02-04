@@ -177,202 +177,162 @@
   </div>
 </template>
 <script>
-//import threads from '/components/threadList.json'
-export default {
-  data: () => ({
-    url: "https://sukusukuserver.7colordays.net/sukusuku/",
-    appurl: "",
-    delurl: "",
-    flag: "",
-    search: "0",
-    dialog: false,
-    dialogApprove: false,
-    dialogDelete: false,
-    headers: [
-      {
-        text: "スレッドタイトル",
-        align: "start",
-        sortable: false,
-        value: "title",
-        align: "center",
-        width: "200",
-        class: "accent",
-      },
-      {
-        text: "備考",
-        value: "note",
-        align: "center",
-        width: "200",
-        class: "accent",
-      },
-      {
-        text: "申請者",
-        value: "master_id",
-        align: "center",
-        width: "200",
-        class: "accent",
-      },
-      {
-        text: "状態",
-        value: "flag",
-        align: "center",
-        width: "200",
-        class: "accent",
-        filter: (value) => {
-          return value == "0";
+  //import threads from '/components/threadList.json'
+  export default {
+    data: () => ({
+      url:'https://sukusukuserver.7colordays.net/sukusuku/',
+      appurl:'',
+      delurl:'',
+      flag:'',
+      search:'0',
+      dialog: false,
+      dialogApprove: false,
+      dialogDelete: false,
+      headers: [
+        {
+          text: 'スレッドタイトル',
+          align: 'start',
+          sortable: false,
+          value: 'title',
+          align: "center",
+          width: '200',
+          class:"accent"
         },
+        { text: '備考', value: 'note', align: "center", width: '200',class:"accent"},
+        { text: '申請者', value: 'master_id', align: "center", width: '200',class:"accent"},
+        { text: '状態', value: 'flag', align: "center", width: '200',class:"accent",filter: value => {
+          return value == "0"
+        }},
+        { text: '', value: 'actions', sortable: false, align: "center", width: '200',class:"accent"},
+      ],
+      desserts: [],
+      thdata: [],
+      thread:'',
+      editedIndex: '-1',
+      editedItem: {
+        id: '',
+        title: '',
+        note: '',
+        flag: '',
+        master_id: '',
+        latest: ''
       },
-      {
-        text: "",
-        value: "actions",
-        sortable: false,
-        align: "center",
-        width: "200",
-        class: "accent",
+      defaultItem: {
+        id: '',
+        title: '',
+        note: '',
+        flag: '',
+        master_id: '',
+        latest: ''
       },
-    ],
-    desserts: [],
-    thdata: [],
-    thread: "",
-    editedIndex: "-1",
-    editedItem: {
-      id: "",
-      title: "",
-      note: "",
-      flag: "",
-      master_id: "",
-      latest: "",
-    },
-    defaultItem: {
-      id: "",
-      title: "",
-      note: "",
-      flag: "",
-      master_id: "",
-      latest: "",
-    },
-    editTitle: "",
-    editNote: "",
-  }),
+      editTitle: '', 
+      editNote:'',
+    }),
 
-  computed: {
-    formTitle() {
-      return this.editedIndex === "-1" ? "トピックを作成します" : "Edit Item";
+    computed: {
+      formTitle () {
+        return this.editedIndex === '-1' ? 'トピックを作成します' : 'Edit Item'
+      },
+
+      flFilter (val, search, item) {
+        return item == "0"
+      },
     },
 
-    flFilter(val, search, item) {
-      return item == "0";
-    },
-  },
-
-  watch: {
-    dialog(val) {
-      val || this.close();
-    },
-    dialogDelete(val) {
-      val || this.closeDelete();
-    },
-  },
-
-  created() {
-    this.initialize();
-  },
-
-  methods: {
-    initialize() {
-      fetch(this.url + "thsel/", {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.thdata = obj));
+    watch: {
+      dialog (val) {
+        val || this.close()
+      },
+      dialogDelete (val) {
+        val || this.closeDelete()
+      },
     },
 
-    approveItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.editTitle = this.editedItem.title;
-      this.editNote = this.editedItem.note;
-      this.dialogApprove = true;
+    created () {
+      this.initialize()
     },
 
-    deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialogDelete = true;
-    },
+    methods: {
+      initialize () {
+        fetch(this.url + 'thsel/',{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+        }).then((res)=>res.json())
+        .then(obj=>this.thdata=obj)
+      },
 
-    approveItemConfirm() {
-      this.appurl =
-        this.url +
-        "thapp/?threadid=" +
-        this.editedItem.threadid +
-        "&title=" +
-        this.editTitle +
-        "&flag=1" +
-        "&note=" +
-        this.editNote +
-        "&master=" +
-        this.editedItem.master_id +
-        "&latest=new";
-      fetch(this.appurl, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.thdata = obj));
-      this.desserts.splice(this.editedIndex, 1);
-      this.closeApprove();
-    },
+      approveItem (item) {
+        this.editedIndex = this.desserts.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.editTitle = this.editedItem.title
+        this.editNote = this.editedItem.note
+        this.dialogApprove = true
+      },
 
-    deleteItemConfirm() {
-      this.delurl = this.url + "threj/?threadid=" + this.editedItem.threadid;
-      fetch(this.delurl, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((obj) => (this.thdata = obj));
-      this.desserts.splice(this.editedIndex, 1);
-      this.closeDelete();
-    },
+      deleteItem (item) {
+        this.editedIndex = this.desserts.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialogDelete = true
+      },
 
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
+      approveItemConfirm () {
+        this.appurl = this.url + 'thapp/?threadid=' + this.editedItem.threadid + '&title=' + this.editTitle + '&flag=1' + '&note=' + this.editNote + '&master=' + this.editedItem.master_id + '&latest=new'
+          fetch(this.appurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+          }).then((res)=>res.json())
+          .then(obj=>this.thdata=obj)
+        this.desserts.splice(this.editedIndex, 1)
+        this.closeApprove()
+      },
 
-    closeApprove() {
-      this.dialogApprove = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
+      deleteItemConfirm () {
+        this.delurl = this.url + 'threj/?threadid=' + this.editedItem.threadid
+          fetch(this.delurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+          }).then((res)=>res.json())
+          .then(obj=>this.thdata=obj)
+        this.desserts.splice(this.editedIndex, 1)
+        this.closeDelete()
+      },
 
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
+      close () {
+        this.dialog = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
 
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
-      } else {
-        this.desserts.push(this.editedItem);
-      }
-      this.close();
+      closeApprove () {
+        this.dialogApprove = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      closeDelete () {
+        this.dialogDelete = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      save () {
+        if (this.editedIndex > -1) {
+          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        } else {
+          this.desserts.push(this.editedItem)
+        }
+        this.close()
+      },
     },
-  },
-  middleware: "authenicated",
-};
+  middleware:"authenicated"
+  }
 </script>

@@ -33,41 +33,41 @@
             </h2>
           </v-btn>
         </v-col>
-      </v-row>
+    </v-row>
     </v-container>
-  </div>
+</div>
 </template>
 <script>
 export default {
-  data: () => ({
-    menus: [
-      {
-        to: "/teacher/ManagerGroupMember",
-        title: "管理者管理",
-      },
-      {
-        to: "/teacher/StudentGroupMember",
-        title: "学生管理",
-      },
-      {
-        to: "/teacher/Timetable",
-        title: "時間割登録",
-      },
-      {
-        to: "/teacher/EventManage",
-        title: "イベント管理",
-      },
-      {
-        to: "/teacher/ClassAdmin",
-        title: "クラス管理",
-      },
-      {
-        to: "/teacher/BBSApprove",
-        title: "掲示板申請処理",
-      },
-    ],
-  }),
-  /* 未ログイン時index.vueに遷移 */
-  middleware: "authenicated",
-};
+    data: () => ({
+      menus:[
+        {
+            to:"/teacher/ManagerGroupMember",
+            title:"管理者管理"
+        },
+        {
+            to:"/teacher/StudentGroupMember",
+            title:"学生管理"
+        },
+        {
+            to:"/teacher/Timetable",
+            title:"時間割登録"
+        },
+        {
+            to:"/teacher/EventManage",
+            title:"イベント管理"
+        },
+        {
+            to:"/teacher/ClassAdmin",
+            title:"クラス管理"
+        },
+        {
+            to:"/teacher/BBSApprove",
+            title:"掲示板申請処理"
+        }
+      ]
+    }),
+    /* 未ログイン時index.vueに遷移 */
+    middleware:"authenicated"
+}
 </script>

@@ -212,174 +212,146 @@
 </template>
 
 <script>
-export default {
-  data: () => ({
-    rules: {
-      required: (value) => !!value || "こちらは必須項目です",
-      limit_length_100: (value) =>
-        value.length <= 100 || "100文字以内で入力してください",
-    },
-    url: "https://sukusukuserver.7colordays.net/sukusuku/",
-    addurl: "",
-    del: "",
-    dialog: false,
-    dialogDelete: false,
-    search: "",
-    date: "",
-    headers: [
-      {
-        text: "イベント名",
-        align: "start",
-        sortable: false,
-        value: "title",
-        align: "center",
-        class: "accent",
+  export default {
+    data: () => ({
+      rules: {
+        required: value => !!value || 'こちらは必須項目です',
+        limit_length_100: value => value.length <= 100 || "100文字以内で入力してください",
       },
-      {
-        text: "イベント詳細",
-        value: "details",
-        align: "center",
-        class: "accent",
+      url:'https://sukusukuserver.7colordays.net/sukusuku/',
+      addurl:'',
+      del:'',
+      dialog: false,
+      dialogDelete: false,
+      search:'',
+      date:'',
+      headers: [
+        {
+          text: 'イベント名',
+          align: 'start',
+          sortable: false,
+          value: 'title',
+          align: "center",
+          class:"accent"
+        },
+        { text: 'イベント詳細', value: 'details', align: "center",class:"accent"},
+        { text: '締め切り日', value: 'end', align: "center",class:"accent"},
+        { text: 'クラス', value: 'classid__classname', align: "center",class:"accent"},
+        { text: '削除', value: 'actions', sortable: false,class:"accent" }
+      ],
+      events: [],
+      classs: [],
+      editedIndex: -1,
+      editedItem: {
+        eventname: '',
+        eventdetails: '',
+        end: '',
+        clas:'',
       },
-      { text: "締め切り日", value: "end", align: "center", class: "accent" },
-      {
-        text: "クラス",
-        value: "classid__classname",
-        align: "center",
-        class: "accent",
+      defaultItem: {
+        eventname: '',
+        eventdetails: '',
+        end: '',
+        clas:'',
       },
-      { text: "削除", value: "actions", sortable: false, class: "accent" },
-    ],
-    events: [],
-    classs: [],
-    editedIndex: -1,
-    editedItem: {
-      eventname: "",
-      eventdetails: "",
-      end: "",
-      clas: "",
-    },
-    defaultItem: {
-      eventname: "",
-      eventdetails: "",
-      end: "",
-      clas: "",
-    },
-  }),
+    }),
 
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1
-        ? "新規イベントを作成します"
-        : "イベント更新";
+    computed: {
+      formTitle () {
+        return this.editedIndex === -1 ? '新規イベントを作成します' : 'イベント更新'
+      },
     },
-  },
 
-  watch: {
-    dialog(val) {
-      val || this.close();
+    watch: {
+      dialog (val) {
+        val || this.close()
+      },
+      dialogDelete (val) {
+        val || this.closeDelete()
+      },
     },
-    dialogDelete(val) {
-      val || this.closeDelete();
-    },
-  },
 
-  created() {
-    fetch(this.url + "evall/", {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((obj) => (this.events = obj));
+    created () {
+      fetch(this.url + 'evall/',{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+      }).then((res)=>res.json())
+      .then(obj=>this.events=obj)
 
-    fetch(this.url + "clall/", {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((obj) => {
-        const classtemp = obj;
-        for (let i = 0; i < classtemp.length; i++) {
+      fetch(this.url + 'clall/',{
+        method:"GET",
+        mode:"cors",
+        credentials: 'include'
+      }).then((res)=>res.json())
+      .then(obj=>{   
+        const classtemp = obj
+        for(let i = 0; i < classtemp.length; i++) {
           this.classs.push({
-            id: classtemp[i].classid,
-            name: classtemp[i].classname,
-          });
+            id:classtemp[i].classid,
+            name:classtemp[i].classname,
+          })
         }
-      });
-    this.set();
-  },
-
-  methods: {
-    deleteItem(item) {
-      this.editedItem = Object.assign({}, item);
-      this.delurl = this.url + "evdel/?id=" + item.id;
-      this.dialogDelete = true;
-    },
-
-    deleteItemConfirm() {
-      fetch(this.delurl, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
       })
-        .then((res) => res.json())
-        .then((obj) => (this.events = obj));
-      this.closeDelete();
+      this.set()
     },
 
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
+    methods: {
 
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
+      deleteItem (item) {
+        this.editedItem = Object.assign({}, item);
+        this.delurl = this.url + 'evdel/?id=' +  item.id
+        this.dialogDelete = true
+      },
 
-    save() {
-      if (this.$refs.Eventform.validate()) {
-        this.addurl =
-          this.url +
-          "evadd/?classid=" +
-          this.editedItem.clas +
-          "&eventname=" +
-          this.editedItem.eventname +
-          "&eventdetails=" +
-          this.editedItem.eventdetails +
-          "&end=" +
-          this.editedItem.end;
-        console.log(this.addurl);
-        fetch(this.addurl, {
-          method: "GET",
-          mode: "cors",
-          credentials: "include",
+      deleteItemConfirm () {
+         fetch(this.delurl,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
         })
-          .then((res) => res.json())
-          .then((obj) => (this.events = obj));
-        this.close();
+        .then((res)=>res.json())
+        .then(obj=>this.events=obj)
+        this.closeDelete()
+      },
+
+      close () {
+        this.dialog = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      closeDelete () {
+        this.dialogDelete = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+
+      save () {
+        if(this.$refs.Eventform.validate()){
+          this.addurl = this.url + 'evadd/?classid='+ this.editedItem.clas + '&eventname=' + this.editedItem.eventname + '&eventdetails=' + this.editedItem.eventdetails + '&end=' + this.editedItem.end
+          console.log(this.addurl)
+          fetch(this.addurl,{
+            method:"GET",
+            mode:"cors",
+            credentials: 'include'
+          })
+          .then((res)=>res.json())
+          .then(obj=>this.events=obj)
+          this.close()
+        }
+      },
+      set(){
+        const newDay= new Date()
+        const getmonth = parseInt(newDay.getMonth()) + 1
+        this.editedItem.end = newDay.getFullYear() + '-' + ("00" + getmonth).slice(-2) + '-' + ("00" + newDay.getDate()).slice(-2)
       }
     },
-    set() {
-      const newDay = new Date();
-      const getmonth = parseInt(newDay.getMonth()) + 1;
-      this.editedItem.end =
-        newDay.getFullYear() +
-        "-" +
-        ("00" + getmonth).slice(-2) +
-        "-" +
-        ("00" + newDay.getDate()).slice(-2);
-    },
-  },
-  /* 未ログイン時index.vueに遷移 */
-  middleware: "authenicated",
-};
+    /* 未ログイン時index.vueに遷移 */
+    middleware:"authenicated"
+  }
 </script>

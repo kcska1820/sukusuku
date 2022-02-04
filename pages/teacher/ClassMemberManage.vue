@@ -259,13 +259,13 @@ export default {
     users: [],
     editedIndex: -1,
     editedItem: {
-      userid: "",
-      userid__username: "",
-    },
-    defaultItem: {
-      userid: "",
-      userid__username: "",
-    },
+        userid: '',
+        userid__username:'',
+        },
+      defaultItem: {
+        userid: '',
+        userid__username:'',
+        },
   }),
 
   watch: {
@@ -291,8 +291,7 @@ export default {
   methods: {
     deleteItem(item) {
       this.editedItem = Object.assign({}, item);
-      this.delurl =
-        this.url + "cddel/?id=" + item.id + "&classid=" + this.classname;
+      this.delurl = this.url + "cddel/?id=" + item.id + "&classid=" + this.classname;
       this.dialogDelete = true;
     },
 
@@ -330,7 +329,7 @@ export default {
           "cdadd1/?userid=" +
           this.editedItem.userid +
           "&classid=" +
-          this.classname;
+          this.classname
         console.log(this.addurl);
         fetch(this.addurl, {
           method: "GET",
@@ -348,28 +347,26 @@ export default {
       this.file = event;
     },
     async upload() {
-      this.csrftoken = Cookies.get("csrftoken");
-
-      fetch("https://sukusukuserver.7colordays.net/sukusuku/cdadd/", {
-        method: "POST",
+      this.csrftoken = Cookies.get('csrftoken')
+      
+      fetch('https://sukusukuserver.7colordays.net/sukusuku/cdadd/',{
+        method:"POST",
         headers: {
-          "content-type":
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-          "X-CSRFToken": this.csrftoken,
+          'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'X-CSRFToken':this.csrftoken
         },
-        body: this.file,
-        mode: "cors",
-        credentials: "include",
+        body:this.file,
+        mode:"cors",
+        credentials: 'include'
+      }).then((res)=>res.json())
+      .then(obj=>this.users=obj)
+      .catch(error => {
+        return error.response;
       })
-        .then((res) => res.json())
-        .then((obj) => (this.users = obj))
-        .catch((error) => {
-          return error.response;
-        });
-      this.sheet = !this.sheet;
+      this.sheet = !this.sheet
     },
   },
   /* 未ログイン時index.vueに遷移 */
-  middleware: "authenicated",
-};
+  middleware:"authenicated"
+}
 </script>

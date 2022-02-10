@@ -195,7 +195,7 @@
         }else{
           //YYYY-MM-DD/HH:mm
           let date = new Date()
-          this.ptime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay() + ' ' + date.getHours() + ':'
+          this.ptime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':'
           if (date.getMinutes() < 10){
             this.ptime += ('0' + date.getMinutes())
           }else{

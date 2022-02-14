@@ -573,6 +573,7 @@
     updurl:'',
     class:'',
     myclassname:'',
+    uptime:'',
     start:'',
     startDay:'',
     startTime:'',
@@ -702,7 +703,10 @@
             this.start = this.startDay
             this.end = this.endDay
           }
-          this.updurl = this.url + 'ttupd/?id=' + this.selectedEvent.id + '&classid=' +this.selectedEvent.classid+'&title='+this.title+'&start='+this.start+'&end='+this.end+'&details='+this.details+'&color='+this.color+'&timed='+this.selectedEvent.timed
+          const newDay= new Date()
+          const getmonth = parseInt(newDay.getMonth()) + 1
+          this.uptime = newDay.getFullYear() + '-' + ("00" + getmonth).slice(-2) + '-' + ("00" + newDay.getDate()).slice(-2)+("00" + newDay.getHours()).slice(-2) + ':' + ("00" + newDay.getMinutes()).slice(-2)
+          this.updurl = this.url + 'ttupd/?id=' + this.selectedEvent.id + '&classid=' +this.selectedEvent.classid+'&title='+this.title+'&start='+this.start+'&end='+this.end+'&details='+this.details+'&color='+this.color+'&timed='+this.selectedEvent.timed+'&uptime='+this.uptime
           fetch(this.updurl,{
           method:"GET",
           mode:"cors",

@@ -49,6 +49,10 @@
                 通知
               </h2>
             </v-toolbar-title>
+            <v-btn>
+              <!-- 再読み込みボタン -->
+              <v-icon>mdi-restore</v-icon>
+            </v-btn>
           </v-toolbar>
           <v-divider />
           <!-- 通知表示 -->

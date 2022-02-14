@@ -450,6 +450,7 @@ export default {
         url:'https://sukusukuserver.7colordays.net/sukusuku/',
         addurl:'',
         groupurl:'',
+        uptime:'',
         startDay:'',
         startTime:'',
         endDay:'',
@@ -581,7 +582,10 @@ export default {
               if(this.startDay == this.endDay && this.startTime <= this.endTime || this.startDay != this.endDay){
                 this.start = this.startDay + 'T' + this.startTime
                 this.end = this.endDay + 'T' + this.endTime
-                this.addurl = this.url + 'ttcreate/?classid=' + this.clas + '&title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details+'&timed=1'
+                const newDay= new Date()
+                const getmonth = parseInt(newDay.getMonth()) + 1
+                this.uptime = newDay.getFullYear() + '-' + ("00" + getmonth).slice(-2) + '-' + ("00" + newDay.getDate()).slice(-2)+("00" + newDay.getHours()).slice(-2) + ':' + ("00" + newDay.getMinutes()).slice(-2)
+                this.addurl = this.url + 'ttcreate/?classid=' + this.clas + '&title=' + this.title + '&start='+ this.start + '&end=' + this.end +'&color=' + this.color +'&details='+this.details+'&timed=1'+'&uptime='+this.uptime
                 fetch(this.addurl,{
                 method:"GET",
                 mode:"cors",

@@ -277,7 +277,7 @@
       },
 
       approveItemConfirm () {
-        this.appurl = this.url + 'thapp/?threadid=' + this.editedItem.threadid + '&title=' + this.editTitle + '&flag=1' + '&note=' + this.editNote + '&master=' + this.editedItem.master_id + '&latest=new'
+        this.appurl = this.url + 'thapp/?threadid=' + this.editedItem.threadid + '&title=' + this.editTitle + '&flag=1' + '&note=' + this.editNote + '&master=' + this.editedItem.master_id + '&latest=new' + '&details=が承認されました'
           fetch(this.appurl,{
             method:"GET",
             mode:"cors",
@@ -289,7 +289,7 @@
       },
 
       deleteItemConfirm () {
-        this.delurl = this.url + 'threj/?threadid=' + this.editedItem.threadid + '&title=' + this.editTitle + '&master=' + this.editedItem.master_id + '&details= が却下されました'
+        this.delurl = this.url + 'threj/?threadid=' + this.editedItem.threadid + '&title=' + this.editTitle + '&master=' + this.editedItem.master_id + '&details=が却下されました'
           fetch(this.delurl,{
             method:"GET",
             mode:"cors",

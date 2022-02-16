@@ -376,7 +376,7 @@
         if(this.$refs.BBSaddform.validate()){
         this.user = JSON.parse(localStorage.getItem('user'))
         this.userid = this.user[0].userid
-        this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.userid
+        this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.userid +'&details=が作成されました'
         fetch(this.addurl,{
           method:"GET",
           mode:"cors",

@@ -240,7 +240,7 @@ export default {
 
     save () {
       if(this.$refs.BBSaddform.validate()){
-      this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=0' + '&note=' + this.editedItem.note + '&master=' + this.userid
+      this.addurl = this.url + 'thadd/?title=' + this.editedItem.title + '&flag=0' + '&note=' + this.editedItem.note + '&master=' + this.userid +'&details=を申請しました'
       fetch(this.addurl,{
         method:"GET",
         mode:"cors",

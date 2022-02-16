@@ -51,7 +51,7 @@
                 通知
               </h2>
             </v-toolbar-title>
-            <v-btn fab small @click="selectnotice" elevation="1" class="ml-12">
+            <v-btn fab small @click="restore" elevation="1" class="ml-12">
               <!-- 再読み込みボタン -->
               <v-icon>mdi-restore</v-icon>
             </v-btn>
@@ -70,6 +70,7 @@
         <v-tabs-items
           v-model="tab"
         >
+        <!-- 時間割通知 -->
           <v-tab-item>
             <v-card color="accent" class="pt-1">
             <v-virtual-scroll
@@ -96,11 +97,12 @@
             </v-virtual-scroll>
             </v-card>
           </v-tab-item>
+          <!-- 掲示板通知 -->
           <v-tab-item>
             <v-card color="accent" class="pt-1">
             <v-virtual-scroll
-              :items="items"
-              :item-height="100"
+              :items="items2"
+              :item-height="68"
               height="300"
             >
               <template
@@ -134,8 +136,10 @@ export default {
   data () {
     return {
       items:'',
+      items2:'',
       messages: '!',
       tab:"時間割",
+      user:[]
     }
   },
   methods:{
@@ -150,7 +154,6 @@ export default {
       .then((res)=>res.json())
       .then(obj=>{
         this.items=[]
-        console.log(obj)
         for(let j=0; j<obj.length; j++){
           this.items.push({
           uptime:obj[j].uptime,
@@ -159,10 +162,34 @@ export default {
           })
         }
       })
+    },
+    selectBBSnotice(){
+      this.user = JSON.parse(localStorage.getItem('user'))
+
+      fetch('https://sukusukuserver.7colordays.net/sukusuku/threadnoticesel/?userid=' + this.user[0].userid,{
+          method:"GET",
+          mode:"cors",
+          credentials: 'include'
+      })
+      .then((res)=>res.json())
+      .then(obj=>{
+        this.items2=[]
+        for(let j=0; j<obj.length; j++){
+          this.items2.push({
+          userid:obj[j].userid_id,
+          details:obj[j].details
+          })
+        }
+      })
+    },
+    restore(){
+      this.selectnotice()
+      this.selectBBSnotice()
     }
   },
   mounted(){
     this.selectnotice()
+    this.selectBBSnotice()
   }
 }
 </script>

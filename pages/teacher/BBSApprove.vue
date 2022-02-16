@@ -154,12 +154,6 @@
       <template 
         v-slot:no-data
       >
-        <v-btn 
-          color="primary" 
-          @click="initialize"
-        > 
-        Reset 
-        </v-btn>
       </template>
     </v-data-table>
     <div 
@@ -289,7 +283,7 @@
       },
 
       deleteItemConfirm () {
-        this.delurl = this.url + 'threj/?threadid=' + this.editedItem.threadid + '&title=' + this.editTitle + '&master=' + this.editedItem.master_id + '&details=が却下されました'
+        this.delurl = this.url + 'threj/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&master=' + this.editedItem.master_id + '&details=が却下されました'
           fetch(this.delurl,{
             method:"GET",
             mode:"cors",

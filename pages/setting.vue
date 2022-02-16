@@ -27,7 +27,7 @@
         >
           mdi-account-edit
         </v-icon>
-        アカウント設定
+        アカウント情報
         <v-spacer>
         </v-spacer>
       </v-toolbar>
@@ -93,7 +93,7 @@
           >
             mdi-wrench
           </v-icon>
-          アプリ設定
+          テーマ設定
         </v-toolbar>
       </h2>
     </v-list>

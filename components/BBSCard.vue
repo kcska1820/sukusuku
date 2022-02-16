@@ -292,19 +292,23 @@ export default {
     },
 
     created() {
-        fetch(this.url + "cmsel/?threadid=" + this.item.threadid, {
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-        })
-        .then((res) => res.json())
-        .then((obj) => (this.cmdata = obj));
+      this.init()
     },
 
     methods: {
         suspendConfirm() {
         this.suspender = true;
         this.enter = false;
+        },
+
+        init(){
+          fetch(this.url + "cmsel/?threadid=" + this.item.threadid, {
+          method: "GET",
+          mode: "cors",
+          credentials: "include",
+          })
+          .then((res) => res.json())
+          .then((obj) => (this.cmdata = obj));
         },
 
         suspend() {
@@ -319,14 +323,18 @@ export default {
             "&master=" +
             this.item.master_id +
             "&latest=" +
-            this.item.latest;
+            this.item.latest +
+            "&details=を凍結しました"
         fetch(this.susurl, {
             method: "GET",
             mode: "cors",
             credentials: "include",
         })
             .then((res) => res.json())
-            .then((obj) => (this.thdata = obj));
+            .then((obj) => {
+              this.thdata = obj
+              this.init()
+            });
         this.suspender = false;
         this.$emit("reflesh");
         },
@@ -343,14 +351,18 @@ export default {
             "&master=" +
             this.item.master_id +
             "&latest=" +
-            this.item.latest;
+            this.item.latest +
+            "&details=の凍結を解除しました"
         fetch(this.susurl, {
             method: "GET",
             mode: "cors",
             credentials: "include",
         })
             .then((res) => res.json())
-            .then((obj) => (this.thdata = obj));
+            .then((obj) => {
+              this.thdata = obj
+              this.init()
+            });
         this.unlocker = false;
         this.$emit("reflesh");
         },

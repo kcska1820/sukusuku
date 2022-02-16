@@ -324,8 +324,9 @@
         this.dialogUnblind = true
       },
 
+      /* 非表示 */
       blindItemConfirm () {
-        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=3' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id + '&latest=' + this.editedItem.latest
+        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=3' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id + '&latest=' + this.editedItem.latest + '&details=が非表示にされました'
         fetch(this.delurl,{
           method:"GET",
           mode:"cors",
@@ -335,8 +336,9 @@
         this.closeDelete()
       },
 
+      /* 表示 */
       unblindItemConfirm () {
-        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id + '&latest=' + this.editedItem.latest
+        this.delurl = this.url + 'thdel/?threadid=' + this.editedItem.threadid + '&title=' + this.editedItem.title + '&flag=1' + '&note=' + this.editedItem.note + '&master=' + this.editedItem.master_id + '&latest=' + this.editedItem.latest + '&details=が表示されました'
         fetch(this.delurl,{
           method:"GET",
           mode:"cors",

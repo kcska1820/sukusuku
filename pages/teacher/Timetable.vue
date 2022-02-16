@@ -100,6 +100,9 @@ export default {
     },
     async upload() {
       this.csrftoken = Cookies.get('csrftoken')
+      const newDay= new Date()
+      const getmonth = parseInt(newDay.getMonth()) + 1
+      this.uptime = newDay.getFullYear() + '-' + ("00" + getmonth).slice(-2) + '-' + ("00" + newDay.getDate()).slice(-2)+("00" + newDay.getHours()).slice(-2) + ':' + ("00" + newDay.getMinutes()).slice(-2)
       
       fetch('https://sukusukuserver.7colordays.net/sukusuku/ttadd/',{
         method:"POST",

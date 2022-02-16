@@ -289,7 +289,7 @@
       },
 
       deleteItemConfirm () {
-        this.delurl = this.url + 'threj/?threadid=' + this.editedItem.threadid
+        this.delurl = this.url + 'threj/?threadid=' + this.editedItem.threadid + '&title=' + this.editTitle + '&master=' + this.editedItem.master_id + '&details= が却下されました'
           fetch(this.delurl,{
             method:"GET",
             mode:"cors",

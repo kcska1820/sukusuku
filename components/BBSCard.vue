@@ -154,21 +154,23 @@
               @click="enter = true"
             >
               {{ item.title }}
-              <!--更新時間の表示-->
-              <font color=red v-if="item.latest == 'new'">
-              ({{ item.latest }})
-              </font>
-              <template v-else>
-                  ({{ item.latest }})
-              </template>
-              <!--コメント件数の表示-->
-              <template v-if="cmdata.length >= 1">
-              [コメント件数:{{ cmdata.length }}]
-              </template>
-              <template
-                v-if="item.flag == 3"
-              >
-                (非表示)
+              <template v-if="$vuetify.breakpoint.xs">
+                <!--更新時間の表示-->
+                <font color=red v-if="item.latest == 'new'">
+                ({{ item.latest }})
+                </font>
+                <template v-else>
+                    ({{ item.latest }})
+                </template>
+                <!--コメント件数の表示-->
+                <template v-if="cmdata.length >= 1">
+                [コメント件数:{{ cmdata.length }}]
+                </template>
+                <template
+                  v-if="item.flag == 3"
+                >
+                  (非表示)
+                </template>
               </template>
             </v-btn>
           </v-col>
@@ -249,21 +251,23 @@
               @click="enter = true"
             >
               {{ item.title }}
-              <!--更新時間の表示-->
-              <font color=red v-if="item.latest == 'new'">
-              ({{ item.latest }})
-              </font>
-              <template v-else>
-                  ({{ item.latest }})
-              </template>
-              <!--コメント件数の表示-->
-              <template v-if="cmdata.length >= 1">
-              [コメント件数:{{ cmdata.length }}]
-              </template>
-              <template
-                v-if="item.flag == 3"
-              >
-                (非表示)
+              <template v-if="!$vuetify.breakpoint.xs">
+                <!--更新時間の表示-->
+                <font color=red v-if="item.latest == 'new'">
+                ({{ item.latest }})
+                </font>
+                <template v-else>
+                    ({{ item.latest }})
+                </template>
+                <!--コメント件数の表示-->
+                <template v-if="cmdata.length >= 1">
+                [コメント件数:{{ cmdata.length }}]
+                </template>
+                <template
+                  v-if="item.flag == 3"
+                >
+                  (非表示)
+                </template>
               </template>
             </v-btn>
           </v-col>

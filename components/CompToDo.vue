@@ -66,7 +66,7 @@
                       v-bind="attrs"
                       v-on="on"
                     >
-                      {{ item.title }}
+                      {{ item.title.slice(0, 10) }}
                     </span>
                   </template>
                   <span>

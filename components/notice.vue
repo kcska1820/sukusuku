@@ -114,9 +114,23 @@
                       color="info"
                       width="340"
                     >
-                      <v-card-title>
-                        {{ item.details }}
-                      </v-card-title>
+                      <v-tooltip
+                        bottom
+                      >
+                        <template
+                          v-slot:activator="{ on, attrs }"
+                        >
+                          <v-card-title
+                          v-bind="attrs"
+                          v-on="on"
+                          >
+                            {{ item.details.slice(0, 14) }}
+                          </v-card-title>
+                        </template>
+                        <span>
+                          {{ item.details }}
+                        </span>
+                      </v-tooltip>
                     </v-card>
                   </v-flex>
                 </v-list-item>

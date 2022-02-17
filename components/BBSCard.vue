@@ -176,58 +176,59 @@
           </v-col>
           <v-col
             cols="2"
-            class="but"
-          >
-            <v-menu>
-              <template
-                v-slot:activator="{ on, attrs }"
-              >
-                <v-btn
-                  icon
-                  x-large
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon
-                  size="1em"
-                  >
-                    mdi-dots-horizontal
-                  </v-icon>
-                </v-btn>
-              </template>
-              <template
-                v-if="item.flag == 1"
-              >
-                <v-list
-                  class="list"
+            class="but">
+            <template v-if="item.flag != 3">
+              <v-menu>
+                <template
+                  v-slot:activator="{ on, attrs }"
                 >
                   <v-btn
+                    icon
                     x-large
-                    @click="suspender = true"
+                    v-bind="attrs"
+                    v-on="on"
                   >
-                    <v-list-item>
-                      凍結
-                    </v-list-item>
+                    <v-icon
+                    size="1em"
+                    >
+                      mdi-dots-horizontal
+                    </v-icon>
                   </v-btn>
-                </v-list>
-              </template>
-              <template
-                v-else-if="item.flag == 2"
-              >
-                <v-list
-                  class="list"
+                </template>
+                <template
+                  v-if="item.flag == 1"
                 >
-                  <v-btn
-                    x-large
-                    @click="unlocker = true"
+                  <v-list
+                    class="list"
                   >
-                    <v-list-item>
-                      凍結解除
-                    </v-list-item>
-                  </v-btn>
-                </v-list>
-              </template>
-            </v-menu>
+                    <v-btn
+                      x-large
+                      @click="suspender = true"
+                    >
+                      <v-list-item>
+                        凍結
+                      </v-list-item>
+                    </v-btn>
+                  </v-list>
+                </template>
+                <template
+                  v-else-if="item.flag == 2"
+                >
+                  <v-list
+                    class="list"
+                  >
+                    <v-btn
+                      x-large
+                      @click="unlocker = true"
+                    >
+                      <v-list-item>
+                        凍結解除
+                      </v-list-item>
+                    </v-btn>
+                  </v-list>
+                </template>
+              </v-menu>
+            </template>
           </v-col>
         </v-row>
         <v-divider />

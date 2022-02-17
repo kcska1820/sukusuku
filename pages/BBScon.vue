@@ -51,7 +51,7 @@
             > 
             mdi-message-text 
             </v-icon>
-            掲示板-削除済み
+            掲示板-非表示
           </h1>
         </template>
         <v-btn

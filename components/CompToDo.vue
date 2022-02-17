@@ -2,16 +2,18 @@
   <v-card
     color="accent"
   >
-    <h1
+    <v-card-title>
+    <h3
       class="mt-06"
     >
       <v-icon
-      size="1em"
+      size="1.3em"
       >
         mdi-notebook-check-outline
       </v-icon>
       &emsp;Todoリスト
-    </h1>
+    </h3>
+    </v-card-title>
     <v-divider>
     </v-divider>
     <v-form

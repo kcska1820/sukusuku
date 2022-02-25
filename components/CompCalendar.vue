@@ -64,9 +64,11 @@
               mdi-restore
             </v-icon>
           </v-btn>
+          <!-- 学生アカウントであれば表示 -->
           <calendarAdd
             v-if="role == 'student'"
           />
+          <!-- 管理者アカウントであれば表示 -->
           <TeachercalendarAdd
             v-else-if="role == 'teacher'"
           />
@@ -153,6 +155,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+      <!-- 時間割編集不可ダイアログ -->
       <v-dialog
         v-model="TTDialog"
         max-width="500px"
@@ -202,6 +205,7 @@
                   </v-toolbar-title>
                 </v-toolbar>
                 <v-card-text>
+                  <!-- プライベートスケジュール更新 -->
                   <v-form
                     v-if="categorys == 'プライベート'"
                   >
@@ -251,6 +255,7 @@
                       item-value="value"
                     />
                   </v-form>
+                  <!-- グループスケジュール更新 -->
                   <v-form
                     v-if="categorys == 'グループ'"
                   >
@@ -305,6 +310,7 @@
                       item-value="id"
                     />
                   </v-form>
+                  <!-- 時間割更新 -->
                   <v-form
                     v-if="categorys == '時間割' && selectedEvent.timed == 1"
                   >
@@ -359,6 +365,7 @@
                       item-value="id"
                     />
                   </v-form>
+                  <!-- 祝日更新 -->
                   <v-form
                     v-if="categorys == '時間割' && selectedEvent.timed == 0"
                   >
@@ -451,6 +458,7 @@
           @click:date="viewDay"
           @change="updateRange"
         ></v-calendar>
+        <!-- 選択されたイベントの詳細表示 -->
         <v-menu
           v-model="selectedOpen"
           :close-on-content-click="false"

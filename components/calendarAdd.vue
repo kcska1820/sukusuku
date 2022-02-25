@@ -1,4 +1,5 @@
 <template>
+  <!-- 学生側カレンダー追加 -->
   <v-dialog
     v-model="dialog"
     max-width="600px"
@@ -39,6 +40,7 @@
                   予定追加
                 </v-toolbar-title>
               </v-toolbar>
+              <!-- タブの名前設定 -->
               <v-tabs
                 v-model="tab"
                 grow
@@ -50,6 +52,7 @@
                   グループ
                 </v-tab>
               </v-tabs>
+              <!-- プライベートタブ -->
               <v-tabs-items
                 v-model="tab"
               >
@@ -110,6 +113,7 @@
                       />
                     </v-form>
                   </v-card-text>
+                  <!-- ボタン -->
                   <v-card-actions>
                     <v-col
                       cols="6"
@@ -135,6 +139,7 @@
                     </v-col>
                   </v-card-actions>
                 </v-tab-item>
+                <!-- グループタブ -->
                 <v-tab-item>
                   <v-card-text>
                     <v-form
@@ -202,6 +207,7 @@
                       />
                     </v-form>
                   </v-card-text>
+                  <!-- ボタン -->
                   <v-card-actions>
                     <v-col
                       cols="6"
@@ -293,6 +299,7 @@ export default {
     }),
     methods:{
         getGroup(){
+          /* 所属グループ取得 */
             if(localStorage.getItem('group') != null){
                 this.group1 = JSON.parse(localStorage.getItem('group'))
                 for (let i = 0; i < this.group1.length; i++) {
@@ -313,6 +320,7 @@ export default {
             }
         },
         addGroupSchedule(){
+          /* グループスケジュール追加 */
             if(this.$refs.addform.validate()){
                 if(this.startDay <= this.endDay){
                     if(this.startDay == this.endDay && this.startTime <= this.endTime || this.startDay != this.endDay){
@@ -332,6 +340,7 @@ export default {
             }
         },
         addPrivateSchedule(){
+          /* プライベートスケジュール追加 */
             if(this.$refs.addform.validate()){
                 if(this.startDay <= this.endDay){
                     if(this.startDay == this.endDay && this.startTime <= this.endTime || this.startDay != this.endDay){
@@ -354,6 +363,7 @@ export default {
             }
         },
         close(){
+          /* スケジュール追加後の初期化 */
             this.title=''
             this.startDay=''
             this.startTime=''
@@ -367,6 +377,7 @@ export default {
             this.dialog = false
         },
         addSet(){
+          /* 時間セット */
             const newDay= new Date()
             const getmonth = parseInt(newDay.getMonth()) + 1
             this.startDay = newDay.getFullYear() + '-' + ("00" + getmonth).slice(-2) + '-' + ("00" + newDay.getDate()).slice(-2)
@@ -376,6 +387,7 @@ export default {
         },
     },
     created(){
+      /* レンダリング時実行 */
         this.getGroup()
     }
 }

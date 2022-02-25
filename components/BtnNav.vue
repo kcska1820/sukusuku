@@ -1,4 +1,5 @@
 <template>
+  <!-- スマートフォン時下部メニュー -->
   <v-bottom-navigation
     color="teal"
     grow

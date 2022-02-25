@@ -165,7 +165,7 @@
                 text 
                 @click="unblindItemConfirm"
               >
-              非表示
+              再表示
               </v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>

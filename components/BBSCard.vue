@@ -154,7 +154,7 @@
               @click="enter = true"
             >
               {{ item.title }}
-              <template v-if="$vuetify.breakpoint.xs">
+              <template v-if="!$vuetify.breakpoint.xs">
                 <!--更新時間の表示-->
                 <font color=red v-if="item.latest == 'new'">
                 ({{ item.latest }})
@@ -176,58 +176,103 @@
           </v-col>
           <v-col
             cols="2"
-            class="but"
+            class="but">
+            <template v-if="item.flag != 3">
+              <v-menu>
+                <template
+                  v-slot:activator="{ on, attrs }"
+                >
+                  <v-btn
+                    icon
+                    x-large
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon
+                    size="1em"
+                    >
+                      mdi-dots-horizontal
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <template
+                  v-if="item.flag == 1"
+                >
+                  <v-list
+                    class="list"
+                  >
+                    <v-btn
+                      x-large
+                      @click="suspender = true"
+                    >
+                      <v-list-item>
+                        凍結
+                      </v-list-item>
+                    </v-btn>
+                  </v-list>
+                </template>
+                <template
+                  v-else-if="item.flag == 2"
+                >
+                  <v-list
+                    class="list"
+                  >
+                    <v-btn
+                      x-large
+                      @click="unlocker = true"
+                    >
+                      <v-list-item>
+                        凍結解除
+                      </v-list-item>
+                    </v-btn>
+                  </v-list>
+                </template>
+              </v-menu>
+            </template>
+          </v-col>
+        </v-row>
+        <v-divider />
+      </v-card>
+    </template>
+    <template
+      v-else-if="role === 'teacher'"
+    >
+      <v-card
+        color="info"
+      >
+        <v-row
+          :justify="'space-around'"
+        >
+          <v-col
+            cols="10"
+            class="col"
           >
-            <v-menu>
-              <template
-                v-slot:activator="{ on, attrs }"
-              >
-                <v-btn
-                  icon
-                  x-large
-                  v-bind="attrs"
-                  v-on="on"
+            <v-btn
+              text
+              x-large
+              block
+              @click="enter = true"
+            >
+              {{ item.title }}
+              <template v-if="!$vuetify.breakpoint.xs">
+                <!--更新時間の表示-->
+                <font color=red v-if="item.latest == 'new'">
+                ({{ item.latest }})
+                </font>
+                <template v-else>
+                    ({{ item.latest }})
+                </template>
+                <!--コメント件数の表示-->
+                <template v-if="cmdata.length >= 1">
+                [コメント件数:{{ cmdata.length }}]
+                </template>
+                <template
+                  v-if="item.flag == 3"
                 >
-                  <v-icon
-                  size="1em"
-                  >
-                    mdi-dots-horizontal
-                  </v-icon>
-                </v-btn>
+                  (非表示)
+                </template>
               </template>
-              <template
-                v-if="item.flag == 1"
-              >
-                <v-list
-                  class="list"
-                >
-                  <v-btn
-                    x-large
-                    @click="suspender = true"
-                  >
-                    <v-list-item>
-                      凍結
-                    </v-list-item>
-                  </v-btn>
-                </v-list>
-              </template>
-              <template
-                v-else-if="item.flag == 2"
-              >
-                <v-list
-                  class="list"
-                >
-                  <v-btn
-                    x-large
-                    @click="unlocker = true"
-                  >
-                    <v-list-item>
-                      凍結解除
-                    </v-list-item>
-                  </v-btn>
-                </v-list>
-              </template>
-            </v-menu>
+            </v-btn>
           </v-col>
         </v-row>
         <v-divider />
@@ -293,6 +338,7 @@ export default {
     props: {
         item: Object,
         user: String,
+        role: String,
     },
 
     created() {

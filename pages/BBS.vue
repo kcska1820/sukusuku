@@ -126,6 +126,7 @@
           <BBSCard 
             :item="item" 
             :user="userid" 
+            :role="role"
             @reflesh="reflesh" 
           />
         </v-col>
@@ -138,6 +139,7 @@
           <BBSCard 
             :item="item" 
             :user="userid" 
+            :role="role"
             @reflesh="reflesh" 
           />
         </v-col>
@@ -150,6 +152,7 @@
           <BBSCard 
             :item="item" 
             :user="userid" 
+            :role="role"
             @reflesh="reflesh" 
           />
         </v-col>
